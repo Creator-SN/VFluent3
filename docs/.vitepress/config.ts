@@ -8,7 +8,7 @@ export default defineConfig({
         siteTitle: false,
         footer: {
             message: "MIT Licensed",
-            copyright: "Creator SN"
+            copyright: "Copyright © Creator SN - 2022"
         }
     }
 })
