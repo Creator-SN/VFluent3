@@ -1,0 +1,26 @@
+@mixin fv-button {
+    position: relative;
+    width: 80px;
+    height: 30px;
+    box-sizing: border-box;
+    display: flex;
+    user-select: none;
+    cursor: pointer;
+
+    button.button-container {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+        transition: all 0.3s;
+
+        span.content-block {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

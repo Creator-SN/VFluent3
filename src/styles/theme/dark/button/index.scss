@@ -1,0 +1,18 @@
+@import "@/styles/theme/base/button/index.scss";
+
+.fv-dark-button {
+    @include fv-button();
+
+    .button-container {
+        background: #605e5c;
+
+        &:hover {
+            background: rgba(243, 242, 241, 0.6);
+            opacity: 0.9;
+        }
+
+        span.content-block {
+            color: whitesmoke;
+        }
+    }
+}

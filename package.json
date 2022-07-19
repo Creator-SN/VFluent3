@@ -24,7 +24,6 @@
     "url": "https://github.com/Creator-SN/VFluent3.git"
   },
   "scripts": {
-    "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "docs:dev": "vitepress dev docs",
@@ -32,6 +31,7 @@
     "docs:serve": "vitepress serve docs"
   },
   "dependencies": {
+    "pinia": "^2.0.16",
     "vue": "^3.2.37"
   },
   "devDependencies": {

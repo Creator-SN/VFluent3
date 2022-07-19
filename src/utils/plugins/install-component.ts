@@ -1,4 +1,4 @@
-import type { ComponentPlugin } from "@/types/plugins/componentPlugin";
+import type { ComponentPlugin } from "@/types/plugins/component-plugin";
 import type { App } from "vue"
 
 export const convertPlugin = <T>(component: T): ComponentPlugin<T> => {
