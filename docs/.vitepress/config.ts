@@ -23,10 +23,17 @@ export default defineConfig({
         sidebar: [
             {
                 text: 'Guide',
+                collapsed: true,
                 items: [
-                    { text: 'Button', link: '/guide/button' },
-                ]
+                    { text: 'Button', link: '/guide/components/button' },
+                ],
             }
         ]
+    },
+    markdown: {
+        lineNumbers: true,
+        toc: {
+            level: [1, 2, 3]
+        }
     }
 })

@@ -18,7 +18,7 @@ export const buttonProps = {
     },
     borderRadius: {
         type: [Number, String],
-        default: 2
+        default: 3
     },
     fontSize: {
         type: [Number, String],

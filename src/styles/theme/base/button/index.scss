@@ -1,9 +1,9 @@
 @mixin fv-button {
     position: relative;
-    width: 80px;
+    min-width: 80px;
     height: 30px;
     box-sizing: border-box;
-    display: flex;
+    display: inline-flex;
     user-select: none;
     cursor: pointer;
 
@@ -15,12 +15,20 @@
         box-sizing: border-box;
         transition: all 0.3s;
 
+        &.disabled{
+            cursor: default;
+        }
+
         span.content-block {
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+
+            i.ms-Icon {
+                margin-right: 5px;
+            }
         }
     }
 }

@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { useFvConfig } from "@/store/common"
-import { computed } from "@vue/reactivity";
-import { isNumber } from "@/utils/common/types";
+import { useTheme } from "@/utils/common/theme"
+import { isNumber, isString } from "@/utils/common/types";
 import { buttonProps, buttonEmits } from "."
-
-const config = useFvConfig()
+import { ClassBuilder } from "@/utils/common/class"
+import { StyleBuilder } from "@/utils/common/style"
 
 // The defined name, which will be registered as the component name
 defineOptions({
@@ -15,82 +14,38 @@ const emits = defineEmits(buttonEmits)
 
 const props = defineProps(buttonProps)
 
-// computed
-const computedTheme = computed(() => {
-    if (props.theme === "global") {
-        return config.theme
-    }
-    return props.theme
-})
+const { theme } = useTheme(props)
 
-const computedComponentClass = computed(() => {
-    let obj: Record<string, boolean> = {}
-    obj[`fv-${computedTheme.value}-button`] = true
-    return obj
-})
+const { cls: computedComponentClass } = new ClassBuilder()
+    .add(() => `fv-${theme.value}-button`)
+    .computed()
 
-const computedButtonClass = computed(() => {
-    return {
-        'button-container': true,
-        'disabled': props.disabled,
-        'shadow': props.isBoxShadow
-    }
-})
+const { cls: computedButtonClass } = new ClassBuilder()
+    .add(`button-container`)
+    .add(`disabled`, () => props.disabled)
+    .add(`shadow`, () => props.isBoxShadow)
+    .computed()
 
-const computedIconClass = computed(() => {
-    const cls: Record<string, boolean> = {}
-    cls['ms-Icon'] = true
-    if (props.icon !== undefined) {
-        cls[`ms-Icon--${props.icon}`] = true
-    }
-    return cls
-})
+const { cls: computedIconClass } = new ClassBuilder()
+    .add("ms-Icon")
+    .add(() => `ms-Icon--${props.icon}`, true, () => isString(props.icon))
+    .computed()
 
-const computedButtonStyle = computed(() => {
-    let style: Record<string, string> = {}
-    if (props.foreground) {
-        style.color = props.foreground
-    }
-    if (props.background) {
-        style.background = props.background
-    }
-    if (props.borderWidth) {
-        if (isNumber(props.borderWidth)) {
-            style["border-width"] = `${props.borderWidth}px`
-        } else {
-            style["border-width"] = props.borderWidth
-        }
-    }
-    if (props.borderRadius) {
-        if (isNumber(props.borderRadius)) {
-            style["border-radius"] = `${props.borderRadius}px`
-        } else {
-            style["border-radius"] = props.borderRadius
-        }
-    }
-    return style
-})
+const { style: computedButtonStyle } = new StyleBuilder()
+    .add('color', () => props.foreground, () => isString(props.foreground))
+    .add('background', () => props.background, () => isString(props.background))
+    .add('borderWidth', () => props.borderWidth, () => isString(props.borderWidth))
+    .add("borderWidth", () => `${props.borderWidth}px`, () => isNumber(props.borderWidth))
+    .add("borderRadius", () => props.borderRadius, () => isString(props.borderRadius))
+    .add("borderRadius", () => `${props.borderRadius}px`, () => isNumber(props.borderRadius))
+    .computed()
 
-const computedTextStyle = computed(() => {
-    let style: Record<string, string> = {}
-    if (props.fontSize) {
-        if (isNumber(props.fontSize)) {
-            style["font-size"] = `${props.fontSize}px`
-        } else {
-            style["font-size"] = props.fontSize;
-        }
-    }
-    if (props.fontWeight) {
-        if (isNumber(props.fontWeight)) {
-            style["font-weight"] = `${props.fontWeight}`
-        } else {
-            style["font-weight"] = props.fontWeight
-        }
-    }
-    return style
-})
-
-
+const { style: computedTextStyle } = new StyleBuilder()
+    .add('fontSize', () => props.fontSize, () => isString(props.fontSize))
+    .add('fontSize', () => `${props.fontSize}px`, () => isNumber(props.fontSize))
+    .add('fontWeight', () => `${props.fontWeight}px`, () => isNumber(props.fontWeight))
+    .add('fontWeight', () => `props.fontWeight`, () => isString(props.fontWeight))
+    .computed()
 
 // methods
 function handleClick(evt: Event) {

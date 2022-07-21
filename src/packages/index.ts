@@ -1,3 +1,6 @@
+
+import "office-ui-fabric-core/dist/css/fabric.min.css"
+
 export * from "./button"
 
 import type { App, Plugin } from "vue"
