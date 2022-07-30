@@ -1,25 +1,27 @@
-.fv-checkbox {
+.fv-radio {
     &.dark {
         .label {
             .icon {
-                --fv-checkbox-bgcolor: initial;
-                border: 1px solid var(--fv-dark-border-color);
+                --fv-radio-bgcolor: initial;
+                border-color: var(--fv-dark-border-color);
                 color: var(--fv-light-color);
                 &:hover {
-                    background-color: var(--fv-checkbox-bgcolor, var(--fv-dark-bgcolor));
+                    background-color: var(--fv-radio-bgcolor, var(--fv-dark-bgcolor));
                 }
             }
         }
         &.active {
             .label {
                 .icon {
-                    border: 1px solid var(--fv-primary-color);
+                    border-color: var(--fv-primary-color);
                     background-color: var(--fv-primary-color);
                     color: var(--fv-light-color);
+                    .dot {
+                        background-color: var(--fv-light-color);
+                    }
                 }
             }
         }
-
         &.disabled {
             .label {
                 cursor: default;

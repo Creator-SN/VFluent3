@@ -1,35 +1,34 @@
 <script lang="ts" setup>
 import { ClassBuilder, isNumber, isString, StyleBuilder } from "@/utils/common";
 import { useTheme } from "@/utils/common/theme"
-import { checkboxProps, checkboxEmits, useCheckbox } from "."
+import { radioEmits, radioProps, useRadio } from ".";
 
-const props = defineProps(checkboxProps);
-const emits = defineEmits(checkboxEmits);
+const props = defineProps(radioProps);
+const emits = defineEmits(radioEmits);
 
 defineOptions({
-    name: "FvCheckBox"
+    name: "FvRadio"
 })
+
+const { computedChecked, computedValue, onClick, onBlur, onFocus, onChange } = useRadio(props, emits)
 
 const { theme } = useTheme(props);
 
-const { computedChecked, onClick, onChange, onFocus, onBlur } = useCheckbox(props, emits);
 
-const { cls: computedCheckboxClass } = new ClassBuilder()
-    .add("fv-checkbox")
+const { cls: computedRadioClass } = new ClassBuilder()
+    .add("fv-radio")
     .add(() => theme.value)
     .add("active", () => computedChecked.value !== false)
     .add("disabled", () => props.disabled)
     .computed()
 
 const { cls: computeIconClass } = new ClassBuilder()
-    .add("ms-Icon")
-    .add("ms-Icon--CheckMark", () => computedChecked.value === true)
-    .add("ms-Icon--CheckboxIndeterminate", () => computedChecked.value === undefined)
+    .add("dot")
     .computed()
 
 const { style: computedIconStyle } = new StyleBuilder()
     .add("background", () => props.background, () => props.background !== undefined)
-    .add("--fv-checkbox-bgcolor", () => props.hoverColor, () => props.hoverColor !== undefined)
+    .add("--fv-radio-bgcolor", () => props.hoverColor, () => props.hoverColor !== undefined)
     .add("borderWidth", () => props.borderWidth, () => isString(props.borderWidth))
     .add("borderWidth", () => `${props.borderWidth}px`, () => isNumber(props.borderWidth))
     .add("borderColor", () => props.borderColor, () => props.borderColor !== undefined)
@@ -42,21 +41,18 @@ const { style: computedTextStyle } = new StyleBuilder()
 </script>
 
 <template>
-    <div :class="computedCheckboxClass">
+    <div :class="computedRadioClass">
         <label class="label" @click="onClick">
-            <span v-if="props.boxSide === `end`" :style="computedTextStyle">
+            <span class="text" v-if="props.boxSide === `end`" :style="computedTextStyle">
                 <slot>
                 </slot>
             </span>
-            <input @change="onChange(computedChecked)" @focus="onFocus" @blur="onBlur" :disabled="props.disabled" type="checkbox"
-                class="checkbox" v-model="computedChecked" />
+            <input @change="onChange(computedValue)" @focus="onFocus" @blur="onBlur" :disabled="props.disabled" type="radio"
+                class="radio" :value="props.label" :name="props.group" v-model="computedValue" />
             <div class="icon" :style="computedIconStyle">
-                <transition name="font-clip-in">
-                    <div class="icon-box" v-show="computedChecked !== false" />
-                </transition>
-                <i :class="computeIconClass" />
+                <div v-show="computedChecked" :class="computeIconClass" />
             </div>
-            <span v-if="props.boxSide === `start`" :style="computedTextStyle">
+            <span class="text" v-if="props.boxSide === `start`" :style="computedTextStyle">
                 <slot>
                 </slot>
             </span>

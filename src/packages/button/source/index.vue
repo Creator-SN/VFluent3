@@ -56,7 +56,7 @@ const { onClick } = useButton(props, emits)
         <button type="button" :class="computedButtonClass" :style="computedButtonStyle">
             <span class="content-block" :style="computedTextStyle">
                 <i v-if="props.icon" :class="computedIconClass"></i>
-                <slot>Button</slot>
+                <slot></slot>
             </span>
         </button>
     </div>

@@ -4,38 +4,10 @@ title: Button
 ---
 
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
-
-const isDark = ref(false)
-
-let observer:MutationObserver|undefined = undefined;
-
-const setDark = () => {
-  isDark.value = document.documentElement.classList.contains('dark');
-};
-
-onMounted(() => {
-  setDark();
-  observer = new MutationObserver(setDark);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['class'],
-  });
-});
-
-onBeforeUnmount(() => {
-  observer?.disconnect();
-});
-
-const computedTheme = computed(()=>{
-    if (isDark.value){
-        return 'dark'
-    }
-    return 'light'
-})
-
+import {useTheme} from "../common"
+const {theme} = useTheme()
 function click(){
-    alert('click')
+    console.log('click')
 }
 </script>
 
@@ -44,47 +16,54 @@ function click(){
 ## Quick Start    
 
 ### Default
-<br/>
-<fv-button @click="click" :theme="computedTheme"></fv-button>
 
-``` vue
-<fv-button @click="click" :theme="computedTheme"></fv-button>
+---
+
+<fv-button @click="click" :theme="theme">Button</fv-button>
+
+```vue-html
+  <fv-button @click="click" :theme="theme">Button</fv-button>
 ```
 
 ### Is Box Shadow
-<br/>
-<fv-button is-box-shadow @click="click" :theme="computedTheme"></fv-button>
 
-``` vue
-<fv-button is-box-shadow @click="click" :theme="computedTheme"></fv-button>
+<br/>
+<fv-button is-box-shadow @click="click" :theme="theme">Button</fv-button>
+
+```vue-html
+  <fv-button is-box-shadow @click="click" :theme="theme">Button</fv-button>
 ```
 
 ### Disabled
-<br/>
-<fv-button disabled @click="click" :theme="computedTheme"></fv-button>
 
-``` vue
-<fv-button disabled @click="click" :theme="computedTheme"></fv-button>
+<br/>
+<fv-button disabled @click="click" :theme="theme">Button</fv-button>
+
+```vue-html
+  <fv-button disabled @click="click" :theme="theme">Button</fv-button>
 ```
 
 ### Custom style
-<br>
-<fv-button icon="Add" font-size="0.8rem" background="rgb(15, 60, 104)" foreground="whitesmoke" :border-radius="5"  @click="click" ></fv-button>
 
-``` vue
-<fv-button 
-  icon="Add"
-  background="rgb(15, 60, 104)" 
-  foreground="whitesmoke" 
-  font-size="0.8rem"
-  :border-radius="5"
-  @click="click" 
-  >
-</fv-button>
+---
+
+<fv-button icon="Add" font-size="0.8rem" background="rgb(15, 60, 104)" foreground="whitesmoke" :border-radius="5"  @click="click" >Button</fv-button>
+
+```vue-html
+  <fv-button 
+    icon="Add"
+    background="rgb(15, 60, 104)" 
+    foreground="whitesmoke" 
+    font-size="0.8rem"
+    :border-radius="5"
+    @click="click" 
+    >
+  Button
+  </fv-button>
 ```
 
-
 ## Properties
+
 ---
 |  Property  |             Type             | Required | Default |    Statement    |
 |:------------:|:----------------------------------:|:--------------:|:---------------:|:---------------------:|
@@ -97,21 +76,23 @@ function click(){
 |   disabled   |             [boolean]              |       No       |      false      |    Disabled    |
 | border-radius |              [number]              |       No       |        3        |    Border radius    |
 | border-width  |              [number]              |       No       |        2        |    Border Width  |
-|    theme     | ['light','dark','global'] |       No       |     "global"      |     Theme      |
+|    theme     | ['light', 'dark', 'global'] |       No       |     "global"      |     Theme      |
 
 ## Emits
+
 ---
 | EmitName | Arguments | Statement |
 |:------------:|:--------------:|:---------------:|
 |    click     |     [Event]      | Button onclick  |
 
 ## Slot
+
 ---
+
 ### Default
 
-``` vue
-<fv-button>
-  <div>
-  </div>
-</fv-button>
+```vue-html
+  <fv-button>
+    <span>Button</span>
+  </fv-button>
 ```

@@ -6,10 +6,10 @@ import { EmitFn } from '@/types/components';
 // see why not use typescript
 
 // props
-export const checkboxProps = {
+export const radioProps = {
     ...commonProps,
     modelValue: {
-        type: [Boolean],
+        type: [Boolean, Number, String],
         default: undefined,
     },
     borderWidth: {
@@ -32,19 +32,26 @@ export const checkboxProps = {
         type: [String],
         default: 'start',
     },
+    group: {
+        type: [String],
+    },
+    label: {
+        type: [String, Number, Boolean],
+        default: undefined
+    },
 };
 
-export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
+export type RadioProps = ExtractPropTypes<typeof radioProps>;
 
 // emits
-export const checkboxEmits = {
-    click(val?: boolean | null): boolean {
+export const radioEmits = {
+    click(val?: string | number | boolean): boolean {
         return true;
     },
-    'update:modelValue'(val?: boolean): boolean {
+    'update:modelValue'(val?: boolean | number | string): boolean {
         return true;
     },
-    change(val?: boolean | null): boolean {
+    change(val?: boolean | number | string): boolean {
         return true;
     },
     focus(evt: FocusEvent): boolean {
@@ -55,24 +62,18 @@ export const checkboxEmits = {
     },
 };
 
-export type CheckboxEmits = typeof checkboxEmits;
+export type RadioEmits = typeof radioEmits;
 
-export function useCheckbox(
-    props: Readonly<CheckboxProps>,
-    emits: EmitFn<CheckboxEmits>
+export function useRadio(
+    props: Readonly<RadioProps>,
+    emits: EmitFn<RadioEmits>
 ) {
-    const checked = ref<boolean>();
-    const computedChecked = computed({
-        get: () => {
-            if (props.modelValue === undefined) {
-                return checked.value;
-            } else if (props.modelValue === null) {
-                return undefined;
-            }
+    const computedChecked = computed(() => props.modelValue === props.label);
+    const computedValue = computed({
+        get() {
             return props.modelValue;
         },
-        set: (val) => {
-            checked.value = val;
+        set(val?: string | number | boolean) {
             emits('update:modelValue', val);
         },
     });
@@ -82,20 +83,14 @@ export function useCheckbox(
             return;
         }
         if (evt.target instanceof HTMLInputElement) {
-            // next status
-            emits(
-                'click',
-                computedChecked.value !== undefined
-                    ? !computedChecked.value
-                    : true
-            );
+            emits('click', props.label);
         }
     };
-    const onChange = (val?: boolean) => {
+    const onChange = (val?: string | number | boolean) => {
         if (props.disabled) {
             return;
         }
-        emits('change', val === undefined ? null : val);
+        emits('change', val);
     };
     const onFocus = (evt: FocusEvent) => {
         if (props.disabled) {
@@ -115,5 +110,6 @@ export function useCheckbox(
         onFocus,
         onBlur,
         computedChecked,
+        computedValue,
     };
 }

@@ -1,7 +1,7 @@
-import { commonProps } from "@/packages/common/props";
-import { EmitFn } from "@/types/components";
-import { emit } from "process";
-import { ExtractPropTypes } from "vue";
+import { commonProps } from '@/packages/common/props';
+import { EmitFn } from '@/types/components';
+import { emit } from 'process';
+import { ExtractPropTypes } from 'vue';
 
 // subscribe https://github.com/vuejs/core/issues/4294
 // see why not use typescript
@@ -13,31 +13,31 @@ export const buttonProps = {
         type: String,
     },
     foreground: {
-        type: String
+        type: String,
     },
     background: {
-        type: String
+        type: String,
     },
     borderRadius: {
         type: [Number, String],
-        default: 3
+        default: 3,
     },
     fontSize: {
         type: [Number, String],
     },
     fontWeight: {
         type: [Number, String],
-        default: "normal"
+        default: 'normal',
     },
     isBoxShadow: {
         type: Boolean,
-        default: false
+        default: false,
     },
     borderWidth: {
         type: [Number, String],
-        default: 2
-    }
-}
+        default: 2,
+    },
+};
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
 
@@ -45,16 +45,19 @@ export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
 export const buttonEmits = {
     click(evt: Event): boolean {
         return true;
-    }
-}
+    },
+};
 
 export type ButtonEmits = typeof buttonEmits;
 
 export const useButton = (props: ButtonProps, emits: EmitFn<ButtonEmits>) => {
     const onClick = (evt: Event) => {
-        emits("click", evt)
-    }
+        if (props.disabled) {
+            return;
+        }
+        emits('click', evt);
+    };
     return {
-        onClick
-    }
-}
+        onClick,
+    };
+};

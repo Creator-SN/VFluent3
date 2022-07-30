@@ -1,40 +1,52 @@
-import { defineConfig } from "vitepress"
+import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-    title: "vfluent3",
-    description: "A Vue3 component library for Fluent UI",
-    lang: "en-US",
+    title: 'vfluent3',
+    description: 'A Vue3 component library for Fluent UI',
+    lang: 'en-US',
     themeConfig: {
         siteTitle: 'VFluent3',
         footer: {
-            message: "MIT Licensed",
-            copyright: "Copyright © Creator SN - 2022"
+            message: 'MIT Licensed',
+            copyright: 'Copyright © Creator SN - 2022',
         },
         nav: [
             {
-                text: "Home",
-                link: "/"
+                text: 'Home',
+                link: '/',
             },
             {
-                text: "Guide",
-                link: "/guide/",
-            }
+                text: 'Guide',
+                link: '/guide/',
+            },
         ],
         sidebar: [
             {
                 text: 'Basic',
                 collapsed: true,
                 items: [
-                    { text: 'Button', link: '/guide/components/button' },
-                    { text: 'Checkbox', link: '/guide/components/checkbox' },
+                    {
+                        text: 'Button',
+                        link: '/guide/components/button/',
+                    },
+                    {
+                        text: 'CheckBox',
+                        link: '/guide/components/checkbox/',
+                    },
+                    {
+                        text: 'Radio',
+                        link: '/guide/components/radio/',
+                    },
                 ],
-            }
-        ]
+            },
+        ],
     },
     markdown: {
         lineNumbers: true,
         toc: {
-            level: [1, 2, 3]
-        }
-    }
-})
+            level: 3,
+            listType: 'ul',
+        },
+        theme: 'material-palenight',
+    },
+});

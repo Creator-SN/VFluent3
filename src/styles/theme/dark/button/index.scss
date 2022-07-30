@@ -9,6 +9,10 @@
                 opacity: 0.9;
             }
 
+            &.shadow {
+                box-shadow: rgba(65, 23, 23, 0.133) 0px 3.2px 7.2px 0px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
+            }
+
             &.disabled {
                 background: var(--fv-dark-disabled-bgcolor);
                 color: var(--fv-dark-disabled-color);
