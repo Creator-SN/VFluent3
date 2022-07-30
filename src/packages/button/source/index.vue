@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { isNumber, isString } from "@/utils/common/types";
-import { buttonProps, buttonEmits } from "."
+import { buttonProps, buttonEmits, useButton } from "."
 import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
 
 // The defined name, which will be registered as the component name
@@ -27,7 +27,7 @@ const { cls: computedButtonClass } = new ClassBuilder()
 
 const { cls: computedIconClass } = new ClassBuilder()
     .add("ms-Icon")
-    .add(() => `ms-Icon--${props.icon}`, true, () => isString(props.icon))
+    .add(() => `ms-Icon--${props.icon}`, () => isString(props.icon))
     .computed()
 
 const { style: computedButtonStyle } = new StyleBuilder()
@@ -43,16 +43,12 @@ const { style: computedTextStyle } = new StyleBuilder()
     .add('fontSize', () => props.fontSize, () => isString(props.fontSize))
     .add('fontSize', () => `${props.fontSize}px`, () => isNumber(props.fontSize))
     .add('fontWeight', () => `${props.fontWeight}px`, () => isNumber(props.fontWeight))
-    .add('fontWeight', () => `props.fontWeight`, () => isString(props.fontWeight))
+    .add('fontWeight', () => props.fontWeight, () => isString(props.fontWeight))
     .computed()
 
 // methods
-function onClick(evt: Event) {
-    // disabled click if disabled
-    if (!props.disabled) {
-        emits("click", evt)
-    }
-}
+const { onClick } = useButton(props, emits)
+
 </script>
 
 <template>

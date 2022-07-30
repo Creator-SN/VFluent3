@@ -12,30 +12,21 @@ export const checkboxProps = {
         type: [Boolean],
         default: undefined
     },
-    foreground: {
-        type: String
-    },
-    background: {
-        type: String
-    },
-    borderRadius: {
-        type: [Number, String],
-        default: 3
-    },
-    fontSize: {
-        type: [Number, String],
-    },
-    fontWeight: {
-        type: [Number, String],
-        default: "normal"
-    },
-    isBoxShadow: {
-        type: Boolean,
-        default: false
-    },
     borderWidth: {
         type: [Number, String],
-        default: 2
+        default: 1.5
+    },
+    borderColor: {
+        type: [String],
+    },
+    foreground: {
+        type: [String],
+    },
+    background: {
+        type: [String],
+    },
+    hoverColor: {
+        type: [String]
     }
 }
 
@@ -59,8 +50,9 @@ export function useCheckbox(props: Readonly<CheckboxProps>, emits: EmitFn<Checkb
         get: () => {
             if (props.value === undefined) {
                 return checked.value
+            } else if (props.value === null) {
+                return undefined;
             }
-            console.log(props.value)
             return props.value
         },
         set: (val) => {
@@ -70,10 +62,6 @@ export function useCheckbox(props: Readonly<CheckboxProps>, emits: EmitFn<Checkb
     })
     // events
     const onClick = (evt: Event) => {
-        // if (typeof computedChecked.value === "string" || computedChecked.value === undefined)
-        //     computedChecked.value = false
-        // else
-        //     computedChecked.value = !computedChecked.value
         emits("click", computedChecked.value)
     }
     return {

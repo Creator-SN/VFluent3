@@ -1,10 +1,12 @@
-import { computed, ComputedRef } from "vue"
+import { computed } from "vue"
 import { isBoolean, isFunction, isString } from "./types"
 import * as CSS from 'csstype';
 
+export type CSSVariableName = `--${string}`;
+
 export class StyleBuilder {
     _constructorFunctions: Array<{
-        name: keyof CSS.Properties | Function,
+        name: keyof CSS.Properties | Function | CSSVariableName,
         value?: string | Function,
         condition?: boolean | Function
     }>
@@ -13,7 +15,7 @@ export class StyleBuilder {
         this._constructorFunctions = []
     }
 
-    add(name: keyof CSS.Properties | Function, value?: string | Function, condition?: boolean | Function): StyleBuilder {
+    add(name: keyof CSS.Properties | CSSVariableName | Function, value?: string | Function, condition?: boolean | Function): StyleBuilder {
         this._constructorFunctions.push({
             name,
             value,
@@ -24,7 +26,7 @@ export class StyleBuilder {
 
     computed() {
         const style = computed(() => {
-            const style: Record<string,string> = {}
+            const style: Record<string, string> = {}
             for (let _style of this._constructorFunctions) {
                 if (_style.condition !== undefined) {
                     if (isBoolean(_style.condition) && _style.condition === false) {

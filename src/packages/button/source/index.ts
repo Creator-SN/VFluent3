@@ -1,4 +1,6 @@
 import { commonProps } from "@/packages/common/props";
+import { EmitFn } from "@/types/components";
+import { emit } from "process";
 import { ExtractPropTypes } from "vue";
 
 // subscribe https://github.com/vuejs/core/issues/4294
@@ -47,3 +49,12 @@ export const buttonEmits = {
 }
 
 export type ButtonEmits = typeof buttonEmits;
+
+export const useButton = (props: ButtonProps, emits: EmitFn<ButtonEmits>) => {
+    const onClick = (evt: Event) => {
+        emits("click", evt)
+    }
+    return {
+        onClick
+    }
+}

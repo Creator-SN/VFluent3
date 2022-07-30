@@ -5,6 +5,8 @@
         vertical-align: middle;
         white-space: nowrap;
         user-select: none;
+        display: inline-flex;
+        align-items: center;
         .checkbox {
             top: 0;
             left: 0;
@@ -13,23 +15,43 @@
             appearance: none;
         }
         .icon {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
             position: relative;
             width: 20px;
             height: 20px;
-            border-width: 1px;
-            border-style: solid;
-            box-sizing: border-box;
             padding: 0;
-            vertical-align: baseline;
             margin: 0;
             margin-right: 5px;
+            border-radius: 3px;
+            border-width: 1px;
+            border-style: solid;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
 
-            i {
-                min-height: 1px;
-                min-width: 1px;
+
+            .icon-box {
+                position: absolute;
+                background-color: inherit;
+                height: 100%;
+                width: 100%;
+                transform: translateX(100%);
+            }
+
+            .font-clip-in-enter-active {
+                transition: transform 0.3s linear;
+            }
+
+            .font-clip-in-enter-from {
+                transform: translateX(0);
+            }
+
+            .ms-Icon {
+                height: 18px;
+                width: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 margin: 0;
                 line-height: 13px;
                 font-weight: bold;
