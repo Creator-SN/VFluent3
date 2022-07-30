@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import { useTheme } from "@/utils/common/theme"
 import { isNumber, isString } from "@/utils/common/types";
 import { buttonProps, buttonEmits } from "."
-import { ClassBuilder } from "@/utils/common/class"
-import { StyleBuilder } from "@/utils/common/style"
+import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
 
 // The defined name, which will be registered as the component name
 defineOptions({
@@ -17,7 +15,8 @@ const props = defineProps(buttonProps)
 const { theme } = useTheme(props)
 
 const { cls: computedComponentClass } = new ClassBuilder()
-    .add(() => `fv-${theme.value}-button`)
+    .add(`fv-button`)
+    .add(() => theme.value)
     .computed()
 
 const { cls: computedButtonClass } = new ClassBuilder()
@@ -48,7 +47,7 @@ const { style: computedTextStyle } = new StyleBuilder()
     .computed()
 
 // methods
-function handleClick(evt: Event) {
+function onClick(evt: Event) {
     // disabled click if disabled
     if (!props.disabled) {
         emits("click", evt)
@@ -57,7 +56,7 @@ function handleClick(evt: Event) {
 </script>
 
 <template>
-    <div :class="computedComponentClass" @click="handleClick">
+    <div :class="computedComponentClass" @click="onClick">
         <button type="button" :class="computedButtonClass" :style="computedButtonStyle">
             <span class="content-block" :style="computedTextStyle">
                 <i v-if="props.icon" :class="computedIconClass"></i>

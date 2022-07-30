@@ -1,0 +1,40 @@
+.fv-checkbox {
+    .label {
+        position: relative;
+        cursor: pointer;
+        vertical-align: middle;
+        white-space: nowrap;
+        user-select: none;
+        .checkbox {
+            top: 0;
+            left: 0;
+            position: absolute !important;
+            cursor: pointer;
+            appearance: none;
+        }
+        .icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            border-width: 1px;
+            border-style: solid;
+            box-sizing: border-box;
+            padding: 0;
+            vertical-align: baseline;
+            margin: 0;
+            margin-right: 5px;
+
+            i {
+                min-height: 1px;
+                min-width: 1px;
+                margin: 0;
+                line-height: 13px;
+                font-weight: bold;
+                font-size: 13px;
+            }
+        }
+    }
+}

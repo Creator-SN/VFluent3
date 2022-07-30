@@ -20,7 +20,10 @@ export default defineConfig({
       }
     }
   },
-  plugins: [vue(), DefineOptions()],
+  plugins: [
+    vue(),
+    DefineOptions()
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

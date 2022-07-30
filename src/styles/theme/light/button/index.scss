@@ -1,23 +1,30 @@
-@import "@/styles/theme/base/button/index.scss";
+.fv-button {
+    &.light {
+        .button-container {
+            background: var(--fv-light-bgcolor);
+            color: var(--fv-light-color);
 
-.fv-light-button {
-    @include fv-button();
+            &:hover {
+                background: var(--fv-light-hover-bgcolor);
+                opacity: 0.9;
+            }
 
-    .button-container {
-        background: rgba(237, 235, 233, 1);
+            &.shadow {
+                box-shadow: rgba(0, 0, 0, 0.133) 0px 3.2px 7.2px 0px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
+            }
 
-        &:hover {
-            background: rgba(237, 235, 233, 0.8);
-            opacity: 0.9;
-        }
+            &.disabled {
+                filter: grayscale(1);
+            }
 
-        &.shadow {
-            box-shadow: rgba(0, 0, 0, 0.133) 0px 3.2px 7.2px 0px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
-        }
-
-        &.disabled {
-            filter: grayscale(1);
-            opacity: 0.6;
+            &.disabled {
+                background: var(--fv-light-disabled-bgcolor);
+                color: var(--fv-light-disabled-color);
+                &:hover {
+                    background: var(--fv-light-disabled-bgcolor);
+                    opacity: 1;
+                }
+            }
         }
     }
 }

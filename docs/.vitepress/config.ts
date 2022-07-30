@@ -22,10 +22,11 @@ export default defineConfig({
         ],
         sidebar: [
             {
-                text: 'Guide',
+                text: 'Basic',
                 collapsed: true,
                 items: [
                     { text: 'Button', link: '/guide/components/button' },
+                    { text: 'Checkbox', link: '/guide/components/checkbox' },
                 ],
             }
         ]
