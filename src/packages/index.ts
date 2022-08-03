@@ -4,17 +4,17 @@ export * from './button';
 export * from './checkbox';
 export * from './radio';
 
+import '@/styles/theme/index.scss';
+
 import type { App, Plugin } from 'vue';
 import { createPinia } from 'pinia';
 import FvButton from './button';
 import FvCheckBox from './checkbox';
 import FvRadio from './radio';
-import { useThemeVariables } from './common/theme';
 
 export const FvComponentPlugins: Plugin = {
     install(app: App, options: any) {
         const pinia = createPinia();
-        useThemeVariables();
         app.use(pinia);
         app.use(FvButton);
         app.use(FvCheckBox);

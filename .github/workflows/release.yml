@@ -1,0 +1,38 @@
+name: Deploy
+
+# Controls when the action will run.
+on:
+    # Triggers the workflow on push or pull request events but only for the master branch
+    push:
+        tags:
+            - 'v*'
+
+    workflow_dispatch:
+
+jobs:
+    deploydocs:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 6.32.9
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  registry-url: https://registry.npmjs.org/
+                  cache: 'pnpm'
+
+            - name: 🚓loading denpendencies
+              run: pnpm i --frozen-lockfile
+
+            - name: 🚕build docs
+              run: pnpm docs:build
+
+            - name: 🚄deploy docs
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: ./docs/.vitepress/dist
