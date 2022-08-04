@@ -10,5 +10,5 @@ title: Guide
 ### Install
 
 ``` sh
-yarn add @creatorsn/vfluent3
+pnpm install @creatorsn/vfluent3
 ```

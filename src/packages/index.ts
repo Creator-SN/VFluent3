@@ -1,4 +1,4 @@
-import '@/libs/office-ui-fabric-core/dist/css/fabric.min.css';
+import '@/libs/office-ui-fabric-core/css/fabric.min.css';
 
 export * from './button';
 export * from './checkbox';

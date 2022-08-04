@@ -155,8 +155,8 @@ function blur(evt: FocusEvent){
 
 ### Default
 
-```vue
-<fv-check-box>
-  {{label here}}
-</fv-check-box>
+```vue-html
+  <fv-check-box>
+    {{label here}}
+  </fv-check-box>
 ```

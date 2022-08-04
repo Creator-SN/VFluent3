@@ -4,6 +4,7 @@ export default defineConfig({
     title: 'vfluent3',
     description: 'A Vue3 component library for Fluent UI',
     lang: 'en-US',
+    base: '/VFluent3/',
     themeConfig: {
         siteTitle: 'VFluent3',
         footer: {
