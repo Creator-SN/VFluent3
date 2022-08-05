@@ -1,6 +1,5 @@
 import { commonProps } from '@/packages/common/props';
 import { EmitFn } from '@/types/components';
-import { emit } from 'process';
 import { ExtractPropTypes } from 'vue';
 
 // subscribe https://github.com/vuejs/core/issues/4294

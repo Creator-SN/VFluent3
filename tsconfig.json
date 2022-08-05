@@ -8,7 +8,7 @@
         "jsx": "preserve",
         "sourceMap": true,
         "resolveJsonModule": true,
-        "isolatedModules": true,
+        "isolatedModules": false,
         "esModuleInterop": true,
         "lib": ["ESNext", "DOM"],
         "skipLibCheck": true,
@@ -16,21 +16,18 @@
         "paths": {
             "@/*": ["src/*"]
         },
-        "types": ["unplugin-vue-define-options"]
+        "types": ["unplugin-vue-define-options"],
+        "outDir": "dist/types",
+        "declaration": true
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.d.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue",
-        "docs/**/*.ts",
-        "docs/**/*.md",
-        "docs/**/*.vue",
-        "docs/.vitepress/**/*.ts"
-, "docs/vite.config.js"    ],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
     "references": [
         {
             "path": "./tsconfig.node.json"
+        },
+        {
+            "path": "./docs/tsconfig.json"
         }
-    ]
+    ],
+    "ts-node": { "esm": true, "experimentalSpecifierResolution": "explicit" }
 }

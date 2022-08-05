@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/aleversn/VFluent/master/examples/assert/logo/VFluent.png"/>
+  <img src="https://raw.githubusercontent.com/aleversn/VFluent/master/examples/assert/logo/VFluent.png"/>
 </div>
 
 <p align="center">
@@ -12,17 +12,38 @@
 </p>
 
 ## Fluent UI Components based on Vite
+
 This repository provides a library of components based on [Microsoft's Fluent Design System](https://developer.microsoft.com/en-us/fluentui#/). We did our best to implement styling (such as the `Acrylic` and `Reveal` effects) of native system's (Windows 11/Windows 10) components on the Web.
 
 ### Fluent Design UI (Vue 3)
 
 #### DOCS
 
-coming soon
+[https://creator-sn.github.io/VFluent3/](https://creator-sn.github.io/VFluent3/)
 
 #### How to use
 
-coming soon
+``` sh
+pnpm i @creatorsn/vfluent3
+```
+
+#### Dev
+
+1. download node and pnpm   
+    [node](https://nodejs.org/en/)
+    [pnpm](https://pnpm.io/)
+2. install dependencies  
+   ```sh
+    pnpm i
+   ```
+3. create new component
+   ``` sh
+    pnpm bin:new
+   ```
+4. develop with vitepress
+   ``` sh
+    pnpm docs:dev
+   ``` 
 
 #### About Fabric UI
 
@@ -39,6 +60,7 @@ In particular, if you're using a component of Fluent Vue Design and it contains 
 **We have updated the new Windows 11 Fluent Icons, Check the Icon Dictionary on <a href="https://docs.microsoft.com/en-us/windows/apps/design/style/segoe-fluent-icons-font">here</a>.**
 
 ### ✨ We Need You (Become a contributor) ✨
+
 VFluent still needs to improve. The documentation is not yet complete, there are still some details to work out.
 
 We want to hear from your issues and suggestions. It's welcome to have you become a contributor in this project. You could add some new components to VFluent, or update the existing components to better support the mobile end.
@@ -62,9 +84,9 @@ The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
