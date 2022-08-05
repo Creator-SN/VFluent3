@@ -32,7 +32,7 @@ export default defineConfig({
                     },
                     {
                         text: 'CheckBox',
-                        link: '/guide/components/checkbox/',
+                        link: '/guide/components/check-box/',
                     },
                     {
                         text: 'Radio',
@@ -45,7 +45,7 @@ export default defineConfig({
     markdown: {
         lineNumbers: true,
         toc: {
-            level: 3,
+            level: [1,2,3],
             listType: 'ul',
         },
         theme: 'material-palenight',

@@ -181,7 +181,7 @@ Apple
 2. Set background and border color.
 <fv-radio
   :theme="theme" 
-  borderColor="rgba(0, 204, 153, 1)" 
+  border-color="rgba(0, 204, 153, 1)" 
   foreground="rgba(0, 204, 153, 1)" 
   background="rgba(0, 204, 153, 1)"
   v-model="value">
@@ -191,40 +191,16 @@ Apple
 ```vue-html
   <fv-radio
     :theme="theme" 
-    borderColor="rgba(0, 204, 153, 1)" 
+    border-color="rgba(0, 204, 153, 1)" 
     foreground="rgba(0, 204, 153, 1)" 
     background="rgba(0, 204, 153, 1)">
     Radio
   </fv-radio>
 ```
 
-## Properties
+<!--@include: ./properties.md-->
 
----
-|  Property  |             Type             | Required | Default |    Statement    |
-|:------------:|:----------------------------------:|:--------------:|:---------------:|:---------------------:|
-|    theme     | ['light', 'dark', 'global'] |       No       |     "global"      |     Theme      |
-|   disabled   |             [boolean]              |       No       |      false      |    Disabled    |
-| modelValue    |             [boolean, string, number]              |       No       |     undefined     |     Radio value     |
-| foreground  |              [string]              |       No       |      undefined       |    foreground   |
-| borderColor |              [string]              |       No       |       undefined       |  borderColor   |
-| background  |              [string]              |       No       |       undefined       |    background    |
-|   boxSide   |          ['start', 'end']           |       No       |      start      | position |
-| borderWidth |              [number, string]              |       No       |        1.5        |    border width   |
-| hoverColor  |              [string]              |       No       |     undefined     |  false status hover color |
-| group       |              [string]              |       No       |     undefined     | same as input radio name property |
-| label       |              [boolean, string, number]  |        No       |    undefined     | same as input radio value property |
-
-## Emits
-
----
-| EmitName | Arguments | Statement |
-|:------------:|:--------------:|:---------------:|
-|    click     |     value[boolean, null]      | onclick  |
-| update:modelValue     |     value[boolean]      | v-model           |
-|    focus     |     evt[FocusEvent] | onfocus |
-|    blur      |     evt[FocusEvent] | onblur |
-|    change    |     value[boolean, null]  | onchange |
+<!--@include: ./emits.md-->
 
 ## Slot
 

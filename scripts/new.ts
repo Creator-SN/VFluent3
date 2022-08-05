@@ -1,11 +1,11 @@
 import fs from 'fs';
-import path from 'path';
+import path, { dirname } from 'path';
 import camelCase from 'camelcase';
 import ora from 'ora';
 import prompts from 'prompts';
 import decamelize from 'decamelize';
 import pc from 'picocolors';
-import { exec, execSync } from 'child_process';
+import { exec } from 'child_process';
 
 function template(strings: TemplateStringsArray, ...keys: any[]) {
     return function (...values: any[]) {
@@ -134,14 +134,61 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
 }`,
         },
         docs: {
-            'index.md': template`
+            'index.md': template`---
+page: true
+title: ${'Name'}
+
+<script lang="ts" setup>
+import { ref } from 'vue'; 
+import { useTheme } from '../common/index.js'; 
+
+const {theme} = useTheme()
+
+
+</script>
+
+# ${'Name'}
+
+## Quick Start
+
+### Default
+
+---
+
+<${'-prefix'}-${'-name'}>
+</${'-prefix'}-${'-name'}>
+
+\`\`\`vue-html
+<${'-prefix'}-${'-name'}>
+</${'-prefix'}-${'-name'}>
+\`\`\`
+
+<!--@include: ./properties.md-->
+
+<!--@include: ./emits.md-->
+`,
+            'properties.md': template`## Properties
+
+---
+|  Property  |             Type             | Required | Default |    Statement    |
+|:------------:|:----------------------------------:|:--------------:|:---------------:|:---------------------:|
+
+`,
+            'emits.md': template`## Emits
+
+---
+| EmitName | Arguments | Statement |
 `,
         },
     };
 
     constructor({ prefix, name }: { prefix: string; name: string }) {
-        this._prefix = prefix;
-        this._name = name;
+        this._prefix = decamelize(prefix, {
+            separator: '-',
+        });
+        this._name = decamelize(name, {
+            separator: '-',
+        });
     }
 
     async buildComponentAsync(): Promise<void> {
@@ -154,14 +201,13 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
         });
         // create component sources
         for (const p in this._template['packages/component']) {
+            const fullpath = path.join(this._path.package, this._name, p);
+            // if exists, continue
+            if (fs.existsSync(fullpath)) {
+                throw new Error(`${fullpath} exists`);
+            }
             fs.writeFileSync(
-                path.join(
-                    this._path.package,
-                    decamelize(this._name, {
-                        separator: '-',
-                    }),
-                    p
-                ),
+                fullpath,
                 this._template['packages/component'][p]({
                     name: camelCase(this._name),
                     prefix: camelCase(this._prefix),
@@ -171,12 +217,8 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
                     Prefix: camelCase(this._prefix, {
                         pascalCase: true,
                     }),
-                    '-name': decamelize(this._name, {
-                        separator: '-',
-                    }),
-                    '-prefix': decamelize(this._prefix, {
-                        separator: '-',
-                    }),
+                    '-name': this._name,
+                    '-prefix': this._prefix,
                 }),
                 {
                     encoding: 'utf-8',
@@ -184,18 +226,13 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
             );
         }
         await this.buildStylesAsync();
+        await this.buildDocsAsync();
         await this.buildComponentEntryAsync();
     }
 
     async buildStylesAsync(): Promise<void> {
         for (const p in this._template.styles) {
-            const dirname = path.join(
-                this._path.style,
-                p,
-                decamelize(this._name, {
-                    separator: '-',
-                })
-            );
+            const dirname = path.join(this._path.style, p, this._name);
             fs.mkdirSync(dirname, {
                 recursive: true,
             });
@@ -211,12 +248,35 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
                     Prefix: camelCase(this._prefix, {
                         pascalCase: true,
                     }),
-                    '-name': decamelize(this._name, {
-                        separator: '-',
+                    '-name': this._name,
+                    '-prefix': this._prefix,
+                }),
+                {
+                    encoding: 'utf-8',
+                }
+            );
+        }
+    }
+
+    async buildDocsAsync(): Promise<void> {
+        for (const p in this._template.docs) {
+            const fullpath = path.join(this._path.docs, this._name, p);
+            fs.mkdirSync(dirname(fullpath), {
+                recursive: true,
+            });
+            fs.writeFileSync(
+                fullpath,
+                this._template.docs[p]({
+                    name: camelCase(this._name),
+                    prefix: camelCase(this._prefix),
+                    Name: camelCase(this._name, {
+                        pascalCase: true,
                     }),
-                    '-prefix': decamelize(this._prefix, {
-                        separator: '-',
+                    Prefix: camelCase(this._prefix, {
+                        pascalCase: true,
                     }),
+                    '-name': this._name,
+                    '-prefix': this._prefix,
                 }),
                 {
                     encoding: 'utf-8',
@@ -284,24 +344,33 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
         });
         // remove styles
         for (const p in this._template.styles) {
-            fs.rmSync(
-                path.join(
-                    this._path.style,
-                    p,
-                    decamelize(this._name, {
-                        separator: '-',
-                    })
-                ),
-                {
-                    recursive: true,
-                    force: true,
-                }
-            );
+            fs.rmSync(path.join(this._path.style, p, this._name), {
+                recursive: true,
+                force: true,
+            });
         }
+        // remove docs
+        fs.rmSync(path.join(this._path.docs, this._name), {
+            recursive: true,
+            force: true,
+        });
         await this.buildComponentEntryAsync();
     }
 
     async openAsync(): Promise<void> {
+        // async runner
+        const runAsync = async (cmd: string): Promise<void> => {
+            return await new Promise((resolve, reject) => {
+                exec(cmd, (error, stdout, stderr) => {
+                    if (error !== undefined && error !== null) {
+                        reject();
+                    } else {
+                        resolve();
+                    }
+                });
+            });
+        };
+        const runners: Promise<void>[] = [];
         // open components
         for (const p in this._template['packages/component']) {
             const fullpath = path.join(
@@ -311,7 +380,7 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
                 }),
                 p
             );
-            execSync(`code ${fullpath}`);
+            runners.push(runAsync(`code ${fullpath}`));
         }
         // open styles
         for (const p in this._template.styles) {
@@ -323,8 +392,9 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
                 }),
                 'index.scss'
             );
-            execSync(`code ${fullpath}`);
+            runners.push(runAsync(`code ${fullpath}`));
         }
+        await Promise.all(runners);
     }
 }
 

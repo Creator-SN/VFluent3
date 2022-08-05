@@ -1,5 +1,5 @@
 import DefaultTheme from "vitepress/theme"
-import type { App, Plugin } from "vue"
+import type { App } from "vue"
 import { FvComponentPlugins } from "@/packages"
 
 export default {

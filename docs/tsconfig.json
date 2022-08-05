@@ -1,7 +1,28 @@
 {
     "compilerOptions": {
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "strict": true,
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "isolatedModules": false,
+        "esModuleInterop": true,
+        "lib": ["ESNext", "DOM"],
+        "skipLibCheck": true,
         "jsx": "preserve",
-        "composite": true
+        "composite": false,
+        "baseUrl": "../",
+        "rootDir": "../",
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
-    "include": ["../docs/**/*.md", "../docs/**/*.ts"]
+    "include": [
+        "../docs/**/*.md", 
+        "../docs/**/*.ts", 
+        "../docs/.vitepress/**/*.ts",
+        "../src/**/*.ts"
+    ]
 }
