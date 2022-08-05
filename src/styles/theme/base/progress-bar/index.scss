@@ -1,0 +1,122 @@
+.fv-progress-bar {
+    --fv-progress-value: -100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    .label {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        .progress {
+            display: none;
+            position: absolute;
+        }
+        .container {
+            position: relative;
+            width: 120px;
+            overflow: hidden;
+            height: 3px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            .bar {
+                width: 100%;
+                border-radius: 3px;
+                height: 3px;
+            }
+        }
+        .determinate {
+            .bg {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .bg-bar {
+                    height: 1px;
+                    width: 100%;
+                    border-radius: 1px;
+                }
+            }
+            .bar {
+                transition: transform 0.3s linear;
+                transform: translateX(var(--fv-progress-value));
+            }
+        }
+        .indeterminate {
+            .bg {
+                display: none;
+            }
+            &.running {
+                .bar {
+                    animation: fv-progress-bar-indeterminate infinite 2s linear;
+                    animation-play-state: initial;
+                }
+            }
+            &.pause {
+                .bar {
+                    animation: fv-progress-bar-indeterminate-pause normal 0.3s linear;
+                    animation-iteration-count: 1;
+                    animation-play-state: initial;
+                }
+            }
+            &.error {
+                .bar {
+                    animation: fv-progress-bar-indeterminate-error normal 0.3s linear;
+                    animation-iteration-count: 1;
+                    animation-play-state: initial;
+                }
+            }
+        }
+    }
+}
+
+@keyframes fv-progress-bar-indeterminate-pause {
+    from {
+        transform: translateX(-110%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fv-progress-bar-indeterminate-error {
+    from {
+        transform: translateX(-110%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fv-progress-bar-indeterminate {
+    from {
+        transform: translateX(-100%) scaleX(0.5);
+        opacity: 1;
+    }
+    59% {
+        transform: translateX(100%) scaleX(0.5);
+        opacity: 1;
+    }
+    60% {
+        transform: translateX(100%) scaleX(0.5);
+        opacity: 0;
+    }
+    61% {
+        transform: translateX(-100%) scaleX(0.8);
+        opacity: 0;
+    }
+    62% {
+        transform: translateX(-100%) scaleX(0.8);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%) scaleX(0.8);
+        opacity: 1;
+    }
+}

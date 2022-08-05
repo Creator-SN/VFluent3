@@ -124,12 +124,12 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
 `,
             // theme/light/{name}/index.scss
             'theme/light': template`.${'-prefix'}-${'-name'}{
-    .light{
+    &.light{
     }
 }`,
             // theme/dark/{name}/index.scss
             'theme/dark': template`.${'-prefix'}-${'-name'}{
-    .dark{   
+    &.dark{   
     }
 }`,
         },
@@ -137,6 +137,7 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
             'index.md': template`---
 page: true
 title: ${'Name'}
+--- 
 
 <script lang="ts" setup>
 import { ref } from 'vue'; 
@@ -155,12 +156,12 @@ const {theme} = useTheme()
 
 ---
 
-<${'-prefix'}-${'-name'}>
+<${'-prefix'}-${'-name'} :theme="theme">
 </${'-prefix'}-${'-name'}>
 
 \`\`\`vue-html
-<${'-prefix'}-${'-name'}>
-</${'-prefix'}-${'-name'}>
+    <${'-prefix'}-${'-name'} :theme="theme">
+    </${'-prefix'}-${'-name'}>
 \`\`\`
 
 <!--@include: ./properties.md-->
@@ -178,6 +179,7 @@ const {theme} = useTheme()
 
 ---
 | EmitName | Arguments | Statement |
+|:------------:|:--------------:|:---------------:|
 `,
         },
     };

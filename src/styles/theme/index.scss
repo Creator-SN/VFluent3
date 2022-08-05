@@ -1,11 +1,11 @@
-:root{
+:root {
     /* light */
     --fv-light-bgcolor: rgba(237, 235, 233, 1);
     --fv-light-hover-bgcolor: rgba(237, 235, 233, 0.8);
     --fv-light-color: rgba(0, 0, 0, 1);
     --fv-light-disabled-bgcolor: rgba(239, 239, 239, 0.5);
-    --fv-light-disabled-color: rgba(220, 220, 220,1);
-    --fv-light-border-color: rgb(63,63,63,1);
+    --fv-light-disabled-color: rgba(220, 220, 220, 1);
+    --fv-light-border-color: rgb(63, 63, 63, 1);
     /* dark */
     --fv-dark-bgcolor: rgba(96, 94, 92, 1);
     --fv-dark-hover-bgcolor: rgba(96, 94, 92, 0.8);
@@ -14,5 +14,7 @@
     --fv-dark-disabled-color: rgba(143, 145, 147, 1);
     --fv-dark-border-color: rgba(85, 88, 91, 1);
     /* color */
-    --fv-primary-color: rgba(0, 90, 158,1);
+    --fv-primary-color: rgba(0, 90, 158, 1);
+    --fv-warning-color: rgba(239, 199, 59, 1);
+    --fv-error-color: rgba(200, 50, 59, 1);
 }

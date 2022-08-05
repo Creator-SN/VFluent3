@@ -38,6 +38,10 @@ export default defineConfig({
                         text: 'Radio',
                         link: '/guide/components/radio/',
                     },
+                    {
+                        text: 'ProgressBar',
+                        link: '/guide/components/progress-bar/',
+                    },
                 ],
             },
         ],
@@ -45,7 +49,7 @@ export default defineConfig({
     markdown: {
         lineNumbers: true,
         toc: {
-            level: [1,2,3],
+            level: [1, 2, 3],
             listType: 'ul',
         },
         theme: 'material-palenight',

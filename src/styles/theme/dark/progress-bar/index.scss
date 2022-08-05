@@ -1,0 +1,48 @@
+.fv-progress-bar {
+    &.dark {
+        --fv-progress-bar-normal-color: initial;
+        --fv-progress-bar-warning-color: initial;
+        --fv-progress-bar-error-color: initial;
+        --fv-progress-bgcolor: initial;
+
+        .label {
+            .indeterminate {
+                .bar {
+                    background-color: var(--fv-progress-bar-normal-color, var(--fv-primary-color));
+                }
+                &.pause {
+                    .bar {
+                        background-color: var(--fv-progress-bar-warning-color, var(--fv-warning-color));
+                    }
+                }
+                &.error {
+                    .bar {
+                        background-color: var(--fv-progress-bar-error-color, var(--fv-error-color));
+                    }
+                }
+            }
+        }
+        .determinate {
+            &.running {
+                .bar {
+                    background-color: var(--fv-progress-bar-normal-color, var(--fv-primary-color));
+                }
+            }
+            &.pause {
+                .bar {
+                    background-color: var(--fv-progress-bar-warning-color, var(--fv-warning-color));
+                }
+            }
+            &.error {
+                .bar {
+                    background-color: var(--fv-progress-bar-error-color, var(--fv-error-color));
+                }
+            }
+            .bg {
+                .bg-bar {
+                    background-color: var(--fv-progress-bgcolor,var(--fv-dark-bgcolor));
+                }
+            }
+        }
+    }
+}
