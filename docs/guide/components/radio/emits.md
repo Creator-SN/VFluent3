@@ -1,10 +1,10 @@
 ## Emits
 
----
+---         
 | EmitName | Arguments | Statement |
-|:------------:|:--------------:|:---------------:|
-|    click     |     value[boolean, null]      | onclick  |
-| update:model-value     |     value[boolean]      | v-model           |
-|    focus     |     evt[FocusEvent] | onfocus |
-|    blur      |     evt[FocusEvent] | onblur |
-|    change    |     value[boolean, null]  | onchange |
+|:---:|:---:|:---:|
+| blur | evt[FocusEvent] | onblur |
+| change | val[boolean, null] | onchange |
+| click | val[boolean, null] | onclick |
+| focus | evt[FocusEvent] | onfocus |
+| update:model-value | val[boolean] | v-model |

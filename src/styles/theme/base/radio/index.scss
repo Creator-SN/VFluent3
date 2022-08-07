@@ -53,6 +53,7 @@
         }
     }
     &.disabled{
+        pointer-events: none;
         .label:hover {
             .icon {
                 .dot {

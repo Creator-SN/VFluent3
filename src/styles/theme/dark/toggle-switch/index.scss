@@ -1,0 +1,50 @@
+.fv-toggle-switch {
+    &.dark {
+        --fv-toggle-switch-off-bgcolor: initial;
+        --fv-toggle-switch-on-bgcolor: initial;
+        --fv-toggle-switch-on-color: initial;
+        --fv-toggle-switch-color: initial;
+        .label {
+            color: var(--fv-toggle-switch-color);
+            .bg {
+                border-color: var(--fv-toggle-switch-off-bgcolor, var(--fv-light-bgcolor2));
+                .circle {
+                    background: var(--fv-toggle-switch-off-bgcolor, var(--fv-light-bgcolor2));
+                }
+            }
+        }
+        &.active {
+            .label {
+                .bg {
+                    border-color: var(--fv-toggle-switch-on-bgcolor, var(--fv-primary-color));
+                    background-color: var(--fv-toggle-switch-on-bgcolor, var(--fv-primary-color));
+                    .circle {
+                        background: var(--fv-toggle-switch-on-color, var(--fv-light-color));
+                    }
+                }
+            }
+        }
+        &.disabled {
+            .label {
+                color: var(--fv-light-disabled-bgcolor);
+                .bg {
+                    border-color: var(--fv-light-disabled-bgcolor);
+                    .circle {
+                        background: var(--fv-light-disabled-bgcolor);
+                    }
+                }
+            }
+            &.active {
+                .label {
+                    .bg {
+                        border-color: var(--fv-light-disabled-bgcolor);
+                        background-color: var(--fv-light-disabled-bgcolor);
+                        .circle {
+                            background: var(--fv-light-disabled-color);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

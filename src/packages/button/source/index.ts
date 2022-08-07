@@ -1,6 +1,6 @@
 import { commonProps } from '@/packages/common/props';
-import { EmitFn } from '@/types/components';
-import { ExtractPropTypes } from 'vue';
+import type { EmitFn } from '@/types/components';
+import type { ExtractPropTypes } from 'vue';
 
 // subscribe https://github.com/vuejs/core/issues/4294
 // see why not use typescript

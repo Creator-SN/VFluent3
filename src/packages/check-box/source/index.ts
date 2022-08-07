@@ -6,7 +6,7 @@ import { EmitFn } from '@/types/components';
 // see why not use typescript
 
 // props
-export const checkboxProps = {
+export const checkBoxProps = {
     ...commonProps,
     modelValue: {
         type: [Boolean],
@@ -34,10 +34,10 @@ export const checkboxProps = {
     },
 };
 
-export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
+export type CheckBoxProps = ExtractPropTypes<typeof checkBoxProps>;
 
 // emits
-export const checkboxEmits = {
+export const checkBoxEmits = {
     click(val?: boolean | null): boolean {
         return true;
     },
@@ -55,10 +55,10 @@ export const checkboxEmits = {
     },
 };
 
-export type CheckboxEmits = typeof checkboxEmits;
+export type CheckboxEmits = typeof checkBoxEmits;
 
 export function useCheckbox(
-    props: Readonly<CheckboxProps>,
+    props: Readonly<CheckBoxProps>,
     emits: EmitFn<CheckboxEmits>
 ) {
     const checked = ref<boolean>();

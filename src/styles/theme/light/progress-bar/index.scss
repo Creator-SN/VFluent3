@@ -8,39 +8,39 @@
             .indeterminate {
                 &.running {
                     .bar {
-                        background-color: var(--fv-progress-bar-normal-color, var(--fv-primary-color));
+                        background: var(--fv-progress-bar-normal-color, var(--fv-primary-color));
                     }
                 }
                 &.pause {
                     .bar {
-                        background-color: var(--fv-progress-bar-warning-color, var(--fv-warning-color));
+                        background: var(--fv-progress-bar-warning-color, var(--fv-warning-color));
                     }
                 }
                 &.error {
                     .bar {
-                        background-color: var(--fv-progress-bar-error-color, var(--fv-error-color));
+                        background: var(--fv-progress-bar-error-color, var(--fv-error-color));
                     }
                 }
             }
             .determinate{
                 &.running {
                     .bar {
-                        background-color: var(--fv-progress-bar-normal-color, var(--fv-primary-color));
+                        background: var(--fv-progress-bar-normal-color, var(--fv-primary-color));
                     }
                 }
                 &.pause {
                     .bar {
-                        background-color: var(--fv-progress-bar-warning-color, var(--fv-warning-color));
+                        background: var(--fv-progress-bar-warning-color, var(--fv-warning-color));
                     }
                 }
                 &.error {
                     .bar {
-                        background-color: var(--fv-progress-bar-error-color, var(--fv-error-color));
+                        background: var(--fv-progress-bar-error-color, var(--fv-error-color));
                     }
                 }
                 .bg{
                     .bg-bar{
-                        background-color: var(--fv-progress-bgcolor,var(--fv-dark-bgcolor));
+                        background: var(--fv-progress-bgcolor,var(--fv-dark-bgcolor));
                     }
                 }
             }

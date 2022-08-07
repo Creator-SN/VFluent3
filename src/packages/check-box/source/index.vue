@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { ClassBuilder, isNumber, isString, StyleBuilder } from "@/utils/common";
 import { useTheme } from "@/utils/common/theme"
-import { checkboxProps, checkboxEmits, useCheckbox } from "."
+import { checkBoxProps, checkBoxEmits, useCheckbox } from "."
 
-const props = defineProps(checkboxProps);
-const emits = defineEmits(checkboxEmits);
+const props = defineProps(checkBoxProps);
+const emits = defineEmits(checkBoxEmits);
 
 defineOptions({
     name: "FvCheckBox"

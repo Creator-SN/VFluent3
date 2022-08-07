@@ -42,6 +42,14 @@ export default defineConfig({
                         text: 'ProgressBar',
                         link: '/guide/components/progress-bar/',
                     },
+                    {
+                        text: 'ProgressRing',
+                        link: '/guide/components/progress-ring/',
+                    },
+                    {
+                        text: 'ToggleSwitch',
+                        link: '/guide/components/toggle-switch/',
+                    },
                 ],
             },
         ],

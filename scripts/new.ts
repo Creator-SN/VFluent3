@@ -6,6 +6,7 @@ import prompts from 'prompts';
 import decamelize from 'decamelize';
 import pc from 'picocolors';
 import { exec } from 'child_process';
+import { ComponentsUtils } from './utils/components';
 
 function template(strings: TemplateStringsArray, ...keys: any[]) {
     return function (...values: any[]) {
@@ -19,7 +20,7 @@ function template(strings: TemplateStringsArray, ...keys: any[]) {
     };
 }
 
-class ComponentBuilder {
+export class ComponentBuilder {
     private _prefix: string;
     private _name: string;
     private _path = {
@@ -288,20 +289,7 @@ const {theme} = useTheme()
     }
 
     async getAllComponentsAsync(): Promise<string[]> {
-        const dirs = fs.readdirSync(path.join(this._path.package));
-        const components: string[] = [];
-        for (const dir of dirs) {
-            const fullpath = path.join(
-                this._path.package,
-                dir,
-                'source',
-                'index.vue'
-            );
-            if (fs.existsSync(fullpath)) {
-                components.push(dir);
-            }
-        }
-        return components;
+        return ComponentsUtils.getAllComponents(this._path.package);
     }
 
     async buildComponentEntryAsync(): Promise<void> {

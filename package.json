@@ -5,6 +5,7 @@
     "files": [
         "dist"
     ],
+    "type": "module",
     "main": "dist/vfluent3.umd.cjs",
     "module": "dist/vfluent3.js",
     "exports": {
@@ -29,7 +30,8 @@
         "docs:dev": "vitepress dev docs",
         "docs:build": "vitepress build docs",
         "docs:serve": "vitepress serve docs",
-        "bin:new": "ts-node ./scripts/new.ts --files"
+        "bin:new": "node --loader ./scripts/loader.mjs ./scripts/new.ts --files",
+        "bin:dt": "node --loader ./scripts/loader.mjs ./scripts/mkdocs.ts --files"
     },
     "dependencies": {
         "csstype": "^3.1.0",
@@ -47,6 +49,7 @@
         "prompts": "^2.4.2",
         "sass": "^1.53.0",
         "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.1.0",
         "typescript": "^4.6.4",
         "unplugin-vue-define-options": "^0.6.2",
         "vite": "^3.0.0",

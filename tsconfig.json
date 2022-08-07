@@ -21,19 +21,15 @@
         "outDir": "dist/types",
         "declaration": true
     },
-    "include": [
-        "src/**/*.ts", 
-        "src/**/*.d.ts", 
-        "src/**/*.tsx", 
-        "src/**/*.vue"
-    ],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
     "references": [
         {
             "path": "./tsconfig.node.json"
-        },
-        // {
-        //     "path": "./docs/tsconfig.json"
-        // }
+        }
     ],
-    "ts-node": { "esm": true, "experimentalSpecifierResolution": "explicit" }
+    "ts-node": {
+        "require": ["tsconfig-paths/register"],
+        "esm": true,
+        "experimentalSpecifierResolution": "explicit"
+    }
 }

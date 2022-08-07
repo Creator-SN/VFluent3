@@ -12,7 +12,7 @@ const {theme} = useTheme()
 const progress = [0, 10, 20, 50, 70, 100]
 
 const state = ref<string>("running")
-const value = ref<number>(70)
+const progressValue = ref<number>(70)
 let index = 0
 let timeout: NodeJS. Timer|undefined = undefined; 
 
@@ -28,7 +28,7 @@ onMounted(()=>{
 
     timeout = setInterval(() => {
         if (state.value==="running"){
-            value.value = progress[index]
+            progressValue.value = progress[index]
             index = (index+1) % progress.length
         }
     }, 1500);
@@ -57,7 +57,7 @@ STATE: {{state}}
 
 ---
 
-<fv-progress-bar @change="onChange" @loaded="onLoaded" v-model="value" :max="100" :theme="theme" :pause="state==='pause'" :error="state==='error'" /> {{value}}%
+<fv-progress-bar @change="onChange" @loaded="onLoaded" v-model="progressValue" :max="100" :theme="theme" :pause="state==='pause'" :error="state==='error'" /> {{progressValue}}%
 
 ```vue-html{2-6}
     <fv-progress-bar 
@@ -108,7 +108,7 @@ STATE: {{state}}
 
 2. determinate
 
-<fv-progress-bar pause-foreground="rgba(229, 0, 249, 1)" error-foreground="rgba(249, 201, 0, 1)" background="rgba(0,0,0,1)" v-model="value" :max="100" :theme="theme" :pause="state==='pause'" :error="state==='error'" foreground="rgba(0, 204, 153, 1)"/> {{value}}%
+<fv-progress-bar pause-foreground="rgba(229, 0, 249, 1)" error-foreground="rgba(249, 201, 0, 1)" background="rgba(0,0,0,1)" v-model="progressValue" :max="100" :theme="theme" :pause="state==='pause'" :error="state==='error'" foreground="rgba(0, 204, 153, 1)"/> {{progressValue}}%
 
 ```vue-html{5-8}
     <fv-progress-bar 

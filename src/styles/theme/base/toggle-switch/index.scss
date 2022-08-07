@@ -1,0 +1,78 @@
+.fv-toggle-switch {
+    --fv-toggle-switch-off: 0px;
+    --fv-toggle-switch-on: 18px;
+    .label {
+        display: inline-flex;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        .checkbox {
+            appearance: none;
+        }
+        .bg {
+            margin: 0 5px;
+            border-radius: 10px;
+            height: 20px;
+            width: 40px;
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 0 4px;
+            border-style: solid;
+            border-width: 1px;
+            .circle {
+                position: relative;
+                transform: translateX(var(--fv-toggle-switch-off));
+                height: 12px;
+                width: 12px;
+                border-radius: 6px;
+                transition: transform 0.15s linear, width 0.1s linear;
+            }
+        }
+        .text {
+            user-select: none;
+        }
+        &:hover {
+            .bg {
+                .circle {
+                    transform: translateX(var(--fv-toggle-switch-off)) scale(1.2);
+                }
+            }
+        }
+        &:active {
+            .bg {
+                .circle {
+                    transform: translateX(var(--fv-toggle-switch-off)) scale(1.2);
+                    width: 14px;
+                }
+            }
+        }
+    }
+    &.active {
+        .label {
+            .bg {
+                .circle {
+                    transform: translateX(var(--fv-toggle-switch-on));
+                }
+            }
+            &:hover {
+                .bg {
+                    .circle {
+                        transform: translateX(var(--fv-toggle-switch-on)) scale(1.2);
+                    }
+                }
+            }
+            &:active {
+                .bg {
+                    .circle {
+                        transform: translateX(calc(var(--fv-toggle-switch-on) - 2px)) scale(1.2);
+                        width: 14px;
+                    }
+                }
+            }
+        }
+    }
+    &.disabled{
+        pointer-events: none;
+    }
+}
