@@ -31,18 +31,22 @@
         "docs:build": "vitepress build docs",
         "docs:serve": "vitepress serve docs",
         "bin:new": "node --loader ./scripts/loader.mjs ./scripts/new.ts --files",
-        "bin:dt": "node --loader ./scripts/loader.mjs ./scripts/mkdocs.ts --files"
+        "bin:dt": "node --loader ./scripts/loader.mjs ./scripts/mkdocs.ts --files",
+        "cc": "conventional-changelog -p angular -i CHANGELOG.md -s",
+        "cz": "cz"
     },
     "dependencies": {
-        "csstype": "^3.1.0",
         "pinia": "^2.0.16",
         "vue": "^3.2.37"
     },
     "devDependencies": {
+        "csstype": "^3.1.0",
         "@types/node": "^18.0.6",
         "@types/prompts": "^2.0.14",
         "@vitejs/plugin-vue": "^3.0.0",
         "camelcase": "^7.0.0",
+        "commitizen": "^4.2.5",
+        "conventional-changelog-cli": "^2.2.2",
         "decamelize": "^6.0.0",
         "ora": "^6.1.2",
         "picocolors": "^1.0.0",
