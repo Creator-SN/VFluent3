@@ -50,6 +50,10 @@ export default defineConfig({
                         text: 'ToggleSwitch',
                         link: '/guide/components/toggle-switch/',
                     },
+                    {
+                        text: 'Img',
+                        link: '/guide/components/img/',
+                    },
                 ],
             },
         ],

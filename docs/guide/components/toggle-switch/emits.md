@@ -3,7 +3,7 @@
 ---         
 | EmitName | Arguments | Statement |
 |:---:|:---:|:---:|
-| blur | evt[FocusEvent] | onblur  |
+| blur | evt[FocusEvent] | onblur |
 | change | val[boolean] | onchange |
 | click | val[boolean] | onclick |
 | focus | evt[FocusEvent] | onfocus |

@@ -13,4 +13,4 @@
 | on | [string] | No | undefined | on text |
 | on-background | [string] | No | undefined | on background color |
 | on-foreground | [string] | No | undefined | on circle color |
-| theme | [string] | No | 'global' | theme |
+| theme | ['light','dark','global'] | No | 'global' | theme |

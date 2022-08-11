@@ -2,6 +2,7 @@ import '@/libs/office-ui-fabric-core/css/fabric.min.css';
 
 export * from "./button"
 export * from "./check-box"
+export * from "./img"
 export * from "./progress-bar"
 export * from "./progress-ring"
 export * from "./radio"
@@ -14,6 +15,7 @@ import { createPinia } from 'pinia';
 
 import Button from "./button"
 import CheckBox from "./check-box"
+import Img from "./img"
 import ProgressBar from "./progress-bar"
 import ProgressRing from "./progress-ring"
 import Radio from "./radio"
@@ -22,6 +24,7 @@ import ToggleSwitch from "./toggle-switch"
 const components = [
     Button,
     CheckBox,
+    Img,
     ProgressBar,
     ProgressRing,
     Radio,
