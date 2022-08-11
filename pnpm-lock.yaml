@@ -24,7 +24,6 @@ specifiers:
   vue-tsc: ^0.38.4
 
 dependencies:
-  csstype: 3.1.0
   pinia: 2.0.17_j6bzmzd4ujpabbp5objtwxyjp4
   vue: 3.2.37
 
@@ -35,6 +34,7 @@ devDependencies:
   camelcase: 7.0.0
   commitizen: 4.2.5
   conventional-changelog-cli: 2.2.2
+  csstype: 3.1.0
   decamelize: 6.0.0
   ora: 6.1.2
   picocolors: 1.0.0
@@ -1075,7 +1075,7 @@ packages:
 
   /csstype/3.1.0:
     resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
-    dev: false
+    dev: true
 
   /cz-conventional-changelog/3.3.0:
     resolution: {integrity: sha512-U466fIzU5U22eES5lTNiNbZ+d8dfcHcssH4o7QsdWaCcRs/feIPCxKYSWkYBNs5mny7MvEfwpTLWjvbm94hecw==}
