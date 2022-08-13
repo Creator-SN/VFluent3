@@ -1,0 +1,57 @@
+.fv-message-bar {
+    position: relative;
+    padding: 8px 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    backdrop-filter: blur(15px);
+    .header {
+        display: flex;
+        position: relative;
+        .icon {
+            margin-right: 5px;
+        }
+        .close-icon {
+            position: absolute;
+            top: 0px;
+            right: 5px;
+            cursor: pointer;
+            &:hover {
+                transition: transform 0.2s cubic-bezier(0, 0, 0.95, 1.63);
+                transform: scale(1.2);
+            }
+            &:active {
+                transition: transform 0.2s cubic-bezier(0, 0, 0.95, 1.63);
+                transform: scale(0.8);
+            }
+        }
+    }
+    
+    &.fv-message-bar-fade-in-enter-active{
+        transition: transform 0.3s cubic-bezier(0, .6, 0.48, 1.15);
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    &.fv-message-bar-fade-in-enter-to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+    &.fv-message-bar-fade-in-leave-active{
+        transition: all 0.3s cubic-bezier(0, .6, 0.48, 1.15);
+        transform: translateY(0);
+        opacity: 1;
+    }
+    &.fv-message-bar-fade-in-leave-to{
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+.fv-message-bar--container {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}

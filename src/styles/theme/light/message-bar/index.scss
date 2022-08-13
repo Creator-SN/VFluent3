@@ -1,0 +1,49 @@
+.fv-message-bar {
+    &.light {
+        &.info {
+            background-color: rgba(var(--fv-info-bgcolor), 0.5);
+            border-color: rgba(var(--fv-info-bgcolor), 0.8);
+            .header {
+                .icon {
+                    color: rgba(var(--fv-info-color), 1);
+                }
+            }
+        }
+        &.correct {
+            background-color: rgba(var(--fv-success-bgcolor), 0.5);
+            border-color: rgba(var(--fv-success-bgcolor), 0.8);
+            .header {
+                .icon {
+                    color: rgba(var(--fv-success-color), 1);
+                }
+            }
+        }
+        &.error {
+            background-color: rgba(var(--fv-error-bgcolor), 0.5);
+            border-color: rgba(var(--fv-error-bgcolor), 0.8);
+            .header {
+                .icon {
+                    color: rgba(var(--fv-error-color), 1);
+                }
+            }
+        }
+        &.warning {
+            background-color: rgba(var(--fv-warning-bgcolor), 0.5);
+            border-color: rgba(var(--fv-warning-bgcolor), 0.8);
+            .header {
+                .icon {
+                    color: rgba(var(--fv-warning-color), 1);
+                }
+            }
+        }
+        &.blocked {
+            background-color: rgba(var(--fv-error-bgcolor), 0.5);
+            border-color: rgba(var(--fv-error-bgcolor), 0.8);
+            .header {
+                .icon {
+                    color: rgba(var(--fv-error-color), 1);
+                }
+            }
+        }
+    }
+}

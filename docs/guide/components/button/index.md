@@ -4,10 +4,13 @@ title: Button
 ---
 
 <script lang="ts" setup>
-import {useTheme} from "../common"
+import { MessageBarMethod, MessageBarKey } from "@/packages";
+import { inject } from "vue";
+import {Toast, useTheme} from "../common";
+const barWarning = inject<MessageBarMethod>(MessageBarKey);
 const {theme} = useTheme()
 function click(){
-    console.log('click')
+    Toast(barWarning,"click")
 }
 </script>
 

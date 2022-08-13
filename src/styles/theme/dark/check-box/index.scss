@@ -3,7 +3,7 @@
         .label {
             .icon {
                 --fv-checkbox-bgcolor: initial;
-                border: 1px solid var(--fv-dark-border-color);
+                border-color: var(--fv-dark-border-color);
                 color: var(--fv-light-color);
                 &:hover {
                     background-color: var(--fv-checkbox-bgcolor, var(--fv-dark-bgcolor));
@@ -13,8 +13,8 @@
         &.active {
             .label {
                 .icon {
-                    border: 1px solid var(--fv-primary-color);
-                    background-color: var(--fv-primary-color);
+                    border-color: rgb(var(--fv-primary-bgcolor));
+                    background-color: rgb(var(--fv-primary-bgcolor));
                     color: var(--fv-light-color);
                 }
             }

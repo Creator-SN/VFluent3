@@ -13,8 +13,8 @@
         &.active {
             .label {
                 .icon {
-                    border-color: var(--fv-primary-color);
-                    background-color: var(--fv-primary-color);
+                    border-color: rgb(var(--fv-primary-bgcolor));
+                    background-color: rgb(var(--fv-primary-bgcolor));
                     color: var(--fv-light-color);
                     .dot {
                         background-color: var(--fv-light-color);

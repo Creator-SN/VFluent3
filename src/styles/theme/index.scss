@@ -14,8 +14,16 @@
     --fv-dark-disabled-bgcolor: rgba(62, 63, 66, 0.5);
     --fv-dark-disabled-color: rgba(143, 145, 147, 1);
     --fv-dark-border-color: rgba(85, 88, 91, 1);
+    /* bgcolor */
+    --fv-primary-bgcolor: 0, 90, 158;
+    --fv-warning-bgcolor: 255, 200, 10;
+    --fv-error-bgcolor: 250, 65, 0;
+    --fv-info-bgcolor: 243, 242, 241;
+    --fv-success-bgcolor: 95, 210, 85;
     /* color */
-    --fv-primary-color: rgba(0, 90, 158, 1);
-    --fv-warning-color: rgba(239, 199, 59, 1);
-    --fv-error-color: rgba(200, 50, 59, 1);
+    --fv-primary-color: 0, 90, 158;
+    --fv-warning-color: 173, 38, 45;
+    --fv-error-color: 164, 38 , 45;
+    --fv-info-color: 50, 49, 48;
+    --fv-success-color: 0, 204, 153;
 }

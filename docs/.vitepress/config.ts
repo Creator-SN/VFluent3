@@ -56,6 +56,16 @@ export default defineConfig({
                     },
                 ],
             },
+            {
+                text: 'Global',
+                collapsed: true,
+                items: [
+                    {
+                        text: 'MessageBar',
+                        link: '/guide/components/message-bar/',
+                    },
+                ],
+            },
         ],
     },
     markdown: {

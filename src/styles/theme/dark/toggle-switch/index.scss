@@ -16,8 +16,8 @@
         &.active {
             .label {
                 .bg {
-                    border-color: var(--fv-toggle-switch-on-bgcolor, var(--fv-primary-color));
-                    background-color: var(--fv-toggle-switch-on-bgcolor, var(--fv-primary-color));
+                    border-color: var(--fv-toggle-switch-on-bgcolor, rgb(var(--fv-primary-bgcolor)));
+                    background-color: var(--fv-toggle-switch-on-bgcolor, rgb(var(--fv-primary-bgcolor)));
                     .circle {
                         background: var(--fv-toggle-switch-on-color, var(--fv-light-color));
                     }

@@ -7,7 +7,7 @@
             .label {
                 .svg {
                     .bar {
-                        stroke: var(--fv-progress-ring-primary-color, var(--fv-primary-color));
+                        stroke: var(--fv-progress-ring-primary-color, rgb(var(--fv-primary-bgcolor)));
                     }
                 }
             }
@@ -16,7 +16,7 @@
             .label {
                 .svg {
                     .bar {
-                        stroke: var(--fv-progress-ring-warning-color, var(--fv-warning-color));
+                        stroke: var(--fv-progress-ring-warning-color, rgb(var(--fv-warning-bgcolor)));
                     }
                 }
             }
@@ -25,7 +25,7 @@
             .label {
                 .svg {
                     .bar {
-                        stroke: var(--fv-progress-ring-error-color, var(--fv-error-color));
+                        stroke: var(--fv-progress-ring-error-color, rgb(var(--fv-error-bgcolor)));
                     }
                 }
             }
