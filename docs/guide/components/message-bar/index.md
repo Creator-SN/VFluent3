@@ -20,9 +20,32 @@ const onClose = (type?:'info'|'warning'|'correct'|'blocked'|'error')=>{
         }
         instance = message({
             status: type,
-            message: `close ${type} message bar`,
+            message: `close ${type} message bar `,
             autoClose: 0,
-            theme: theme.value
+            theme: theme.value,
+            showControl: true,
+            confirm:()=>{
+                if (instance!==undefined){
+                    instance.close()
+                }
+                instance = message({
+                    status:"correct",
+                    message:"Confirm",
+                    theme: theme.value,
+                    autoClose: 0
+                })
+            },
+            cancel:()=>{
+                if (instance!==undefined){
+                    instance.close()
+                }
+                instance = message({
+                    status:"blocked",
+                    message:"Cancel",
+                    theme: theme.value,
+                    autoClose: 0
+                })
+            }
         })
     }
 }
@@ -89,7 +112,7 @@ const onClose = (type?:'info'|'warning'|'correct'|'blocked'|'error')=>{
 
 ### Global Function
 
-1. use setup
+1. use setup (recommend)
 
 ```vue
 <script lang="ts" setup>
@@ -105,9 +128,32 @@ const onClose = (type?:'info'|'warning'|'correct'|'blocked'|'error')=>{
         }
         instance = message({
             status: type,
-            message: `close ${type} message bar`,
+            message: `close ${type} message bar `,
             autoClose: 0,
-            theme: theme.value
+            theme: theme.value,
+            showControl: true,
+            confirm:()=>{
+                if (instance!==undefined){
+                    instance.close()
+                }
+                instance = message({
+                    status:"correct",
+                    message:"Confirm",
+                    theme: theme.value,
+                    autoClose: 0
+                })
+            },
+            cancel:()=>{
+                if (instance!==undefined){
+                    instance.close()
+                }
+                instance = message({
+                    status:"blocked",
+                    message:"Cancel",
+                    theme: theme.value,
+                    autoClose: 0
+                })
+            }
         })
     }
 }
@@ -120,11 +166,34 @@ const onClose = (type?:'info'|'warning'|'correct'|'blocked'|'error')=>{
 export default{
     methods:{
         message(){
-            this.$barWarning({
+            this.instance = this.$barWarning({
                 status: this.type,
                 message: `close ${this.type} message bar`,
                 autoClose: 0,
-                theme: this.theme.value
+                theme: this.theme.value,
+                showControl: true,
+                confirm:()=>{
+                    if (this.instance!==undefined){
+                        this.instance.close()
+                    }
+                    this.instance = this.$barWarning({
+                        status:"correct",
+                        message:"Confirm",
+                        theme: this.theme.value,
+                        autoClose: 0
+                    })
+                },
+                cancel:()=>{
+                    if (this.instance!==undefined){
+                        this.instance.close()
+                    }
+                    this.instance = this.$barWarning({
+                        status:"blocked",
+                        message:"Cancel",
+                        theme: this.theme.value,
+                        autoClose: 0
+                    })
+                }
             })
         }
     }

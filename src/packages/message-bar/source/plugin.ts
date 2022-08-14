@@ -5,9 +5,15 @@ import MessageBar from './index.vue';
 export type MessageOptions = {
     icon?: string;
     message?: string | VNode;
+    control?: string | VNode;
     status?: 'info' | 'warning' | 'correct' | 'blocked' | 'error';
     autoClose?: number;
     theme?: string;
+    showControl?: boolean,
+    confirmText?: string,
+    cancelText?: string,
+    confirm?: Function,
+    cancel?: Function
 };
 
 export interface MessageBarParams {
@@ -33,12 +39,12 @@ export function createMessageBar(
     container.classList.add('fv-message-bar--container');
     document.body.appendChild(container);
     let timer: NodeJS.Timeout;
-    let onRender:Function;
+    let onRender: Function;
     const destory = () => {
         if (timer !== undefined) clearTimeout(timer);
-        render(onRender(false,args.context), container);
+        render(onRender(false, args.context), container);
     };
-    onRender = (show:boolean=false,context:AppContext)=>{
+    onRender = (show: boolean = false, context: AppContext) => {
         const vnode = h(
             Transition,
             {
@@ -49,28 +55,35 @@ export function createMessageBar(
                 },
             },
             [
-                show?
-                h(
-                    MessageBar,
-                    {
-                        icon: options.icon,
-                        status: options.status,
-                        theme: options.theme,
-                        onClose: destory,
-                    },
-                    {
-                        default: () => options.message,
-                    }
-                ):undefined,
+                show
+                    ? h(
+                          MessageBar,
+                          {
+                              icon: options.icon,
+                              status: options.status,
+                              theme: options.theme,
+                              showControl: options.showControl,
+                              cancelText: options.cancelText,
+                              confirmText: options.confirmText,
+                              onClose: destory,
+                              onConfirm: options.confirm,
+                              onCancel: options.cancel,
+                          },
+                          {
+                              default: () => options.message,
+                              control: () => options.control
+                          }
+                      )
+                    : undefined,
             ]
         );
         if (context !== undefined) {
             vnode.appContext = context;
         }
         return vnode;
-    }
-    render(onRender(false,args.context), container);
-    render(onRender(true,args.context), container);
+    };
+    render(onRender(false, args.context), container);
+    render(onRender(true, args.context), container);
     if (options.autoClose !== undefined && options.autoClose > 0) {
         timer = setTimeout(() => {
             destory();

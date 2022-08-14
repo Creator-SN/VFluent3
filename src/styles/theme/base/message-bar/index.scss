@@ -12,6 +12,11 @@
         .icon {
             margin-right: 5px;
         }
+        .text{
+            &.close{
+               margin-right: 26px;
+            }
+        }
         .close-icon {
             position: absolute;
             top: 0px;
@@ -24,6 +29,24 @@
             &:active {
                 transition: transform 0.2s cubic-bezier(0, 0, 0.95, 1.63);
                 transform: scale(0.8);
+            }
+        }
+    }
+
+    .control{
+        margin-top: 10px;
+        .right-panel{
+            display: flex;
+            justify-content: flex-end;
+            .button{
+                margin: 0 5px;
+                transition: transform 0.3s cubic-bezier(0, 0, 0.95, 1.63);
+                &:hover{
+                    transform: scale(1.05);
+                }
+                &:active{
+                    transform: scale(0.9);
+                }
             }
         }
     }

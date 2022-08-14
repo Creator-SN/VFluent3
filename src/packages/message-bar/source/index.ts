@@ -6,7 +6,7 @@ import { EmitFn } from '@/types/components';
 export const messageBarProps = {
     ...commonProps,
     icon: {
-        type: [String],
+        type: [String]
     },
     showClose: {
         type: [Boolean],
@@ -16,6 +16,17 @@ export const messageBarProps = {
         type: [String],
         default: 'info',
     },
+    showControl:{
+        type: [Boolean],
+    },
+    confirmText:{
+        type: [String],
+        default: "Confirm"
+    },
+    cancelText:{
+        type:[String],
+        default: "Cancel"
+    }
 };
 
 export type MessageBarProps = ExtractPropTypes<typeof messageBarProps>;
@@ -24,6 +35,12 @@ export const messageBarEmits = {
     close: () => {
         return true;
     },
+    confirm: ()=>{
+        return true;
+    },
+    cancel:()=>{
+        return true;
+    }
 };
 
 export type MessageBarEmits = typeof messageBarEmits;
@@ -54,7 +71,15 @@ export const useMessageBar = (
     const onClose = () => {
         emits('close');
     };
+    const onConfirm = ()=>{
+        emits("confirm")
+    }
+    const onCancel = ()=>{
+        emits("cancel")
+    }
     return {
+        onConfirm,
+        onCancel,
         onClose,
         computedIcon,
     };
