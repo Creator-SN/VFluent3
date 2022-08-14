@@ -1,5 +1,5 @@
-import { VNode, ref, Plugin, App, AppContext, InjectionKey } from 'vue';
-import { render, h, Transition } from 'vue';
+import type { VNode, ref, Plugin, App, AppContext, InjectionKey } from 'vue';
+import { withDirectives, render, h, Transition, vShow, cloneVNode } from 'vue';
 import MessageBar from './index.vue';
 
 export type MessageOptions = {
@@ -33,55 +33,44 @@ export function createMessageBar(
     container.classList.add('fv-message-bar--container');
     document.body.appendChild(container);
     let timer: NodeJS.Timeout;
-    let vnode: VNode;
+    let onRender:Function;
     const destory = () => {
         if (timer !== undefined) clearTimeout(timer);
-        vnode = h(Transition, {
-            name: 'fv-message-bar-fade-in',
-        });
-        if (args.context !== undefined) {
-            vnode.appContext = args.context;
-        }
-        render(vnode, container);
+        render(onRender(false,args.context), container);
     };
-    vnode = h(
-        Transition,
-        {
-            name: 'fv-message-bar-fade-in',
-        }
-    );
-    if (args.context !== undefined) {
-        vnode.appContext = args.context;
-    }
-    render(vnode, container);
-    vnode = h(
-        Transition,
-        {
-            name: 'fv-message-bar-fade-in',
-            onAfterLeave: () => {
-                render(null, container);
-                container.remove();    
-            },
-        },
-        [
-            h(
-                MessageBar,
-                {
-                    icon: options.icon,
-                    status: options.status,
-                    theme: options.theme,
-                    onClose: destory,
+    onRender = (show:boolean=false,context:AppContext)=>{
+        const vnode = h(
+            Transition,
+            {
+                name: 'fv-message-bar-fade-in',
+                onAfterLeave: () => {
+                    render(null, container);
+                    container.remove();
                 },
-                {
-                    default: () => options.message,
-                }
-            ),
-        ]
-    )
-    if (args.context !== undefined) {
-        vnode.appContext = args.context;
+            },
+            [
+                show?
+                h(
+                    MessageBar,
+                    {
+                        icon: options.icon,
+                        status: options.status,
+                        theme: options.theme,
+                        onClose: destory,
+                    },
+                    {
+                        default: () => options.message,
+                    }
+                ):undefined,
+            ]
+        );
+        if (context !== undefined) {
+            vnode.appContext = context;
+        }
+        return vnode;
     }
-    render(vnode, container);
+    render(onRender(false,args.context), container);
+    render(onRender(true,args.context), container);
     if (options.autoClose !== undefined && options.autoClose > 0) {
         timer = setTimeout(() => {
             destory();
