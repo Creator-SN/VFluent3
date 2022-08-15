@@ -1,5 +1,6 @@
 :root {
     /* light */
+    --fv-light-bgcolor-3: rgba(245, 245, 245, 1);
     --fv-light-bgcolor2: rgba(204, 204, 204, 1);
     --fv-light-bgcolor: rgba(237, 235, 233, 1);
     --fv-light-hover-bgcolor: rgba(237, 235, 233, 0.8);
@@ -7,8 +8,11 @@
     --fv-light-disabled-bgcolor: rgba(239, 239, 239, 0.5);
     --fv-light-disabled-color: rgba(220, 220, 220, 1);
     --fv-light-border-color: rgb(63, 63, 63, 1);
+    --fv-light-border-color-2: rgba(224, 224, 224, 1);
     /* dark */
     --fv-dark-bgcolor: rgba(96, 94, 92, 1);
+    --fv-dark-bgcolor-2: rgba(32, 32, 32, 1);
+    --fv-dark-bgcolor-3: rgba(39, 40, 40,1);
     --fv-dark-hover-bgcolor: rgba(96, 94, 92, 0.8);
     --fv-dark-color: rgba(255, 255, 255, 1);
     --fv-dark-disabled-bgcolor: rgba(62, 63, 66, 0.5);
@@ -22,8 +26,8 @@
     --fv-success-bgcolor: 95, 210, 85;
     /* color */
     --fv-primary-color: 0, 90, 158;
-    --fv-warning-color: 173, 38, 45;
-    --fv-error-color: 164, 38 , 45;
+    --fv-warning-color: 239, 201, 65;
+    --fv-error-color: 164, 38, 45;
     --fv-info-color: 50, 49, 48;
     --fv-success-color: 0, 204, 153;
 }

@@ -1,78 +1,90 @@
 import { isNumber, isObject } from '@/utils/common';
 import type { VNode, ref, Plugin, App, AppContext, InjectionKey } from 'vue';
-import { withDirectives, render, h, Transition, vShow, cloneVNode } from 'vue';
-import MessageBar from './index.vue';
+import { withDirectives, render, h, Transition } from 'vue';
+import InfoBox from './index.vue';
 
-export type MessageOptions = {
+export type InfoOptions = {
     icon?: string;
     message?: string | VNode;
     control?: string | VNode;
+    title?: string;
     status?: 'info' | 'warning' | 'correct' | 'blocked' | 'error';
-    autoClose?: number;
     theme?: string;
-    showControl?: boolean;
     confirmTitle?: string;
     cancelTitle?: string;
     confirm?: Function;
     cancel?: Function;
 };
 
-export interface MessageBarParams {
+export interface InfoBoxParams {
     close: () => void;
 }
 
-type Container = {
-    value?: HTMLElement;
-};
 
-export type MessageArgs = {
+export type InfoArgs = {
     context?: AppContext;
 };
 
-export function createMessageBar(
-    options: MessageOptions = {},
-    args: MessageArgs = {}
-): MessageBarParams {
+export function createInfoBox(
+    options: InfoOptions = {},
+    args: InfoArgs = {}
+): InfoBoxParams {
     const defaultOptions = {
         status: 'info',
-        autoClose: 3000,
+        theme: 'light'
     };
     if (isObject(options)) {
-        options = Object.assign(defaultOptions,options);
+        options = Object.assign(defaultOptions, options);
     }
     const container = document.createElement('div');
-    container.classList.add('fv-message-bar--container');
+    container.classList.add('fv-info-box--container');
+    if (options.theme!==undefined)
+        container.classList.add(options.theme)
+    const scrollFunc = (e:Event)=>e.preventDefault();
+    container.addEventListener("touchmove",scrollFunc)
+    container.addEventListener("scroll",scrollFunc)
+    document.body.classList.add("fv-info-box-mask")
     document.body.appendChild(container);
-    let timer: NodeJS.Timeout;
     let onRender: Function;
     const destory = () => {
-        if (timer !== undefined) clearTimeout(timer);
         render(onRender(false, args.context), container);
     };
     onRender = (show: boolean = false, context: AppContext) => {
         const vnode = h(
             Transition,
             {
-                name: 'fv-message-bar-fade-in',
+                name: 'fv-info-box-fade-in',
                 onAfterLeave: () => {
                     render(null, container);
+                    container.removeEventListener("touchmove",scrollFunc)
+                    container.removeEventListener("scroll",scrollFunc)
+                    document.body.classList.remove("fv-info-box-mask")
                     container.remove();
                 },
             },
             [
                 show
                     ? h(
-                          MessageBar,
+                          InfoBox,
                           {
+                              title: options.title,
                               icon: options.icon,
                               status: options.status,
                               theme: options.theme,
-                              showControl: options.showControl,
                               cancelText: options.cancelTitle,
                               confirmText: options.confirmTitle,
-                              onClose: destory,
-                              onConfirm: options.confirm,
-                              onCancel: options.cancel,
+                              onConfirm: () => {
+                                  if (options.confirm !== undefined) {
+                                      options.confirm();
+                                  }
+                                  destory();
+                              },
+                              onCancel: () => {
+                                  if (options.cancel !== undefined) {
+                                      options.cancel();
+                                  }
+                                  destory();
+                              },
                           },
                           {
                               default: () => options.message,
@@ -89,31 +101,25 @@ export function createMessageBar(
     };
     render(onRender(false, args.context), container);
     render(onRender(true, args.context), container);
-    if (isNumber(options.autoClose) && options.autoClose > 0) {
-        timer = setTimeout(() => {
-            destory();
-        }, options.autoClose);
-    }
-
     return {
         close: destory,
     };
 }
 
-export type MessageBarMethod = (options: MessageOptions) => MessageBarParams;
+export type InfoBoxMethod = (options: InfoOptions) => InfoBoxParams;
 
-export const MessageBarKey: InjectionKey<MessageBarMethod> =
-    Symbol('$barWarning');
+export const InfoBoxKey: InjectionKey<InfoBoxMethod> =
+    Symbol('$infoBox');
 
-export const messageBarPlugin: Plugin = {
+export const infoBoxPlugin: Plugin = {
     install(app: App) {
-        const method = (options: MessageOptions) => {
-            const instance = createMessageBar(options, {
+        const method = (options: InfoOptions) => {
+            const instance = createInfoBox(options, {
                 context: app._context,
-            });
+            });     
             return instance;
         };
-        app.config.globalProperties.$barWarning = method;
-        app.provide<MessageBarMethod>(MessageBarKey, method);
+        app.config.globalProperties.$infoBox = method;
+        app.provide<InfoBoxMethod>(InfoBoxKey, method);
     },
 };

@@ -1,0 +1,104 @@
+.fv-info-box {
+    overflow: hidden;
+    position: relative;
+    width: 300px;
+    height: 215px;
+    border-radius: 6px;
+    padding-bottom: 50px;
+    box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.2);
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    .title-bar {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        box-sizing: border-box;
+        .icon {
+            margin-right: 5px;
+        }
+        .text {
+            font-weight: bold;
+        }
+    }
+    .content {
+        width: 100%;
+        height: calc(100% - 76px);
+        display: flex;
+        align-items: center;
+        padding: 20px;
+    }
+    .control-panel {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-width: 1px;
+        border-top-style: solid;
+        box-sizing: border-box;
+        .button {
+            height: 50%;
+            width: calc(50% - 18px);
+            margin: 6px;
+            transition: transform 0.3s cubic-bezier(0, 0, 0.95, 1.63);
+            &:hover {
+                opacity: 0.8;
+            }
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+    }
+
+    &.fv-info-box-fade-in-enter-active{
+        transition: all 0.3s cubic-bezier(0, .6, 0.48, 1.15) !important;
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    &.fv-info-box-fade-in-enter-to{
+        transform: scale(1);
+        opacity: 1;
+    }
+    &.fv-info-box-fade-in-leave-active{
+        transition: all .3s cubic-bezier(0, .6, 0.48, 1.15) !important;
+        transform: scale(1);
+        opacity: 1;
+    }
+    &.fv-info-box-fade-in-leave-to{
+        transform: scale(0.8);
+        opacity: 0;
+    }
+}
+
+.fv-info-box--container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    &.light {
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+    &.dark {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+}
+
+body{
+    &.fv-info-box-mask{
+        overflow: hidden !important;
+        height: 100% i!important;
+    }
+}

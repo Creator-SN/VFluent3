@@ -3,8 +3,8 @@
 ---         
 | Property | Type | Required | Default | Statement |
 |:---:|:---:|:---:|:---:|:---:|
-| cancel-text | [string] | No | 'Cancel' | cancel text |
-| confirm-text | [string] | No | 'Confirm' | confirm text |
+| cancel-title | [string] | No | 'Cancel' |  |
+| confirm-title | [string] | No | 'Confirm' |  |
 | disabled | [boolean] | No | false | disabled |
 | icon | [string] | No | undefined | icon |
 | lang | [string] | No | 'global' | i18n |

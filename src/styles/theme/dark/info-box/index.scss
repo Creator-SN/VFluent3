@@ -1,0 +1,68 @@
+.fv-info-box{
+    &.dark{   
+        transition: border-color .3s linear;
+        transition-delay: .3s;
+        border-color: var(--fv-dark-bgcolor-2);
+        .title-bar {
+            background: var(--fv-dark-bgcolor-2);
+            border-bottom-color: var(--fv-dark-bgcolor-2);
+        }
+        .control-panel {
+            background: var(--fv-dark-bgcolor-2);
+            border-top-color: var(--fv-dark-bgcolor-2);
+        }
+        .content{
+            background: var(--fv-dark-bgcolor-3);
+        }
+        &.info {        
+            &:hover {
+                border-color: rgba(var(--fv-primary-color), 1);
+            }
+            .title-bar {
+                .icon {
+                    color: rgba(var(--fv-primary-color), 1);
+                }
+            }   
+        }
+        &.correct{
+            &:hover {
+                border-color: rgba(var(--fv-success-color), 1);
+            }
+            .title-bar {
+                .icon {
+                    color: rgba(var(--fv-success-color), 1);
+                }
+            }
+        }
+        &.error{
+            &:hover {
+                border-color: rgba(var(--fv-error-color), 1);
+            }
+            .title-bar {
+                .icon {
+                    color: rgba(var(--fv-error-color), 1);
+                }
+            }
+        }
+        &.warning{
+            &:hover {
+                border-color: rgba(var(--fv-warning-color), 1);
+            }
+            .title-bar {
+                .icon {
+                    color: rgba(var(--fv-warning-color), 1);
+                }
+            }
+        }
+        &.blocked{
+            &:hover {
+                border-color: rgba(var(--fv-error-color), 1);
+            }
+            .title-bar {
+                .icon {
+                    color: rgba(var(--fv-error-color), 1);
+                }
+            }
+        }
+    }
+}

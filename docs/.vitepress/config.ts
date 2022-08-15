@@ -64,6 +64,10 @@ export default defineConfig({
                         text: 'MessageBar',
                         link: '/guide/components/message-bar/',
                     },
+                    {
+                        text:"InfoBox",
+                        link: '/guide/components/info-box/'
+                    }
                 ],
             },
         ],

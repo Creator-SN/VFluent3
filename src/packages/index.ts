@@ -3,6 +3,7 @@ import '@/libs/office-ui-fabric-core/css/fabric.min.css';
 export * from "./button"
 export * from "./check-box"
 export * from "./img"
+export * from "./info-box"
 export * from "./message-bar"
 export * from "./progress-bar"
 export * from "./progress-ring"
@@ -17,6 +18,7 @@ import { createPinia } from 'pinia';
 import Button from "./button"
 import CheckBox from "./check-box"
 import Img from "./img"
+import InfoBox from "./info-box"
 import MessageBar from "./message-bar"
 import ProgressBar from "./progress-bar"
 import ProgressRing from "./progress-ring"
@@ -27,6 +29,7 @@ const components = [
     Button,
     CheckBox,
     Img,
+    InfoBox,
     MessageBar,
     ProgressBar,
     ProgressRing,

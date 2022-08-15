@@ -19,11 +19,11 @@ export const messageBarProps = {
     showControl:{
         type: [Boolean],
     },
-    confirmText:{
+    confirmTitle:{
         type: [String],
         default: "Confirm"
     },
-    cancelText:{
+    cancelTitle:{
         type:[String],
         default: "Cancel"
     }

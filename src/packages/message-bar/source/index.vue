@@ -46,8 +46,8 @@ const { cls: computedTextClass } = new ClassBuilder()
         <div class="control" v-if="showControl">
             <slot name="control">
                 <div class="right-panel">
-                    <fv-button @click="onConfirm" background="transparent" is-box-shadow :theme="theme" class="button">{{props.confirmText}}</fv-button>
-                    <fv-button @click="onCancel" background="transparent" is-box-shadow :theme="theme" class="button">{{props.cancelText}}</fv-button>
+                    <fv-button @click.native.stop="onConfirm" background="transparent" is-box-shadow :theme="theme" class="button">{{props.confirmTitle}}</fv-button>
+                    <fv-button @click.native.stop="onCancel" background="transparent" is-box-shadow :theme="theme" class="button">{{props.cancelTitle}}</fv-button>
                 </div>
             </slot>
         </div>
