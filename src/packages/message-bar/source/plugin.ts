@@ -1,3 +1,4 @@
+import { isNumber, isObject } from '@/utils/common';
 import type { VNode, ref, Plugin, App, AppContext, InjectionKey } from 'vue';
 import { withDirectives, render, h, Transition, vShow, cloneVNode } from 'vue';
 import MessageBar from './index.vue';
@@ -9,11 +10,11 @@ export type MessageOptions = {
     status?: 'info' | 'warning' | 'correct' | 'blocked' | 'error';
     autoClose?: number;
     theme?: string;
-    showControl?: boolean,
-    confirmText?: string,
-    cancelText?: string,
-    confirm?: Function,
-    cancel?: Function
+    showControl?: boolean;
+    confirmText?: string;
+    cancelText?: string;
+    confirm?: Function;
+    cancel?: Function;
 };
 
 export interface MessageBarParams {
@@ -29,12 +30,16 @@ export type MessageArgs = {
 };
 
 export function createMessageBar(
-    options: MessageOptions = {
-        status: 'info',
-        autoClose: 1000,
-    },
+    options: MessageOptions = {},
     args: MessageArgs = {}
 ): MessageBarParams {
+    const defaultOptions = {
+        status: 'info',
+        autoClose: 3000,
+    };
+    if (isObject(options)) {
+        options = Object.assign(defaultOptions,options);
+    }
     const container = document.createElement('div');
     container.classList.add('fv-message-bar--container');
     document.body.appendChild(container);
@@ -71,7 +76,7 @@ export function createMessageBar(
                           },
                           {
                               default: () => options.message,
-                              control: () => options.control
+                              control: () => options.control,
                           }
                       )
                     : undefined,
@@ -84,7 +89,7 @@ export function createMessageBar(
     };
     render(onRender(false, args.context), container);
     render(onRender(true, args.context), container);
-    if (options.autoClose !== undefined && options.autoClose > 0) {
+    if (isNumber(options.autoClose) && options.autoClose > 0) {
         timer = setTimeout(() => {
             destory();
         }, options.autoClose);
