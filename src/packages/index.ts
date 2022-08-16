@@ -8,6 +8,7 @@ export * from "./message-bar"
 export * from "./progress-bar"
 export * from "./progress-ring"
 export * from "./radio"
+export * from "./text-box"
 export * from "./toggle-switch"
 
 import '@/styles/theme/index.scss';
@@ -23,6 +24,7 @@ import MessageBar from "./message-bar"
 import ProgressBar from "./progress-bar"
 import ProgressRing from "./progress-ring"
 import Radio from "./radio"
+import TextBox from "./text-box"
 import ToggleSwitch from "./toggle-switch"
 
 const components = [
@@ -34,6 +36,7 @@ const components = [
     ProgressBar,
     ProgressRing,
     Radio,
+    TextBox,
     ToggleSwitch
 ];
 

@@ -1,0 +1,26 @@
+.fv-text-box {
+    &.light {
+        background: var(--fv-light-bgcolor-4);
+        border-top-color: var(--fv-light-bgcolor);
+        border-left-color: var(--fv-light-bgcolor);
+        border-right-color: var(--fv-light-bgcolor);
+        border-bottom-color: var(--fv-light-border-color);
+        .input {
+            background: none;
+        }
+        &:hover {
+            border-bottom-color: rgba(var(--fv-primary-color), 0.8);
+            border-bottom-width: 2px;
+        }
+        &:focus-within {
+            background: var(--fv-dark-color);
+            border-bottom-color: rgba(var(--fv-primary-color), 0.8);
+            border-bottom-width: 2px;
+        }
+        &.disabled {
+            border-bottom-color: var(--fv-light-bgcolor);
+            border-bottom-width: 1px;
+            opacity: 0.8;
+        }
+    }
+}

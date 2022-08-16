@@ -47,7 +47,7 @@ const { style: computedTextStyle } = new StyleBuilder()
                 <slot>
                 </slot>
             </span>
-            <input @change="onChange(computedValue)" @focus="onFocus" @blur="onBlur" :disabled="props.disabled" type="radio"
+            <input :checked="computedChecked" @change="onChange(computedValue)" @focus="onFocus" @blur="onBlur" :disabled="props.disabled" type="radio"
                 class="radio" :value="props.label" :name="props.group" v-model="computedValue" />
             <div class="icon" :style="computedIconStyle">
                 <div v-show="computedChecked" :class="computeIconClass" />

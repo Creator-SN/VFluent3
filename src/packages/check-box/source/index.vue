@@ -48,7 +48,7 @@ const { style: computedTextStyle } = new StyleBuilder()
                 <slot>
                 </slot>
             </span>
-            <input @change="onChange(computedChecked)" @focus="onFocus" @blur="onBlur" :disabled="props.disabled" type="checkbox"
+            <input :checked="computedChecked"  @change="onChange(computedChecked)" @focus="onFocus" @blur="onBlur" :disabled="props.disabled" type="checkbox"
                 class="checkbox" v-model="computedChecked" />
             <div class="icon" :style="computedIconStyle">
                 <transition name="font-clip-in">

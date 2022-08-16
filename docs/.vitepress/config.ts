@@ -54,6 +54,10 @@ export default defineConfig({
                         text: 'Img',
                         link: '/guide/components/img/',
                     },
+                    {
+                        text:"TextBox",
+                        link: "/guide/components/text-box/"
+                    }
                 ],
             },
             {

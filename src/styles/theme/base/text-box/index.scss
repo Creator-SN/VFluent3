@@ -1,0 +1,52 @@
+.fv-text-box {
+    --fv-text-box-height: 30px;
+    --fv-text-box-font-size: 16px;
+    --fv-text-box-min-width: 80px;
+    --fv-text-box-max-width: 100%;
+    --fv-text-box-width: 80px;
+    display: inline-flex;
+    // align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: height 0.3s cubic-bezier(0.56, 1.09, 1, 1.28);
+    height: var(--fv-text-box-height);
+    overflow: hidden;
+    .wrapper {
+        transition: none;
+        height: calc(var(--fv-text-box-height) - 10px);
+    }
+    .input {
+        min-width: var(--fv-text-box-min-width);
+        max-width: var(--fv-text-box-max-width);
+        width: var(--fv-text-box-width);
+        display: inline-block;
+        font-size: var(--fv-text-box-font-size);
+        line-height: 130%;
+        resize: none;
+        overflow: hidden;
+        transition: none;
+    }
+    .pre-hidden {
+        position: absolute;
+        top: 0;
+        left: 0;
+        visibility: hidden;
+        font-size: var(--fv-text-box-font-size);
+        margin:0;
+        padding: 0;
+        line-height: 130%;
+    }
+    &.readonly{
+        cursor: default;
+        .input{
+            cursor: default;
+        }
+    }
+    &.disabled{
+        pointer-events: none;
+    }
+}
