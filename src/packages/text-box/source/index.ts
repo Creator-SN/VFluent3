@@ -1,5 +1,12 @@
 import { commonProps } from '@/packages/common/props';
-import { computed, ExtractPropTypes, ref, watch, nextTick } from 'vue';
+import {
+    computed,
+    ExtractPropTypes,
+    ref,
+    watch,
+    nextTick,
+    onMounted,
+} from 'vue';
 import { EmitFn } from '@/types/components';
 import { isNumber } from '@/utils/common';
 
@@ -91,7 +98,6 @@ export const useTextBox = (
     const computedValue = computed<string>({
         get() {
             // if cols > size:
-
             if (props.modelValue === undefined) {
                 return value.value;
             }
@@ -110,14 +116,26 @@ export const useTextBox = (
     });
     const inputHeight = ref<number>(30);
     const inputWidth = ref<number>(80);
-    watch(computedValue, () => {
+    const showPassword = ref<boolean>(false);
+    function refreshWidthAndHeight(count: number = 1) {
+        --count;
+        if (count < 0) {
+            return;
+        }
         nextTick(() => {
             if (pre.value !== undefined) {
                 const { width, height } = pre.value.getBoundingClientRect();
                 inputWidth.value = Math.ceil(width);
-                inputHeight.value = Math.max(Math.ceil(height) + 12, 30);
+                inputHeight.value = Math.ceil(height);
+                refreshWidthAndHeight(count);
             }
         });
+    }
+    watch([computedValue], () => {
+        refreshWidthAndHeight(3);
+    });
+    onMounted(() => {
+        refreshWidthAndHeight(1);
     });
     const onChange = (val: string) => {
         emits('change', val);
@@ -133,6 +151,16 @@ export const useTextBox = (
             input.value.focus();
         }
     };
+    const clear = () => {
+        computedValue.value = '';
+    };
+    const onClickIcon = () => {
+        if (props.password === true) {
+            showPassword.value = !showPassword.value;
+        } else {
+            clear();
+        }
+    };
     const onKeydown = (val: string) => {
         emits('keydown', val);
     };
@@ -143,13 +171,16 @@ export const useTextBox = (
         emits('keypress', val);
     };
     return {
+        showPassword,
         focus,
+        clear,
         input,
         pre,
         inputHeight,
         inputWidth,
         computedType,
         computedValue,
+        onClickIcon,
         onChange,
         onBlur,
         onFocus,

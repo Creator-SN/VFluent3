@@ -5,48 +5,70 @@
     --fv-text-box-max-width: 100%;
     --fv-text-box-width: 80px;
     display: inline-flex;
-    // align-items: flex-start;
     justify-content: center;
     position: relative;
     border-style: solid;
     border-width: 1px;
     padding: 5px 10px;
     border-radius: 6px;
-    transition: height 0.3s cubic-bezier(0.56, 1.09, 1, 1.28);
-    height: var(--fv-text-box-height);
+    transition: height 0.3s cubic-bezier(0.56, 1.09, 1, 1.28), width 0.3s cubic-bezier(0.56, 1.09, 1, 1.28);
+    height: calc(var(--fv-text-box-height) + 14px);
     overflow: hidden;
-    .wrapper {
-        transition: none;
-        height: calc(var(--fv-text-box-height) - 10px);
+    box-sizing: border-box;
+    .icon {
+        display: none;
+    }
+    &:focus-within {
+        .icon {
+            cursor: pointer;
+            display: initial;
+            transition: all 0.3s cubic-bezier(0.56, 1.09, 1, 1.28);
+            &:hover {
+                transform: scale(1.1);
+            }
+            &:active {
+                transform: scale(0.8);
+            }
+        }
     }
     .input {
-        min-width: var(--fv-text-box-min-width);
-        max-width: var(--fv-text-box-max-width);
+        border-radius: 0;
+        outline: none;
+        min-width: calc(var(--fv-text-box-min-width) - 20px);
+        max-width: 100%;
         width: var(--fv-text-box-width);
         display: inline-block;
         font-size: var(--fv-text-box-font-size);
         line-height: 130%;
         resize: none;
         overflow: hidden;
+        box-sizing: border-box;
         transition: none;
+        &::-ms-reveal,
+        &::-ms-clear {
+            display: none;
+        }
     }
     .pre-hidden {
         position: absolute;
         top: 0;
         left: 0;
         visibility: hidden;
+        min-width: calc(var(--fv-text-box-min-width) - 20px);
+        max-width: 100%;
         font-size: var(--fv-text-box-font-size);
-        margin:0;
+        margin: 0;
         padding: 0;
         line-height: 130%;
+        box-sizing: border-box;
     }
-    &.readonly{
+    &.readonly {
         cursor: default;
-        .input{
+        .input {
             cursor: default;
         }
     }
-    &.disabled{
+    &.disabled {
         pointer-events: none;
     }
 }

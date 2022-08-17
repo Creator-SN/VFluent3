@@ -76,7 +76,7 @@ function blur(val:string){
 ---
 
 <div>
-Input single line:  <fv-text-box :theme="theme" @focus="focus" @change="change" @blur="blur" :maxlength="10"/>
+Input single line:  <fv-text-box :theme="theme" @focus="focus" @change="change" @blur="blur" :maxlength="30"/>
 </div>
 
 ```vue-html{2-6}
@@ -85,7 +85,7 @@ Input single line:  <fv-text-box :theme="theme" @focus="focus" @change="change" 
         @focus="focus" 
         @change="change" 
         @blur="blur"
-        :maxlength="10"
+        :maxlength="30"
     >
     </fv-text-box>
 ```
