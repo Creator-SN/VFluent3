@@ -12,7 +12,7 @@
     padding: 5px 10px;
     border-radius: 6px;
     transition: height 0.3s cubic-bezier(0.56, 1.09, 1, 1.28), width 0.3s cubic-bezier(0.56, 1.09, 1, 1.28);
-    height: calc(var(--fv-text-box-height) + 14px);
+    height: calc(var(--fv-text-box-height) + 15px);
     overflow: hidden;
     box-sizing: border-box;
     .icon {

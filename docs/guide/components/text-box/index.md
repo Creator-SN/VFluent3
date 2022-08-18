@@ -64,6 +64,14 @@ function blur(val:string){
     console.log("blur",val)
 }
 
+function errorInput(val:string){
+    console.error("your error input",val);
+}
+
+function warningInput(val:string){
+    console.warn("your warning input",val);
+}
+
 
 </script>
 
@@ -76,30 +84,41 @@ function blur(val:string){
 ---
 
 <div>
-Input single line:  <fv-text-box :theme="theme" @focus="focus" @change="change" @blur="blur" :maxlength="30"/>
+Input single line:  <fv-text-box :input-rules="/^[0-9]*$/" :pattern="/^1234/" :theme="theme" @focus="focus" @change="change" @blur="blur" :maxlength="30" hover-border-color="rgba(0, 204, 153, 1)" @error-input="errorInput"
+@warning-input="warningInput"/>
 </div>
 
-```vue-html{2-6}
+```vue-html{2-9}
     <fv-text-box 
+        :input-rules="/^[0-9]*$/"
+        :pattern="/^1234/"
         :theme="theme" 
         @focus="focus" 
         @change="change" 
         @blur="blur"
         :maxlength="30"
+        hover-border-color="rgba(0, 204, 153, 1)"
+        @error-input="errorInput"
+        @warning-input="warningInput"
     >
     </fv-text-box>
 ```
+
+::: warning Warning
+Only input-rules characters can be entered. If you input other characters, the border color is warning color. If the input does not match the pattern, the border color is error color. Error color will override warning color.
+:::
 
 ### Password
 
 ---
 
 <div>
-Input password:  <fv-text-box :theme="theme" password @focus="focus" @change="change" @blur="blur"/>
+Input password:  <fv-text-box :input-rules="/^[0-9a-zA-Z\-@!]*$/" :theme="theme" password @focus="focus" @change="change" @blur="blur"/>
 </div>
 
 ```vue-html{3}
     <fv-text-box 
+        :input-rules="/^[0-9a-zA-Z\-@!]*$/"
         :theme="theme" 
         password
         @focus="focus" 

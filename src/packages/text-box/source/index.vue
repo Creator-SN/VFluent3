@@ -14,7 +14,7 @@ const props = defineProps(textBoxProps)
 const { theme } = useTheme(props)
 
 const { computedValue, computedType, showPassword, input, pre, inputHeight, inputWidth,
-    onChange, onBlur, onFocus, focus, clear, onKeypress, onKeydown, onKeyup, onClickIcon } = useTextBox(props, emits)
+    onChange, onBlur, onFocus, focus, clear, lockInput, onKeypress, onKeydown, onKeyup, onClickIcon, onInput, status } = useTextBox(props, emits)
 
 const { cls: computedTextBoxClass } = new ClassBuilder()
     .add("fv-text-box")
@@ -22,6 +22,7 @@ const { cls: computedTextBoxClass } = new ClassBuilder()
     .add(`disabled`, () => props.disabled === true)
     .add(`readonly`, () => props.readonly === true)
     .add(`multiline`, () => props.multiline === true)
+    .add(() => status.value)
     .computed()
 
 const { style: computedTextBoxStyle } = new StyleBuilder()
@@ -32,6 +33,9 @@ const { style: computedTextBoxStyle } = new StyleBuilder()
     .add("--fv-text-box-max-width", () => props.maxWidth, () => isString(props.maxWidth))
     .add("--fv-text-box-min-width", () => `${props.minWidth}px`, () => isNumber(props.minWidth))
     .add("--fv-text-box-min-width", () => props.minWidth, () => isString(props.minWidth))
+    .add("--fv-text-box-hover-border-color", () => props.hoverBorderColor, () => isString(props.hoverBorderColor))
+    .add("--fv-text-box-error-border-color", () => props.errorBorderColor, () => isString(props.errorBorderColor))
+    .add("--fv-text-box-warning-border-color", () => props.warningBorderColor, () => isString(props.warningBorderColor))
     .computed()
 
 const { cls: computedTextIconClass } = new ClassBuilder()
@@ -53,17 +57,18 @@ defineExpose({
         <template v-if="computedType === 'text'">
             <input :title="props.title" ref="input" class="input text" :placeholder="props.placeholder"
                 :disabled="props.disabled" :type="props.password ? showPassword ? 'text' : 'password' : 'text'"
-                :readonly="readonly" v-model="computedValue" @change="onChange(computedValue)" :autofocus="autofocus"
-                :size="props.size" :maxlength="props.maxlength" :minlength="props.minlength" @focus="onFocus"
-                @blur="onBlur" @keydown="onKeydown(computedValue)" @keyup="onKeyup(computedValue)"
-                @keypress="onKeypress(computedValue)" />
+                :readonly="readonly === true || lockInput === true" v-model="computedValue"
+                @change="onChange(computedValue)" :autofocus="autofocus" :size="props.size" :maxlength="props.maxlength"
+                :minlength="props.minlength" @focus="onFocus" @keydown="onKeydown(computedValue)"
+                @keyup="onKeyup(computedValue)" @keypress="onKeypress(computedValue)" @input="onInput(computedValue)" />
             <i :class="computedTextIconClass" @click="onClickIcon"></i>
         </template>
         <textarea :title="props.title" ref="input" class="input textarea" :placeholder="props.placeholder"
-            :disabled="props.disabled" :readonly="readonly" :cols="props.size" :maxlength="props.maxlength"
-            :minlength="props.minlength" v-model="computedValue" @change="onChange(computedValue)"
-            @keydown="onKeydown(computedValue)" @keyup="onKeyup(computedValue)" :autofocus="autofocus" @focus="onFocus"
-            @blur="onBlur" @keypress="onKeypress(computedValue)" v-if="computedType === 'textarea'"></textarea>
+            :disabled="props.disabled" :readonly="readonly === true || lockInput === true" :cols="props.size"
+            :maxlength="props.maxlength" :minlength="props.minlength" v-model="computedValue"
+            @change="onChange(computedValue)" @keydown="onKeydown(computedValue)" @keyup="onKeyup(computedValue)"
+            :autofocus="autofocus" @focus="onFocus" @blur="onBlur" @keypress="onKeypress(computedValue)"
+            @input="onInput(computedValue)" v-if="computedType === 'textarea'"></textarea>
         <!-- hidden text compute -->
         <pre ref="pre" class="pre-hidden">{{ computedValue + "0" }}</pre>
     </div>

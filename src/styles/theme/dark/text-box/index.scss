@@ -1,4 +1,7 @@
 .fv-text-box {
+    --fv-text-box-hover-border-color: initial;
+    --fv-text-box-error-border-color: initial;
+    --fv-text-box-warning-border-color: initial;
     &.dark {
         background-color: var(--fv-dark-bgcolor-3);
         border-top-color: var(--fv-dark-bgcolor-3);
@@ -9,18 +12,24 @@
             background: none;
         }
         &:hover {
-            border-bottom-color: rgba(var(--fv-primary-color), 0.8);
+            border-bottom-color: var(--fv-text-box-hover-border-color, rgba(var(--fv-primary-color), 0.8));
             border-bottom-width: 2px;
         }
         &:focus-within {
             background-color: var(--fv-dark-bgcolor-2);
-            border-bottom-color: rgba(var(--fv-primary-color), 0.8);
+            border-bottom-color: var(--fv-text-box-hover-border-color, rgba(var(--fv-primary-color), 0.8));
             border-bottom-width: 2px;
         }
         &.disabled {
             border-bottom-color: var(--fv-dark-bgcolor-3);
             border-bottom-width: 1px;
             opacity: 0.8;
+        }
+        &.warning {
+            border-color: var(--fv-text-box-warning-border-color, rgba(var(--fv-warning-color), 0.8));
+        }
+        &.error {
+            border-color: var(--fv-text-box-error-border-color, rgba(var(--fv-error-color), 0.8));
         }
     }
 }
