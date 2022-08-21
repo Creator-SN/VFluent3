@@ -21,3 +21,6 @@ export function isArray(obj: unknown): obj is Array<any> {
 export function isObject(obj: unknown): obj is object {
     return typeof obj === 'object';
 }
+
+export type ItemOfArray<ArrayType extends readonly unknown[]> = 
+  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;

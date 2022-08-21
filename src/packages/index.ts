@@ -2,6 +2,8 @@ import '@/libs/office-ui-fabric-core/css/fabric.min.css';
 
 export * from "./button"
 export * from "./check-box"
+export * from "./color-picker"
+export * from "./combo-box"
 export * from "./img"
 export * from "./info-box"
 export * from "./message-bar"
@@ -18,6 +20,8 @@ import { createPinia } from 'pinia';
 
 import Button from "./button"
 import CheckBox from "./check-box"
+import ColorPicker from "./color-picker"
+import ComboBox from "./combo-box"
 import Img from "./img"
 import InfoBox from "./info-box"
 import MessageBar from "./message-bar"
@@ -30,6 +34,8 @@ import ToggleSwitch from "./toggle-switch"
 const components = [
     Button,
     CheckBox,
+    ColorPicker,
+    ComboBox,
     Img,
     InfoBox,
     MessageBar,

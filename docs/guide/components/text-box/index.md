@@ -108,18 +108,45 @@ Input single line:  <fv-text-box :input-rules="/^[0-9]*$/" :pattern="/^1234/" :t
 Only input-rules characters can be entered. If you input other characters, the border color is warning color. If the input does not match the pattern, the border color is error color. Error color will override warning color.
 :::
 
+### Width
+
+Input single line:  
+
+<div>
+<fv-text-box :input-rules="/^[0-9\.]*$/" min-width="100%" style="width:50%;" :theme="theme" @focus="focus" @change="change" @blur="blur" placeholder="Input numbers" hover-border-color="rgba(0, 204, 153, 1)" @error-input="errorInput"
+@warning-input="warningInput"/>
+</div>
+
+```vue-html{3}
+    <fv-text-box 
+        :input-rules="/^[0-9\.]*$/" 
+        style="width:50%;" 
+        :theme="theme" 
+        @focus="focus" 
+        @change="change" 
+        @blur="blur" 
+        placeholder="Input numbers" 
+        hover-border-color="rgba(0, 204, 153, 1)" 
+        @error-input="errorInput"
+        @warning-input="warningInput"
+    />
+```
+
+
 ### Password
 
 ---
 
 <div>
-Input password:  <fv-text-box :input-rules="/^[0-9a-zA-Z\-@!]*$/" :theme="theme" password @focus="focus" @change="change" @blur="blur"/>
+Input password:  <fv-text-box :input-rules="/^[0-9a-zA-Z\-@!]*$/" style="min-width:200px;" placeholder="Input your password" :theme="theme" password @focus="focus" @change="change" @blur="blur"/>
 </div>
 
-```vue-html{3}
+```vue-html{3-6}
     <fv-text-box 
-        :input-rules="/^[0-9a-zA-Z\-@!]*$/"
         :theme="theme" 
+        placeholder="Input your password"
+        style="min-width:200px;"
+        :input-rules="/^[0-9a-zA-Z\-@!]*$/"
         password
         @focus="focus" 
         @change="change" 
@@ -134,7 +161,7 @@ Input password:  <fv-text-box :input-rules="/^[0-9a-zA-Z\-@!]*$/" :theme="theme"
 
 <div>
 Input multiline:   
-<fv-text-box multiline :theme="theme" @focus="focus" @change="change" @blur="blur" :size="10" />
+<fv-text-box multiline :theme="theme" @focus="focus" @change="change" @blur="blur" />
 </div>
 
 ```vue-html{2}

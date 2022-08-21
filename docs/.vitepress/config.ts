@@ -55,8 +55,12 @@ export default defineConfig({
                         link: '/guide/components/img/',
                     },
                     {
-                        text:"TextBox",
-                        link: "/guide/components/text-box/"
+                        text: 'TextBox',
+                        link: '/guide/components/text-box/',
+                    },
+                    {
+                        text: 'ComboBox',
+                        link: '/guide/components/combo-box/'
                     }
                 ],
             },
@@ -69,9 +73,19 @@ export default defineConfig({
                         link: '/guide/components/message-bar/',
                     },
                     {
-                        text:"InfoBox",
-                        link: '/guide/components/info-box/'
-                    }
+                        text: 'InfoBox',
+                        link: '/guide/components/info-box/',
+                    },
+                ],
+            },
+            {
+                text: 'Advance',
+                collapsed: true,
+                items: [
+                    {
+                        text: 'ColorPicker',
+                        link: '/guide/components/color-picker/',
+                    },
                 ],
             },
         ],

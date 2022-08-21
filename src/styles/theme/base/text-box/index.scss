@@ -1,9 +1,8 @@
 .fv-text-box {
-    --fv-text-box-height: 30px;
+    --fv-text-box-height: 18px;
     --fv-text-box-font-size: 16px;
-    --fv-text-box-min-width: 80px;
-    --fv-text-box-max-width: 100%;
     --fv-text-box-width: 80px;
+    min-width: 80px;
     display: inline-flex;
     justify-content: center;
     position: relative;
@@ -12,16 +11,54 @@
     padding: 5px 10px;
     border-radius: 6px;
     transition: height 0.3s cubic-bezier(0.56, 1.09, 1, 1.28), width 0.3s cubic-bezier(0.56, 1.09, 1, 1.28);
-    height: calc(var(--fv-text-box-height) + 15px);
+    height: calc(var(--fv-text-box-height) + 12px);
     overflow: hidden;
     box-sizing: border-box;
-    .icon {
+    .fv-text-box--icon {
         display: none;
+        .ms-Icon {
+            line-height: 130%;
+        }
+    }
+    .fv-text-box--input {
+        padding: 0;
+        border-radius: 0;
+        outline: none;
+        min-width: 100%;
+        width: var(--fv-text-box-width);
+        display: inline-block;
+        font-size: var(--fv-text-box-font-size);
+        height: var(--fv-text-box-height);
+        line-height: 130%;
+        resize: none;
+        overflow: hidden;
+        transition: none;
+        vertical-align: middle;
+        &::-ms-reveal,
+        &::-ms-clear {
+            display: none;
+        }
+    }
+    .fv-text-box--pre-hidden {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        visibility: hidden;
+        font-family: monospace;
+        font-size: var(--fv-text-box-font-size);
+        margin: 0;
+        padding: 0;
+        line-height: 130%;
+        box-sizing: border-box;
     }
     &:focus-within {
-        .icon {
+        .fv-text-box--icon {
             cursor: pointer;
-            display: initial;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
             transition: all 0.3s cubic-bezier(0.56, 1.09, 1, 1.28);
             &:hover {
                 transform: scale(1.1);
@@ -30,44 +67,50 @@
                 transform: scale(0.8);
             }
         }
-    }
-    .input {
-        border-radius: 0;
-        outline: none;
-        min-width: calc(var(--fv-text-box-min-width) - 20px);
-        max-width: 100%;
-        width: var(--fv-text-box-width);
-        display: inline-block;
-        font-size: var(--fv-text-box-font-size);
-        line-height: 130%;
-        resize: none;
-        overflow: hidden;
-        box-sizing: border-box;
-        transition: none;
-        &::-ms-reveal,
-        &::-ms-clear {
-            display: none;
+        &.fv-text-box--singleline {
+            .fv-text-box--input {
+                min-width: calc(100% - 16px);
+            }
         }
     }
-    .pre-hidden {
-        position: absolute;
-        top: 0;
-        left: 0;
-        visibility: hidden;
-        min-width: calc(var(--fv-text-box-min-width) - 20px);
-        max-width: 100%;
-        font-size: var(--fv-text-box-font-size);
-        margin: 0;
-        padding: 0;
-        line-height: 130%;
-        box-sizing: border-box;
-    }
+
     &.readonly {
         cursor: default;
-        .input {
+        .fv-text-box--input {
             cursor: default;
         }
+        .fv-text-box--icon {
+            display: none;
+        }
+        &.fv-text-box--singleline {
+            .fv-text-box--input {
+                min-width: 100%;
+            }
+        }
     }
+
+    &.fv-text-box--singleline {
+        .fv-text-box--input {
+            &.fv-text-box--text-with-icon {
+                min-width: calc(100% - 16px);
+                + .fv-text-box--icon {
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    vertical-align: middle;
+                    transition: all 0.3s cubic-bezier(0.56, 1.09, 1, 1.28);
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                    &:active {
+                        transform: scale(0.8);
+                    }
+                }
+            }
+        }
+    }
+
     &.disabled {
         pointer-events: none;
     }

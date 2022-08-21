@@ -1,0 +1,27 @@
+.fv-combo-box {
+    &.dark {
+        .fv-combo-box--options {
+            .fv-combo-box--bg {
+                box-shadow: rgba(65, 23, 23, 0.133) 0px 3.2px 7.2px 0px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
+                border-color: transparent;
+                background-color: rgba(50, 55, 56, 0.8);
+                &.fv-combo-box--bg-down {
+                    border-top: solid 2px rgb(var(--fv-primary-color));
+                }
+            }
+            .fv-combo-box--option {
+                .fv-combo-box--option-text {
+                    &:hover {
+                        background-color: rgba(59, 59, 59, 0.9);
+                    }
+                    &.active {
+                        background-color: rgba(59, 59, 59, 0.9);
+                        &::before {
+                            background: rgb(var(--fv-primary-color));
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

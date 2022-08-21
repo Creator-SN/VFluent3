@@ -8,15 +8,15 @@ import {
     onMounted,
 } from 'vue';
 import { EmitFn } from '@/types/components';
-import { isString } from '@/utils/common';
+import { isFunction, isString } from '@/utils/common';
 
 export const textBoxProps = {
     ...commonProps,
     inputRules: {
-        type: [Object, String],
+        type: [Object, String, Function],
     },
     pattern: {
-        type: [Object, String],
+        type: [Object, String, Function],
     },
     modelValue: {
         type: [String],
@@ -44,14 +44,6 @@ export const textBoxProps = {
     password: {
         type: [Boolean],
     },
-    minWidth: {
-        type: [String, Number],
-        default: 80,
-    },
-    maxWidth: {
-        type: [String, Number],
-        default: '100%',
-    },
     maxlength: {
         type: [Number],
     },
@@ -71,6 +63,9 @@ export const textBoxProps = {
         type: [String],
     },
     warningBorderColor: {
+        type: [String],
+    },
+    rightIcon: {
         type: [String],
     },
 };
@@ -108,6 +103,9 @@ export const textBoxEmits = {
     warningInput(val: string) {
         return true;
     },
+    rightIconClick(val: string) {
+        return true;
+    },
 };
 
 export type TextBoxEmits = typeof textBoxEmits;
@@ -140,7 +138,13 @@ export const useTextBox = (
         }
         return 'text';
     });
-    const inputHeight = ref<number>(30);
+    const showCustomIcon = computed(() => {
+        if (props.rightIcon !== undefined) {
+            return true;
+        }
+        return false;
+    });
+    const inputHeight = ref<number>(18);
     const inputWidth = ref<number>(80);
     const showPassword = ref<boolean>(false);
     const lockInput = ref<boolean>(false);
@@ -183,14 +187,20 @@ export const useTextBox = (
     };
     const clear = () => {
         computedValue.value = '';
+        // fix old value
+        old.value = '';
         focus();
     };
     const onClickIcon = () => {
-        if (props.password === true) {
-            showPassword.value = !showPassword.value;
-            focus();
+        if (props.rightIcon === undefined) {
+            if (props.password === true) {
+                showPassword.value = !showPassword.value;
+                focus();
+            } else {
+                clear();
+            }
         } else {
-            clear();
+            emits('rightIconClick', computedValue.value);
         }
     };
     const onKeydown = (val: string) => {
@@ -224,6 +234,15 @@ export const useTextBox = (
             } else {
                 old.value = val;
             }
+        } else if (isFunction(props.inputRules)) {
+            if (!props.inputRules(val)) {
+                status.value = 'warning';
+                computedValue.value = old.value;
+                val = old.value;
+                emits('warningInput', currentVal);
+            } else {
+                old.value = val;
+            }
         }
         if (props.pattern instanceof RegExp) {
             if (!props.pattern.test(val)) {
@@ -235,10 +254,16 @@ export const useTextBox = (
                 status.value = 'error';
                 emits('errorInput', currentVal);
             }
+        } else if (isFunction(props.pattern)) {
+            if (props.pattern(val)) {
+                status.value = 'error';
+                emits('errorInput', currentVal);
+            }
         }
         emits('input', val);
     };
     return {
+        showCustomIcon,
         lockInput,
         showPassword,
         status,

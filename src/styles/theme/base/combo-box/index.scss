@@ -1,0 +1,110 @@
+.fv-combo-box {
+    --fv-combo-box-height: initial;
+    --fv-combo-box-top: initial;
+    --fv-combo-box-bottom: initial;
+    --fv-combo-box-effect-position: center;
+    position: relative;
+    width: 200px;
+    .fv-combo-box--select-input {
+        width: inherit;
+    }
+    .fv-combo-box--options {
+        position: absolute;
+        display: flex;
+        align-items: var(--fv-combo-box-effect-position);
+        width: 100%;
+        top: var(--fv-combo-box-top);
+        bottom: var(--fv-combo-box-bottom);
+        left: 0;
+        z-index: 1000;
+        box-sizing: border-box;
+        .fv-combo-box--bg {
+            backdrop-filter: blur(10px);
+            box-sizing: border-box;
+            overflow: hidden;
+            border-width: 1px;
+            border-style: solid;
+            width: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: var(--fv-combo-box-effect-position);
+            &.fv-combo-box--bg-down {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+            &.fv-combo-box--bg-up {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+        .fv-combo-box--options-wrapper {
+            padding: 5px 0px;
+            width: 100%;
+        }
+        &.fv-combo-box--fade-in-leave-to {
+            height: var(--fv-combo-box-height);
+            .fv-combo-box--bg {
+                border: none;
+                &.fv-combo-box--bg-down,
+                &.fv-combo-box--bg-up {
+                    height: 0px;
+                }
+                opacity: 0.8;
+            }
+        }
+        &.fv-combo-box--fade-in-enter-from {
+            height: var(--fv-combo-box-height);
+            .fv-combo-box--bg {
+                height: max(calc(var(--fv-combo-box-height) - 39px) , 39px);
+            }
+        }
+        &.fv-combo-box--fade-in-leave-active {
+            height: var(--fv-combo-box-height);
+            transition: all 0.1s linear;
+            .fv-combo-box--bg {
+                transition: inherit;
+            }
+        }
+        &.fv-combo-box--fade-in-enter-active {
+            height: var(--fv-combo-box-height);
+            transition: all 0.3s cubic-bezier(0.56, 1.09, 1, 1.28);
+            .fv-combo-box--bg {
+                transition: inherit;
+            }
+        }
+        &.fv-combo-box--fade-in-enter-to,
+        &.fv-combo-box--fade-in-leave-from {
+            height: var(--fv-combo-box-height);
+            .fv-combo-box--bg {
+                height: var(--fv-combo-box-height);
+            }
+        }
+        .fv-combo-box--option {
+            padding: 2.5px 5px;
+            cursor: pointer;
+            .fv-combo-box--option-text {
+                user-select: none;
+                position: relative;
+                padding: 5px 15px;
+                border-radius: 4px;
+                font-size: 14px;
+                height: 34px;
+                white-space: nowrap;
+                
+                &.active {
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        height: 16px;
+                        width: 3px;
+                        border-radius: 1.5px;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                        left: 0px;
+                        
+                    }
+                }
+            }
+        }
+    }
+}

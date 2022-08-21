@@ -11,6 +11,5 @@
 | keydown | val[String] | onkeydown |
 | keypress | val[String] | onkeypress |
 | keyup | val[String] | onkeyup |
-| right-icon-click | val[String] | onrighticonclick |
 | update:model-value | val[String] | v-model |
 | warning-input | val[String] | onwarninginput |
