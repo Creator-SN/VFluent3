@@ -1,6 +1,6 @@
 import { resolve as resolveTs } from 'ts-node/esm';
 import * as tsConfigPaths from 'tsconfig-paths';
-import { pathToFileURL,fileURLToPath } from 'url';
+import { pathToFileURL, fileURLToPath } from 'url';
 import fs from 'fs';
 import path from 'path';
 
@@ -25,10 +25,15 @@ export function resolve(specifier, ctx, defaultResolve) {
             }
         }
     } else {
-        if (specifier.startsWith('./')) {
+        if (specifier.startsWith('./') || specifier.startsWith('../')) {
             if (!(specifier.endsWith('.js') || specifier.endsWith('.ts'))) {
                 if (
-                    fs.existsSync(path.join(path.dirname(fileURLToPath(ctx.parentURL)), specifier + '.ts'))
+                    fs.existsSync(
+                        path.join(
+                            path.dirname(fileURLToPath(ctx.parentURL)),
+                            specifier + '.ts'
+                        )
+                    )
                 ) {
                     specifier = specifier + '.ts';
                 } else {

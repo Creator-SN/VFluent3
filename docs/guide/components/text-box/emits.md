@@ -12,5 +12,6 @@
 | keypress | val[String] | onkeypress |
 | keyup | val[String] | onkeyup |
 | right-icon-click | val[String] | onrighticonclick |
+| success-input | val |  |
 | update:model-value | val[String] | v-model |
 | warning-input | val[String] | onwarninginput |

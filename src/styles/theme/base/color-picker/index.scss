@@ -1,8 +1,16 @@
 .fv-color-picker {
     width: 312px;
+    --fv-color-picker--color: initial;
+    --fv-color-picker--color-alpha: initial;
+    --fv-color-picker--color-value: initial;
+    --fv-color-picker--pointer-top: 0px;
+    --fv-color-picker--pointer-left: 0px;
+    --fv-color-picker--color-value-left: 0px;
+    --fv-color-picker--color-alpha-left: 0px;
     .color-picker {
         display: flex;
         .color-area {
+            cursor: pointer;
             position: relative;
             min-width: 256px;
             max-width: 256px;
@@ -10,7 +18,9 @@
             width: 256px;
             margin-right: 15px;
             border-radius: 4px;
-            overflow: hidden;
+            * {
+                pointer-events: none;
+            }
             .bg {
                 height: 100%;
                 width: 100%;
@@ -44,13 +54,10 @@
                     border-radius: 50%;
                     background: radial-gradient(rgba(255, 255, 255, 1), transparent);
                 }
-                .pointer {
-                    left: calc(50% - 8px);
-                    top: calc(50% - 8px);
-                }
             }
             &.box {
                 .bg {
+                    border-radius: inherit;
                     background: linear-gradient(
                         to right,
                         red,
@@ -72,14 +79,13 @@
                     position: absolute;
                     height: 100%;
                     width: 100%;
+                    border-radius: inherit;
                     background: linear-gradient(transparent, rgba(255, 255, 255, 1));
-                }
-                .pointer {
-                    top: -8px;
-                    left: -8px;
                 }
             }
             .pointer {
+                left: -8px;
+                top: -8px;
                 border-radius: 50%;
                 position: absolute;
                 height: 16px;
@@ -87,33 +93,128 @@
                 border-style: solid;
                 border-width: 2px;
                 border-color: rgba(0, 0, 0, 1);
+                pointer-events: none;
+                transform: translate(var(--fv-color-picker--pointer-left), var(--fv-color-picker--pointer-top));
+                transform-origin: 0px 0px;
             }
         }
         .color {
+            position: relative;
             width: 42px;
             height: 256px;
-            background: red;
             border-radius: 4px;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJUlEQVQYV2N89erVfwY0ICYmxoguxjgUFKI7GsTH5m4M3w1ChQC1/Ca8i2n1WgAAAABJRU5ErkJggg==);
+            .color-bg {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+                border-radius: 4px;
+                background: var(--fv-color-picker--color);
+            }
         }
     }
     .control {
         &.vertical {
             margin-top: 20px;
             .color-value {
-                border-radius: 4px;
+                cursor: pointer;
+                position: relative;
+                border-radius: 6px;
+                margin: 30px 0 20px;
                 height: 12px;
                 width: 100%;
-                background-color: red;
+                * {
+                    pointer-events: none;
+                }
+                .color-value-mask {
+                    border-radius: inherit;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background: linear-gradient(to right, #000, transparent);
+                }
+                .color-value-bg {
+                    border-radius: inherit;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background-color: var(--fv-color-picker--color-value);
+                }
+                .color-value-btn {
+                    position: absolute;
+                    top: -2px;
+                    left: -8px;
+                    height: 16px;
+                    width: 16px;
+                    border-radius: 50%;
+                    border-style: solid;
+                    border-width: 3px;
+                    border-color: rgba(255, 255, 255, 1);
+                    background: rgba(0, 0, 0, 1);
+                    box-shadow: rgba(0, 0, 0, 1) 0 0 2px;
+                    transform-origin: 0px 0px;
+                    transform: translateX(var(--fv-color-picker--color-value-left));
+                }
             }
-            .fields{
+            .color-alpha{
+                cursor: pointer;
+                position: relative;
+                border-radius: 6px;
+                margin: 25px 0 30px;
+                height: 12px;
+                width: 100%;
+                * {
+                    pointer-events: none;
+                }
+                .color-alpha-mask {
+                    border-radius: inherit;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background: linear-gradient(to left, var(--fv-color-picker--color-alpha), transparent);
+                }
+                .color-alpha-bg {
+                    border-radius: inherit;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJUlEQVQYV2N89erVfwY0ICYmxoguxjgUFKI7GsTH5m4M3w1ChQC1/Ca8i2n1WgAAAABJRU5ErkJggg==);
+                }
+                .color-alpha-btn {
+                    position: absolute;
+                    top: -2px;
+                    left: -8px;
+                    height: 16px;
+                    width: 16px;
+                    border-radius: 50%;
+                    border-style: solid;
+                    border-width: 3px;
+                    border-color: rgba(255, 255, 255, 1);
+                    background: rgba(0, 0, 0, 1);
+                    box-shadow: rgba(0, 0, 0, 1) 0 0 2px;
+                    transform-origin: 0px 0px;
+                    transform: translateX(var(--fv-color-picker--color-alpha-left));
+                }
+            }
+            .fields {
                 margin-top: 10px;
-                .row{
+                .row {
                     display: flex;
                     margin: 10px 0px;
-                    .cell{
+                    .cell {
                         min-width: 180px;
-                        .text{
-                            padding: 0 10px;   
+                        .text {
+                            padding: 0 10px;
                         }
                     }
                 }

@@ -58,7 +58,9 @@ defineExpose({
             :pattern="props.pattern" :disabled="props.disabled" @error-input="onErrorInput"
             @warning-input="onWarningInput" />
         <transition name="fv-combo-box--fade-in">
-            <div class="fv-combo-box--options" v-show="optionsShow" ref="options">
+            <div class="fv-combo-box--options" :class="{
+                'fv-combo-box--editable': props.editable === true
+            }" v-show="optionsShow" ref="options">
                 <div :class="computedComboBoxOptionBgClass">
                     <div class="fv-combo-box--options-wrapper">
                         <div class="fv-combo-box--option" ref="option" v-for="item in (props.options)" :key="item.key"
@@ -66,7 +68,9 @@ defineExpose({
                             <div class="fv-combo-box--option-text" :class="{
                                 active: item.key === computedValue
                             }">
-                                {{ item.text === undefined ? item.key : item.text }}
+                                <slot :item="item">
+                                    {{ item.text === undefined ? item.key : item.text }}
+                                </slot>
                             </div>
                         </div>
                     </div>

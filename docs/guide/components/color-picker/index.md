@@ -9,6 +9,9 @@ import { useTheme } from '../common/index.js';
 
 const {theme} = useTheme()
 
+const colorMode = ref<'ring'|'box'>('ring')
+
+const color = ref<string>("#FFFFFFFF"); 
 
 </script>
 
@@ -20,12 +23,24 @@ const {theme} = useTheme()
 
 ---
 
-<fv-color-picker :theme="theme">
+<div>
+color: {{color}}
+<br>
+box type:
+<fv-radio :theme="theme" v-model="colorMode" label="ring">Ring</fv-radio> 
+<fv-radio :theme="theme" v-model="colorMode" label="box">Box</fv-radio> 
+</div>
+
+---
+
+<fv-color-picker v-model="color" :theme="theme" :type="colorMode">
 </fv-color-picker>
 
 ```vue-html
+
     <fv-color-picker :theme="theme">
     </fv-color-picker>
+
 ```
 
 <!--@include: ./properties.md-->

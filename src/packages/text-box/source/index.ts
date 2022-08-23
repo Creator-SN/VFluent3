@@ -103,6 +103,9 @@ export const textBoxEmits = {
     warningInput(val: string) {
         return true;
     },
+    successInput(val: string) {
+        return true;
+    },
     rightIconClick(val: string) {
         return true;
     },
@@ -117,11 +120,11 @@ export const useTextBox = (
     const status = ref<'success' | 'error' | 'warning'>('success');
     const pre = ref<HTMLPreElement>();
     const input = ref<HTMLInputElement | HTMLTextAreaElement>();
-    const value = ref<string>('');
-    const old = ref<string>('');
+    const old = ref<string>(isString(props.modelValue) ? props.modelValue : '');
+    const value = ref<string>(old.value);
+    const initValue = ref<string>(old.value);
     const computedValue = computed<string>({
         get() {
-            // if cols > size:
             if (props.modelValue === undefined) {
                 return value.value;
             }
@@ -186,9 +189,9 @@ export const useTextBox = (
         }
     };
     const clear = () => {
-        computedValue.value = '';
+        computedValue.value = initValue.value;
         // fix old value
-        old.value = '';
+        old.value = initValue.value;
         focus();
     };
     const onClickIcon = () => {
@@ -247,19 +250,26 @@ export const useTextBox = (
         if (props.pattern instanceof RegExp) {
             if (!props.pattern.test(val)) {
                 status.value = 'error';
-                emits('errorInput', currentVal);
+                emits('errorInput', val);
+            } else {
+                emits('successInput', val);
             }
         } else if (isString(props.pattern)) {
             if (props.pattern !== val) {
                 status.value = 'error';
-                emits('errorInput', currentVal);
+                emits('errorInput', val);
+            } else {
+                emits('successInput', val);
             }
         } else if (isFunction(props.pattern)) {
             if (props.pattern(val)) {
                 status.value = 'error';
-                emits('errorInput', currentVal);
+                emits('errorInput', val);
+            } else {
+                emits('successInput', val);
             }
         }
+
         emits('input', val);
     };
     return {

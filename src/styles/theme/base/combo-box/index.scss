@@ -60,7 +60,9 @@
         }
         &.fv-combo-box--fade-in-leave-active {
             height: var(--fv-combo-box-height);
-            transition: all 0.1s linear;
+            &.fv-combo-box--editable{
+                transition: all 0.3s ease-in;
+            }
             .fv-combo-box--bg {
                 transition: inherit;
             }
