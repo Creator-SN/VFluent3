@@ -7,6 +7,7 @@ import {
     throttle,
 } from '@/utils/common';
 import { Color } from '@/utils/common';
+import { isMobile } from '@/utils/common/browser';
 
 export const colorPickerProps = {
     ...commonProps,
@@ -33,6 +34,19 @@ export const useColorPicker = (
     props: ColorPickerProps,
     emits: EmitFn<ColorPickerEmits>
 ) => {
+    const colors = [
+        'rgb(255, 0, 0)',
+        'rgb(255, 153, 0)',
+        'rgb(205, 255, 0)',
+        'rgb(53, 255, 0)',
+        'rgb(0, 255, 102)',
+        'rgb(0, 255, 253)',
+        'rgb(0, 102, 255)',
+        'rgb(50, 0, 255)',
+        'rgb(205, 0, 255)',
+        'rgb(255, 0, 153)',
+        'rgb(255, 0, 0)',
+    ];
     const colorModeOptions = [
         {
             key: 'HSV',
@@ -58,6 +72,12 @@ export const useColorPicker = (
     const colorTop = ref<number>(0);
     const colorValueLeft = ref<number>(0);
     const colorAlphaLeft = ref<number>(0);
+
+    const colorList = ref<Array<Color>>(colors.map((e) => new Color(e)));
+    const colorListStr = ref<string>(
+        colorList.value.map((e) => e.cssrgb()).join(',')
+    );
+
     const syncText = (clr: Color) => {
         color.value = clr.hexa();
         emits('update:modelValue', color.value);
@@ -71,6 +91,10 @@ export const useColorPicker = (
         h.value = Math.round(clr.hue()).toString();
         s.value = Math.round(clr.saturation()).toString();
         v.value = Math.round(clr.value()).toString();
+        colorList.value = colorList.value.map((e) =>
+            e.clone().value(clr.value())
+        );
+        colorListStr.value = colorList.value.map((e) => e.cssrgb()).join();
         {
             const { width, height } = getBoundingClientRect(colorArea.value);
             if (props.type === 'ring') {
@@ -219,6 +243,12 @@ export const useColorPicker = (
                 syncRGB(colorObj.value);
                 const { width } = getBoundingClientRect(colorValue.value);
                 colorValueLeft.value = width * 0.01 * number;
+                colorList.value = colorList.value.map((e) =>
+                    e.clone().value(number)
+                );
+                colorListStr.value = colorList.value
+                    .map((e) => e.cssrgb())
+                    .join(',');
             }
         },
     });
@@ -244,14 +274,23 @@ export const useColorPicker = (
         computedH.value = Math.round(left * 359).toString();
         computedS.value = Math.round(top * 100).toString();
     };
-    const updateCoords = throttle((mouse: MouseEvent) => {
+    const updateCoords = throttle((mouse: MouseEvent | TouchEvent) => {
         const { left, top, height, width } = getBoundingClientRect(
             colorArea.value
         );
         let cx = 0,
-            cy = 0;
-        cx = Math.max(Math.min(mouse.clientX - left, width), 0);
-        cy = Math.max(Math.min(mouse.clientY - top, height), 0);
+            cy = 0,
+            mx = 0,
+            my = 0;
+        if (mouse instanceof TouchEvent) {
+            mx = mouse.touches[0].clientX;
+            my = mouse.touches[0].clientY;
+        } else {
+            mx = mouse.clientX;
+            my = mouse.clientY;
+        }
+        cx = Math.max(Math.min(mx - left, width), 0);
+        cy = Math.max(Math.min(my - top, height), 0);
         if (props.type === 'ring') {
             const [x, y] = [width / 2, height / 2];
             let l = Math.sqrt(
@@ -272,51 +311,80 @@ export const useColorPicker = (
             coorSync(cx / width, 1 - cy / height);
         }
     });
-    const mousemoveEvent = (mouse?: MouseEvent) => {
+    const mousemoveEvent = (mouse?: MouseEvent | TouchEvent) => {
         updateCoords(mouse);
     };
     const colorAreaMouseMoveEvent = new MouseMoveEvent(mousemoveEvent);
-    const onMousedown = (mouse: MouseEvent) => {
+    const onMousedown = (mouse: MouseEvent | TouchEvent) => {
+        if (mouse instanceof MouseEvent && isMobile()) {
+            return;
+        } else if (mouse instanceof TouchEvent && !isMobile()) {
+            return;
+        }
         colorAreaMouseMoveEvent.listen();
         mousemoveEvent(mouse);
     };
 
     // color value
-    const updateValue = throttle((mouse?: MouseEvent) => {
+    const updateValue = throttle((mouse?: MouseEvent | TouchEvent) => {
         if (mouse !== undefined) {
             const { left, width } = getBoundingClientRect(colorValue.value);
-            const value = Math.min(Math.max(0, mouse.clientX - left), width);
+            let x = 0;
+            if (mouse instanceof TouchEvent) {
+                x = mouse.touches[0].clientX;
+            } else {
+                x = mouse.clientX;
+            }
+            const value = Math.min(Math.max(0, x - left), width);
             computedV.value = `${Math.round((value / width) * 100)}`;
         }
     });
-    const valueMousemoveEvent = (mouse?: MouseEvent) => {
+    const valueMousemoveEvent = (mouse?: MouseEvent | TouchEvent) => {
         updateValue(mouse);
     };
     const colorValueMouseMoveEvent = new MouseMoveEvent(valueMousemoveEvent);
-    const onValueMouseDown = (mouse: MouseEvent) => {
+    const onValueMouseDown = (mouse: MouseEvent | TouchEvent) => {
+        if (mouse instanceof MouseEvent && isMobile()) {
+            return;
+        } else if (mouse instanceof TouchEvent && !isMobile()) {
+            return;
+        }
         colorValueMouseMoveEvent.listen();
         valueMousemoveEvent(mouse);
     };
 
     // color alpha
-    const updateAlpha = throttle((mouse?: MouseEvent) => {
+    const updateAlpha = throttle((mouse?: MouseEvent | TouchEvent) => {
         if (mouse !== undefined) {
             const { left, width } = getBoundingClientRect(colorValue.value);
-            const alpha = Math.min(Math.max(0, mouse.clientX - left), width);
+            let x = 0;
+            if (mouse instanceof TouchEvent) {
+                x = mouse.touches[0].clientX;
+            } else {
+                x = mouse.clientX;
+            }
+            const alpha = Math.min(Math.max(0, x - left), width);
             computedAlpha.value = `${Math.round((alpha / width) * 100)}%`;
         }
     });
-    const alphaMousemoveEvent = (mouse?: MouseEvent) => {
+    const alphaMousemoveEvent = (mouse?: MouseEvent | TouchEvent) => {
         updateAlpha(mouse);
     };
     const colorAlphaMouseMoveEvent = new MouseMoveEvent(alphaMousemoveEvent);
-    const onAlphaMouseDown = (mouse: MouseEvent) => {
+    const onAlphaMouseDown = (mouse: MouseEvent | TouchEvent) => {
+        if (mouse instanceof MouseEvent && isMobile()) {
+            return;
+        } else if (mouse instanceof TouchEvent && !isMobile()) {
+            return;
+        }
         colorAlphaMouseMoveEvent.listen();
         alphaMousemoveEvent(mouse);
     };
 
     onMounted(() => {
+        colorObj.value = new Color(computedText.value);
         syncHSV(colorObj.value);
+        syncAlpha(colorObj.value);
     });
 
     watch(
@@ -348,5 +416,6 @@ export const useColorPicker = (
         onMousedown,
         onValueMouseDown,
         onAlphaMouseDown,
+        colorListStr,
     };
 };

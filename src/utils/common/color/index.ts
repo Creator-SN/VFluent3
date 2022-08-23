@@ -47,7 +47,6 @@ export class Color {
             ];
             this.channels.rgb = [r, g, b];
             this.valpha = 1.0;
-            this.updateRGB2HSV();
         }
         // #FFFFFF RGBA mode #RRGGBBAA
         else if (/^#[0-9a-fA-F]{8}$/.test(color)) {
@@ -57,7 +56,6 @@ export class Color {
                 parseInt(color.substring(5, 7), 16),
             ];
             this.channels.rgb = [r, g, b];
-            this.updateRGB2HSV();
             this.valpha = parseInt(color.substring(7, 9), 16) / 255;
         } else if (color.startsWith('rgb(')) {
             color = color.substring(4, color.length - 1);
@@ -88,6 +86,7 @@ export class Color {
         if (parseResult === false) {
             console.error(`color ${color} parse error`);
         }
+        this.updateRGB2HSV();
         return this;
     }
 

@@ -3,4 +3,4 @@
 ---         
 | EmitName | Arguments | Statement |
 |:---:|:---:|:---:|
-| update:model-value | val |  |
+| update:model-value | val[String] | v-model |

@@ -14,6 +14,7 @@ const props = defineProps(colorPickerProps)
 const { theme } = useTheme(props)
 
 const { colorMode,
+    colorListStr,
     colorLeft, colorTop, colorObj, colorValueLeft, colorAlphaLeft,
     colorModeOptions,
     computedText, computedR, computedB, computedG, computedAlpha,
@@ -29,6 +30,7 @@ const { cls: computedColorPickerClass } = new ClassBuilder()
     .computed()
 
 const { style: computedColorPickerStyle } = new StyleBuilder()
+    .add("--fv-color-picker--color-list", () => colorListStr.value)
     .add("--fv-color-picker--color", () => colorObj.value.cssrgba())
     .add("--fv-color-picker--color-alpha", () => colorObj.value.clone().alpha(1).cssrgba())
     .add("--fv-color-picker--color-value", () => colorObj.value.clone().value(100).alpha(1).cssrgba())
@@ -44,10 +46,10 @@ const { style: computedColorPickerStyle } = new StyleBuilder()
 <template>
     <div :class="computedColorPickerClass" :style="computedColorPickerStyle">
         <div class="color-picker">
-            <div ref="colorArea" class="color-area" :class="{
+            <div ref="colorArea" draggable="false" class="color-area" :class="{
                 ring: props.type === 'ring',
                 box: props.type === 'box'
-            }" @mousedown="onMousedown">
+            }" @mousedown.stop="onMousedown" @touchstart.stop="onMousedown">
                 <div class="bg"></div>
                 <div class="white-mask"></div>
                 <button class="pointer"></button>
@@ -57,12 +59,14 @@ const { style: computedColorPickerStyle } = new StyleBuilder()
             </div>
         </div>
         <div class="control vertical">
-            <div class="color-value" ref="colorValue" @mousedown="onValueMouseDown">
+            <div class="color-value" ref="colorValue" draggable="false" @mousedown.stop="onValueMouseDown"
+                @touchstart.stop="onValueMouseDown">
                 <div class="color-value-bg"></div>
                 <div class="color-value-mask"></div>
                 <div class="color-value-btn"></div>
             </div>
-            <div class="color-alpha" ref="colorAlpha" @mousedown="onAlphaMouseDown">
+            <div class="color-alpha" ref="colorAlpha" draggable="false" @mousedown.stop="onAlphaMouseDown"
+                @touchstart.stop="onAlphaMouseDown">
                 <div class="color-alpha-bg"></div>
                 <div class="color-alpha-mask"></div>
                 <div class="color-alpha-btn"></div>
