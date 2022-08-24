@@ -252,4 +252,16 @@ export class Color {
         let [r, g, b] = this.channels.rgb;
         return `rgba(${r}, ${g}, ${b}, ${this.alpha()})`;
     }
+
+    isDark() {
+        const [r, g, b] = this.channels.rgb;
+        let luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        return luma < 128;
+    }
+
+    isLight() {
+        const [r, g, b] = this.channels.rgb;
+        let luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        return luma >= 128;
+    }
 }

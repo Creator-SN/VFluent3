@@ -1,5 +1,6 @@
 .fv-color-picker {
     width: 312px;
+    --fv-color-picker--color-value-empty: rgb(255,255,255);
     --fv-color-picker--color-list: red, rgb(255, 153, 0), rgb(205, 255, 0), rgb(53, 255, 0), rgb(0, 255, 102),
         rgb(0, 255, 253), rgb(0, 102, 255), rgb(50, 0, 255), rgb(205, 0, 255), rgb(255, 0, 153), red;
     --fv-color-picker--color: initial;
@@ -20,9 +21,6 @@
             width: 256px;
             margin-right: 15px;
             border-radius: 4px;
-            * {
-                pointer-events: none;
-            }
             .bg {
                 height: 100%;
                 width: 100%;
@@ -42,7 +40,7 @@
                     height: 100%;
                     width: 100%;
                     border-radius: 50%;
-                    background: radial-gradient(rgba(255, 255, 255, 1), transparent);
+                    background: radial-gradient(var(--fv-color-picker--color-value-empty), transparent);
                 }
             }
             &.box {
@@ -57,7 +55,7 @@
                     height: 100%;
                     width: 100%;
                     border-radius: inherit;
-                    background: linear-gradient(transparent, rgba(255, 255, 255, 1));
+                    background: linear-gradient(transparent, var(--fv-color-picker--color-value-empty));
                 }
             }
             .pointer {
