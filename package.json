@@ -1,76 +1,79 @@
 {
-    "name": "@creatorsn/vfluent3",
-    "private": false,
-    "version": "0.0.1",
-    "files": [
-        "dist"
-    ],
-    "type": "module",
-    "main": "dist/vfluent3.umd.cjs",
-    "module": "dist/vfluent3.js",
-    "exports": {
-        ".": {
-            "import": "./dist/vfluent3.js",
-            "require": "./dist/vfluent3.umd.cjs"
-        }
-    },
-    "license": "MIT",
-    "types": "./dist/types/packages/index.d.ts",
-    "author": {
-        "name": "Creator-SN",
-        "url": "https://github.com/Creator-SN/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Creator-SN/VFluent3.git"
-    },
-    "scripts": {
-        "build": "vite build && vue-tsc --emitDeclarationOnly",
-        "preview": "vite preview",
-        "docs:dev": "vitepress dev docs",
-        "docs:build": "vitepress build docs",
-        "docs:serve": "vitepress serve docs",
-        "bin:new": "node --loader ./scripts/loader.mjs ./scripts/new.ts --files",
-        "bin:dt": "node --loader ./scripts/loader.mjs ./scripts/mkdocs.ts --files",
-        "cc": "conventional-changelog -p angular -i CHANGELOG.md -s",
-        "cz": "cz"
-    },
-    "dependencies": {
-        "pinia": "^2.0.16",
-        "vue": "^3.2.37"
-    },
-    "devDependencies": {
-        "@types/color": "^3.0.3",
-        "@types/node": "^18.0.6",
-        "@types/prompts": "^2.0.14",
-        "@vitejs/plugin-vue": "^3.0.0",
-        "autoprefixer": "^10.4.8",
-        "camelcase": "^7.0.0",
-        "commitizen": "^4.2.5",
-        "conventional-changelog-cli": "^2.2.2",
-        "csstype": "^3.1.0",
-        "decamelize": "^6.0.0",
-        "ora": "^6.1.2",
-        "picocolors": "^1.0.0",
-        "postcss": "^8.4.16",
-        "prompts": "^2.4.2",
-        "sass": "^1.53.0",
-        "ts-node": "^10.9.1",
-        "tsconfig-paths": "^4.1.0",
-        "typescript": "^4.6.4",
-        "unplugin-vue-define-options": "^0.6.2",
-        "vite": "^3.0.0",
-        "vitepress": "^1.0.0-alpha.4",
-        "vue-tsc": "^0.38.4"
-    },
-    "pnpm": {
-        "peerDependencyRules": {
-            "ignoreMissing": [
-                "@algolia/client-search",
-                "@types/react",
-                "react",
-                "react-dom"
-            ]
-        }
+  "name": "@creatorsn/vfluent3",
+  "private": false,
+  "version": "0.0.1",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "dist/vfluent3.umd.cjs",
+  "module": "dist/vfluent3.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vfluent3.js",
+      "require": "./dist/vfluent3.umd.cjs"
     }
+  },
+  "license": "MIT",
+  "types": "./dist/types/packages/index.d.ts",
+  "author": {
+    "name": "Creator-SN",
+    "url": "https://github.com/Creator-SN/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Creator-SN/VFluent3.git"
+  },
+  "scripts": {
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
+    "preview": "vite preview",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "bin:new": "node --loader ./scripts/loader.mjs ./scripts/new.ts --files",
+    "bin:dt": "node --loader ./scripts/loader.mjs ./scripts/mkdocs.ts --files",
+    "cc": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "cz": "cz"
+  },
+  "dependencies": {
+    "@vue/shared": "^3.4.19",
+    "pinia": "^2.0.16",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@types/color": "^3.0.3",
+    "@types/node": "^18.0.6",
+    "@types/prompts": "^2.0.14",
+    "@vitejs/plugin-vue": "^3.0.0",
+    "autoprefixer": "^10.4.8",
+    "camelcase": "^7.0.0",
+    "commitizen": "^4.2.5",
+    "conventional-changelog-cli": "^2.2.2",
+    "csstype": "^3.1.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.0.0",
+    "decamelize": "^6.0.0",
+    "ora": "^6.1.2",
+    "picocolors": "^1.0.0",
+    "postcss": "^8.4.16",
+    "prompts": "^2.4.2",
+    "sass": "^1.53.0",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.6.4",
+    "unplugin-vue-define-options": "^0.6.2",
+    "vite": "^3.0.0",
+    "vitepress": "^1.0.0-alpha.4",
+    "vue-tsc": "^0.38.4"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search",
+        "@types/react",
+        "react",
+        "react-dom"
+      ]
+    }
+  }
 }

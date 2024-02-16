@@ -45,6 +45,18 @@ pnpm i @creatorsn/vfluent3
     pnpm docs:dev
    ``` 
 
+#### How to commit 
+
+1. create czrc(home directory)(!!!important)
+``` bash
+echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
+```
+
+2. run command
+``` bash
+pnpm cz
+```
+
 #### About Fabric UI
 
 Our project have many using cases contains Microsoft's Fabric UI, such as icons and shadows, for more details you can click <a href="https://developer.microsoft.com/en-us/fabric#/styles">here</a> to get more information.
@@ -71,7 +83,7 @@ If you have some other creative ideas, we're happy to hear them from you.
 
 MIT License
 
-Copyright (c) 2022 Creator SN®
+Copyright (c) 2024 Creator SN®
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -83,7 +83,7 @@ const { theme } = useTheme(props)
 const {  } = use${'Name'}(props, emits)
 </script>
 <template>
-    <div>
+    <div class="${'-prefix'}-${'Name'}" :class="[theme]">
         ${'Prefix'}${'Name'}
     </div>
 </template>
@@ -120,16 +120,16 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
         },
         styles: {
             // theme/base/{name}/index.scss
-            'theme/base': template`.${'-prefix'}-${'-name'}{
+            'theme/base': template`.${'-prefix'}-${'Name'}{
 }
 `,
             // theme/light/{name}/index.scss
-            'theme/light': template`.${'-prefix'}-${'-name'}{
+            'theme/light': template`.${'-prefix'}-${'Name'}{
     &.light{
     }
 }`,
             // theme/dark/{name}/index.scss
-            'theme/dark': template`.${'-prefix'}-${'-name'}{
+            'theme/dark': template`.${'-prefix'}-${'Name'}{
     &.dark{   
     }
 }`,

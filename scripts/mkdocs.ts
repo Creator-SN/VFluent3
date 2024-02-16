@@ -1,4 +1,3 @@
-import { isArray } from '@vue/shared';
 import camelcase from 'camelcase';
 import path from 'path';
 import { ComponentsUtils } from './utils/components';
@@ -7,6 +6,7 @@ import { MarkdownTable } from './utils/mkutil';
 import decamelize from 'decamelize';
 import ora from 'ora';
 import pc from 'picocolors';
+import { isArray } from '@/utils/common';
 
 function getParameterName(fn: Function) {
     if (typeof fn !== 'object' && typeof fn !== 'function') return;
