@@ -46,6 +46,7 @@ import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common";
 
 export default {
     name: "FvButton",
+    emits:['click'],
     props: {
         ...buttonProps,
         icon: {
