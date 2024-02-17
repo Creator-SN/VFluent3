@@ -1,37 +1,66 @@
-.fv-button {
+.fv-Button {
     position: relative;
-    min-width: 80px;
-    height: 28px;
+    width: 80px;
+    height: 30px;
     box-sizing: border-box;
-    display: inline-flex;
+    display: flex;
     user-select: none;
-    cursor: pointer;
 
-    button.button-container {
+    div.fv-button-main-container
+    {
+        position: relative;
         width: 100%;
         height: 100%;
-        border: none;
-        outline: none;
         box-sizing: border-box;
-        transition: all 0.3s;
+        display: flex;
+        overflow: hidden;
 
-        &.disabled{
-            cursor: default;
+        &:hover
+        {
+            background: rgba(121, 119, 117, 0.6);
+            transition: all 0.6s;
         }
 
-        span.content-block {
+        &.shadow
+        {
+            box-shadow: rgba(0, 0, 0, 0.133) 0px 1px 1px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
+        }
+        
+        &.disabled
+        {
+            background: transparent;
+            filter: grayscale(1);
+            box-shadow: none;
+            opacity: 0.6;
+        }
+
+        .fv-button-reveal-container
+        {
+            position: absolute;
+            left: 0px;
+            top: 0px;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        }
 
-            i.ms-Icon {
-                margin-right: 5px;
+        .fv-button-container
+        {
+            width: 100%;
+            height: 100%;
+            background: #edebe9;
+            border: rgba(0, 0, 0, 0.1) solid thin;
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.3s;
+
+            span.fv-btn-content-block
+            {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
-    }
-    &.disabled{
-        pointer-events: none;
     }
 }

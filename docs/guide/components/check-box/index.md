@@ -3,156 +3,82 @@ page: true
 title: CheckBox
 ---
 
-<script lang="ts" setup>
-import { ref } from 'vue'; 
-import { useTheme } from '../common/index.js'; 
+### CheckBox-DEMO
+--- 
 
-const {theme} = useTheme()
 
-const value = ref<null|boolean>(null)
+<ClientOnly>
+<fv-checkBox>Indeterminate checkbox</fv-checkBox>
+</ClientOnly>
 
-function click(val:boolean|null){
-  console.log('click',val)
-}
+```vue
+<fv-checkBox>Indeterminate checkbox</fv-checkBox>
+```
 
-function setInt(){
-  value.value = null; 
-}
-
-function change(val:boolean|null){
-  console.log("change", val)
-}
-
-function focus(evt: FocusEvent){
-  console.log("focus", evt)
-}
-
-function blur(evt: FocusEvent){
-  console.log("blur", evt)
-}
-
-</script>
-
-# CheckBox
-
-## Quick Start    
-
-### Default
-
-<div style="margin:5px; ">
-<fv-button :theme="theme" style="width:120px;" @click="setInt">Reset value</fv-button>
-</div>
+### CheckBox-Disabled
 
 ---
 
-<fv-check-box 
-  :theme="theme" 
-  v-model="value" 
-  @click="click" 
-  @change="change" 
-  @blur="blur" 
-  @focus="focus"
->
-  CheckBox
-</fv-check-box>
+<ClientOnly>
+<fv-checkBox disabled>Disabled checkbox</fv-checkBox>
+</ClientOnly>
 
-```vue-html{2-7}
-  <fv-check-box 
-    :theme="theme" 
-    v-model="value" 
-    @click="click" 
-    @change="change" 
-    @blur="blur" 
-    @focus="focus"
-  >
-    CheckBox
-  </fv-check-box>
+```vue
+<fv-checkBox disabled>Disabled checkbox</fv-checkBox>
 ```
 
-## Disabled
-
-<fv-check-box 
-  :theme="theme" 
-  v-model="value" 
-  disabled>
-  Disabled CheckBox
-</fv-check-box>
-
-```vue-html{4}
-  <fv-check-box 
-    :theme="theme" 
-    v-model="value" 
-    disabled
-  >
-    Disabled CheckBox
-  </fv-check-box>
-```
-
-## Box Side
+### CheckBox-Disabled
 
 ---
-<fv-check-box :theme="theme" box-side="end">
-  Checkbox rendered with boxSide "end"
-</fv-check-box>
 
-```vue-html{3}
-  <fv-check-box 
-    :theme="theme" 
-    box-side="end"
-  >
-    Checkbox rendered with boxSide "end"
-  </fv-check-box>
+<ClientOnly>
+<fv-checkBox boxSide="end">Checkbox rendered with boxSide "end"</fv-checkBox>
+</ClientOnly>
+
+```vue
+<fv-checkBox boxSide="end">Checkbox rendered with boxSide "end"</fv-checkBox>
 ```
 
-## Custom
+### CheckBox-Custom
 
 ---
 1. Set border width.
-<fv-check-box :theme="theme" :border-width="2">
-  Checkbox rendered with borderWidth "2"
-</fv-check-box>
 
-```vue-html{3}
-  <fv-check-box 
-    :theme="theme" 
-    :border-width="2"
-  >
-    Checkbox rendered with borderWidth "2"
-  </fv-check-box>
+<ClientOnly>
+<fv-checkBox borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
+</ClientOnly>
+
+```vue
+<fv-checkBox borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
 ```
 
 2. Set background and border color.
-<fv-check-box
-  :theme="theme" 
-  border-color="rgba(0, 204, 153, 1)" 
-  foreground="rgba(0, 204, 153, 1)" 
-  background="rgba(0, 204, 153, 1)">
-  Checkbox
-</fv-check-box>
 
-```vue-html{3-5}
-  <fv-check-box
-    :theme="theme" 
-    border-color="rgba(0, 204, 153, 1)" 
-    foreground="rgba(0, 204, 153, 1)" 
-    background="rgba(0, 204, 153, 1)"
-  >
-    Checkbox
-  </fv-check-box>
+<ClientOnly>
+<fv-checkBox borderColor="rgba(0, 204, 153, 1)" foreground="rgba(0, 204, 153, 1)" background="rgba(0, 204, 153, 1)">Checkbox</fv-checkBox>
+</ClientOnly>
+
+```vue
+<fv-checkBox borderColor="rgba(0,204,153,1)" foreground="rgba(0,204,153,1)" background="rgba(0,204,153,1)">Checkbox</fv-checkBox>
 ```
 
-<!--@include: ./properties.md-->
-
-<!--@include: ./emits.md-->
-
-## Slot
+### Propoties
 
 ---
+| 属性(attr)  |             类型(type)             | 必填(required) | 默认值(default) |     说明(statement)     |
+|:-----------:|:----------------------------------:|:--------------:|:---------------:|:-----------------------:|
+|    value    |             Boolean              |       No       |     [empty]     |     Checkbox value      |
+| foreground  |              String              |       No       |       N/A       |   Checkbox foreground   |
+| borderColor |              String              |       No       |       N/A       |  Checkbox borderColor   |
+| background  |              String              |       No       |       N/A       |    Checkbox background    |
+|   boxSide   |          ['start', 'end']           |       No       |      start      | CheckBox text font weight |
+|  disabled   |             Boolean              |       No       |      false      |     Disabled checkbox     |
+| borderWidth |              Number              |       No       |        1        |   Checkbox border width   |
+|     theme     | String |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式              |
 
-### Default
+### Events
 
-```vue-html
-  <fv-check-box>
-    {{label here}}
-  </fv-check-box>
-```
+---
+| 事件名(Name) | 参数类型(args) | 说明(statement)  |
+|:------------:|:--------------:|:----------------:|
+|    click     |     value      | Checkbox onclick |

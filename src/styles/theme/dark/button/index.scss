@@ -1,24 +1,16 @@
-.fv-button {
+.fv-Button {
     &.dark {
-        .button-container {
-            background: var(--fv-dark-bgcolor);
-            color: var(--fv-dark-color);
-
+        div.fv-button-main-container {
             &:hover {
-                background: var(--fv-dark-hover-bgcolor);
-                opacity: 0.9;
+                background: rgba(243, 242, 241, 0.6);
             }
 
-            &.shadow {
-                box-shadow: rgba(65, 23, 23, 0.133) 0px 3.2px 7.2px 0px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
-            }
+            .fv-button-container {
+                background: #605e5c;
+                border: rgba(36, 36, 36, 0.2) solid thin;
 
-            &.disabled {
-                background: var(--fv-dark-disabled-bgcolor);
-                color: var(--fv-dark-disabled-color);
-                &:hover {
-                    background: var(--fv-dark-disabled-bgcolor);
-                    opacity: 1;
+                span.fv-btn-content-block {
+                    color: whitesmoke;
                 }
             }
         }

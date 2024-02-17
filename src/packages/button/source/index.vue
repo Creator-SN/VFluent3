@@ -1,63 +1,140 @@
-<script lang="ts" setup>
-import { isNumber, isString } from "@/utils/common/types";
-import { buttonProps, buttonEmits, useButton } from "."
-import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
-
-// The defined name, which will be registered as the component name
-defineOptions({
-    name: "FvButton"
-})
-
-const emits = defineEmits(buttonEmits)
-
-const props = defineProps(buttonProps)
-
-const { theme } = useTheme(props)
-
-const { cls: computedComponentClass } = new ClassBuilder()
-    .add(`fv-button`)
-    .add(() => theme.value)
-    .computed()
-
-const { cls: computedButtonClass } = new ClassBuilder()
-    .add(`button-container`)
-    .add(`disabled`, () => props.disabled)
-    .add(`shadow`, () => props.isBoxShadow)
-    .computed()
-
-const { cls: computedIconClass } = new ClassBuilder()
-    .add("ms-Icon")
-    .add(() => `ms-Icon--${props.icon}`, () => isString(props.icon))
-    .computed()
-
-const { style: computedButtonStyle } = new StyleBuilder()
-    .add('color', () => props.foreground, () => isString(props.foreground))
-    .add('background', () => props.background, () => isString(props.background))
-    .add('borderWidth', () => props.borderWidth, () => isString(props.borderWidth))
-    .add("borderWidth", () => `${props.borderWidth}px`, () => isNumber(props.borderWidth))
-    .add("borderRadius", () => props.borderRadius, () => isString(props.borderRadius))
-    .add("borderRadius", () => `${props.borderRadius}px`, () => isNumber(props.borderRadius))
-    .computed()
-
-const { style: computedTextStyle } = new StyleBuilder()
-    .add('fontSize', () => props.fontSize, () => isString(props.fontSize))
-    .add('fontSize', () => `${props.fontSize}px`, () => isNumber(props.fontSize))
-    .add('fontWeight', () => `${props.fontWeight}px`, () => isNumber(props.fontWeight))
-    .add('fontWeight', () => props.fontWeight, () => isString(props.fontWeight))
-    .computed()
-
-// methods
-const { onClick } = useButton(props, emits)
-
-</script>
-
 <template>
-    <div :class="computedComponentClass" @click="onClick">
-        <button type="button" :class="computedButtonClass" :style="computedButtonStyle">
-            <span class="content-block" :style="computedTextStyle">
-                <i v-if="props.icon" :class="computedIconClass"></i>
-                <slot></slot>
-            </span>
-        </button>
+    <div
+        class="fv-Button"
+        :class="[$theme]"
+        @click="onClick"
+    >
+        <div
+            class="fv-button-main-container"
+            :class="[{disabled: isDisabled}, { shadow: isBoxShadow }]"
+            :style="{borderRadius: `${borderRadius}px`}"
+        >
+            <fv-reveal-container
+                :parent="() => $el"
+                class="fv-button-reveal-container"
+                :backgroundColor="backgroundLightColor"
+                :borderColor="borderLightColor"
+                :borderGradientSize="80"
+                :borderWidth="borderWidth"
+                :borderRadius="borderRadius"
+                :disabled="isDisabled"
+            ></fv-reveal-container>
+            <div
+                :disabled="disabled"
+                class="fv-button-container"
+                :style="{background: background, 'background-repeat': 'no-repeat', 'background-clip': 'content-box', borderColor: borderColor, borderWidth: `${borderWidth}px`, borderRadius: `${borderRadius}px`}"
+            >
+                <span
+                    class="fv-btn-content-block"
+                    :style="{color: foreground, 'font-size': `${fontSize}px`, 'font-weight': fontWeight}"
+                >
+                    <i
+                        class="ms-Icon"
+                        :class="`ms-Icon--${icon}`"
+                        :style="{'margin-right': icon != '' ? '5px': ''}"
+                    ></i>
+                    <slot>Button</slot>
+                </span>
+            </div>
+        </div>
     </div>
 </template>
+
+<script>
+import { buttonProps } from ".";
+import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common";
+
+export default {
+    name: "FvButton",
+    props: {
+        ...buttonProps,
+        icon: {
+            default: "",
+            type: String,
+        },
+        theme: {
+            default: "system",
+            type: String,
+        },
+        foreground: {
+            default: "",
+            type: String,
+        },
+        background: {
+            default: "",
+            type: String,
+        },
+        borderRadius: {
+            default: 3,
+        },
+        borderColor: {
+            default: "",
+        },
+        fontSize: {
+            default: 13.3,
+        },
+        fontWeight: {
+            default: "normal",
+            type: String,
+        },
+        revealBorderColor: {
+            default: false,
+        },
+        revealBackgroundColor: {
+            default: false,
+        },
+        isBoxShadow: {
+            default: false,
+        },
+        disabled: {
+            default: false,
+        },
+        borderWidth: {
+            default: 1,
+        },
+    },
+    data() {
+        return {};
+    },
+    watch: {},
+    computed: {
+        $theme() {
+            return useTheme(this.$props).theme.value;
+        },
+        borderLightColor() {
+            if (this.revealBorderColor) return this.revealBorderColor;
+            if (this.$theme == "light") {
+                return "rgba(121, 119, 117, 0.6)";
+            }
+            if (this.$theme == "dark" || this.$theme == "custom") {
+                return "rgba(255, 255, 255, 0.6)";
+            }
+        },
+        backgroundLightColor() {
+            if (this.revealBackgroundColor) return this.revealBackgroundColor;
+            if (this.$theme == "light") {
+                return "rgba(121, 119, 117, 0.1)";
+            }
+            if (this.$theme == "dark" || this.$theme == "custom") {
+                return "rgba(255, 255, 255, 0.1)";
+            }
+        },
+        isDisabled() {
+            return (
+                this.disabled.toString() == "true" ||
+                this.disabled == "disabled" ||
+                this.disabled === ""
+            );
+        },
+    },
+    mounted() {},
+    methods: {
+        onClick(event) {
+            event.preventDefault();
+            if (this.isDisabled) return 0;
+            this.$emit("click", event);
+        },
+    },
+    beforeDestroy() {},
+};
+</script>

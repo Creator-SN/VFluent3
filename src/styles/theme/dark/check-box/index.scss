@@ -1,33 +1,47 @@
-.fv-checkbox {
+.fv-CheckBox {
     &.dark {
-        .label {
-            .icon {
-                --fv-checkbox-bgcolor: initial;
-                border-color: var(--fv-dark-border-color);
-                color: var(--fv-light-color);
-                &:hover {
-                    background-color: var(--fv-checkbox-bgcolor, var(--fv-dark-bgcolor));
+        .fv-checkbox-rec {
+            &:hover {
+                background: rgba(200, 200, 200, 0.2);
+
+                .fv-checkbox-border {
+                    opacity: 0.6;
                 }
             }
-        }
-        &.active {
-            .label {
-                .icon {
-                    border-color: rgb(var(--fv-primary-bgcolor));
-                    background-color: rgb(var(--fv-primary-bgcolor));
-                    color: var(--fv-light-color);
+
+            &:active {
+                background: rgba(200, 200, 200, 0.1);
+
+                .fv-checkbox-border {
+                    opacity: 0.3;
+                }
+            }
+
+            &.check {
+                .fv-checkbox-border {
+                    border-color: transparent;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+            }
+
+            .fv-checkbox-border {
+                border-color: rgba(204, 204, 204, 0.5);
+            }
+
+            .fv-checkbox-content-block {
+                color: rgba(36, 36, 36, 1);
+
+                .fv-checkbox-content {
+                    color: rgba(36, 36, 36, 1);
                 }
             }
         }
 
-        &.disabled {
-            .label {
-                cursor: default;
-                .icon {
-                    background-color: var(--fv-dark-bgcolor);
-                    border-color: var(--fv-dark-bgcolor);
-                }
-            }
+        .text-content-block {
+            color: whitesmoke;
         }
     }
 }

@@ -31,6 +31,7 @@
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "bin:new": "node --loader ./scripts/loader.mjs ./scripts/new.ts --files",
+    "bin:new_old": "node --loader ./scripts/loader.mjs ./scripts/new_old.ts --files",
     "bin:dt": "node --loader ./scripts/loader.mjs ./scripts/mkdocs.ts --files",
     "cc": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "cz": "cz"

@@ -1,65 +1,116 @@
-<script lang="ts" setup>
-import { ClassBuilder, isNumber, isString, StyleBuilder } from "@/utils/common";
-import { useTheme } from "@/utils/common/theme"
-import { checkBoxProps, checkBoxEmits, useCheckbox } from "."
-
-const props = defineProps(checkBoxProps);
-const emits = defineEmits(checkBoxEmits);
-
-defineOptions({
-    name: "FvCheckBox"
-})
-
-const { theme } = useTheme(props);
-
-const { computedChecked, onClick, onChange, onFocus, onBlur } = useCheckbox(props, emits);
-
-const { cls: computedCheckboxClass } = new ClassBuilder()
-    .add("fv-checkbox")
-    .add(() => theme.value)
-    .add("active", () => computedChecked.value !== false)
-    .add("disabled", () => props.disabled)
-    .computed()
-
-const { cls: computeIconClass } = new ClassBuilder()
-    .add("ms-Icon")
-    .add("ms-Icon--CheckMark", () => computedChecked.value === true)
-    .add("ms-Icon--CheckboxIndeterminate", () => computedChecked.value === undefined)
-    .computed()
-
-const { style: computedIconStyle } = new StyleBuilder()
-    .add("background", () => props.background, () => props.background !== undefined)
-    .add("--fv-checkbox-bgcolor", () => props.hoverColor, () => props.hoverColor !== undefined)
-    .add("borderWidth", () => props.borderWidth, () => isString(props.borderWidth))
-    .add("borderWidth", () => `${props.borderWidth}px`, () => isNumber(props.borderWidth))
-    .add("borderColor", () => props.borderColor, () => props.borderColor !== undefined)
-    .computed()
-
-const { style: computedTextStyle } = new StyleBuilder()
-    .add("color", () => props.foreground, () => props.foreground !== undefined)
-    .computed()
-
-</script>
-
 <template>
-    <div :class="computedCheckboxClass">
-        <label class="label" @click="onClick">
-            <span v-if="props.boxSide === `end`" :style="computedTextStyle">
-                <slot>
-                </slot>
-            </span>
-            <input :checked="computedChecked"  @change="onChange(computedChecked)" @focus="onFocus" @blur="onBlur" :disabled="props.disabled" type="checkbox"
-                class="checkbox" v-model="computedChecked" />
-            <div class="icon" :style="computedIconStyle">
-                <transition name="font-clip-in">
-                    <div class="icon-box" v-show="computedChecked !== false" />
-                </transition>
-                <i :class="computeIconClass" />
-            </div>
-            <span v-if="props.boxSide === `start`" :style="computedTextStyle">
-                <slot>
-                </slot>
-            </span>
-        </label>
+    <div
+        class="fv-CheckBox"
+        :class="[$theme, boxSide == 'end' ? 'box-side-end' : '']"
+        @click="Checked"
+    >
+        <div
+            class="fv-checkbox-rec"
+            :class="[{disabled: isDisabled, check: thisValue || Indeterminate}]"
+            :style="{background: thisValue || Indeterminate ? background : ''}"
+        >
+            <p
+                class="fv-checkbox-border"
+                :style="{borderColor: Indeterminate ? 'transparent' : borderColor, borderWidth: `${borderWidth}px`}"
+            ></p>
+            <transition name="font-clip-in">
+                <div
+                    v-show="thisValue && !Indeterminate"
+                    class="fv-checkbox-content-block"
+                >
+                    <i class="fv-checkbox-content ms-Icon ms-Icon--CheckMark"></i>
+                </div>
+            </transition>
+            <transition name="font-clip-in">
+                <div
+                    v-show="Indeterminate"
+                    class="fv-checkbox-content-block"
+                >
+                    <i class="fv-checkbox-content ms-Icon ms-Icon--CheckboxIndeterminate"></i>
+                </div>
+            </transition>
+        </div>
+        <span
+            class="text-content-block"
+            :style="{color: foreground}"
+        >
+            <slot></slot>
+        </span>
     </div>
 </template>
+
+<script>
+import { checkBoxProps } from ".";
+import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common";
+
+export default {
+    name: "FvCheckBox",
+    props: {
+        ...checkBoxProps,
+        value: {
+            default: "",
+        },
+        borderWidth: {
+            default: 1.5,
+        },
+        borderColor: {
+            type: String,
+            default: "",
+        },
+        foreground: {
+            default: "",
+        },
+        background: {
+            type: String,
+            default: "rgba(0, 90, 158, 1)",
+        },
+        boxSide: {
+            default: "start",
+        },
+        disabled: {
+            default: false,
+        },
+    },
+    data() {
+        return {
+            thisValue: this.value,
+        };
+    },
+    watch: {
+        value(val) {
+            this.thisValue = val;
+        },
+        thisValue(val) {
+            this.$emit("input", val);
+        },
+    },
+    computed: {
+        $theme() {
+            return useTheme(this.$props).theme.value;
+        },
+        Indeterminate() {
+            if (this.thisValue === true || this.thisValue === false)
+                return false;
+            return true;
+        },
+        isDisabled() {
+            return (
+                this.disabled.toString() == "true" ||
+                this.disabled == "disabled" ||
+                this.disabled === ""
+            );
+        },
+    },
+    mounted() {
+        this.thisValue = this.value;
+    },
+    methods: {
+        Checked(event) {
+            event.preventDefault();
+            if (this.isDisabled) return 0;
+            this.thisValue = !this.thisValue;
+            this.$emit("click", this.thisValue); //@event click//
+        },
+    },
+}
+</script>
