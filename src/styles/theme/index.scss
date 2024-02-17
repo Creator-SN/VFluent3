@@ -33,3 +33,8 @@
     --fv-info-color: 50, 49, 48;
     --fv-success-color: 0, 204, 153;
 }
+
+* {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}

@@ -41,6 +41,7 @@ import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 
 export default {
     name: 'FvAnimatedIcon',
+    emits:['click'],
     props: {
         ...animatedIconProps,
         value: {

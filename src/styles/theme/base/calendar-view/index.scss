@@ -1,0 +1,297 @@
+.fv-CalendarView {
+    position: relative;
+    width: 294px;
+    height: 340px;
+    background: rgba(255, 255, 255, 0.6);
+    border: rgba(120, 120, 120, 0.1) solid 2px;
+    font-family: "微软雅黑";
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(25px);
+
+    .fv-calendar-control-block
+    {
+        width: 100%;
+        height: 45px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        -webkit-backdrop-filter: blur(25px);
+        z-index: 1;
+
+        .calendar-switcher
+        {
+            width: 100%;
+            height: calc(100% - 10px);
+            max-height: 39px;
+            margin: 5px;
+            padding-left: 8px;
+            border-radius: 3px;
+            font-size: 13.8px;
+            font-weight: bold;
+            color: rgba(50, 49, 48, 1);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-transition: all 0.2s;
+            -webkit-user-select: none;
+            cursor: default;
+            
+            &:hover
+            {
+                background: rgba(120, 120, 120, 0.1);
+            }
+
+            &:active
+            {
+                opacity: 0.6;
+            }
+            
+            &.dark
+            {
+                color: whitesmoke;
+            }
+        }
+        
+        .slider-bar
+        {
+            width: 78px;
+            height: 100%;
+            max-height: 39px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            
+            .slider-btn
+            {
+                width: 39px;
+                height: 100%;
+                border-radius: 3px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.3s;
+                -webkit-transition: all 0.3s;
+                user-select: none;
+                -webkit-user-select: none;
+                cursor: default;
+                
+                &:hover
+                {
+                    background: rgba(120, 120, 120, 0.1);
+                }
+
+                &:active
+                {
+                    background: rgba(95, 95, 95, 0.1);
+                }
+
+                .ms-Icon
+                {
+                    font-size: 12px;
+                    transform: scale(0.8);
+                }
+            }
+            
+            &.dark
+            {
+                color: whitesmoke;
+            }
+        }
+    }
+
+    .container-block
+    {
+        position: relative;
+        width: 100%;
+        height: 290px;
+
+        .day-block
+        {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .weekdays-block
+            {
+                position: relative;
+                width: 100%;
+                height: 44px;
+                box-sizing: border-box;
+                user-select: none;
+                display: flex;
+                
+                .weekday
+                {
+                    position: relative;
+                    width: 41px;
+                    height: 100%;
+                    background: transparent;
+                    color: rgba(36, 36, 36, 1);
+                    font-size: 12px;
+                    font-weight: bold;
+                    border: none;
+                    box-sizing: border-box;
+                    outline: none;
+                }
+            }
+        }
+        
+        .picker-container
+        {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            flex: 1;
+            background: rgba(255, 255, 255, 1);
+            display: flex;
+            flex-wrap: wrap;
+            overflow: overlay;
+            transition: all 0.3s ease-in-out;
+            overflow:-moz-scrollbars-none;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+            
+            button.picker-btn
+            {
+                position: relative;
+                width: 70.5px;
+                height: 70.5px;
+                margin: 1px;
+                padding: 0px;
+                background: rgba(255, 255, 255, 1);
+                font-size: 15px;
+                color: rgba(36, 36, 36, 0.6);
+                border: rgba(120, 120, 120, 0) solid 2px;
+                border-radius: 3px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-sizing: border-box;
+                user-select: none;
+                outline: none;
+                transition: all 0.6s;
+                transition-delay: 0.1s;
+                
+                &.dark
+                {
+                    background: rgba(0, 0, 0, 0.3);
+                    color: whitesmoke;
+                }
+                
+                &:hover
+                {
+                    border: rgba(120, 120, 120, 0.6) solid 2px;
+                }
+                
+                &.range
+                {
+                    background: rgba(255, 255, 255, 1);
+                    color: rgba(36, 36, 36, 1);
+                }
+                
+                &.current
+                {
+                    background: rgba(0, 120, 215, 0.8);
+                    color: whitesmoke;
+                    
+                    &:hover
+                    {
+                        border: rgba(0, 0, 0, 0.35) solid 2px;
+                    }
+
+                    &.choose
+                    {
+                        border: rgba(255, 255, 255, 0.6) solid 2px;
+                    }
+                }
+
+                &.choose
+                {
+                    border: rgba(0, 90, 158, 1) solid 2px;
+                }
+                
+                &.day
+                {
+                    width: 39.42px;
+                    height: 39px;
+                }
+            }
+        }
+
+        .picker-container::-webkit-scrollbar
+        {
+            display: none;
+        }
+    }
+    
+    .fv-calendar-scale-up-enter-active
+    {
+        transition: opacity 0.3s, transform 0.2s;
+    }
+    
+    .fv-calendar-scale-up-enter-from
+    {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    .fv-calendar-scale-up-enter-to
+    {
+        transform: scale(1);
+    }
+
+    .fv-calendar-scale-up-leave-active
+    {
+        transition: opacity 0.1s, transform 0.1s;
+    }
+
+    .fv-calendar-scale-up-leave-from
+    {
+        transform: scale(1);
+    }
+
+    .fv-calendar-scale-up-leave-to
+    {
+        opacity: 0;
+        transform: scale(1.6);
+    }
+
+    .fv-calendar-scale-down-enter-active
+    {
+        transition: opacity 0.2s, transform 0.2s;
+    }
+    
+    .fv-calendar-scale-down-enter-from
+    {
+        opacity: 0;
+        transform: scale(1.6);
+    }
+
+    .fv-calendar-scale-down-enter-to
+    {
+        transform: scale(1);
+    }
+
+    .fv-calendar-scale-down-leave-active
+    {
+        transition: opacity 0.01s, transform 0.01s;
+    }
+
+    .fv-calendar-scale-down-leave-from
+    {
+        transform: scale(1);
+    }
+
+    .fv-calendar-scale-down-leave-to
+    {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}

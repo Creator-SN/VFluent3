@@ -98,6 +98,8 @@ export default {
 ${'exports'}
 
 import '@/styles/theme/index.scss';
+import { SDate } from '@/utils/common/usual';
+import { SUtility } from '@/utils/common/usual';
 
 import type { App, Plugin } from 'vue';
 import { createPinia } from 'pinia';
@@ -112,6 +114,8 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
     install(app: App, options: any) {
         const pinia = createPinia();
         app.use(pinia);
+        app.config.globalProperties.$SDate = SDate;
+        app.config.globalProperties.$SUtility = SUtility;
         for (const component of components) {
             app.use(component);
         }
