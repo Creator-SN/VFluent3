@@ -27,7 +27,7 @@ export default {
     name: 'FvBadge',
     props: {
         ...badgeProps,
-        value: {
+        modelValue: {
             default: ''
         },
         max: {
@@ -45,7 +45,7 @@ export default {
     },
     data() {
         return {
-            thisValue: this.value,
+            thisValue: this.modelValue,
             colorList: {
                 default: '#f56c6c',
                 primary: '#409eff',
@@ -57,11 +57,11 @@ export default {
         };
     },
     watch: {
-        value(val) {
+        modelValue(val) {
             this.thisValue = val;
         },
         thisValue(val) {
-            this.$emit('input', val);
+            this.$emit('update:modelValue', val);
         }
     },
     computed: {

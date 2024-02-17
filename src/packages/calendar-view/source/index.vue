@@ -78,7 +78,7 @@ export default {
     },
     props: {
         ...calendarViewProps,
-        value: {
+        modelValue: {
             default: () => new Date()
         },
         start: {
@@ -97,7 +97,7 @@ export default {
     data () {
         return {
             status: 'date',
-            thisValue: this.value,
+            thisValue: this.modelValue,
             yearRange: new Date().getFullYear(),
             monthRange: {year: new Date().getFullYear(), no: new Date().getMonth()},
             dayRange: {year: new Date().getFullYear(), month: new Date().getMonth(), no: 1},
@@ -109,7 +109,7 @@ export default {
         };
     },
     watch: {
-        value (val, from) {
+        modelValue (val, from) {
             if(!this.$SDate.IsSameDate(val, from))
                 this.thisValue = this.$SDate.Parse(this.$SDate.DateToString(val));
         }
@@ -188,7 +188,7 @@ export default {
             this.thisValue.setMonth(item.month);
             this.thisValue.setFullYear(item.year);
             this.$emit('choose-date', this.thisValue);
-            this.$emit('input', this.$SDate.Parse(this.$SDate.DateToString(this.thisValue)));
+            this.$emit('update:modelValue', this.$SDate.Parse(this.$SDate.DateToString(this.thisValue)));
         }
     }
 }

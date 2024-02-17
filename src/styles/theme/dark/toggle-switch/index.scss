@@ -1,50 +1,37 @@
-.fv-toggle-switch {
+.fv-ToggleSwitch {
     &.dark {
-        --fv-toggle-switch-off-bgcolor: initial;
-        --fv-toggle-switch-on-bgcolor: initial;
-        --fv-toggle-switch-on-color: initial;
-        --fv-toggle-switch-color: initial;
-        .label {
-            color: var(--fv-toggle-switch-color);
-            .bg {
-                border-color: var(--fv-toggle-switch-off-bgcolor, var(--fv-light-bgcolor2));
-                .circle {
-                    background: var(--fv-toggle-switch-off-bgcolor, var(--fv-light-bgcolor2));
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .fv-toggle-border {
+            border: rgba(207, 207, 207, 0.8) solid 1.5px;
+
+            &:hover {
+                background: rgba(207, 207, 207, 0.05);
+                opacity: 1;
+            }
+
+            &:active {
+                background: rgba(207, 207, 207, 0.1);
+            }
+
+            .fv-toggle-ring {
+                background: rgba(207, 207, 207, 0.8);
+            }
+
+            &.toggle-on {
+                background: rgba(118, 185, 237, 0.8);
+                border-color: transparent;
+
+                .fv-toggle-ring {
+                    background: black;
                 }
             }
         }
-        &.active {
-            .label {
-                .bg {
-                    border-color: var(--fv-toggle-switch-on-bgcolor, rgb(var(--fv-primary-bgcolor)));
-                    background-color: var(--fv-toggle-switch-on-bgcolor, rgb(var(--fv-primary-bgcolor)));
-                    .circle {
-                        background: var(--fv-toggle-switch-on-color, var(--fv-light-color));
-                    }
-                }
-            }
-        }
-        &.disabled {
-            .label {
-                color: var(--fv-light-disabled-bgcolor);
-                .bg {
-                    border-color: var(--fv-light-disabled-bgcolor);
-                    .circle {
-                        background: var(--fv-light-disabled-bgcolor);
-                    }
-                }
-            }
-            &.active {
-                .label {
-                    .bg {
-                        border-color: var(--fv-light-disabled-bgcolor);
-                        background-color: var(--fv-light-disabled-bgcolor);
-                        .circle {
-                            background: var(--fv-light-disabled-color);
-                        }
-                    }
-                }
-            }
+
+        .fv-toggle-content {
+            color: whitesmoke;
         }
     }
 }

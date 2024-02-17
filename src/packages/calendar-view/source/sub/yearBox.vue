@@ -32,7 +32,7 @@ export default {
             default: 72.5
         },
         theme: {
-            default: 'system'
+            default: 'global'
         }
     },
     setup () {

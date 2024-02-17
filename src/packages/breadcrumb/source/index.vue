@@ -69,7 +69,7 @@ export default {
     name: "FvBreadcrumb",
     props: {
         ...breadcrumbProps,
-        value: {
+        modelValue: {
             default: "",
         },
         separator: {
@@ -102,12 +102,12 @@ export default {
     data() {
         return {
             mode: "default",
-            thisValue: this.value,
+            thisValue: this.modelValue,
             tempValue: "",
         };
     },
     watch: {
-        value(val) {
+        modelValue(val) {
             this.thisValue = val;
         },
         mode(val) {
@@ -126,7 +126,7 @@ export default {
             }
         },
         thisValue(val) {
-            this.$emit("input", val);
+            this.$emit("update:modelValue", val);
         },
     },
     computed: {

@@ -44,7 +44,7 @@ export default {
     emits:['click'],
     props: {
         ...animatedIconProps,
-        value: {
+        modelValue: {
             default: 'scaleDown'
         },
         icon: {
@@ -65,7 +65,7 @@ export default {
     },
     data() {
         return {
-            thisValue: this.value,
+            thisValue: this.modelValue,
             animations: {
                 scaleDown: {
                     down: {
@@ -189,11 +189,11 @@ export default {
         };
     },
     watch: {
-        value(val) {
+        modelValue(val) {
             this.thisValue = val;
         },
         thisValue(val) {
-            this.$emit('input', val);
+            this.$emit('update:modelValue', val);
         }
     },
     computed: {

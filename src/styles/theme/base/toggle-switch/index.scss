@@ -1,78 +1,127 @@
-.fv-toggle-switch {
-    --fv-toggle-switch-off: 0px;
-    --fv-toggle-switch-on: 18px;
-    .label {
-        display: inline-flex;
-        cursor: pointer;
+.fv-ToggleSwitch {
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    user-select: none;
+
+    &.disabled
+    {
+        opacity: 0.3;
+        filter: grayscale(1);
+
+        .fv-toggle-border
+        {
+            &:hover
+            {
+                .fv-toggle-ring
+                {
+                    transform: scale(1);
+                }
+            }
+
+            &:active
+            {
+                .fv-toggle-ring
+                {
+                    width: 12px;
+                }
+            }
+        }
+    }
+
+    .fv-toggle-border
+    {
+        position: relative;
+        width: 40px;
+        height: 20px;
+        padding: 5px;
+        border: rgba(87, 87, 87, 1) solid 1.5px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        display: flex;
         align-items: center;
-        justify-content: center;
-        .checkbox {
-            appearance: none;
-        }
-        .bg {
-            margin: 0 5px;
-            border-radius: 10px;
-            height: 20px;
-            width: 40px;
-            display: flex;
-            align-items: center;
-            box-sizing: border-box;
-            padding: 0 4px;
-            border-style: solid;
-            border-width: 1px;
-            .circle {
-                position: relative;
-                transform: translateX(var(--fv-toggle-switch-off));
-                height: 12px;
-                width: 12px;
-                border-radius: 6px;
-                transition: transform 0.15s linear, width 0.1s linear;
+        opacity: 0.9;
+        transition: all 0.2s, background-color 0.5s;
+        -webkit-transition: all 0.2s, background-color 0.5s;
+        
+        &:hover
+        {
+            background: rgba(36, 36, 36, 0.05);
+            opacity: 1;
+
+            .fv-toggle-ring
+            {
+                transform: scale(1.1);
             }
         }
-        .text {
+        
+        &:active
+        {
+            background: rgba(36, 36, 36, 0.1);
+            
+            .fv-toggle-ring
+            {
+                width: 15px;
+            }
+        }
+        
+        .fv-toggle-ring
+        {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            left: 5px;
+            margin: 0px;
+            background: rgba(87, 87, 87, 1);
+            border-radius: 12px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        
+        &.toggle-on
+        {
+            background: rgba(25, 106, 167, 0.8);
+            border-color: transparent;
+
+            .fv-toggle-ring
+            {
+                left: calc(100% - 17px);
+                background: rgba(255,255,255,1);
+                box-shadow: -3px 3px 10px rgba(0,0,0,0.2);
+            }
+
+            &:active
+            {   
+                .fv-toggle-ring
+                {
+                    width: 15px;
+                    left: calc(100% - 20px);
+                    transform-origin: 100% 50%;
+                }
+            }
+        }
+
+        .fv-toggle-inside-content
+        {
+            position: absolute;
+            font-family: '微软雅黑';
+            font-size: 12px;
+            cursor: default;
             user-select: none;
-        }
-        &:hover {
-            .bg {
-                .circle {
-                    transform: translateX(var(--fv-toggle-switch-off)) scale(1.2);
-                }
-            }
-        }
-        &:active {
-            .bg {
-                .circle {
-                    transform: translateX(var(--fv-toggle-switch-off)) scale(1.2);
-                    width: 14px;
-                }
-            }
+            transition: all 0.2s;
+            -webkit-transition: all 0.2s;
         }
     }
-    &.active {
-        .label {
-            .bg {
-                .circle {
-                    transform: translateX(var(--fv-toggle-switch-on));
-                }
-            }
-            &:hover {
-                .bg {
-                    .circle {
-                        transform: translateX(var(--fv-toggle-switch-on)) scale(1.2);
-                    }
-                }
-            }
-            &:active {
-                .bg {
-                    .circle {
-                        transform: translateX(calc(var(--fv-toggle-switch-on) - 2px)) scale(1.2);
-                        width: 14px;
-                    }
-                }
-            }
-        }
-    }
-    &.disabled{
-        pointer-events: none;
+    
+    .fv-toggle-content
+    {
+        margin-left: 12px;
+        font-family: '微软雅黑';
+        font-size: 13px;
+        cursor: default;
+        user-select: none;
+        transition: all 0.2s;
+        -webkit-transition: all 0.2s;
     }
 }

@@ -2,125 +2,100 @@
 page: true
 title: ToggleSwitch
 --- 
+### ToggleSwitch-DEMO
+--- 
 
-<script lang="ts" setup>
-import { ref } from 'vue'; 
-import { useTheme } from '../common/index.js'; 
 
-const {theme} = useTheme()
+<ClientOnly>
 
-const value = ref<boolean>(false)
 
-function click(val:boolean){
-  console.log('click', val)
-}
+<fv-ToggleSwitch>
+</fv-ToggleSwitch>
 
-function change(val:boolean){
-  console.log("change", val)
-}
+```vue
+<fv-ToggleSwitch>
+</fv-ToggleSwitch>
+```
 
-function focus(evt: FocusEvent){
-  console.log("focus", evt)
-}
-
-function blur(evt: FocusEvent){
-  console.log("blur", evt)
-}
-
-</script>
-
-# ToggleSwitch
-
-## Quick Start
-
-### Default
-
+### ToggleSwitch Disabled
 ---
-<fv-toggle-switch v-model="value" @click="click" @change="change" @blur="blur" @focus="focus"  :theme="theme" on="On" off="Off">
-</fv-toggle-switch>
 
-```vue-html{2-9}
+<fv-ToggleSwitch disabled>
+</fv-ToggleSwitch>
 
-    <fv-toggle-switch 
-        v-model="value" 
-        @click="click" 
-        @change="change" 
-        @blur="blur" 
-        @focus="focus"
-        :theme="theme" 
-        on="ON" 
-        off="OFF">
-    </fv-toggle-switch>
-
+```vue
+<fv-ToggleSwitch disabled>
+</fv-ToggleSwitch>
 ```
 
-### Disabled
-
+### ToggleSwitch Dark Theme
 ---
-<fv-toggle-switch v-model="value" @click="click" @change="change" @blur="blur" @focus="focus"  :theme="theme" on="On" off="Off" disabled>
-</fv-toggle-switch>
+<div style="background: black;">
 
-```vue-html{10}
-    <fv-toggle-switch 
-        v-model="value" 
-        @click="click" 
-        @change="change" 
-        @blur="blur" 
-        @focus="focus"
-        :theme="theme" 
-        on="ON" 
-        off="OFF"
-        disabled>
-    </fv-toggle-switch>
+<fv-ToggleSwitch theme="dark">
+</fv-ToggleSwitch>
+</div>
+
+```vue
+<fv-ToggleSwitch theme="dark">
+</fv-ToggleSwitch>
 ```
 
-### Custom
-
+### ToggleSwitch Custom Content
 ---
-1. custom color
 
-<fv-toggle-switch v-model="value" @click="click" @change="change" @blur="blur" @focus="focus"  :theme="theme" on="Yes" off-foreground="rgba(0, 204, 153, 1)" on-background="rgba(0, 204, 153, 1)" foreground="rgba(0, 204, 153, 1)">
-</fv-toggle-switch>
+<fv-ToggleSwitch on="开" off="关">
+</fv-ToggleSwitch>
 
-```vue-html{9-11}
-    <fv-toggle-switch 
-        v-model="value" 
-        @click="click" 
-        @change="change" 
-        @blur="blur" 
-        @focus="focus"  
-        :theme="theme" 
-        on="Yes" 
-        off-foreground="rgba(0, 204, 153, 1)" 
-        on-background="rgba(0, 204, 153, 1)" 
-        foreground="rgba(0, 204, 153, 1)"
-    >
-    </fv-toggle-switch>
+```vue
+<fv-ToggleSwitch on="开" off="关">
+</fv-ToggleSwitch>
 ```
 
-2. box side
+### ToggleSwitch Inside Content
+---
 
-<fv-toggle-switch v-model="value" @click="click" @change="change" @blur="blur" @focus="focus"  :theme="theme" on="Yes" off="No" off-foreground="rgba(0, 204, 153, 1)" on-background="rgba(0, 204, 153, 1)" foreground="rgba(0, 204, 153, 1)" box-side="end">
-</fv-toggle-switch>
+<fv-ToggleSwitch width="50" on="开" off="关" :insideContent="true">
+</fv-ToggleSwitch>
 
-```vue-html{9,13}
-    <fv-toggle-switch 
-        v-model="value" 
-        @click="click" 
-        @change="change" 
-        @blur="blur" 
-        @focus="focus"  
-        :theme="theme" 
-        on="Yes" 
-        off="No"
-        off-foreground="rgba(0, 204, 153, 1)" 
-        on-background="rgba(0, 204, 153, 1)" 
-        foreground="rgba(0, 204, 153, 1)"
-        box-side="end"
-    >
-    </fv-toggle-switch>
+```vue
+<fv-ToggleSwitch width="50" on="开" off="关" :insideContent="true">
+</fv-ToggleSwitch>
 ```
 
-<!--@include: ./properties.md-->
+### ToggleSwitch Custom Style
+---
 
-<!--@include: ./emits.md-->
+<fv-ToggleSwitch borderColor="rgba(0,204,153,1)" ringBackground="rgba(0,204,153,1)" onForeground="rgba(0,204,153,1)" offForeground="rgba(0,204,153,1)" switchOnBackground="rgba(0,204,153,1)">
+</fv-ToggleSwitch>
+
+```vue
+<fv-ToggleSwitch borderColor="rgba(0,204,153,1)" ringBackground="rgba(0,204,153,1)" onForeground="rgba(0,204,153,1)" offForeground="rgba(0,204,153,1)" switchOnBackground="rgba(0,204,153,1)">
+</fv-ToggleSwitch>
+```
+
+</ClientOnly>
+
+### Propoties
+---
+|     属性(attr)     |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
+|:------------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
+|       value        |     Number      |       No       |      false      |                    Toggleswitch value                     |
+|         on         |     String      |       No       |       On        |          Toggleswitch content when value is true          |
+|        off         |     String      |       No       |       Off       |         Toggleswitch content when value is false          |
+|    onForeground    | [string(color)] |       No       |       N/A       |    Toggleswitch content foreground when value is true     |
+|   offForeground    | [string(color)] |       No       |       N/A       |    Toggleswitch content foreground when value is false    |
+|    borderColor     | [string(color)] |       No       |       N/A       |                                                           |
+|       width        |     Number      |       No       |       40        |                                                           |
+|       height       |     Number      |       No       |       20        |                                                           |
+|   insideContent    |     Boolean     |       No       |      false      |                                                           |
+|   ringBackground   | [string(color)] |       No       |       N/A       |                                                           |
+| switchOnBackground | [string(color)] |       No       |       N/A       |                                                           |
+|      disabled      |     Boolean     |       No       |       N/A       |                                                           |
+|       theme        |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+
+### Events
+---
+| 事件名(Name) | 参数类型(args) | 说明(statement) |
+|:------------:|:--------------:|:---------------:|
+|    toggle    |     value      |                 |

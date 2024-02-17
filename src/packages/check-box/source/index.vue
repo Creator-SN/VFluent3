@@ -48,7 +48,7 @@ export default {
     emits:['click'],
     props: {
         ...checkBoxProps,
-        value: {
+        modelValue: {
             default: "",
         },
         borderWidth: {
@@ -74,15 +74,15 @@ export default {
     },
     data() {
         return {
-            thisValue: this.value,
+            thisValue: this.modelValue,
         };
     },
     watch: {
-        value(val) {
+        modelValue(val) {
             this.thisValue = val;
         },
         thisValue(val) {
-            this.$emit("input", val);
+            this.$emit("update:modelValue", val);
         },
     },
     computed: {

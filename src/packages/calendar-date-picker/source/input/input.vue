@@ -47,7 +47,7 @@ import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 
 export default {
     props: {
-        value: {
+        modelValue: {
             default: () => []
         },
         borderWidth: {
@@ -75,20 +75,20 @@ export default {
             default: false
         },
         theme: {
-            default: 'system'
+            default: 'global'
         }
     },
     data() {
         return {
-            choosenValue: this.value
+            choosenValue: this.modelValue
         };
     },
     watch: {
-        value(val) {
+        modelValue(val) {
             this.choosenValue = val;
         },
         choosenValue(val) {
-            this.$emit('input', val);
+            this.$emit('update:modelValue', val);
         }
     },
     computed: {

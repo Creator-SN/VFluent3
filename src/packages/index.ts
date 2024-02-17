@@ -19,6 +19,7 @@ export * from "./radio"
 export * from "./reveal-container"
 export * from "./text-box"
 export * from "./toggle-switch"
+export * from "./web-window"
 
 import '@/styles/theme/index.scss';
 import { SDate } from '@/utils/common/usual';
@@ -46,6 +47,7 @@ import Radio from "./radio"
 import RevealContainer from "./reveal-container"
 import TextBox from "./text-box"
 import ToggleSwitch from "./toggle-switch"
+import WebWindow from "./web-window"
 
 const components = [
     AnimatedIcon,
@@ -66,7 +68,8 @@ const components = [
     Radio,
     RevealContainer,
     TextBox,
-    ToggleSwitch
+    ToggleSwitch,
+    WebWindow
 ];
 
 export const FvComponentPlugins: Plugin = {

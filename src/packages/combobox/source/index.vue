@@ -70,7 +70,7 @@ export default {
     name: 'FvCombobox',
     props: {
         ...comboboxProps,
-        value: {
+        modelValue: {
             default: () => {
                 return {};
             }
@@ -126,16 +126,16 @@ export default {
     },
     data() {
         return {
-            thisValue: this.value,
+            thisValue: this.modelValue,
             status: false
         };
     },
     watch: {
-        value(val) {
+        modelValue(val) {
             this.thisValue = val;
         },
         thisValue(val) {
-            this.$emit('input', val);
+            this.$emit('update:modelValue', val);
         }
     },
     computed: {
