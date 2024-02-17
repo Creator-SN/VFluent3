@@ -9,6 +9,7 @@ export * from "./calendar-view"
 export * from "./check-box"
 export * from "./color-picker"
 export * from "./combo-box"
+export * from "./combobox"
 export * from "./img"
 export * from "./info-box"
 export * from "./message-bar"
@@ -35,6 +36,7 @@ import CalendarView from "./calendar-view"
 import CheckBox from "./check-box"
 import ColorPicker from "./color-picker"
 import ComboBox from "./combo-box"
+import Combobox from "./combobox"
 import Img from "./img"
 import InfoBox from "./info-box"
 import MessageBar from "./message-bar"
@@ -55,6 +57,7 @@ const components = [
     CheckBox,
     ColorPicker,
     ComboBox,
+    Combobox,
     Img,
     InfoBox,
     MessageBar,
