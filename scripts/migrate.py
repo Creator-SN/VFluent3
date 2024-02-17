@@ -1,9 +1,15 @@
 # %%
 import os
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--name", type=str, 
+            help="Name of component.", default='AnimatedIcon')
+args = parser.parse_args()
 
 SOURCE_DIR = 'C:/Users/Alever Lai/source/repos/VFluent'
 TARGET_DIR = 'C:/Users/Alever Lai/source/repos/VFluent3'
-COMPONENT = 'AnimatedIcon'
+COMPONENT = args.name
 
 def convert_name(name):
     # 将大写开头的驼峰转成小写开头的驼峰并加上'-': RevealContainer => reveal-container, Button => button

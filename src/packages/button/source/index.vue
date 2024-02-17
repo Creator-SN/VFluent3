@@ -52,10 +52,6 @@ export default {
             default: "",
             type: String,
         },
-        theme: {
-            default: "system",
-            type: String,
-        },
         foreground: {
             default: "",
             type: String,

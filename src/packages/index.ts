@@ -1,6 +1,7 @@
 import '@/libs/office-ui-fabric-core/css/fabric.min.css';
 
 export * from "./animated-icon"
+export * from "./badge"
 export * from "./breadcrumb"
 export * from "./button"
 export * from "./check-box"
@@ -22,6 +23,7 @@ import type { App, Plugin } from 'vue';
 import { createPinia } from 'pinia';
 
 import AnimatedIcon from "./animated-icon"
+import Badge from "./badge"
 import Breadcrumb from "./breadcrumb"
 import Button from "./button"
 import CheckBox from "./check-box"
@@ -39,6 +41,7 @@ import ToggleSwitch from "./toggle-switch"
 
 const components = [
     AnimatedIcon,
+    Badge,
     Breadcrumb,
     Button,
     CheckBox,
