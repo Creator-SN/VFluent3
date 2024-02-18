@@ -1,0 +1,26 @@
+@import "@/styles/theme/index.scss";
+
+.fv-Expander {
+    &.dark {
+        border-color: #373738;
+        color: whitesmoke;
+
+        .expander-description-container {
+            background: rgba(43, 43, 43, 1);
+
+            .expander-description-box {
+                .expander-description {
+                    .expander-text {
+                        .expander-info {
+                            color: rgba(156, 156, 156, 1);
+                        }
+                    }
+                }
+            }
+        }
+
+        .expander-detail {
+            background: rgba(39, 39, 39, 1);
+        }
+    }
+}

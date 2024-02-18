@@ -94,6 +94,7 @@ export default {
         packages: {
             // index.ts
             'index.ts': template`import '@/libs/office-ui-fabric-core/css/fabric.min.css';
+import '@/libs/global-transition/global-transition.css';
 
 ${'exports'}
 

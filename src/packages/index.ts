@@ -1,4 +1,5 @@
 import '@/libs/office-ui-fabric-core/css/fabric.min.css';
+import '@/libs/global-transition/global-transition.css';
 
 export * from "./animated-icon"
 export * from "./badge"
@@ -17,6 +18,9 @@ export * from "./date-picker"
 export * from "./details-list"
 export * from "./drawer"
 export * from "./drop-down"
+export * from "./expander"
+export * from "./flip-view"
+export * from "./icon-element"
 export * from "./img"
 export * from "./info-box"
 export * from "./list-view"
@@ -54,6 +58,9 @@ import DatePicker from "./date-picker"
 import DetailsList from "./details-list"
 import Drawer from "./drawer"
 import DropDown from "./drop-down"
+import Expander from "./expander"
+import FlipView from "./flip-view"
+import IconElement from "./icon-element"
 import Img from "./img"
 import InfoBox from "./info-box"
 import ListView from "./list-view"
@@ -85,6 +92,9 @@ const components = [
     DetailsList,
     Drawer,
     DropDown,
+    Expander,
+    FlipView,
+    IconElement,
     Img,
     InfoBox,
     ListView,
