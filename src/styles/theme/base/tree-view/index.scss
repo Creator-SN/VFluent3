@@ -1,0 +1,148 @@
+@import "@/styles/theme/index.scss";
+
+.fv-TreeView {
+    position: relative;
+    width: 200px;
+    height: auto;
+    padding-left: 2px;
+    overflow-x: hidden;
+
+    .fv-tree-view-item {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+
+        .fv-tree-view-item-container {
+            position: relative;
+            width: calc(100% - 20px);
+            height: 30px;
+            margin-bottom: 3px;
+            padding: 0px 10px;
+            border-radius: 6px;
+            box-sizing: content-box;
+            display: flex;
+            align-items: center;
+            transition:
+                background 0.3s,
+                border-width 0.3s;
+
+            &.disabled {
+                opacity: 0.6;
+                filter: grayscale(100%);
+                cursor: not-allowed;
+
+                &:hover {
+                    background: transparent;
+                }
+
+                &:active {
+                    background: transparent;
+                }
+            }
+
+            &:hover {
+                background: rgba(200, 200, 200, 0.3);
+            }
+
+            &:active {
+                background: rgba(200, 200, 200, 0.2);
+
+                .fv-tree-view-item-container-main {
+                    .fv-tree-view-item-content {
+                        opacity: 0.6;
+                    }
+                }
+            }
+
+            &.selected {
+                background: rgba(200, 200, 200, 0.3);
+            }
+
+            .fv-tree-view-item-choosen-bar {
+                position: absolute;
+                top: calc(50% - 8px);
+                left: -1.5px;
+                width: 3px;
+                height: 16px;
+                border-radius: 6px;
+                background: rgba(0, 90, 158, 1);
+            }
+
+            .fv-tree-view-item-container-main {
+                height: 100%;
+                flex: 1;
+                display: flex;
+                align-items: center;
+
+                .fv-tree-view-item-expander {
+                    position: relative;
+                    width: 16px;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+
+                    .fv-tree-view-item-expander-icon {
+                        font-size: 10px;
+                    }
+                }
+
+                .fv-tree-view-item-content {
+                    position: relative;
+                    width: 10px;
+                    flex: 1;
+                    height: 100%;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+
+                    .fv-tree-view-item-std-icon {
+                        width: 16px;
+                        height: 16px;
+                        margin: 0px 1px;
+                        object-fit: cover;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .fv-tree-view-item-text {
+                        flex: 1;
+                        margin: 0px;
+                        font-size: 15px;
+                        text-overflow: ellipsis;
+                        box-sizing: border-box;
+                        user-select: none;
+                        overflow: hidden;
+                        cursor: default;
+                    }
+                }
+            }
+        }
+    }
+
+    .fv-tree-view-children-list-enter-from,
+    .fv-tree-view-children-list-leave-to {
+        max-height: 0px;
+        transform: scaleY(0);
+    }
+
+    .fv-tree-view-children-list-enter-to,
+    .fv-tree-view-children-list-leave-from {
+        max-height: 1000px;
+        transform: scaleY(1);
+    }
+
+    .fv-tree-view-children-list-enter-active,
+    .fv-tree-view-children-list-leave-active {
+        transition:
+            max-height 0.3s,
+            transform 0.3s;
+        transform-origin: 50% 0%;
+    }
+}

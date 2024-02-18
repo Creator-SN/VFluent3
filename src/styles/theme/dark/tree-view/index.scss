@@ -1,0 +1,27 @@
+@import "@/styles/theme/index.scss";
+
+.fv-TreeView {
+    &.dark {
+        .fv-tree-view-item {
+            .fv-tree-view-item-container {
+                &:hover {
+                    background: rgba(45, 45, 45, 0.3);
+                }
+
+                &:active {
+                    background: rgba(45, 45, 45, 0.2);
+                }
+
+                &.selected {
+                    background: rgba(45, 45, 45, 0.3);
+                }
+
+                .fv-tree-view-item-container-main {
+                    .fv-tree-view-item-content {
+                        color: whitesmoke;
+                    }
+                }
+            }
+        }
+    }
+}

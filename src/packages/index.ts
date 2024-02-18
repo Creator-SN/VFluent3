@@ -32,6 +32,7 @@ export * from "./reveal-container"
 export * from "./slider"
 export * from "./text-box"
 export * from "./toggle-switch"
+export * from "./tree-view"
 export * from "./web-window"
 
 import '@/styles/theme/index.scss';
@@ -72,6 +73,7 @@ import RevealContainer from "./reveal-container"
 import Slider from "./slider"
 import TextBox from "./text-box"
 import ToggleSwitch from "./toggle-switch"
+import TreeView from "./tree-view"
 import WebWindow from "./web-window"
 
 const components = [
@@ -106,6 +108,7 @@ const components = [
     Slider,
     TextBox,
     ToggleSwitch,
+    TreeView,
     WebWindow
 ];
 
