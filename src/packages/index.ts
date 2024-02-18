@@ -18,6 +18,7 @@ export * from "./progress-bar"
 export * from "./progress-ring"
 export * from "./radio"
 export * from "./reveal-container"
+export * from "./slider"
 export * from "./text-box"
 export * from "./toggle-switch"
 export * from "./web-window"
@@ -47,6 +48,7 @@ import ProgressBar from "./progress-bar"
 import ProgressRing from "./progress-ring"
 import Radio from "./radio"
 import RevealContainer from "./reveal-container"
+import Slider from "./slider"
 import TextBox from "./text-box"
 import ToggleSwitch from "./toggle-switch"
 import WebWindow from "./web-window"
@@ -70,6 +72,7 @@ const components = [
     ProgressRing,
     Radio,
     RevealContainer,
+    Slider,
     TextBox,
     ToggleSwitch,
     WebWindow

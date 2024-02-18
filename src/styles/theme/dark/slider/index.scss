@@ -1,0 +1,43 @@
+.fv-Slider {
+    &.dark {
+        color: white;
+        //region:color begin
+        .fv-slider__bar {
+            &.disable {
+                color: white;
+            }
+            .fv-slider__bar-bg {
+                background-color: #999999;
+            }
+            .fv-slider__button {
+                color: rgba(118, 185, 237, 1);
+            }
+            .fv-slider__scale-up,
+            .fv-slider__scale-down {
+                background-color: #fff;
+            }
+            .fv-slider__progress {
+                background-color: rgba(118, 185, 237, 1);
+            }
+        }
+        &:hover {
+            .fv-slider__bar {
+                .fv-slider__bar-bg {
+                    background-color: #d6d5d4;
+                }
+                .fv-slider__button {
+                    color: #59c4ff;
+                }
+            }
+        }
+        &.active {
+            .fv-slider__bar {
+                background-color: rgba(153, 153, 153, 1);
+                .fv-slider__button {
+                    color: rgba(118, 185, 237, 1);
+                }
+            }
+        }
+        //region:end of color
+    }
+}
