@@ -13,6 +13,10 @@ export * from "./color-picker"
 export * from "./combo-box"
 export * from "./combobox"
 export * from "./command-bar"
+export * from "./date-picker"
+export * from "./details-list"
+export * from "./drawer"
+export * from "./drop-down"
 export * from "./img"
 export * from "./info-box"
 export * from "./list-view"
@@ -46,6 +50,10 @@ import ColorPicker from "./color-picker"
 import ComboBox from "./combo-box"
 import Combobox from "./combobox"
 import CommandBar from "./command-bar"
+import DatePicker from "./date-picker"
+import DetailsList from "./details-list"
+import Drawer from "./drawer"
+import DropDown from "./drop-down"
 import Img from "./img"
 import InfoBox from "./info-box"
 import ListView from "./list-view"
@@ -73,6 +81,10 @@ const components = [
     ComboBox,
     Combobox,
     CommandBar,
+    DatePicker,
+    DetailsList,
+    Drawer,
+    DropDown,
     Img,
     InfoBox,
     ListView,

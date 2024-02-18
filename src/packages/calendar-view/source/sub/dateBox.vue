@@ -48,7 +48,7 @@ export default {
             default: "en",
         },
         theme: {
-            default: "system",
+            default: "global",
         },
     },
     setup () {

@@ -103,7 +103,7 @@ export default {
         },
     },
     mounted() {
-        this.thisValue = this.value;
+        this.thisValue = this.modelValue;
     },
     methods: {
         Checked(event) {

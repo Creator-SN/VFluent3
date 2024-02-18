@@ -1,0 +1,95 @@
+@import "@/styles/theme/index.scss";
+
+.fv-DropDown {
+    &.dark {
+        &:hover {
+            .drop-down-box {
+                background: rgba(226, 226, 226, 0.2);
+            }
+        }
+
+        .drop-down-box {
+            box-shadow: rgba(255, 255, 255, 0.2) 0px -0.5px 2px;
+
+            .drop-down-container {
+                background: rgba(36, 35, 34, 0.9);
+
+                .fv-drop-down-input {
+                    color: whitesmoke;
+                    border: rgba(200, 200, 200, 0.1) solid thin;
+                    user-select: none;
+
+                    &::placeholder {
+                        color: rgba(179, 179, 179, 1);
+                    }
+                }
+
+                i {
+                    color: whitesmoke;
+                }
+            }
+        }
+
+        .list-container {
+            background: rgba(36, 36, 36, 0.9);
+
+            .list-item {
+                &.normal {
+                    p {
+                        // &:hover
+                        // {
+                        //     color: rgba(0,153,204,1);
+                        // }
+                    }
+
+                    &:hover {
+                        background-color: rgba(120, 120, 120, 0.6);
+                    }
+
+                    &:active {
+                        background-color: rgba(100, 100, 100, 0.6);
+                    }
+                }
+
+                &.disabled {
+                    cursor: default;
+
+                    p {
+                        color: rgba(212, 212, 212, 0.6);
+                    }
+                }
+
+                &.hr {
+                    border-bottom: rgba(216, 216, 216, 0.1) solid thin;
+                }
+
+                p {
+                    color: whitesmoke;
+
+                    &.title {
+                        color: rgba(118, 185, 237, 1);
+                    }
+                }
+            }
+        }
+
+        &.disabled {
+            &:hover {
+                .drop-down-box {
+                    background: rgba(36, 36, 36, 0.8);
+                }
+            }
+
+            .drop-down-box {
+                .drop-down-container {
+                    background: rgba(36, 36, 36, 0.8);
+
+                    .fv-drop-down-input {
+                        background: rgba(36, 36, 36, 0.8);
+                        border-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+}

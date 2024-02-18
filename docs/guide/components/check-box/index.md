@@ -6,6 +6,16 @@ title: CheckBox
 ### CheckBox-DEMO
 --- 
 
+<script>
+export default {
+    data () {
+        return {
+            value: true
+        }
+    }
+}
+</script>
+
 
 <ClientOnly>
 <fv-checkBox>Indeterminate checkbox</fv-checkBox>
@@ -45,21 +55,21 @@ title: CheckBox
 1. Set border width.
 
 <ClientOnly>
-<fv-checkBox borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
+<fv-checkBox v-model="value" borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
 </ClientOnly>
 
 ```vue
-<fv-checkBox borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
+<fv-checkBox v-model="value" borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
 ```
 
 2. Set background and border color.
 
 <ClientOnly>
-<fv-checkBox borderColor="rgba(0, 204, 153, 1)" foreground="rgba(0, 204, 153, 1)" background="rgba(0, 204, 153, 1)">Checkbox</fv-checkBox>
+<fv-checkBox v-model="value" borderColor="rgba(0, 204, 153, 1)" foreground="rgba(0, 204, 153, 1)" background="rgba(0, 204, 153, 1)">Checkbox</fv-checkBox>
 </ClientOnly>
 
 ```vue
-<fv-checkBox borderColor="rgba(0,204,153,1)" foreground="rgba(0,204,153,1)" background="rgba(0,204,153,1)">Checkbox</fv-checkBox>
+<fv-checkBox v-model="value" borderColor="rgba(0,204,153,1)" foreground="rgba(0,204,153,1)" background="rgba(0,204,153,1)">Checkbox</fv-checkBox>
 ```
 
 ### Propoties

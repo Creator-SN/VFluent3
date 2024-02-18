@@ -1,0 +1,270 @@
+@import "@/styles/theme/index.scss";
+
+.fv-DatePicker {
+    position: relative;
+    display: inline-block;
+    width: 300px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    color: #000;
+    line-height: 0px;
+    user-select: none;
+    cursor: pointer;
+    min-width: 250px;
+
+    button {
+        //default clear
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        box-sizing: border-box;
+        padding: 0 20px;
+        height: inherit;
+        margin: 0;
+        outline: none;
+    }
+    .fv-DatePicker__input {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        background-color: rgba(250, 250, 250, 1);
+        border-style: solid;
+        border-width: thin;
+        border-radius: 6px;
+        border-color: rgba(200, 200, 200, 0.6);
+        box-sizing: border-box;
+        opacity: 0.6;
+        display: inline-flex;
+        box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.3);
+        cursor: default;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &:active {
+            opacity: 0.8;
+            box-shadow: none;
+        }
+
+        .fv-DatePicker__input-month {
+            flex: 3;
+            text-align: left;
+            white-space: nowrap;
+        }
+        .fv-DatePicker__input-day {
+            flex: 2;
+            text-align: center;
+            border-left-style: solid;
+            border-left-width: 1px;
+            border-left-color: #cccccc;
+            padding: 0 20px;
+            white-space: nowrap;
+        }
+        .fv-DatePicker__input-year {
+            flex: 2;
+            text-align: center;
+            border-left-style: solid;
+            border-left-width: 1px;
+            border-left-color: #cccccc;
+            padding: 0 px;
+            white-space: nowrap;
+        }
+    }
+    .fv-DatePicker__input-options {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 400px;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #000;
+        border-color: rgba(200, 200, 200, 0.5);
+        border-radius: 6px;
+        z-index: 2000;
+        transform: translateY(-50%) translateY(35px);
+        overflow: hidden;
+        box-sizing: border-box;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+
+        .fv-DatePicker__input-body {
+            position: relative;
+            height: calc(100% - 40px);
+            width: inherit;
+            display: inline-flex;
+            border-left-color: inherit;
+            .fv-DatePicker__input-center-mask {
+                position: absolute;
+                height: 40px;
+                width: calc(100% - 6px);
+                top: 50%;
+                left: 3px;
+                background-color: rgba(0, 90, 158, 1);
+                border-radius: 6px;
+                opacity: 0.8;
+                transform: translate(0, -50%);
+            }
+            .fv-DatePicker__input-options-col:nth-child(2) {
+                flex: 3;
+                text-align: left;
+            }
+            .fv-DatePicker__input-options-col:nth-child(n + 3) {
+                flex: 2;
+                text-align: center;
+                border-left-color: inherit;
+                .fv-DatePicker__input-options-col-items {
+                    border-color: inherit;
+                }
+                .fv-DatePicker__input-options-col-item {
+                    border-left-style: solid;
+                    border-left-width: 1px;
+                    border-color: inherit;
+                }
+                .fv-DatePicker__input-options-col-up {
+                    border-left-style: solid;
+                    border-left-width: 1px;
+                    border-color: inherit;
+                    cursor: pointer;
+                }
+                .fv-DatePicker__input-options-col-down {
+                    border-left-style: solid;
+                    border-left-width: 1px;
+                    border-color: inherit;
+                    cursor: pointer;
+                }
+            }
+            .fv-DatePicker__input-options-col {
+                position: relative;
+                .fv-DatePicker__input-options-col-up {
+                    display: none;
+                    position: absolute;
+                    height: 20px;
+                    width: 100%;
+                    text-align: center;
+                    line-height: 20px;
+                    font-size: 8px;
+                    cursor: pointer;
+                }
+                .fv-DatePicker__input-options-col-down {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    height: 20px;
+                    width: 100%;
+                    text-align: center;
+                    line-height: 20px;
+                    font-size: 8px;
+                    transform: translate(0, -100%);
+                    cursor: pointer;
+                }
+
+                &:hover {
+                    .fv-DatePicker__input-options-col-up {
+                        background-color: rgba(250, 250, 250, 1);
+                        display: block;
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                    .fv-DatePicker__input-options-col-down {
+                        background-color: rgba(250, 250, 250, 1);
+                        display: block;
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                .fv-DatePicker__input-options-col-items {
+                    height: 100%;
+                    overflow-x: hidden;
+                    overflow-y: overlay;
+                    -ms-overflow-style: -ms-autohiding-scrollbar;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                    .fv-DatePicker__input-options-col-item {
+                        height: 40px;
+                        font-size: 14px;
+                        box-sizing: border-box;
+                        padding: 10px 20px;
+                        line-height: 100%;
+                        white-space: nowrap;
+                        -moz-user-select: -moz-none;
+                        -o-user-select: none;
+                        -khtml-user-select: none;
+                        -webkit-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+
+                        &:hover {
+                            background-color: rgba(200, 200, 200, 0.1);
+                        }
+                    }
+                }
+            }
+        }
+        .fv-DatePicker__input-options-bottom-bar {
+            height: 40px;
+            width: inherit;
+            padding: 3px 0px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top-style: solid;
+            border-top-width: 1px;
+            border-color: inherit;
+            z-index: 1;
+
+            .fv-DatePicker__input-options-accept,
+            .fv-DatePicker__input-options-cancel {
+                width: 100%;
+                height: 100%;
+                margin: 0px 1px;
+                border-radius: 6px;
+                flex: 1;
+                font-size: 16px;
+                font-weight: bold;
+
+                &:hover {
+                    background-color: rgba(200, 200, 200, 0.3);
+                }
+
+                &:active {
+                    background-color: rgba(200, 200, 200, 0.2);
+                }
+            }
+        }
+    }
+
+    &.disabled {
+        filter: grayscale(100%);
+        opacity: 0.6;
+
+        .fv-DatePicker__input {
+            opacity: 0.8;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+    }
+
+    .fv-DatePicker__options-enter-from {
+        height: 0;
+    }
+
+    .fv-DatePicker__options-enter-to {
+        height: 400px;
+    }
+
+    .fv-DatePicker__options-enter-active {
+        transition: height 0.1s ease-out;
+    }
+}
