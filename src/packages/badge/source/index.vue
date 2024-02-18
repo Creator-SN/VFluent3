@@ -25,6 +25,7 @@ import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 
 export default {
     name: 'FvBadge',
+    emits: ['update:modelValue'],
     props: {
         ...badgeProps,
         modelValue: {

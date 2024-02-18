@@ -67,6 +67,7 @@ import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common";
 
 export default {
     name: "FvBreadcrumb",
+    emits: ["update:modelValue", "root-click", "item-click"],
     props: {
         ...breadcrumbProps,
         modelValue: {

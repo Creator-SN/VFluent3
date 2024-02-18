@@ -45,7 +45,7 @@ import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common";
 
 export default {
     name: "FvCheckBox",
-    emits:['click'],
+    emits: ["update:modelValue", "click"],
     props: {
         ...checkBoxProps,
         modelValue: {

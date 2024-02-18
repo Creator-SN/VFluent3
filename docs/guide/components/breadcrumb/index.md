@@ -19,12 +19,12 @@ Basic
 
 
 <ClientOnly>
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb">
 </fv-Breadcrumb>
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb">
 </fv-Breadcrumb>
 ```
 
@@ -32,12 +32,12 @@ Basic
 ---
 
 <ClientOnly>
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false">
 </fv-Breadcrumb>
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false">
 </fv-Breadcrumb>
 ```
 
@@ -47,24 +47,24 @@ Basic
 1. Char
 
 <ClientOnly>
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator=">">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator=">">
 </fv-Breadcrumb>
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator=">">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator=">">
 </fv-Breadcrumb>
 ```
 
 2. Icon
 
 <ClientOnly>
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator="ChevronRightMed">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator="ChevronRightMed">
 </fv-Breadcrumb>
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator="ChevronRightMed">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator="ChevronRightMed">
 </fv-Breadcrumb>
 ```
 
@@ -72,12 +72,12 @@ Basic
 ---
 
 <ClientOnly>
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false" :showRoot="false">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" :showRoot="false">
 </fv-Breadcrumb>
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false" :showRoot="false">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" :showRoot="false">
 </fv-Breadcrumb>
 ```
 
@@ -86,14 +86,14 @@ Basic
 
 <div style="padding: 8px; background: black;">
 <ClientOnly>
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" theme="dark" :readOnly="false">
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" theme="dark" :readOnly="false">
 </fv-Breadcrumb>
 </ClientOnly>
 </div>
 
 ```vue
 <div style="padding: 8px; background: black;">
-    <fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" theme="dark" :readOnly="false">
+    <fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" theme="dark" :readOnly="false">
     </fv-Breadcrumb>
 </div>
 ```
@@ -103,12 +103,12 @@ Basic
 1. Light
 
 <ClientOnly>
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false" disabled>
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" disabled>
 </fv-Breadcrumb>
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" :readOnly="false" disabled>
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" disabled>
 </fv-Breadcrumb>
 ```
 
@@ -116,14 +116,14 @@ Basic
 
 <div style="padding: 8px; background: black;">
 <ClientOnly>
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" theme="dark" :readOnly="false" disabled>
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" theme="dark" :readOnly="false" disabled>
 </fv-Breadcrumb>
 </ClientOnly>
 </div>
 
 ```vue
 <div style="padding: 8px; background: black;">
-<fv-Breadcrumb value="/creatorsn/vfluent/breadcrumb" theme="dark" :readOnly="false" disabled>
+<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" theme="dark" :readOnly="false" disabled>
 </fv-Breadcrumb>
 </div>
 ```
@@ -131,18 +131,18 @@ Basic
 
 ### Propoties
 ---
-|  属性(attr)   |             类型(type)             | 必填(required) | 默认值(default)  |       说明(statement)        |
-|:-------------:|:----------------------------------:|:--------------:|:----------------:|:----------------------------:|
-|     value     |              String              |       No       |       N/A        |          字符串路径          |
-|   separator   |              String              |       No       |        /         | 分隔符显示, 可以是字符或图标 |
-| separatorChar |              String              |       No       |        /         |      以什么字符分割路径      |
-|   showRoot    |             Boolean              |       No       |       true       |          显示根图标          |
-|   rootIcon    |              String              |       No       | FolderHorizontal |            根图标            |
-|   readOnly    |             Boolean              |       No       |       true       |           是否只读           |
-|  borderColor  |          [string(color)]           |       No       |       N/A        |                              |
-|   disabled    |             Boolean              |       No       |      false       |                              |
-| borderRadius  |              Number              |       No       |        2         |                              |
-|     theme     | String |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式              |
+|  属性(attr)   |   类型(type)    | 必填(required) | 默认值(default)  |                      说明(statement)                      |
+|:-------------:|:---------------:|:--------------:|:----------------:|:---------------------------------------------------------:|
+|  modelValue   |     String      |       No       |       N/A        |                        字符串路径                         |
+|   separator   |     String      |       No       |        /         |               分隔符显示, 可以是字符或图标                |
+| separatorChar |     String      |       No       |        /         |                    以什么字符分割路径                     |
+|   showRoot    |     Boolean     |       No       |       true       |                        显示根图标                         |
+|   rootIcon    |     String      |       No       | FolderHorizontal |                          根图标                           |
+|   readOnly    |     Boolean     |       No       |       true       |                         是否只读                          |
+|  borderColor  | [string(color)] |       No       |       N/A        |                                                           |
+|   disabled    |     Boolean     |       No       |      false       |                                                           |
+| borderRadius  |     Number      |       No       |        2         |                                                           |
+|     theme     |     String      |       No       |      system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
 
 
 ### Events

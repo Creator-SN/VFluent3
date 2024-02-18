@@ -46,6 +46,7 @@
 import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 
 export default {
+    emits: ['update:modelValue'],
     props: {
         modelValue: {
             default: () => []

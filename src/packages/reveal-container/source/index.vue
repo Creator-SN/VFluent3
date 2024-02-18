@@ -126,6 +126,7 @@ import { useRevealCache } from "@/store/reveal";
 
 export default {
     name: "FvRevealContainer",
+    emits: ["click"],
     props: {
         ...revealContainerProps,
         revealContainer: {

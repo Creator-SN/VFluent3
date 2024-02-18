@@ -76,6 +76,7 @@ export default {
         monthBox,
         dateBox
     },
+    emits: ['update:modelValue', 'choosen-dates', 'choose-year', 'choose-month', 'choose-date'],
     props: {
         ...calendarViewProps,
         modelValue: {

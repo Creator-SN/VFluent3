@@ -44,12 +44,13 @@ import pickerInput from './input/input.vue';
 
 export default {
     name: 'FvCalendarDatePicker',
+    emits: ['update:modelValue'],
     components: {
         pickerInput
     },
     props: {
         ...calendarDatePickerProps,
-        value: {
+        modelValue: {
             default: () => new Date()
         },
         start: {
@@ -91,7 +92,7 @@ export default {
     },
     data() {
         return {
-            thisValue: this.$SDate.Parse(this.$SDate.DateToString(this.value)),
+            thisValue: this.$SDate.Parse(this.$SDate.DateToString(this.modelValue)),
             dates: [],
             show: {
                 calendar: false
@@ -116,7 +117,7 @@ export default {
         },
         thisValue(val, from) {
             this.$emit(
-                'input',
+                'update:modelValue',
                 this.$SDate.Parse(this.$SDate.DateToString(this.thisValue))
             );
         }
