@@ -22,17 +22,35 @@ export * from "./expander"
 export * from "./flip-view"
 export * from "./icon-element"
 export * from "./img"
+export * from "./infinite-scroll-view"
 export * from "./info-box"
 export * from "./list-view"
+export * from "./menu-flyout"
 export * from "./message-bar"
+export * from "./navigation-panel"
+export * from "./navigation-view"
+export * from "./pagination"
+export * from "./panel"
+export * from "./persona"
+export * from "./pivot"
 export * from "./progress-bar"
 export * from "./progress-ring"
 export * from "./radio"
+export * from "./radio-group"
+export * from "./rating-control"
 export * from "./reveal-container"
+export * from "./scroll-story"
+export * from "./search-box"
+export * from "./shimmer"
 export * from "./slider"
+export * from "./swipe-control"
+export * from "./tag"
 export * from "./text-box"
+export * from "./text-field"
+export * from "./time-picker"
 export * from "./toggle-switch"
 export * from "./tree-view"
+export * from "./verify-box"
 export * from "./web-window"
 
 import '@/styles/theme/index.scss';
@@ -63,17 +81,35 @@ import Expander from "./expander"
 import FlipView from "./flip-view"
 import IconElement from "./icon-element"
 import Img from "./img"
+import InfiniteScrollView from "./infinite-scroll-view"
 import InfoBox from "./info-box"
 import ListView from "./list-view"
+import MenuFlyout from "./menu-flyout"
 import MessageBar from "./message-bar"
+import NavigationPanel from "./navigation-panel"
+import NavigationView from "./navigation-view"
+import Pagination from "./pagination"
+import Panel from "./panel"
+import Persona from "./persona"
+import Pivot from "./pivot"
 import ProgressBar from "./progress-bar"
 import ProgressRing from "./progress-ring"
 import Radio from "./radio"
+import RadioGroup from "./radio-group"
+import RatingControl from "./rating-control"
 import RevealContainer from "./reveal-container"
+import ScrollStory from "./scroll-story"
+import SearchBox from "./search-box"
+import Shimmer from "./shimmer"
 import Slider from "./slider"
+import SwipeControl from "./swipe-control"
+import Tag from "./tag"
 import TextBox from "./text-box"
+import TextField from "./text-field"
+import TimePicker from "./time-picker"
 import ToggleSwitch from "./toggle-switch"
 import TreeView from "./tree-view"
+import VerifyBox from "./verify-box"
 import WebWindow from "./web-window"
 
 const components = [
@@ -98,17 +134,35 @@ const components = [
     FlipView,
     IconElement,
     Img,
+    InfiniteScrollView,
     InfoBox,
     ListView,
+    MenuFlyout,
     MessageBar,
+    NavigationPanel,
+    NavigationView,
+    Pagination,
+    Panel,
+    Persona,
+    Pivot,
     ProgressBar,
     ProgressRing,
     Radio,
+    RadioGroup,
+    RatingControl,
     RevealContainer,
+    ScrollStory,
+    SearchBox,
+    Shimmer,
     Slider,
+    SwipeControl,
+    Tag,
     TextBox,
+    TextField,
+    TimePicker,
     ToggleSwitch,
     TreeView,
+    VerifyBox,
     WebWindow
 ];
 

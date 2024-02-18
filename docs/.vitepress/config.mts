@@ -135,6 +135,10 @@ export default defineConfig({
                         link: '/guide/components/message-bar/'
                     },
                     {
+                        text: 'NavigationPanel',
+                        link: '/guide/components/navigation-panel/'
+                    },
+                    {
                         text: 'NavigationView',
                         link: '/guide/components/navigation-view/'
                     },
@@ -149,6 +153,14 @@ export default defineConfig({
                     {
                         text: 'Persona',
                         link: '/guide/components/persona/'
+                    },
+                    {
+                        text: 'Pivot',
+                        link: '/guide/components/pivot/'
+                    },
+                    {
+                        text: 'ProgressBar',
+                        link: '/guide/components/progress-bar/'
                     },
                     {
                         text: 'ProgressRing',
@@ -183,6 +195,10 @@ export default defineConfig({
                         link: '/guide/components/slider/'
                     },
                     {
+                        text: 'ScrollStory',
+                        link: '/guide/components/scroll-story/'
+                    },
+                    {
                         text: 'SwipeControl',
                         link: '/guide/components/swipe-control/'
                     },
@@ -193,6 +209,10 @@ export default defineConfig({
                     {
                         text: 'TextBox',
                         link: '/guide/components/text-box/'
+                    },
+                    {
+                        text: 'TextField',
+                        link: '/guide/components/text-field/'
                     },
                     {
                         text: 'TimePicker',
