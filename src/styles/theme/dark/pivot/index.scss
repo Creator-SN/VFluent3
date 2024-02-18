@@ -1,4 +1,52 @@
-.fv-Pivot{
-    &.dark{   
+@import '@/styles/theme/index.scss';
+
+.fv-Pivot {&.dark {    
+
+    .pivot-container
+    {
+        z-index: 1;
+        
+        .pivot-item
+        {
+            p
+            {
+                color: whitesmoke;
+            }
+        }
     }
+
+    &.tab
+    {
+        .pivot-container
+        {
+            .pivot-item
+            {
+                &.choose
+                {
+                    p
+                    {
+                        color: black;
+                    }
+                }
+
+                p
+                {
+                    color: whitesmoke;
+                }
+            }
+        }
+    }
+
+    .slider
+    {
+        .fv-pivot-s
+        {
+            p
+            {
+                background: rgba(118, 185, 237, 1);
+            }
+        }
+    }
+}
+    
 }

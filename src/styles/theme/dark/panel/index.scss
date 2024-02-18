@@ -1,4 +1,49 @@
-.fv-Panel{
-    &.dark{   
+@import '@/styles/theme/index.scss';
+
+.fv-Panel {&.dark {
+    .fv-panel-back-board
+    {
+        background: rgba(0, 0, 0, 0.45);
     }
+
+    .fv-panel-container
+    {
+        background: rgba(0, 0, 0, 1);
+
+        * {
+            color: whitesmoke;
+        }
+
+        &.acrylic-style
+        {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+
+        .fv-panel-control-block
+        {
+            .panel-title
+            {
+                color: rgba(243, 242, 241, 1);
+            }
+
+            .control-btn
+            {
+                color: rgba(167, 167, 167, 1);
+
+                &:hover
+                {
+                    background: rgba(120, 120, 120, 0.3);
+                    color: whitesmoke;
+                }
+            }
+        }
+
+        .fv-panel-footer
+        {
+            background: rgba(56, 56, 56, 0.6);
+        }
+    }
+}
 }

@@ -1,2 +1,7 @@
-.fv-InfiniteScrollView{
+@import '@/styles/theme/index.scss';
+
+.fv-InfiniteScrollView {
+    position: relative;
+    height: 300px;
+    overflow: auto;
 }
