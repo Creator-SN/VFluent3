@@ -59,6 +59,10 @@ export default defineConfig({
                         link: '/guide/components/check-box/'
                     },
                     {
+                        text: 'Collapse',
+                        link: '/guide/components/collapse/'
+                    },
+                    {
                         text: 'ColorPicker',
                         link: '/guide/components/color-picker/'
                     },

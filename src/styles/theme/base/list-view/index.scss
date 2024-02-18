@@ -1,0 +1,170 @@
+@import '@/styles/theme/index.scss';
+
+.fv-ListView {
+    position: relative;
+    width: 350px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+    overflow-y: hidden;
+
+    .list-view-container
+    {
+        position: relative;
+        width: 100%;
+        height: 10px;
+        flex: 1;
+        padding: 0px 3px;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: overlay;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+
+        .list-view-item
+        {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            margin: 2px 0px;
+            flex-shrink: 0;
+            border: rgba(50, 49, 48, 0) solid 2px;
+            border-radius: 3px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            float: left;
+
+            span, p, i {
+                @include nowrap;
+
+                position: relative;
+                height: 100%;
+                margin: 0px;
+                font-size: 13.8px;
+                font-weight: normal;
+                color: rgba(50, 49, 48, 1);
+                box-sizing: border-box;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                user-select: none;
+            }
+
+            &:hover
+            {
+                background: rgba(200, 200, 200, 0.2);
+            }
+
+            &.disabled
+            {
+                filter: grayscale(1);
+                opacity: 0.8;
+
+                &:hover
+                {
+                    background: transparent;
+                }
+
+                *{
+                    color: rgba(150, 150, 150, 1);
+                }
+            }
+
+            &.header
+            {
+                &:hover
+                {
+                    background: transparent;
+                }
+
+                
+                *{
+                    color: rgba(0, 90, 158, 1);
+                    font-weight: 600;
+                }
+            }
+
+            &.choose
+            {
+                background: rgba(0, 120, 212, 0.3);
+            }
+
+            &.selected
+            {
+                border: rgba(50, 49, 48, 0.2) solid 2px;
+            }
+
+            &.hr
+            {
+                height: 1px;
+                border-bottom: rgba(36, 36, 36, 0.1) solid thin;
+            }
+        }
+
+        .fv-listview-reveal-container
+        {
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+        }
+
+        .item-content
+        {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 0px 6px;
+            border-radius: 6px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            overflow: hidden;
+        }
+    }
+
+    .list-view-header, .list-view-footer
+    {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .fv-listview-slider
+    {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: auto;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+
+        .s
+        {
+            position: relative;
+            width: 3.8px;
+            height: 40px;
+            margin: 0px;
+            padding: 12px 0px;
+            box-sizing: border-box;
+            float: left;
+
+            p
+            {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                margin: 0px;
+                background: rgba(0, 90, 158, 1);
+                border-radius: 3px;
+            }
+        }
+    }
+}

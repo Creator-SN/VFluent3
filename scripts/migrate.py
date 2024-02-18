@@ -32,7 +32,7 @@ for line in common_theme_content_list:
         continue
     result.append(line)
 
-result = [f'.fv-{COMPONENT} {{'] + result
+result = ["@import '@/styles/theme/index.scss';\n\n"] + [f'.fv-{COMPONENT} {{'] + result
 
 with open(os.path.join(TARGET_DIR, 'src/styles/theme/base', convert_name(COMPONENT), 'index.scss'), 'w+', encoding='utf-8') as f:
     f.write(''.join(result))
@@ -53,7 +53,7 @@ for line in dark_theme_content_list:
         continue
     result.append(line)
 
-result = [f'.fv-{COMPONENT} {{'] + ['&.dark {'] + result + ['}']
+result = ["@import '@/styles/theme/index.scss';\n\n"] + [f'.fv-{COMPONENT} {{'] + ['&.dark {'] + result + ['}']
 
 with open(os.path.join(TARGET_DIR, 'src/styles/theme/dark', convert_name(COMPONENT), 'index.scss'), 'w+', encoding='utf-8') as f:
     f.write(''.join(result))

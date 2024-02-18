@@ -1,0 +1,25 @@
+@import "@/styles/theme/index.scss";
+
+.fv-Collapse {
+    &.dark {
+        background: rgba(45, 45, 45, 1);
+        border-color: #373738;
+        color: whitesmoke;
+
+        .collapse-description-container {
+            .collapse-description-box {
+                .collapse-description {
+                    .collapse-text {
+                        .collapse-info {
+                            color: rgba(156, 156, 156, 1);
+                        }
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            background: rgba(50, 50, 50, 1);
+        }
+    }
+}

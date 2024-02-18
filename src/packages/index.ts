@@ -8,11 +8,14 @@ export * from "./calendar-date-picker"
 export * from "./calendar-view"
 export * from "./callout"
 export * from "./check-box"
+export * from "./collapse"
 export * from "./color-picker"
 export * from "./combo-box"
 export * from "./combobox"
+export * from "./command-bar"
 export * from "./img"
 export * from "./info-box"
+export * from "./list-view"
 export * from "./message-bar"
 export * from "./progress-bar"
 export * from "./progress-ring"
@@ -38,11 +41,14 @@ import CalendarDatePicker from "./calendar-date-picker"
 import CalendarView from "./calendar-view"
 import Callout from "./callout"
 import CheckBox from "./check-box"
+import Collapse from "./collapse"
 import ColorPicker from "./color-picker"
 import ComboBox from "./combo-box"
 import Combobox from "./combobox"
+import CommandBar from "./command-bar"
 import Img from "./img"
 import InfoBox from "./info-box"
+import ListView from "./list-view"
 import MessageBar from "./message-bar"
 import ProgressBar from "./progress-bar"
 import ProgressRing from "./progress-ring"
@@ -62,11 +68,14 @@ const components = [
     CalendarView,
     Callout,
     CheckBox,
+    Collapse,
     ColorPicker,
     ComboBox,
     Combobox,
+    CommandBar,
     Img,
     InfoBox,
+    ListView,
     MessageBar,
     ProgressBar,
     ProgressRing,
