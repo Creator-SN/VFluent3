@@ -1,35 +1,69 @@
-.fv-text-box {
-    --fv-text-box-hover-border-color: initial;
-    --fv-text-box-error-border-color: initial;
-    --fv-text-box-warning-border-color: initial;
-    &.dark {
-        background-color: var(--fv-dark-bgcolor-3);
-        border-top-color: var(--fv-dark-bgcolor-3);
-        border-left-color: var(--fv-dark-bgcolor-3);
-        border-right-color: var(--fv-dark-bgcolor-3);
-        border-bottom-color: var(--fv-dark-border-color-2);
-        .fv-text-box--input {
-            background: none;
-        }
-        &:hover {
-            border-bottom-color: var(--fv-text-box-hover-border-color, rgba(var(--fv-primary-color), 0.8));
-            border-bottom-width: 2px;
-        }
-        &:focus-within {
-            background-color: var(--fv-dark-bgcolor-2);
-            border-bottom-color: var(--fv-text-box-hover-border-color, rgba(var(--fv-primary-color), 0.8));
-            border-bottom-width: 2px;
-        }
-        &.disabled {
-            border-bottom-color: var(--fv-dark-bgcolor-3);
-            border-bottom-width: 1px;
-            opacity: 0.8;
-        }
-        &.fv-text-box--warning {
-            border-color: var(--fv-text-box-warning-border-color, rgba(var(--fv-warning-color), 0.8));
-        }
-        &.fv-text-box--error {
-            border-color: var(--fv-text-box-error-border-color, rgba(var(--fv-error-color), 0.8));
+@import '@/styles/theme/index.scss';
+
+.fv-TextBox {&.dark {
+    background: transparent;
+
+    &.focus {
+        .fv-text-box-wrapper-container {
+            border: rgba(36, 36, 36, 1) solid thin;
         }
     }
+
+    &.shadow {
+        box-shadow: rgba(165, 165, 165, 0.133) 0px 3.2px 7.2px 0px, rgba(224, 224, 224, 0.11) 0px 0.6px 1.8px 0px;
+    }
+
+    &.underline {
+        .fv-text-box-wrapper-container {
+            border-left: none;
+            border-top: none;
+            border-right: none;
+
+            div.fix-block {
+                background: transparent;
+
+                p {
+                    color: rgba(243, 242, 241, 1);
+                }
+            }
+        }
+    }
+
+    &.disabled {
+        background: rgb(48, 47, 46);
+        border-color: transparent;
+
+        .fv-text-box-wrapper-container {
+            &:hover {
+                border-color: transparent;
+            }
+        }
+    }
+
+    .fv-text-box-wrapper-container {
+        border: rgba(200, 200, 200, 0.1) solid thin;
+
+        div.fix-block {
+            background: transparent;
+
+            p {
+                color: rgba(243, 242, 241, 1);
+            }
+        }
+
+        .icon-block {
+            color: rgba(243, 242, 241, 1);
+        }
+
+        div.text-box-container {
+            .fv-text-box-input {
+                color: rgba(243, 242, 241, 1);
+            }
+
+            .fv-text-box-input::placeholder {
+                color: rgba(220, 220, 220, 1);
+            }
+        }
+    }
+}
 }

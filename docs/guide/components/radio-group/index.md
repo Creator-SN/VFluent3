@@ -1,7 +1,24 @@
 ---
 page: true
 title: RadioGroup
---- 
+---
+
+<script>
+  export default {
+    data(){
+      return {
+        value:"option",
+        label:""
+      }
+    },
+    methods:{
+      change(value){  
+        this.label=value;
+      }
+    }
+  }
+</script>
+
 ### RadioGroup-DEMO
 --- 
 

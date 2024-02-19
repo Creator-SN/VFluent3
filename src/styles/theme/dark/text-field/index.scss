@@ -1,4 +1,56 @@
-.fv-TextField{
-    &.dark{   
+@import '@/styles/theme/index.scss';
+
+.fv-TextField {&.dark {
+    background: transparent;
+
+    &:hover {
+        .text-field-wrapper-container {
+            border: rgba(36, 36, 36, 1) solid thin;
+        }
     }
+
+    &.focus {
+        .text-field-wrapper-container {
+            border: rgba(36, 36, 36, 1) solid thin;
+        }
+    }
+
+    &.shadow {
+        box-shadow: rgba(165, 165, 165, 0.133) 0px 3.2px 7.2px 0px, rgba(224, 224, 224, 0.11) 0px 0.6px 1.8px 0px;
+    }
+
+    &.underline {
+        .text-field-wrapper-container {
+            border-left: none;
+            border-top: none;
+            border-right: none;
+        }
+    }
+
+    &.disabled {
+        background: rgba(48, 47, 46, 1);
+
+        .text-field-wrapper-container {
+            border-color: transparent;
+        }
+
+        &:hover {
+            .text-field-wrapper-container {
+                border-color: transparent;
+            }
+        }
+    }
+
+    .text-field-wrapper-container {
+        border: rgba(120, 120, 120, 0.1) solid thin;
+    }
+
+    .fv-text-field-input {
+        color: rgba(243, 242, 241, 1);
+    }
+
+    .fv-text-field-input::placeholder {
+        color: rgba(220, 220, 220, 1);
+    }
+}
 }

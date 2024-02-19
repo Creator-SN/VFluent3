@@ -1,44 +1,50 @@
 {
-  "hash": "d997c41c",
+  "hash": "080d45d7",
   "configHash": "faf99e4a",
-  "lockfileHash": "a809b779",
-  "browserHash": "f8757454",
+  "lockfileHash": "1eb793dc",
+  "browserHash": "2d228a9e",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "aaf77ca5",
+      "fileHash": "5cd42dbe",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../node_modules/vitepress/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "83713ab3",
+      "fileHash": "8f27b220",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "55064485",
+      "fileHash": "1799d31c",
       "needsInterop": false
     },
     "pinia": {
       "src": "../../../../node_modules/pinia/dist/pinia.mjs",
       "file": "pinia.js",
-      "fileHash": "afdd5663",
+      "fileHash": "ae9c61d6",
       "needsInterop": false
     },
     "gsap": {
       "src": "../../../../node_modules/gsap/index.js",
       "file": "gsap.js",
-      "fileHash": "9e08eff5",
+      "fileHash": "ee3cc434",
       "needsInterop": false
     },
     "onecolor": {
       "src": "../../../../node_modules/onecolor/index.js",
       "file": "onecolor.js",
-      "fileHash": "8c896e03",
+      "fileHash": "3973864d",
       "needsInterop": true
+    },
+    "swiper": {
+      "src": "../../../../node_modules/swiper/swiper.esm.js",
+      "file": "swiper.js",
+      "fileHash": "a6ddb87f",
+      "needsInterop": false
     }
   },
   "chunks": {

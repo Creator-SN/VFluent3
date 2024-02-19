@@ -1,4 +1,42 @@
-.fv-Tag{
-    &.dark{   
+@import '@/styles/theme/index.scss';
+
+.fv-Tag {&.dark {
+    .fv-tag-item
+    {
+        background: rgba(118, 185, 237, 1);
+        border-color: rgba(118, 185, 237, 1) solid thin;
+        color: whitesmoke;
+
+        &.success
+        {
+            background: rgba(0, 204, 153, 1);
+            border-color: rgba(0, 204, 153, 1) solid thin;
+            color: whitesmoke;
+        }
+
+        &.warning
+        {
+            background: rgba(255, 200, 10, 1);
+            border-color: rgba(255, 200, 10, 1) solid thin;
+            color: whitesmoke;
+        }
+
+        &.error
+        {
+            background: rgba(173, 38, 45, 1);
+            border-color: rgba(173, 38, 45, 1) solid thin;
+            color: whitesmoke;
+        }
+
+        .fv-tag-icon
+        {
+            color: whitesmoke;
+
+            &:hover
+            {
+                background: rgba(220, 220, 220, 0.3);
+            }
+        }
     }
+}
 }

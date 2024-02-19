@@ -1,207 +1,336 @@
 ---
 page: true
 title: TextBox
---- 
+---
 
-<script lang="ts" setup>
-import {  onMounted, onUnmounted, ref } from 'vue'; 
-import { useTheme } from '../common/index.js'; 
+### TextBox-DEMO
+---
 
-const {theme} = useTheme()
-
-const value = ref<string>("")
-
-const template = `MIT License
-
-Copyright (c) 2022 Creator SN®
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
-
-let index = 0;
-let stop = false;
-
-const input = ref(null)
-
-onMounted(()=>{
-    const cb = ()=>{
-        index = (index+1) % template.length;
-        value.value = template.substring(0,index)
-        if (stop===false)
-            window.requestAnimationFrame(cb)
+<script>
+export default {
+    data () {
+        return {
+            readOnlyText: "I am read-only.",
+            maskValue: ""
+        }
     }
-    cb()
-})
-
-onUnmounted(()=>{
-    stop = true;
-})
-
-function focus(evt:FocusEvent){
-    console.log("focus",evt)
 }
-
-function change(val:string){
-    console.log(val)
-}
-
-function blur(val:string){
-    console.log("blur",val)
-}
-
-function errorInput(val:string){
-    console.error("your error input",val);
-}
-
-function warningInput(val:string){
-    console.warn("your warning input",val);
-}
-
-
 </script>
 
-# TextBox
+Standard
 
-## Quick Start
+<ClientOnly>
+<fv-TextBox></fv-TextBox>
+</ClientOnly>
 
-### Default
-
----
-
-<div>
-Input single line:  <fv-text-box :input-rules="/^[0-9]*$/" :pattern="/^1234/" :theme="theme" @focus="focus" @change="change" @blur="blur" :maxlength="30" hover-border-color="rgba(0, 204, 153, 1)" @error-input="errorInput"
-@warning-input="warningInput"/>
-</div>
-
-```vue-html{2-9}
-    <fv-text-box 
-        :input-rules="/^[0-9]*$/"
-        :pattern="/^1234/"
-        :theme="theme" 
-        @focus="focus" 
-        @change="change" 
-        @blur="blur"
-        :maxlength="30"
-        hover-border-color="rgba(0, 204, 153, 1)"
-        @error-input="errorInput"
-        @warning-input="warningInput"
-    >
-    </fv-text-box>
+```vue
+<fv-TextBox></fv-TextBox>
 ```
 
-::: warning Warning
-Only input-rules characters can be entered. If you input other characters, the border color is warning color. If the input does not match the pattern, the border color is error color. Error color will override warning color.
-:::
+Read-only
 
-### Width
+<ClientOnly>
+<fv-TextBox v-model="readOnlyText" readonly></fv-TextBox>
+</ClientOnly>
 
-Input single line:  
+```vue
+<fv-TextBox v-model="readOnlyText" readonly></fv-TextBox>
+```
 
-<div>
-<fv-text-box :input-rules="/^[0-9\.]*$/" min-width="100%" style="width:50%;" :theme="theme" @focus="focus" @change="change" @blur="blur" placeholder="Input numbers" hover-border-color="rgba(0, 204, 153, 1)" @error-input="errorInput"
-@warning-input="warningInput"/>
+With placeholder
+
+<ClientOnly>
+<fv-TextBox placeholder="Please enter the text here."></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox placeholder="Please enter the text here."></fv-TextBox>
+```
+
+With an icon
+
+<ClientOnly>
+<fv-TextBox icon="Search"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox icon="Search"></fv-TextBox>
+```
+
+With type
+
+<ClientOnly>
+<fv-TextBox icon="RevealPasswordMedium" type="password"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox icon="RevealPasswordMedium" type="password"></fv-TextBox>
+```
+
+With pattern
+
+<ClientOnly>
+<fv-TextBox pattern="[a-zA-Z]"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox pattern="[a-zA-Z]"></fv-TextBox>
+```
+
+### TextBox-With Input Mask
+---
+Standard
+
+<ClientOnly>
+<fv-TextBox mode="mask"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox mode="mask"></fv-TextBox>
+```
+
+Customize
+
+<ClientOnly>
+<fv-TextBox v-model="maskValue" mode="mask" mask="Tel: +__ ___ - ____ - ____" flag="_"></fv-TextBox>
+</ClientOnly>
+<p>{{maskValue}}</p>
+
+```vue
+<fv-TextBox v-model="maskValue" mode="mask" mask="Tel: +__ ___ - ____ - ____" flag="_"></fv-TextBox>
+<p>{{maskValue}}</p>
+```
+
+Customize Flag
+
+<ClientOnly>
+<fv-TextBox v-model="maskValue" mode="mask" mask="mask: xx-xxx-xxxx-xxxx" flag="x"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox v-model="maskValue" mode="mask" mask="mask: xx-xxx-xxxx-xxxx" flag="x"></fv-TextBox>
+```
+
+### TextBox-Disabled
+---
+1. Standard
+
+<ClientOnly>
+<fv-TextBox disabled></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox disabled></fv-TextBox>
+```
+
+2. With Input Mask
+
+<ClientOnly>
+<fv-TextBox mode="mask" disabled></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox mode="mask" disabled></fv-TextBox>
+```
+
+3. With placeholder
+
+<ClientOnly>
+<fv-TextBox placeholder="Please enter the text here." disabled></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox placeholder="Please enter the text here." disabled></fv-TextBox>
+```
+
+4. With underline
+
+<ClientOnly>
+<fv-TextBox underline disabled prefix="Disabled:"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox underline disabled prefix="Disabled:"></fv-TextBox>
+```
+
+### TextBox-With Limit
+---
+
+<ClientOnly>
+<fv-TextBox maxlength="5" style="width: 120px;"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox maxlength="5" style="width: 120px;"></fv-TextBox>
+```
+
+### TextBox-With Underline And Borderless
+---
+
+<ClientOnly>
+<fv-TextBox underline prefix="Standard:" focusBorderColor="rgba(0, 90, 158, 1)"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox underline prefix="Standard:" focusBorderColor="rgba(0, 90, 158, 1)"></fv-TextBox>
+```
+
+### TextBox-With Prefix/Suffix
+---
+Prefix
+
+<ClientOnly>
+<fv-TextBox prefix="https://"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox prefix="https://"></fv-TextBox>
+```
+
+Suffix
+
+<ClientOnly>
+<fv-TextBox suffix=".com"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox suffix=".com"></fv-TextBox>
+```
+
+Prefix and Suffix
+
+<ClientOnly>
+<fv-TextBox prefix="https://" suffix=".com"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox prefix="https://" suffix=".com"></fv-TextBox>
+```
+
+### TextBox-With Status
+---
+Warn
+
+<ClientOnly>
+<fv-TextBox placeholder="Warn text." status="warn"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox placeholder="Warn text." status="warn"></fv-TextBox>
+```
+
+Correct
+
+<ClientOnly>
+<fv-TextBox placeholder="Correct text." status="correct"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox placeholder="Correct text." status="correct"></fv-TextBox>
+```
+
+### TextBox-RevealBorder
+
+<ClientOnly>
+<fv-TextBox placeholder="Please enter the text here." :revealBorder="true" borderColor="rgba(0, 0, 0, 0.01)" borderRadius="3" :isBoxShadow="true"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox placeholder="Please enter the text here." :revealBorder="true" borderColor="rgba(0, 0, 0, 0.01)" borderRadius="3" :isBoxShadow="true"></fv-TextBox>
+```
+
+### TextBox-Customize
+---
+Customize border color
+
+<ClientOnly>
+<fv-TextBox placeholder="Please enter the text here." borderColor="rgba(0,153,204,1)" focusBorderColor="rgba(0,204,153,1)"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox placeholder="Please enter the text here." borderColor="rgba(0,153,204,1)" focusBorderColor="rgba(0,204,153,1)"></fv-TextBox>
+```
+
+Customize background
+
+<ClientOnly>
+<fv-TextBox placeholder="Please enter the text here." background="rgba(0,153,204,1)" borderColor="rgba(0,153,204,1)"></fv-TextBox>
+</ClientOnly>
+
+```vue
+<fv-TextBox placeholder="Please enter the text here." background="rgba(0,153,204,1)" borderColor="rgba(0,153,204,1)"></fv-TextBox>
+```
+
+### TextBox-Dark Theme
+---
+<div style="padding: 15px; background: black;">
+<ClientOnly>
+<fv-TextBox placeholder="Please enter the text here." theme="dark"></fv-TextBox>
+<fv-TextBox placeholder="Please enter the text here." disabled theme="dark" value="123"></fv-TextBox>
+<fv-TextBox placeholder="Please enter the text here." prefix="https://" suffix=".com" theme="dark"></fv-TextBox>
+<fv-TextBox placeholder="Please enter the text here." prefix="https://" suffix=".com" disabled theme="dark"></fv-TextBox>
+<fv-TextBox underline prefix="Standard:" theme="dark" focusBorderColor="rgba(118, 185, 237, 1)"></fv-TextBox>
+<fv-TextBox underline prefix="Standard:" disabled theme="dark"></fv-TextBox>
+</ClientOnly>
 </div>
 
-```vue-html{3}
-    <fv-text-box 
-        :input-rules="/^[0-9\.]*$/" 
-        style="width:50%;" 
-        :theme="theme" 
-        @focus="focus" 
-        @change="change" 
-        @blur="blur" 
-        placeholder="Input numbers" 
-        hover-border-color="rgba(0, 204, 153, 1)" 
-        @error-input="errorInput"
-        @warning-input="warningInput"
-    />
+```vue
+<div style="padding: 15px; background: black;">
+    <fv-TextBox placeholder="Please enter the text here." theme="dark"></fv-TextBox>
+    <fv-TextBox placeholder="Please enter the text here." disabled theme="dark" value="123"></fv-TextBox>
+    <fv-TextBox placeholder="Please enter the text here." prefix="https://" suffix=".com" theme="dark"></fv-TextBox>
+    <fv-TextBox placeholder="Please enter the text here." prefix="https://" suffix=".com" disabled theme="dark"></fv-TextBox>
+    <fv-TextBox underline prefix="Standard:" theme="dark"></fv-TextBox>
+    <fv-TextBox underline prefix="Standard:" disabled theme="dark"></fv-TextBox>
+</div>
 ```
 
 
-### Password
-
+### Propoties
 ---
+|      属性(attr)       |     类型(type)     | 必填(required) | 默认值(default) |                            说明(statement)                            |
+|:---------------------:|:------------------:|:--------------:|:---------------:|:---------------------------------------------------------------------:|
+|         value         |       String       |       No       |                 |                   Using v-model binding input value                   |
+|         mode          | ['default','mask'] |       No       |     default     |                          Choose TextBox mode                          |
+|       inputmode       |       String       |       No       |       N/A       | 输入模式, 可选值为`numeric`, `tel`, `text`, `decimal`, `email`, `url` |
+|      placeholder      |       String       |       No       |       N/A       |                            等同HTML[input]                            |
+|         type          |       String       |       No       |      text       |                            等同HTML[input]                            |
+|         mask          |       String       |       No       |    mask:___     |                     The mask mode input template                      |
+|         flag          |       String       |       No       |        _        |                       The mask mode input flag                        |
+|        pattern        |       String       |       No       |     [\S\s]*     |                  The pattern for limiting input char                  |
+|       readonly        |      Boolean       |       No       |      false      |                            等同HTML[input]                            |
+|       maxlength       |       Number       |       No       |       N/A       |                            等同HTML[input]                            |
+|        prefix         |       String       |       No       |       N/A       |                                 前缀                                  |
+|        suffix         |       String       |       No       |       N/A       |                                 后缀                                  |
+|       leftIcon        |       String       |       No       |       N/A       |                                左图标                                 |
+|         icon          |       String       |       No       |       N/A       |                                右图标                                 |
+|       underline       |      Boolean       |       No       |      false      |                    是否开启Underline风格的TextBox                     |
+|      background       |  [string(color)]   |       No       |       N/A       |                                                                       |
+|      borderWidth      |      Boolean       |       No       |       N/A       |                                                                       |
+|      borderColor      |  [string(color)]   |       No       |       N/A       |                                                                       |
+|   focusBorderColor    |  [string(color)]   |       No       |       N/A       |                                                                       |
+|   revealBorderColor   |  [string(color)]   |       No       |       N/A       |                                                                       |
+| revealBackgroundColor |  [string(color)]   |       No       |       N/A       |                                                                       |
+|       fontSize        |       Number       |       No       |      13.3       |                                                                       |
+|      fontWeight       |  [string,number]   |       No       |     normal      |                                                                       |
+|      foreground       |  [string(color)]   |       No       |       N/A       |                                                                       |
+|       textAlign       |       String       |       No       |      left       |                                                                       |
+|     borderRadius      |       Number       |       No       |        3        |               Textbox圆角大小, 启用revealBorder时将失效               |
+|      isBoxShadow      |      Boolean       |       No       |      false      |                           开启`TextBox`阴影                           |
+|     revealBorder      |      Boolean       |       No       |      false      |                                                                       |
+|        status         | ['warn','correct'] |       No       |       N/A       |                  状态边框预设, 默认有警告和正确两种                   |
+|     debounceDelay     |       Number       |       No       |       300       |                           搜索节流延迟时间                            |
+|       disabled        |      Boolean       |       No       |      false      |                                                                       |
+|         theme         |       String       |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式       |
 
-<div>
-Input password:  <fv-text-box :input-rules="/^[0-9a-zA-Z\-@!]*$/" style="min-width:200px;" placeholder="Input your password" :theme="theme" password @focus="focus" @change="change" @blur="blur"/>
-</div>
-
-```vue-html{3-6}
-    <fv-text-box 
-        :theme="theme" 
-        placeholder="Input your password"
-        style="min-width:200px;"
-        :input-rules="/^[0-9a-zA-Z\-@!]*$/"
-        password
-        @focus="focus" 
-        @change="change" 
-        @blur="blur"
-    >
-    </fv-text-box>
-```
-
-### Multiline
-
+### Events
 ---
-
-<div>
-Input multiline:   
-<fv-text-box multiline :theme="theme" @focus="focus" @change="change" @blur="blur" />
-</div>
-
-```vue-html{2}
-    <fv-text-box 
-        multiline 
-        :theme="theme" 
-        @focus="focus" 
-        @change="change" 
-        @blur="blur"
-    >
-    </fv-text-box>
-```
-
-### Readonly
-
----
-
-<div>
-Input multiline:  <fv-text-box ref="input" readonly multiline :theme="theme" v-model="value" autofocus />
-</div>
-
-```vue-html
-    <fv-text-box multiline :theme="theme" readonly>
-    </fv-text-box>
-```
-
-
- ### Disabled 
-
----
-
-<div>
-Input multiline:  <fv-text-box disabled multiline :theme="theme" v-model="value" @focus="focus"/>
-</div>
-
-```vue-html
-    <fv-text-box multiline :theme="theme" disabled>
-    </fv-text-box>
-``` 
-
-<!--@include: ./properties.md-->
-
-<!--@include: ./emits.md-->
+|  事件名(Name)   | 参数类型(args) | 说明(statement)  |
+|:---------------:|:--------------:|:----------------:|
+|     keydown     |     event      |                  |
+|      keyup      |     event      |                  |
+|     change      |     event      |                  |
+|      paste      |     event      |                  |
+| left-icon-click |     event      |                  |
+|   icon-click    |     event      |                  |
+| debounce-input  |     string     | 搜索节流内容反馈 |

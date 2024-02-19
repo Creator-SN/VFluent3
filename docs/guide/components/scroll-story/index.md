@@ -1,33 +1,65 @@
 ---
 page: true
 title: ScrollStory
---- 
+---
 
-<script lang="ts" setup>
-import { ref } from 'vue'; 
-import { useTheme } from '../common/index.js'; 
+### ScrollStory-DEMO
+---
 
-const {theme} = useTheme()
+<div style="height: 500px; "></div>
 
+<ClientOnly>
+<fv-ScrollStory name="scale-up-to-up"><fv-colorPicker></fv-colorPicker></fv-ScrollStory>
+</ClientOnly>
 
-</script>
+```vue
+<fv-ScrollStory name="scale-up-to-up">
+    <fv-colorPicker></fv-colorPicker>
+</fv-ScrollStory>
+```
 
-# ScrollStory
-
-## Quick Start
-
-### Default
+### ScrollStory-Infinite Show
 
 ---
 
-<fv-scroll-story :theme="theme">
-</fv-scroll-story>
+<ClientOnly>
+<fv-ScrollStory name="scale-down-to-down" :infinite="true"><fv-colorPicker></fv-colorPicker></fv-ScrollStory>
+</ClientOnly>
 
-```vue-html
-    <fv-scroll-story :theme="theme">
-    </fv-scroll-story>
+```vue
+<fv-ScrollStory name="scale-down-to-down" :infinite="true">
+    <fv-colorPicker></fv-colorPicker>
+</fv-ScrollStory>
 ```
 
-<!--@include: ./properties.md-->
+### ScrollStory-Over Collapse
 
-<!--@include: ./emits.md-->
+---
+
+<ClientOnly>
+<fv-ScrollStory name="scale-down-to-down" :overCollapse="true"><fv-colorPicker></fv-colorPicker></fv-ScrollStory>
+</ClientOnly>
+<div style="height: 500px; "></div>
+
+```vue
+<fv-ScrollStory name="scale-down-to-down" :overCollapse="true">
+    <fv-colorPicker></fv-colorPicker>
+</fv-ScrollStory>
+```
+
+### Propoties
+
+---
+|  属性(attr)  | 类型(type) | 必填(required) | 默认值(default) |     说明(statement)     |
+|:------------:|:----------:|:--------------:|:---------------:|:-----------------------:|
+|     name     |  Boolean   |       No       |       N/A       | Vue transition css name |
+|   infinite   |  Boolean   |       No       |      false      |      Infinite show      |
+| overCollapse |  Boolean   |       No       |      false      |  Scroll over collapse   |
+|  trueRender  |  Boolean   |       No       |      false      |  Only render when show  |
+
+### Events
+
+---
+| 事件名(Name) | 参数类型(args) | 说明(statement) |
+|:------------:|:--------------:|:---------------:|
+| show-changed |      show      |                 |

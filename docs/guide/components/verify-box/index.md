@@ -2,32 +2,107 @@
 page: true
 title: VerifyBox
 --- 
+### VerifyBox-DEMO
+--- 
 
-<script lang="ts" setup>
-import { ref } from 'vue'; 
-import { useTheme } from '../common/index.js'; 
-
-const {theme} = useTheme()
-
-
+<script>
+export default {
+    data () {
+        return {
+            value: ""
+        }
+    }
+}
 </script>
 
-# VerifyBox
 
-## Quick Start
+<ClientOnly>
 
-### Default
 
----
+Standard
 
-<fv-verify-box :theme="theme">
-</fv-verify-box>
 
-```vue-html
-    <fv-verify-box :theme="theme">
-    </fv-verify-box>
+<ClientOnly>
+<fv-VerifyBox v-model="value">
+</fv-VerifyBox>
+</ClientOnly>
+
+```vue
+<fv-VerifyBox v-model="value">
+</fv-VerifyBox>
 ```
 
-<!--@include: ./properties.md-->
+<p>{{value}}</p>
 
-<!--@include: ./emits.md-->
+
+With Highlight
+
+
+<ClientOnly>
+<fv-VerifyBox v-model="value" focusBorderColor="rgba(0, 153, 204, 0.6)" :border-width="2">
+</fv-VerifyBox>
+</ClientOnly>
+
+```vue
+<fv-VerifyBox v-model="value" focusBorderColor="rgba(0, 153, 204, 0.6)" :border-width="2">
+</fv-VerifyBox>
+```
+
+Reveal Border
+
+
+<ClientOnly>
+<fv-VerifyBox v-model="value" :reveal-border="true" :border-width="2">
+</fv-VerifyBox>
+</ClientOnly>
+
+```vue
+<fv-VerifyBox v-model="value" :reveal-border="true" :border-width="2">
+</fv-VerifyBox>
+```
+
+
+### VerifyBox-Disabled
+---
+1. Standard
+
+
+<ClientOnly>
+<fv-VerifyBox disabled></fv-VerifyBox>
+</ClientOnly>
+
+```vue
+<fv-VerifyBox disabled></fv-VerifyBox>
+```
+
+
+</ClientOnly>
+
+
+### Propoties
+---
+|    属性(attr)    |   类型(type)    | 必填(required) | 默认值(default) |                            说明(statement)                            |
+|:----------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------------------:|
+|      value       |     String      |       No       |                 |                   Using v-model binding input value                   |
+|      length      |     Number      |       No       |       N/A       |                              验证码长度                               |
+|    inputmode     |     String      |       No       |     numeric     | 输入模式, 可选值为`numeric`, `tel`, `text`, `decimal`, `email`, `url` |
+|    underline     |     Boolean     |       No       |      false      |                   是否开启Underline风格的VerifyBox                    |
+|    background    | [string(color)] |       No       |       N/A       |                                                                       |
+|   borderWidth    |     Boolean     |       No       |       N/A       |                                                                       |
+|   borderColor    | [string(color)] |       No       |       N/A       |                                                                       |
+| focusBorderColor | [string(color)] |       No       |       N/A       |                                                                       |
+|     fontSize     |     Number      |       No       |       18        |                                                                       |
+|    fontWeight    | [string,number] |       No       |      bold       |                                                                       |
+|    foreground    | [string(color)] |       No       |       N/A       |                                                                       |
+|   borderRadius   |     Number      |       No       |        3        |              VerifyBox圆角大小, 启用revealBorder时将失效              |
+|   isBoxShadow    |     Boolean     |       No       |      false      |                          开启`VerifyBox`阴影                          |
+|   revealBorder   |     Boolean     |       No       |      false      |                                                                       |
+|     disabled     |     Boolean     |       No       |      false      |                                                                       |
+|      theme       |     String      |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式       |
+
+### Events
+---
+| 事件名(Name) | 参数类型(args) |  说明(statement)   |
+|:------------:|:--------------:|:------------------:|
+|   confirm    |     string     | 完成输入并返回结果 |
+

@@ -259,7 +259,7 @@
         transition: all 0.3s;
     }
 
-    .fv-menu-flyout-enter {
+    .fv-menu-flyout-enter-from {
         transform: scale(0.98);
         opacity: 0;
     }
@@ -279,13 +279,13 @@
         transition: all 0.3s;
     }
 
-    .fv-menu-flyout-item-enter, .fv-menu-flyout-item-leave-to {
+    .fv-menu-flyout-item-enter-from, .fv-menu-flyout-item-leave-to {
         min-height: 0px;
         height: 0px;
         opacity: 0;
     }
 
-    .fv-menu-flyout-item-enter-to, .fv-menu-flyout-item-leave {
+    .fv-menu-flyout-item-enter-to, .fv-menu-flyout-item-leave-from {
         opacity: 1;
     }
 }
