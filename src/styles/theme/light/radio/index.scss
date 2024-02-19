@@ -1,35 +1,4 @@
-.fv-radio {
-    &.light {
-        .label {
-            .icon {
-                --fv-radio-bgcolor: initial;
-                border-color: var(--fv-light-border-color);
-                color: var(--fv-dark-color);
-                &:hover {
-                    background-color: var(--fv-radio-bgcolor, var(--fv-light-bgcolor));
-                }
-            }
-        }
-        &.active {
-            .label {
-                .icon {
-                    border-color: rgb(var(--fv-primary-bgcolor));
-                    background-color: rgb(var(--fv-primary-bgcolor));
-                    color: var(--fv-dark-color);
-                    .dot {
-                        background-color: var(--fv-dark-color);
-                    }
-                }
-            }
-        }
-        &.disabled {
-            .label {
-                cursor: default;
-                .icon {
-                    background-color: var(--fv-light-bgcolor);
-                    border-color: var(--fv-light-bgcolor);
-                }
-            }
-        }
+.fv-Radio{
+    &.light{
     }
 }

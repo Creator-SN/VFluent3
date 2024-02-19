@@ -1,34 +1,6 @@
-.fv-progress-ring {
+@import "@/styles/theme/index.scss";
+
+.fv-ProgressRing {
     &.dark {
-        --fv-progress-ring-primary-color: initial;
-        --fv-progress-ring-warning-color: initial;
-        --fv-progress-ring-error-color: initial;
-        &.running {
-            .label {
-                .svg {
-                    .bar {
-                        stroke: var(--fv-progress-ring-primary-color, rgb(var(--fv-primary-bgcolor)));
-                    }
-                }
-            }
-        }
-        &.pause {
-            .label {
-                .svg {
-                    .bar {
-                        stroke: var(--fv-progress-ring-warning-color, rgb(var(--fv-warning-bgcolor)));
-                    }
-                }
-            }
-        }
-        &.error {
-            .label {
-                .svg {
-                    .bar {
-                        stroke: var(--fv-progress-ring-error-color, rgb(var(--fv-error-bgcolor)));
-                    }
-                }
-            }
-        }
     }
 }

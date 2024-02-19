@@ -1,4 +1,16 @@
-.fv-RatingControl{
-    &.dark{   
+@import '@/styles/theme/index.scss';
+
+.fv-RatingControl {&.dark {
+    .fv-rating-container {
+        .fv-rating-unit {
+            color: rgba(200, 200, 200, 1);
+
+            .fv-rating-mask {
+                i {
+                    color: rgba(118, 185, 237, 1);
+                }
+            }
+        }
     }
+}
 }

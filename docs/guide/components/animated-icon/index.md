@@ -65,45 +65,45 @@ export default {
 
 2. Scale X Down
 <ClientOnly>
-<fv-AnimatedIcon value="scaleXDown" fontSize="20" icon="GlobalNavButton">
+<fv-AnimatedIcon modelValue="scaleXDown" fontSize="20" icon="GlobalNavButton">
 </fv-AnimatedIcon>
 </ClientOnly>
 
 ```vue
-<fv-AnimatedIcon value="scaleXDown" fontSize="20" icon="GlobalNavButton">
+<fv-AnimatedIcon modelValue="scaleXDown" fontSize="20" icon="GlobalNavButton">
 </fv-AnimatedIcon>
 ```
 
 3. Scale Y Down
 <ClientOnly>
-<fv-AnimatedIcon value="scaleYDown" fontSize="20" icon="Pause">
+<fv-AnimatedIcon modelValue="scaleYDown" fontSize="20" icon="Pause">
 </fv-AnimatedIcon>
 </ClientOnly>
 
 ```vue
-<fv-AnimatedIcon value="scaleYDown" fontSize="20" icon="Pause">
+<fv-AnimatedIcon modelValue="scaleYDown" fontSize="20" icon="Pause">
 </fv-AnimatedIcon>
 ```
 
 4. Back Scale
 <ClientOnly>
-<fv-AnimatedIcon value="backScale" fontSize="20" icon="Back">
+<fv-AnimatedIcon modelValue="backScale" fontSize="20" icon="Back">
 </fv-AnimatedIcon>
 </ClientOnly>
 
 ```vue
-<fv-AnimatedIcon value="backScale" fontSize="20" icon="Back">
+<fv-AnimatedIcon modelValue="backScale" fontSize="20" icon="Back">
 </fv-AnimatedIcon>
 ```
 
 5. Bounce Rotate
 <ClientOnly>
-<fv-AnimatedIcon value="bounceRotate" fontSize="20" icon="Settings">
+<fv-AnimatedIcon modelValue="bounceRotate" fontSize="20" icon="Settings">
 </fv-AnimatedIcon>
 </ClientOnly>
 
 ```vue
-<fv-AnimatedIcon value="bounceRotate" fontSize="20" icon="Settings">
+<fv-AnimatedIcon modelValue="bounceRotate" fontSize="20" icon="Settings">
 </fv-AnimatedIcon>
 ```
 
@@ -113,7 +113,7 @@ export default {
 
 <div>
 <ClientOnly>
-<fv-AnimatedIcon value="bounceRotate" fontSize="20" icon="Settings">
+<fv-AnimatedIcon modelValue="bounceRotate" fontSize="20" icon="Settings">
 <template v-slot:content>
 <div style="margin-left: 15px;">Settings</div>
 </template>
@@ -122,7 +122,7 @@ export default {
 </div>
 
 ```vue
-<fv-AnimatedIcon value="bounceRotate" fontSize="20" icon="Settings">
+<fv-AnimatedIcon modelValue="bounceRotate" fontSize="20" icon="Settings">
     <template v-slot:content>
         <div style="margin-left: 5px;">Settings</div>
     </template>
@@ -180,12 +180,12 @@ data () {
 ---
 
 <ClientOnly>
-<fv-AnimatedIcon value="scaleYDown" fontSize="20" icon="Pause" background="whitesmoke">
+<fv-AnimatedIcon modelValue="scaleYDown" fontSize="20" icon="Pause" background="whitesmoke">
 </fv-AnimatedIcon>
 </ClientOnly>
 
 ```vue
-<fv-AnimatedIcon value="scaleYDown" fontSize="20" icon="Pause" background="whitesmoke">
+<fv-AnimatedIcon modelValue="scaleYDown" fontSize="20" icon="Pause" background="whitesmoke">
 </fv-AnimatedIcon>
 ```
 

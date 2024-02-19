@@ -1,4 +1,25 @@
-.fv-NavigationView{
-    &.dark{   
+@import '@/styles/theme/index.scss';
+
+.fv-NavigationView {&.dark {
+
+    .navigation-list
+    {
+        .item
+        {
+            &:hover
+            {
+                background: $row-dark-hover-glass;
+            }
+        }
+
+        i.icon {
+            color: whitesmoke;
+        }
+
+        p.name {
+            color: whitesmoke;
+        }
     }
+}
+    
 }

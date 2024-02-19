@@ -1,61 +1,142 @@
-<script lang="ts" setup>
-import { ClassBuilder, isNumber, isString, StyleBuilder } from "@/utils/common";
-import { useTheme } from "@/utils/common/theme"
-import { radioEmits, radioProps, useRadio } from ".";
-
-const props = defineProps(radioProps);
-const emits = defineEmits(radioEmits);
-
-defineOptions({
-    name: "FvRadio"
-})
-
-const { computedChecked, computedValue, onClick, onBlur, onFocus, onChange } = useRadio(props, emits)
-
-const { theme } = useTheme(props);
-
-
-const { cls: computedRadioClass } = new ClassBuilder()
-    .add("fv-radio")
-    .add(() => theme.value)
-    .add("active", () => computedChecked.value !== false)
-    .add("disabled", () => props.disabled)
-    .computed()
-
-const { cls: computeIconClass } = new ClassBuilder()
-    .add("dot")
-    .computed()
-
-const { style: computedIconStyle } = new StyleBuilder()
-    .add("background", () => props.background, () => props.background !== undefined)
-    .add("--fv-radio-bgcolor", () => props.hoverColor, () => props.hoverColor !== undefined)
-    .add("borderWidth", () => props.borderWidth, () => isString(props.borderWidth))
-    .add("borderWidth", () => `${props.borderWidth}px`, () => isNumber(props.borderWidth))
-    .add("borderColor", () => props.borderColor, () => props.borderColor !== undefined)
-    .computed()
-
-const { style: computedTextStyle } = new StyleBuilder()
-    .add("color", () => props.foreground, () => props.foreground !== undefined)
-    .computed()
-
-</script>
-
 <template>
-    <div :class="computedRadioClass">
-        <label class="label" @click="onClick">
-            <span class="text" v-if="props.boxSide === `end`" :style="computedTextStyle">
-                <slot>
-                </slot>
-            </span>
-            <input :checked="computedChecked" @change="onChange(computedValue)" @focus="onFocus" @blur="onBlur" :disabled="props.disabled" type="radio"
-                class="radio" :value="props.label" :name="props.group" v-model="computedValue" />
-            <div class="icon" :style="computedIconStyle">
-                <div v-show="computedChecked" :class="computeIconClass" />
-            </div>
-            <span class="text" v-if="props.boxSide === `start`" :style="computedTextStyle">
-                <slot>
-                </slot>
+    <div
+        class="fv-Radio"
+        :class="[$theme, {'with-icon':this.icon || this.image},{actived:isActived},{disabled:isDisabled}]"
+        @click="click"
+        :style="{
+            'border-color': isActived ? foreground : '',
+            'border-radius': `${iconBlockBorderRadius}px`,
+            'border-width': `${iconBlockBorderWidth}px`
+        }"
+    >
+        <input
+            type="radio"
+            ref="button"
+            class="fv-radio-button"
+            :style="{
+                'background': isActived ? foreground : ''
+            }"
+            :class="[{actived:isActived},{disabled:isDisabled}]"
+        />
+        <label
+            class="fv-radio-label"
+            :style="{color: color}"
+        >
+            <template v-if="image">
+                <img :src="isActived?activeImage?activeImage:image:image" />
+            </template>
+            <i
+                v-else-if="icon"
+                class="with-icon ms-Icon"
+                :class="'ms-Icon--'+this.icon"
+            ></i>
+            <span>
+                <slot></slot>
             </span>
         </label>
     </div>
 </template>
+        
+<script>
+import { radioProps } from '.';
+import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+
+export default {
+    name: 'FvRadio',
+    emits: ['update:modelValue', 'click', 'actived'],
+    props: {
+        ...radioProps,
+        modelValue: {},
+        label: {
+            required: true
+        },
+        color: {
+            default: ''
+        },
+        foreground: {
+            default: 'rgba(0, 90, 158, 0.8)'
+        },
+        icon: {
+            type: String,
+            default: null
+        },
+        iconBlockBorderRadius: {
+            default: 6
+        },
+        iconBlockBorderWidth: {
+            default: 2
+        },
+        image: {
+            type: String,
+            default: null
+        },
+        activeImage: {
+            type: String,
+            default: null
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
+    computed: {
+        $theme() {
+            return useTheme(this.$props).theme.value;
+        },
+        isActived() {
+            // return !this.isDisabled && this.model==this.label;
+            // [2020-5-13][fix] fix value display issue
+            return this.model == this.label;
+        },
+        isGroup() {
+            let parent = this.$parent;
+            while (parent) {
+                if (parent.$options.name != 'FvRadioGroup') {
+                    parent = parent.$parent;
+                } else {
+                    this.setGroup(parent);
+                    return true;
+                }
+            }
+            return false;
+        },
+        isDisabled() {
+            return this.isGroup
+                ? this._group.disabled || this.disabled
+                : this.disabled;
+        },
+        model: {
+            get() {
+                return this.isGroup ? this._group.value : this.modelValue;
+            },
+            set(val) {
+                if (this.isGroup) {
+                    this._group.$emit('update:modelValue', val);
+                } else {
+                    this.$emit('update:modelValue', val);
+                }
+            }
+        }
+    },
+    mounted() {},
+    methods: {
+        click() {
+            if (this.isDisabled) return;
+            if (!this.isGroup) {
+                this.$emit('update:modelValue', this.label);
+            } else {
+                this._group.$emit('update:modelValue', this.label);
+                this._group.change(this.label);
+            }
+            if (this.isActived) {
+                this.$emit('actived');
+            }
+            this.$emit('click');
+        },
+        setGroup(parent) {
+            this._group = parent;
+        }
+    }
+};
+</script>
+

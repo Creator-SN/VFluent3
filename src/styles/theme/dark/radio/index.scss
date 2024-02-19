@@ -1,35 +1,44 @@
-.fv-radio {
+@import "@/styles/theme/index.scss";
+
+.fv-Radio {
     &.dark {
-        .label {
-            .icon {
-                --fv-radio-bgcolor: initial;
-                border-color: var(--fv-dark-border-color);
-                color: var(--fv-light-color);
-                &:hover {
-                    background-color: var(--fv-radio-bgcolor, var(--fv-dark-bgcolor));
+        color: #faf9f8;
+        .fv-radio-button {
+            border-color: #6f6f6f;
+            &::before {
+                display: none;
+            }
+            &:hover {
+                border-color: #aaaaaa;
+            }
+            &:active {
+                background-color: rgba(102, 102, 102, 1);
+                border: 1px solid rgba(236, 236, 236, 1);
+            }
+            &.actived {
+                &::before {
+                    display: block;
                 }
             }
         }
-        &.active {
-            .label {
-                .icon {
-                    border-color: rgb(var(--fv-primary-bgcolor));
-                    background-color: rgb(var(--fv-primary-bgcolor));
-                    color: var(--fv-light-color);
-                    .dot {
-                        background-color: var(--fv-light-color);
-                    }
+        &.with-icon {
+            background-color: #252423;
+            &:hover {
+                border: 1px solid #f3f2f1;
+                .fv-radio-button {
+                    border: 1px solid #f3f2f1;
+                }
+            }
+            &.actived {
+                border: 1px solid rgba(118, 185, 237, 1);
+                .fv-radio-button {
+                    border: none;
                 }
             }
         }
+
         &.disabled {
-            .label {
-                cursor: default;
-                .icon {
-                    background-color: var(--fv-dark-bgcolor);
-                    border-color: var(--fv-dark-bgcolor);
-                }
-            }
+            color: #636160;
         }
     }
 }

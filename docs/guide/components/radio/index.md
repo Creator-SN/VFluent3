@@ -3,213 +3,167 @@ page: true
 title: Radio
 ---
 
-<script lang="ts" setup>
-import { ref } from 'vue'; 
-import { useTheme } from '../common/index.js'; 
-
-const {theme} = useTheme()
-
-const value = ref<boolean|number|string>()
-
-function click(val:boolean|number|string){
-  console.log('click', val)
-}
-
-function change(val:boolean|number|string){
-  console.log('change', val)
-}
+<script>
+  export default {
+    data(){
+      return {
+        value:"Option"
+      }
+    },
+    methods:{
+      active(){
+        ++this.status;
+      }
+    }
+  }
 </script>
+  
+[[toc]]
 
-## Quick Start    
-
-### Default
-
-<br/>
-Value: &nbsp; {{value}}  
-
----  
-
-<fv-radio 
-  v-model="value"
-  :theme="theme" 
-  group="radio" 
-  label="Microsoft"  
-  @click="click" 
-  @change="change">
-Microsoft
-</fv-radio>
-<fv-radio 
-  v-model="value"
-  :theme="theme" 
-  group="radio" 
-  label="Google"  
-  @click="click" 
-  @change="change">
-Google
-</fv-radio>
-<fv-radio 
-  v-model="value"
-  :theme="theme" 
-  group="radio" 
-  label="Apple"  
-  @click="click" 
-  @change="change">
-Apple
-</fv-radio>
-
-```vue-html
-  <fv-radio 
-    v-model="value"
-    :theme="theme" 
-    group="radio" 
-    label="Microsoft"  
-    @click="click" 
-    @change="change">
-  Microsoft
-  </fv-radio>
-  <fv-radio 
-    v-model="value"
-    :theme="theme" 
-    group="radio" 
-    label="Google"  
-    @click="click" 
-    @change="change">
-  Google
-  </fv-radio>
-  <fv-radio 
-    v-model="value"
-    :theme="theme" 
-    group="radio" 
-    label="Apple"  
-    @click="click" 
-    @change="change">
-  Apple
-  </fv-radio>
-
-```
-
-### Disabled
+### Radio
 
 ---
 
-<fv-radio :theme="theme" group="radio" label="Microsoft" v-model="value" @click="click" disabled>Microsoft</fv-radio>
-<fv-radio :theme="theme" group="radio" label="Google" v-model="value" @click="click" disabled>Google</fv-radio>
-<fv-radio :theme="theme" group="radio" label="Apple" v-model="value" @click="click" disabled>Apple</fv-radio>
 
-```vue-html
-  <fv-radio 
-    :theme="theme" 
-    group="radio" 
-    label="Microsoft" 
-    v-model="value" 
-    @click="click" 
-    disabled>
-  Microsoft
-  </fv-radio>
-  <fv-radio 
-    :theme="theme" 
-    group="radio" 
-    label="Google" 
-    v-model="value" 
-    @click="click" 
-    disabled>
-  Google
-  </fv-radio>
-  <fv-radio 
-    :theme="theme" 
-    group="radio" 
-    label="Apple" 
-    v-model="value" 
-    @click="click" 
-    disabled>
-  Apple
-  </fv-radio>
-```
-
-### Box Side
-
---- 
-
-<fv-radio :theme="theme" group="radio" label="Microsoft" v-model="value" @click="click" box-side="end">Microsoft</fv-radio>
-<fv-radio :theme="theme" group="radio" label="Google" v-model="value" @click="click" box-side="end">Google</fv-radio>
-<fv-radio :theme="theme" group="radio" label="Apple" v-model="value" @click="click" box-side="end">Apple</fv-radio>
-
-```vue-html
-  <fv-radio 
-    :theme="theme" 
-    group="radio" 
-    label="Microsoft" 
-    v-model="value" 
-    @click="click" 
-    box-side="end">
-  Microsoft
-  </fv-radio>
-  <fv-radio 
-    :theme="theme" 
-    group="radio" 
-    label="Google" 
-    v-model="value" 
-    @click="click" 
-    box-side="end">
-  Google
-  </fv-radio>
-  <fv-radio 
-    :theme="theme" 
-    group="radio" 
-    label="Apple" 
-    v-model="value" 
-    @click="click" 
-    box-side="end">
-  Apple
-  </fv-radio>
-```
-
-### Custom
-
----
-1. Set border width.
-<fv-radio :theme="theme" :border-width="2" v-model="value">
-  Radio rendered with borderWidth "2"
+<ClientOnly>
+<div>
+<fv-radio v-model="value" label="Option">
+Option
+</fv-radio> 
+<fv-radio v-model="value" label="Option2">
+Option2
 </fv-radio>
-
-```vue-html
-  <fv-radio :theme="theme" :border-width="2" v-model="value">
-    Radio rendered with borderWidth "2"
-  </fv-radio>
-```
-
-2. Set background and border color.
-<fv-radio
-  :theme="theme" 
-  border-color="rgba(0, 204, 153, 1)" 
-  foreground="rgba(0, 204, 153, 1)" 
-  background="rgba(0, 204, 153, 1)"
-  v-model="value">
-  Radio
+<fv-radio label="Option3" disabled>
+Disabled
 </fv-radio>
+</div>
+</ClientOnly>
 
-```vue-html
-  <fv-radio
-    :theme="theme" 
-    border-color="rgba(0, 204, 153, 1)" 
-    foreground="rgba(0, 204, 153, 1)" 
-    background="rgba(0, 204, 153, 1)">
-    Radio
-  </fv-radio>
+```vue
+<div>
+<fv-radio v-model="value" label="Option">
+Option
+</fv-radio> 
+<fv-radio v-model="value" label="Option2">
+Option2
+</fv-radio>
+<fv-radio label="Option3" disabled>
+Disabled
+</fv-radio>
+</div>
 ```
 
-<!--@include: ./properties.md-->
-
-<!--@include: ./emits.md-->
-
-## Slot
+### Radio-Dark
 
 ---
 
-### Default
+<ClientOnly>
+<div style="background:#000;height:30px;padding:20px;">
+<fv-radio v-model="value" label="Option" theme="dark">Option</fv-radio>
+<fv-radio v-model="value" label="Option2" theme="dark" disabled>Disabled</fv-radio>
+</div>
+</ClientOnly>
 
-```vue-html
-  <fv-radio>
-    {{label here}}
-  </fv-radio>
+```vue
+<div style="background:#000;height:30px;padding:20px;">
+<fv-radio v-model="value" label="Option" theme="dark">Option</fv-radio>
+<fv-radio v-model="value" label="Option2" theme="dark" disabled>Disabled</fv-radio>
+</div>
 ```
+
+### Radio With Icon
+
+---
+
+<ClientOnly>
+<div >
+<fv-radio v-model="value" label="NUIIris" icon="NUIIris">NUIIris</fv-radio>
+<fv-radio v-model="value" label="MSN" icon="NUIFace" >MSN</fv-radio>
+<fv-radio v-model="value" label="MSN" icon="NUIFace" disabled >Disabled</fv-radio>
+
+</div>
+</ClientOnly>
+
+```vue
+<div >
+<fv-radio v-model="value" label="NUIIris" icon="NUIIris">NUIIris</fv-radio>
+<fv-radio v-model="value" label="MSN" icon="NUIFace" >MSN</fv-radio>
+<fv-radio v-model="value" label="MSN" icon="NUIFace" disabled >Disabled</fv-radio>
+
+</div>
+```
+
+### Radio With Image
+
+---
+
+<div>
+<ClientOnly>
+<fv-radio image="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-unselected.png" activeImage="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-selected.png" v-model="value" label="chart" >Chart</fv-radio>
+</ClientOnly>
+</div>
+
+```vue
+<div>
+<fv-radio image="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-unselected.png" activeImage="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-selected.png" v-model="value" label="chart" >Chart</fv-radio>
+</div>
+```
+
+### Radio-Dark With Icon
+
+---
+
+<ClientOnly>
+<div style="background:#000;padding:20px;">
+<fv-radio v-model="value" label="NUIIris" icon="NUIIris" theme="dark">NUIIris</fv-radio>
+<fv-radio v-model="value" label="NUIIris" icon="NUIIris" theme="dark" disabled>disabled</fv-radio>
+<fv-radio v-model="value" label="MSN" icon="NUIFace" theme="dark">MSN</fv-radio>
+</div>
+</ClientOnly>
+
+```vue
+<div style="background:#000;padding:20px;">
+<fv-radio v-model="value" label="NUIIris" icon="NUIIris" theme="dark">NUIIris</fv-radio>
+<fv-radio v-model="value" label="NUIIris" icon="NUIIris" theme="dark" disabled>disabled</fv-radio>
+<fv-radio v-model="value" label="MSN" icon="NUIFace" theme="dark">MSN</fv-radio>
+</div>
+```
+
+### Radio Custom Color
+
+---
+<ClientOnly>
+<fv-radio  icon="NUIIris" v-model="value" label="NUIIris" style="background:#00cc99;" theme="dark" >NUIIris</fv-radio>
+<fv-radio icon="NUIIris" v-model="value" label="NUIIris" style="background:#00cc99;" theme="dark" disabled>Disabled</fv-radio>
+</ClientOnly>
+
+```vue
+<fv-radio  icon="NUIIris" v-model="value" label="NUIIris" style="background:#00cc99;" theme="dark" >NUIIris</fv-radio>
+<fv-radio icon="NUIIris" v-model="value" label="NUIIris" style="background:#00cc99;" theme="dark" disabled>Disabled</fv-radio>
+```
+
+
+### Propoties
+---
+|      属性(attr)       |             类型(type)             | 必填(required) |     默认值(default)      |    说明(statement)     |
+|:---------------------:|:----------------------------------:|:--------------:|:------------------------:|:----------------------:|
+|     v-model/value     |               Object               |      Yes       |        undefined         |         选项值         |
+|         label         |               Object               |      Yes       |        undefined         |         选项值         |
+|         theme         | ['system','dark','light','custom'] |       No       |         'system'         |         主题色         |
+|         icon          |               String               |       No       |           null           |        MS-ICON         |
+|         color         |          [string(color)]           |       No       |           null           |    文字和图标前景色    |
+|      foreground       |          [string(color)]           |       No       | rgba(0, 120, 212, 0.829) |      Radio前景色       |
+| iconBlockBorderRadius |          [string(color)]           |       No       |            3             |   带图标样式圆角大小   |
+| iconBlockBorderWidth  |          [string(color)]           |       No       |            2             |   带图标样式边框大小   |
+|         image         |               String               |       No       |           null           |     32*32 图像链接     |
+|      activeImage      |               String               |       No       |           null           | 32*32 选中时的图像链接 |
+|       disabled        |              Boolean               |       No       |          false           |        是否禁用        |
+
+### Events
+---
+| 事件名(Name) | 参数类型(args) | 说明(statement) |
+|:------------:|:--------------:|:---------------:|
+|    click     |     event      |      点击       |
+|   actived    |     event      |   选中时触发    |
+
+  

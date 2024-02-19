@@ -1,65 +1,166 @@
-.fv-radio {
-    display: inline-block;
-    .label {
+@import "@/styles/theme/index.scss";
+
+.fv-Radio {
+    position: relative;
+    display: flex;
+    min-width: 20px;
+    min-height: 20px;
+    height: auto;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    align-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    .fv-radio-button {
         position: relative;
-        cursor: pointer;
-        vertical-align: middle;
-        white-space: nowrap;
-        user-select: none;
-        display: inline-flex;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        border: 1px solid #afafaf;
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
         align-items: center;
-        .radio {
-            top: 0;
-            left: 0;
-            position: absolute !important;
-            appearance: none;
+        cursor: pointer;
+        outline: none;
+        transition: all 0.3s;
+
+        &:hover {
+            border-color: rgba(130, 130, 130, 1);
         }
-        .icon {
-            overflow: hidden;
+        &:active {
+            background-color: rgba(153, 153, 153, 0.3);
+            border-color: rgba(130, 130, 130, 1);
+        }
 
-            width: 20px;
-            height: 20px;
-
-            margin-left: 10px;
-            margin-right: 10px;
-
+        &::before {
+            content: "";
+            position: absolute;
+            box-sizing: border-box;
+            height: 50%;
+            width: 50%;
             border-radius: 50%;
-            border-width: 1px;
-            border-style: solid;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        &.actived {
+            background-color: #0078d4;
+            border: none;
+            &.disabled {
+                background-color: #afafaf;
+                filter: grayscale(1);
+                opacity: 0.6;
+            }
+            &::before {
+                background-color: white;
+            }
+        }
+    }
 
-            display: inline-flex;
-            justify-content: center;
+    .fv-radio-label {
+        position: relative;
+        height: 20px;
+        margin: 0px 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            display: inline-block;
+            height: 100%;
+            font-size: 16px;
+            line-height: 20px;
+        }
+    }
+
+    &.with-icon {
+        position: relative;
+        box-sizing: border-box;
+        padding: 20px;
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid transparent;
+        border-radius: 6px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        .fv-radio-button {
+            position: absolute;
+            display: none;
+            margin: 0;
+            top: 4px;
+            right: 4px;
+
+            &.actived {
+                display: inline-block;
+            }
+        }
+        &:hover {
+            border-color: transparent;
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+
+            .fv-radio-button {
+                display: inline-block;
+                border: 1px solid rgba(58, 57, 56, 0.165);
+            }
+
+            &.disabled {
+                border-color: transparent;
+                filter: grayscale(1);
+                opacity: 0.6;
+                .fv-radio-button {
+                    border: none;
+                }
+            }
+        }
+        &.actived {
+            border-color: rgba(0, 120, 212, 0.829);
+            .fv-radio-button {
+                border: none;
+            }
+        }
+        .fv-radio-label {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            position: relative;
-        }
-    }
-    &.active {
-        .label {
-            .icon {
-                .dot {
-                    height: 10px;
-                    width: 10px;
-                    border-radius: 50%;
-                    transition: all 0.2s linear;
-                    transform: scale(1);
-                }
+            height: 64px;
+            .with-icon {
+                display: block;
+                font-size: 20px;
             }
-        }
-        .label:hover {
-            .icon {
-                .dot {
-                    transform: scale(1.2);
-                }
+            span {
+                width: 100%;
+                height: auto;
+                margin-top: 5px;
+                font-size: 12px;
+                font-weight: bold;
+                display: block;
+                overflow: hidden;
+            }
+
+            img {
+                height: 20px;
+                width: 20px;
             }
         }
     }
-    &.disabled{
-        pointer-events: none;
-        .label:hover {
-            .icon {
-                .dot {
-                    transform: scale(1);
-                }
+
+    &.disabled {
+        color: #b2b1af;
+        filter: grayscale(1);
+        opacity: 0.6;
+        cursor: not-allowed;
+        .fv-radio-button {
+            &:hover {
+                border-color: transparent;
             }
         }
     }

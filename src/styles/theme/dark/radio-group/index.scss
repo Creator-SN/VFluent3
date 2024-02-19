@@ -1,4 +1,8 @@
-.fv-RadioGroup{
-    &.dark{   
+@import "@/styles/theme/index.scss";
+
+.fv-RadioGroup {
+    &.dark {
+        color: white;
+        background-color: #000;
     }
 }

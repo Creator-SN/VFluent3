@@ -1,48 +1,5 @@
-.fv-progress-bar {
-    &.dark {
-        --fv-progress-bar-normal-color: initial;
-        --fv-progress-bar-warning-color: initial;
-        --fv-progress-bar-error-color: initial;
-        --fv-progress-bgcolor: initial;
+@import '@/styles/theme/index.scss';
 
-        .label {
-            .indeterminate {
-                .bar {
-                    background: var(--fv-progress-bar-normal-color, rgb(var(--fv-primary-bgcolor)));
-                }
-                &.pause {
-                    .bar {
-                        background: var(--fv-progress-bar-warning-color, rgb(var(--fv-warning-bgcolor)));
-                    }
-                }
-                &.error {
-                    .bar {
-                        background: var(--fv-progress-bar-error-color, rgb(var(--fv-error-bgcolor)));
-                    }
-                }
-            }
-        }
-        .determinate {
-            &.running {
-                .bar {
-                    background: var(--fv-progress-bar-normal-color, rgb(var(--fv-primary-bgcolor)));
-                }
-            }
-            &.pause {
-                .bar {
-                    background: var(--fv-progress-bar-warning-color, rgb(var(--fv-warning-bgcolor)));
-                }
-            }
-            &.error {
-                .bar {
-                    background: var(--fv-progress-bar-error-color, rgb(var(--fv-error-bgcolor)));
-                }
-            }
-            .bg {
-                .bg-bar {
-                    background: var(--fv-progress-bgcolor,var(--fv-dark-bgcolor));
-                }
-            }
-        }
-    }
+.fv-ProgressBar {&.dark {}
+    
 }

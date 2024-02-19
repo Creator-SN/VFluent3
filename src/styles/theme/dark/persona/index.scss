@@ -1,4 +1,26 @@
-.fv-Persona{
-    &.dark{   
+@import '@/styles/theme/index.scss';
+
+.fv-Persona {&.dark {
+    
+    div.persona-avatar
+    {
+        .status-icon
+        {
+            background: black;
+        }
     }
+
+    .persona-content-block
+    {
+        .persona-title
+        {
+            color: white;
+        }
+
+        .persona-secondary
+        {
+            color: whitesmoke;
+        }
+    }
+}
 }

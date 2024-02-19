@@ -2,146 +2,197 @@
 page: true
 title: ProgressRing
 --- 
+### ProgressRing-DEMO
+--- 
 
-<script lang="ts" setup>
-import { ref,onMounted,onUnmounted } from 'vue'; 
-import { useTheme } from '../common/index.js'; 
-
-const {theme} = useTheme()
-
-const progress = [0, 10, 20, 50, 70, 100]
-
-const state = ref<string>("running")
-const progressValue = ref<number>(70)
-let index = 0
-let timeout: NodeJS. Timer|undefined = undefined; 
-
-const onChange = (val:number)=>{
-    console.log("change",val)
-}
-
-const onLoaded = (val:number)=>{
-    console.log('loaded',val)
-}
-
-onMounted(()=>{
-
-    timeout = setInterval(() => {
-        if (state.value==="running"){
-            progressValue.value = progress[index]
-            index = (index+1) % progress.length
+<script>
+export default {
+    data () {
+        return {
+            percent: [10,20,30,35]
         }
-    }, 1500);
-
-})
-
-onUnmounted(()=>{
-    if (timeout!==undefined)
-        clearInterval(timeout)
-})
-
-
+    },
+    mounted () {
+        setInterval(() => {
+            for(let item of this.percent) {
+                let index = this.percent.indexOf(item);
+                this.percent[index] = Math.ceil(Math.random() * 100);
+            }
+        }, 3000);
+    }
+}
 </script>
 
-# ProgressRing
+<ClientOnly>
+<fv-progressRing loading="true">
+</fv-progressRing>
+</ClientOnly>
 
-## Quick Start
-
-STATE: {{state}}
-
----
-<fv-radio v-model="state" label="running" group="state" :theme="theme">Running</fv-radio>
-<fv-radio v-model="state" label="pause" group="state" :theme="theme">Pause</fv-radio>
-<fv-radio v-model="state" label="error" group="state" :theme="theme">Error</fv-radio>
-
-### Default
-
----
-
-<fv-progress-ring @change="onChange" @loaded="onLoaded" v-model="progressValue" :max="100" :theme="theme" :pause="state==='pause'" :error="state==='error'" /> {{progressValue}}%
-
-```vue-html{2-6}
-    <fv-progress-ring 
-        v-model="value" 
-        @change="onChange" 
-        @loaded="onLoaded"
-        :max="100" 
-        :theme="theme" 
-        :pause="state==='pause'" 
-        :error="state==='error'" 
-    /> 
+```vue
+<fv-progressRing loading="true">
+</fv-progressRing>
 ```
 
-### Indeterminate
+<ClientOnly>
+<fv-progressRing loading="true" r="20" borderWidth="5">
+</fv-progressRing>
+</ClientOnly>
 
----
-
-<fv-progress-ring :indeterminate="true" :pause="state==='pause'" :error="state==='error'" :theme="theme" />
-
-```vue-html{2}
-    <fv-progress-ring 
-        :indeterminate="true" 
-        :pause="state==='pause'" 
-        :error="state==='error'" 
-        :theme="theme"
-    />
+```vue
+<fv-progressRing loading="true" r="20" borderWidth="5">
+</fv-progressRing>
 ```
 
-### Custom
 
+<ClientOnly>
+<fv-progressRing loading="true" r="10" borderWidth="2">
+</fv-progressRing>
+</ClientOnly>
+
+```vue
+<fv-progressRing loading="true" r="10" borderWidth="2">
+</fv-progressRing>
+```
+
+### Default ProgressRing
 ---
 
-1. indeterminate
+<ClientOnly>
+<fv-progressRing v-model="percent[0]">
+</fv-progressRing>
+</ClientOnly>
 
-<fv-progress-ring pause-foreground="rgba(229, 0, 249, 1)" error-foreground="rgba(249, 201, 0, 1)" :indeterminate="true" :pause="state==='pause'" :error="state==='error'" :theme="theme" foreground="rgba(0, 204, 153, 1)" />
-
-```vue-html{3-5}
-    <fv-progress-ring 
-        :indeterminate="true" 
-        pause-foreground="rgba(229, 0, 249, 1)" 
-        error-foreground="rgba(249, 201, 0, 1)"
-        foreground="rgba(0, 204, 153, 1)"
-        :pause="state==='pause'" 
-        :error="state==='error'" 
-        :theme="theme"
-    />
-```
-
-2. determinate
-
-<fv-progress-ring pause-foreground="rgba(229, 0, 249, 1)" error-foreground="rgba(249, 201, 0, 1)" background="rgba(0,0,0,1)" v-model="progressValue" :max="100" :theme="theme" :pause="state==='pause'" :error="state==='error'" foreground="rgba(0, 204, 153, 1)"/> {{progressValue}}%
-
-```vue-html{5-8}
-    <fv-progress-ring 
-        v-model="value" 
-        :max="100" 
-        :theme="theme" 
-        pause-foreground="rgba(229, 0, 249, 1)" 
-        error-foreground="rgba(249, 201, 0, 1)"
-        foreground="rgba(0, 204, 153, 1)"
-        background="rgba(0,0,0,1)"
-        :pause="state==='pause'" 
-        :error="state==='error'" 
-    /> 
-```
-
-3. max size
-
-<fv-progress-ring :width="100" :border-width="8" :indeterminate="true" :pause="state==='pause'" :error="state==='error'" :theme="theme"  />
-
-```vue-html{2-3}
-    <fv-progress-ring 
-        :width="100" 
-        :border-width="8" 
-        :indeterminate="true" 
-        :pause="state==='pause'" 
-        :error="state==='error'" 
-        :theme="theme"  
-    />
+```vue
+<fv-progressRing v-model="percent[0]">
+</fv-progressRing>
 ```
 
 
+<ClientOnly>
+<fv-progressRing v-model="percent[0]" r="20" borderWidth="5">
+</fv-progressRing>
+</ClientOnly>
 
-<!--@include: ./properties.md-->
+```vue
+<fv-progressRing v-model="percent[0]" r="20" borderWidth="5">
+</fv-progressRing>
+```
 
-<!--@include: ./emits.md-->
+
+<ClientOnly>
+<fv-progressRing v-model="percent[0]" r="10" borderWidth="2">
+</fv-progressRing>
+</ClientOnly>
+
+```vue
+<fv-progressRing v-model="percent[0]" r="10" borderWidth="2">
+</fv-progressRing>
+```
+
+### Indeterminate ProgressRing
+---
+
+<ClientOnly>
+<fv-progressRing loading="true">
+</fv-progressRing>
+</ClientOnly>
+
+```vue
+<fv-progressRing loading="true">
+</fv-progressRing>
+```
+
+### ProgressRing Legacy
+---
+
+<ClientOnly>
+<fv-progressRing :legacy="true">
+</fv-progressRing>
+</ClientOnly>
+
+```vue
+<fv-progressRing :legacy="true">
+</fv-progressRing>
+```
+
+### Different Size(Legacy)
+---
+
+<ClientOnly>
+<fv-progressRing size="xs" :legacy="true">
+</fv-progressRing>
+</ClientOnly>
+
+<fv-progressRing size="s" :legacy="true">
+</fv-progressRing>
+
+
+<ClientOnly>
+<fv-progressRing size="m" :legacy="true">
+</fv-progressRing>
+</ClientOnly>
+
+<fv-progressRing size="l" :legacy="true">
+</fv-progressRing>
+
+```vue
+
+<ClientOnly>
+<fv-progressRing size="xs" :legacy="true">
+</fv-progressRing>
+</ClientOnly>
+
+<fv-progressRing size="s" :legacy="true">
+</fv-progressRing>
+
+
+<ClientOnly>
+<fv-progressRing size="m" :legacy="true">
+</fv-progressRing>
+</ClientOnly>
+
+<fv-progressRing size="l" :legacy="true">
+</fv-progressRing>
+```
+
+### ProgressBar Custom Style
+---
+1. Custom Foreground
+
+<ClientOnly>
+<fv-progressRing v-model="percent[2]" color="rgba(0, 204, 153, 1)">
+</fv-progressRing>
+</ClientOnly>
+
+```vue
+<fv-progressRing v-model="percent[2]" color="rgba(0, 204, 153, 1)">
+</fv-progressRing>
+```
+
+2. Custom Background
+
+<ClientOnly>
+<fv-progressRing v-model="percent[3]" background="rgba(0, 204, 153, 0.6)">
+</fv-progressRing>
+</ClientOnly>
+
+```vue
+<fv-progressRing v-model="percent[3]" background="rgba(0, 204, 153, 0.6)">
+</fv-progressRing>
+```
+
+
+
+### Propoties
+---
+| 属性(attr)  |     类型(type)     | 必填(required) |    默认值(default)     |                     说明(statement)                      |
+|:-----------:|:------------------:|:--------------:|:----------------------:|:--------------------------------------------------------:|
+|    value    |       Number       |       No       |           0            |                    progressRing value                    |
+|    size     | ['l','m','s','xs'] |       No       |           xs           | The size of progress ring, only works on legacy versions |
+|      r      |       Number       |       No       |           40           |                Radius of the ProgressRing                |
+|   loading   |      Boolean       |       No       |         false          |              Is progressRing indeterminate               |
+|    color    |  [string(color)]   |       No       |  rgba(0, 90, 158, 1)   |                The color of progress ring                |
+| background  |  [string(color)]   |       No       | rgba(204, 204, 204, 1) |                                                          |
+| borderWidth |       Number       |       No       |           8            |                                                          |
+|   legacy    |      Boolean       |       No       |         false          |          Use the legacy version of ProgressRing          |
+

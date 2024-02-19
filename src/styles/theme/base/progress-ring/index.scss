@@ -1,115 +1,142 @@
-.fv-progress-ring {
-    display: inline-block;
-    pointer-events: none;
-    --fv-progress-ring-size: 60px;
-    --fv-progress-ring-border-width: 5px;
-    --fv-progress-ring-offset: -0.01;
-    --fv-progress-ring-length: 0;
-    --fv-progress-ring-value: 0;
-    --fv-progress-ring-perimeter: calc(
-        3.14 * (var(--fv-progress-ring-size) - 2 * var(--fv-progress-ring-border-width))
-    );
-    .label {
-        .progress {
-            display: none;
-        }
-        .svg {
-            width: calc(var(--fv-progress-ring-size));
-            height: calc(var(--fv-progress-ring-size));
-            background: transparent;
-            .bar {
-                stroke-width: var(--fv-progress-ring-border-width);
-                fill: none;
-                stroke-dashoffset: calc(0px - var(--fv-progress-ring-offset) * var(--fv-progress-ring-perimeter));
-                stroke-dasharray: calc(var(--fv-progress-ring-length) * var(--fv-progress-ring-perimeter)),
-                    calc(var(--fv-progress-ring-perimeter) * 2);
-                transform-origin: center;
-                transform: rotate(-90deg);
-                stroke-linecap: round;
-            }
-        }
-    }
-    &.determinate {
-        .label {
-            .svg {
-                .bar {
-                    transition: stroke-dasharray 0.3s linear;
-                    stroke-dasharray: calc(var(--fv-progress-ring-value) * var(--fv-progress-ring-perimeter)),
-                        calc(var(--fv-progress-ring-perimeter) * 2);
-                }
-            }
-        }
-    }
-    &.indeterminate {
-        &.running {
-            .label {
-                .svg {
-                    .bar {
-                        animation-name: fv-progress-ring-indeterminate;
-                        animation-duration: 2s;
-                        animation-iteration-count: infinite;
-                        animation-timing-function: linear;
-                        animation-play-state: initial;
-                    }
-                }
-            }
-        }
-        &.pause {
-            .svg {
-                .bar {
-                    animation-name: fv-progress-ring-indeterminate-pause;
-                    animation-duration: 1s;
-                    animation-iteration-count: 1;
-                    animation-timing-function: linear;
-                    animation-play-state: initial;
-                    stroke-dasharray: var(--fv-progress-ring-perimeter), calc(var(--fv-progress-ring-perimeter) * 2);
-                }
-            }
-        }
-        &.error {
-            .svg {
-                .bar {
-                    animation-name: fv-progress-ring-indeterminate-error;
-                    animation-duration: 1s;
-                    animation-iteration-count: 1;
-                    animation-timing-function: linear;
-                    animation-play-state: initial;
-                    stroke-dasharray: var(--fv-progress-ring-perimeter), calc(var(--fv-progress-ring-perimeter) * 2);
-                }
-            }
-        }
-    }
-}
+@import '@/styles/theme/index.scss';
 
-@keyframes fv-progress-ring-indeterminate-error {
-    from {
-        stroke-dasharray: calc(0 * var(--fv-progress-ring-perimeter)), calc(var(--fv-progress-ring-perimeter) * 2);
-    }
-    to {
-        stroke-dasharray: calc(1 * var(--fv-progress-ring-perimeter)), calc(var(--fv-progress-ring-perimeter) * 2);
-    }
-}
-
-@keyframes fv-progress-ring-indeterminate-pause {
-    from {
-        stroke-dasharray: calc(0 * var(--fv-progress-ring-perimeter)), calc(var(--fv-progress-ring-perimeter) * 2);
-    }
-    to {
-        stroke-dasharray: calc(1 * var(--fv-progress-ring-perimeter)), calc(var(--fv-progress-ring-perimeter) * 2);
-    }
-}
-
-@keyframes fv-progress-ring-indeterminate {
-    from {
+.fv-ProgressRing {
+    .progress-rotate
+    {
         transform: rotate(-90deg);
-        stroke-dasharray: calc(0 * var(--fv-progress-ring-perimeter)), calc(var(--fv-progress-ring-perimeter) * 2);
+        transform-origin: 50% 50%;
     }
-    50% {
-        transform: rotate(270deg);
-        stroke-dasharray: calc(0.4 * var(--fv-progress-ring-perimeter)), calc(var(--fv-progress-ring-perimeter) * 2);
+    
+    .fv-progressRing-legacy
+    {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        p
+        {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            margin-left: -50px;
+            margin-top: -50px;
+            background: cornflowerblue;
+            border-radius: 50%;
+            opacity: 0;
+            transform-origin:50px 50px;
+            animation: fv-progressring 4s infinite ease-in-out;
+
+            &:nth-of-type(1)
+            {
+                animation: fv-progressring 4s infinite ease-in-out;
+                animation-delay: 0.12s;
+            }
+            
+            &:nth-of-type(2)
+            {
+                animation: fv-progressring 4s infinite ease-in-out;
+                animation-delay: 0.24s;
+            }
+            
+            &:nth-of-type(3)
+            {
+                animation: fv-progressring 4s infinite ease-in-out;
+                animation-delay: 0.36s;
+            }
+            
+            &:nth-of-type(4)
+            {
+                animation: fv-progressring 4s infinite ease-in-out;
+                animation-delay: 0.48s;
+            }
+            
+            &:nth-of-type(5)
+            {
+                animation: fv-progressring 4s infinite ease-in-out;
+                animation-delay: 0.6s;
+            }
+        }
+
+        &.l
+        {
+            width: 105px;
+            height: 105px;
+            p
+            {
+                width: 8px;
+                height: 8px;
+                margin-left: -35px;
+                margin-top: -35px;
+                transform-origin: 35px 35px;
+            }
+        }
+        
+        &.m
+        {
+            width: 75px;
+            height: 75px;
+            p
+            {
+                width: 6px;
+                height: 6px;
+                margin-left: -25px;
+                margin-top: -25px;
+                transform-origin: 25px 25px;
+            }
+        }
+        
+        &.s
+        {
+            width: 45px;
+            height: 45px;
+            p
+            {
+                width: 5px;
+                height: 5px;
+                margin-left: -15px;
+                margin-top: -15px;
+                transform-origin: 15px 15px;
+            }
+        }
+        
+        &.xs
+        {
+            width: 24px;
+            height: 24px;
+            p
+            {
+                width: 3px;
+                height: 3px;
+                margin-left: -8px;
+                margin-top: -8px;
+                transform-origin: 8px 8px;
+            }
+        }
     }
-    to{
-        transform: rotate(1000deg);
-        stroke-dasharray: calc(0 * var(--fv-progress-ring-perimeter)), calc(var(--fv-progress-ring-perimeter) * 2);
+    
+    @keyframes fv-progressring
+    {
+        0%
+        {
+            opacity: 1;
+            transform: rotate(-30deg);
+        }
+        60%
+        {
+            opacity: 1;
+        }
+        80%
+        {
+            opacity: 0;
+            transform: rotate(520deg);
+        }
+        100%
+        {
+            opacity: 1;
+            transform: rotate(690deg);
+        }
     }
 }

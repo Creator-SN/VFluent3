@@ -1,55 +1,75 @@
-<script lang="ts" setup>
-import { isNumber, isString } from "@/utils/common/types";
-import { progressBarProps, progressBarEmits, useProgressBar } from "."
-import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
-
-defineOptions({
-    name: "FvProgressBar"
-})
-
-const emits = defineEmits(progressBarEmits)
-
-const props = defineProps(progressBarProps)
-
-const { theme } = useTheme(props)
-
-const { computedProgress, computedValue } = useProgressBar(props, emits)
-
-const { cls: computedProgressBarClass } = new ClassBuilder()
-    .add(`fv-progress-bar`)
-    .add(() => theme.value)
-    .add(`disabled`, () => props.disabled === true)
-    .computed()
-
-const { cls: computedBarContainerClass } = new ClassBuilder()
-    .add(`container`)
-    .add(`indeterminate`, () => props.indeterminate === true)
-    .add(`determinate`, () => props.indeterminate === false)
-    .add(`running`, () => props.pause === false && props.error === false)
-    .add(`pause`, () => props.pause === true)
-    .add(`error`, () => props.error === true)
-    .computed()
-
-const { style: computeProgressBarStyle } = new StyleBuilder()
-    .add(`--fv-progress-value`, () => `${-100 + computedValue.value}%`, () => computedValue.value !== undefined)
-    .add(`--fv-progress-bar-normal-color`, () => props.foreground, () => props.foreground !== undefined)
-    .add(`--fv-progress-bar-warning-color`, () => props.pauseForeground, () => props.pauseForeground !== undefined)
-    .add(`--fv-progress-bar-error-color`, () => props.errorForeground, () => props.errorForeground !== undefined)
-    .add(`--fv-progress-bgcolor`, () => props.background, () => props.background !== undefined)
-    .computed()
-
-</script>
 
 <template>
-    <div :class="computedProgressBarClass" :style="computeProgressBarStyle">
-        <label class="label">
-            <progress class="progress" :value="computedProgress" :max="props.max" />
-            <div :class="computedBarContainerClass">
-                <div class="bg">
-                    <div class="bg-bar"></div>
-                </div>
-                <div class="bar"></div>
-            </div>
-        </label>
+    <div
+        class="fv-ProgressBar"
+        :class="[$theme, loading.toString() != 'true' ? 'normal' : '', isDisabled ? 'disabled' : '']"
+        :style="{background: background}"
+    >
+        <p
+            v-show="loading.toString() == 'true'"
+            v-for="i in 5"
+            class="unit"
+            :style="{background: foreground}"
+            :key="i"
+        ></p>
+        <i
+            v-show="loading.toString() != 'true'"
+            :style="{'width':(percent <= 100 ? percent : 100)+'%', background: foreground}"
+        ></i>
     </div>
 </template>
+
+<script>
+import { progressBarProps } from '.';
+import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+
+export default {
+    name: 'FvProgressBar',
+    emits: ['update:modelValue', 'progress-change', 'progress-finished'],
+    props: {
+        ...progressBarProps,
+        modelValue: {
+            default: 0
+        },
+        foreground: {
+            default: ''
+        },
+        background: {
+            default: ''
+        },
+        loading: {
+            default: false
+        },
+        disabled: {
+            default: false
+        }
+    },
+    data() {
+        return {
+            percent: this.modelValue
+        };
+    },
+    watch: {
+        modelValue(val) {
+            this.percent = val;
+        },
+        percent(val) {
+            this.$emit('update:modelValue', val);
+            this.$emit('progress-change', val);
+            if (val >= 100) this.$emit('progress-finished', val);
+        }
+    },
+    computed: {
+        $theme() {
+            return useTheme(this.$props).theme.value;
+        },
+        isDisabled() {
+            return (
+                this.disabled.toString() == 'true' ||
+                this.disabled == 'disabled' ||
+                this.disabled === ''
+            );
+        }
+    }
+};
+</script>

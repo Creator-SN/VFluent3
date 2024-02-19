@@ -1,4 +1,13 @@
-.fv-Shimmer{
-    &.dark{   
+@import '@/styles/theme/index.scss';
+
+.fv-Shimmer {&.dark {    
+    
+    div.shimmer-container
+    {
+        div.sample
+        {
+            background: rgba(37, 36, 35, 1);
+        }
     }
+}
 }

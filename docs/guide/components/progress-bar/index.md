@@ -1,129 +1,132 @@
 ---
 page: true
 title: ProgressBar
+--- 
+### ProgressBar-DEMO
 ---
 
-<script lang="ts" setup>
-import { onMounted, onUnmounted, ref } from 'vue'; 
-import { useTheme } from '../common/index.js'; 
-
-const {theme} = useTheme()
-
-const progress = [0, 10, 20, 50, 70, 100]
-
-const state = ref<string>("running")
-const progressValue = ref<number>(70)
-let index = 0
-let timeout: NodeJS. Timer|undefined = undefined; 
-
-const onChange = (val:number)=>{
-    console.log("change",val)
-}
-
-const onLoaded = (val:number)=>{
-    console.log('loaded',val)
-}
-
-onMounted(()=>{
-
-    timeout = setInterval(() => {
-        if (state.value==="running"){
-            progressValue.value = progress[index]
-            index = (index+1) % progress.length
+<script>
+export default {
+    data () {
+        return {
+            percent: [10,20,30,35]
         }
-    }, 1500);
-
-})
-
-onUnmounted(()=>{
-    if (timeout!==undefined)
-        clearInterval(timeout)
-})
-
+    },
+    mounted () {
+        setInterval(() => {
+            for(let item of this.percent) {
+                let index = this.percent.indexOf(item);
+                this.percent[index] = Math.ceil(Math.random() * 100);
+            }
+        }, 3000);
+    }
+}
 </script>
 
-# ProgressBar
 
-## Quick Start
+<ClientOnly>
+<fv-ProgressBar>
+</fv-ProgressBar>
+</ClientOnly>
 
-STATE: {{state}}
-
----
-<fv-radio v-model="state" label="running" group="state" :theme="theme">Running</fv-radio>
-<fv-radio v-model="state" label="pause" group="state" :theme="theme">Pause</fv-radio>
-<fv-radio v-model="state" label="error" group="state" :theme="theme">Error</fv-radio>
-
-### Default
-
----
-
-<fv-progress-bar @change="onChange" @loaded="onLoaded" v-model="progressValue" :max="100" :theme="theme" :pause="state==='pause'" :error="state==='error'" /> {{progressValue}}%
-
-```vue-html{2-6}
-    <fv-progress-bar 
-        v-model="value" 
-        @change="onChange" 
-        @loaded="onLoaded"
-        :max="100" 
-        :theme="theme" 
-        :pause="state==='pause'" 
-        :error="state==='error'" 
-    /> 
+```vue
+<fv-ProgressBar>
+</fv-ProgressBar>
 ```
 
-### Indeterminate
-
+### Default ProgressBar
 ---
 
-<fv-progress-bar :indeterminate="true" :pause="state==='pause'" :error="state==='error'" :theme="theme" />
+<ClientOnly>
+<fv-ProgressBar v-model="percent[0]">
+</fv-ProgressBar>
+</ClientOnly>
 
-```vue-html{2}
-    <fv-progress-bar 
-        :indeterminate="true" 
-        :pause="state==='pause'" 
-        :error="state==='error'" 
-        :theme="theme"
-    />
+```vue
+<fv-ProgressBar v-model="percent[0]">
+</fv-ProgressBar>
 ```
 
-### Custom
-
+### Indeterminate ProgressBar
 ---
 
-1. indeterminate
+<ClientOnly>
+<fv-ProgressBar loading="true">
+</fv-ProgressBar>
+</ClientOnly>
 
-<fv-progress-bar pause-foreground="rgba(229, 0, 249, 1)" error-foreground="rgba(249, 201, 0, 1)" :indeterminate="true" :pause="state==='pause'" :error="state==='error'" :theme="theme" foreground="rgba(0, 204, 153, 1)" />
-
-```vue-html{3-5}
-    <fv-progress-bar 
-        :indeterminate="true" 
-        pause-foreground="rgba(229, 0, 249, 1)" 
-        error-foreground="rgba(249, 201, 0, 1)"
-        foreground="rgba(0, 204, 153, 1)"
-        :pause="state==='pause'" 
-        :error="state==='error'" 
-        :theme="theme"
-    />
+```vue
+<fv-ProgressBar loading="true">
+</fv-ProgressBar>
 ```
 
-2. determinate
+### ProgressBar Disabled
+---
+1. Default
 
-<fv-progress-bar pause-foreground="rgba(229, 0, 249, 1)" error-foreground="rgba(249, 201, 0, 1)" background="rgba(0,0,0,1)" v-model="progressValue" :max="100" :theme="theme" :pause="state==='pause'" :error="state==='error'" foreground="rgba(0, 204, 153, 1)"/> {{progressValue}}%
+<ClientOnly>
+<fv-ProgressBar v-model="percent[1]" disabled>
+</fv-ProgressBar>
+</ClientOnly>
 
-```vue-html{5-8}
-    <fv-progress-bar 
-        v-model="value" 
-        :max="100" 
-        :theme="theme" 
-        pause-foreground="rgba(229, 0, 249, 1)" 
-        error-foreground="rgba(249, 201, 0, 1)"
-        foreground="rgba(0, 204, 153, 1)"
-        background="rgba(0,0,0,1)"
-        :pause="state==='pause'" 
-        :error="state==='error'" 
-    /> 
+```vue
+<fv-ProgressBar v-model="percent[1]" disabled>
+</fv-ProgressBar>
 ```
 
-<!--@include: ./properties.md-->
+2. Indeterminate
 
-<!--@include: ./emits.md-->
+<ClientOnly>
+<fv-ProgressBar loading="true" disabled>
+</fv-ProgressBar>
+</ClientOnly>
+
+```vue
+<fv-ProgressBar loading="true" disabled>
+</fv-ProgressBar>
+```
+
+### ProgressBar Custom Style
+---
+1. Custom Foreground
+
+<ClientOnly>
+<fv-ProgressBar v-model="percent[2]" foreground="rgba(0,204,153,1)">
+</fv-ProgressBar>
+</ClientOnly>
+
+```vue
+<fv-ProgressBar v-model="percent[2]" foreground="rgba(0,204,153,1)">
+</fv-ProgressBar>
+```
+
+2. Custom Background
+
+<ClientOnly>
+<fv-ProgressBar v-model="percent[3]" background="rgba(0,204,153,0.6)">
+</fv-ProgressBar>
+</ClientOnly>
+
+```vue
+<fv-ProgressBar v-model="percent[3]" background="rgba(0,204,153,0.6)">
+</fv-ProgressBar>
+```
+
+
+
+### Propoties
+---
+| 属性(attr) |   类型(type)    | 必填(required) | 默认值(default) |       说明(statement)        |
+|:----------:|:---------------:|:--------------:|:---------------:|:----------------------------:|
+|   value    |    Number     |       No       |        0        |      Progressbar value       |
+|  loading   |    Boolean    |       No       |      false      | Is progressbar indeterminate |
+| foreground | [string(color)] |       No       |       N/A       |                              |
+| background | [string(color)] |       No       |       N/A       |                              |
+|  disabled  |    Boolean    |       No       |      false      |                              |
+
+### Events
+---
+|   事件名(Name)    | 参数类型(args) | 说明(statement) |
+|:-----------------:|:--------------:|:---------------:|
+|  progress-change  |    percent     |                 |
+| progress-finished |    percent     |                 |
