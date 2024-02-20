@@ -1,119 +1,114 @@
-import { isNumber, isObject } from '@/utils/common';
-import type { VNode, ref, Plugin, App, AppContext, InjectionKey } from 'vue';
-import { withDirectives, render, h, Transition, vShow, cloneVNode } from 'vue';
+import { h, render } from 'vue';
 import MessageBar from './index.vue';
+import type { VNode, ref, Plugin, App, AppContext, InjectionKey } from 'vue';
 
 export type MessageOptions = {
-    icon?: string;
-    message?: string | VNode;
     control?: string | VNode;
-    status?: 'info' | 'warning' | 'correct' | 'blocked' | 'error';
+    status?: 'default' | 'warning' | 'correct' | 'blocked' | 'error';
     autoClose?: number;
     theme?: string;
     showControl?: boolean;
-    confirmTitle?: string;
-    cancelTitle?: string;
-    confirm?: Function;
-    cancel?: Function;
-};
-
-export interface MessageBarParams {
-    close: () => void;
-}
-
-type Container = {
-    value?: HTMLElement;
-};
-
-export type MessageArgs = {
-    context?: AppContext;
+    once?: boolean;
 };
 
 export function createMessageBar(
-    options: MessageOptions = {},
-    args: MessageArgs = {}
-): MessageBarParams {
-    const defaultOptions = {
-        status: 'info',
-        autoClose: 3000,
-    };
-    if (isObject(options)) {
-        options = Object.assign(defaultOptions,options);
-    }
-    const container = document.createElement('div');
-    container.classList.add('fv-message-bar--container');
-    document.body.appendChild(container);
-    let timer: NodeJS.Timeout;
-    let onRender: Function;
-    const destory = () => {
-        if (timer !== undefined) clearTimeout(timer);
-        render(onRender(false, args.context), container);
-    };
-    onRender = (show: boolean = false, context: AppContext) => {
-        const vnode = h(
-            Transition,
+    msg: string | VNode,
+    options: MessageOptions,
+    context: AppContext
+) {
+    let vnode = (container: HTMLElement) => {
+        const n = h(
+            MessageBar,
             {
-                name: 'fv-message-bar-fade-in',
-                onAfterLeave: () => {
+                status: options.status,
+                showControl: options.showControl,
+                showClose: options.autoClose,
+                mode: 'fixed',
+                autoClose: options.autoClose,
+                destroy: () => {
                     render(null, container);
-                    container.remove();
+                    if (!options.once) {
+                        container.remove();
+                    }
                 },
+                theme: options.theme
             },
-            [
-                show
-                    ? h(
-                          MessageBar,
-                          {
-                              icon: options.icon,
-                              status: options.status,
-                              theme: options.theme,
-                              showControl: options.showControl,
-                              cancelText: options.cancelTitle,
-                              confirmText: options.confirmTitle,
-                              onClose: destory,
-                              onConfirm: options.confirm,
-                              onCancel: options.cancel,
-                          },
-                          {
-                              default: () => options.message,
-                              control: () => options.control,
-                          }
-                      )
-                    : undefined,
-            ]
+            {
+                msg: msg,
+                control: options.control
+            }
         );
-        if (context !== undefined) {
-            vnode.appContext = context;
-        }
-        return vnode;
+        n.appContext = context;
+        return n;
     };
-    render(onRender(false, args.context), container);
-    render(onRender(true, args.context), container);
-    if (isNumber(options.autoClose) && options.autoClose > 0) {
-        timer = setTimeout(() => {
-            destory();
-        }, options.autoClose);
-    }
 
-    return {
-        close: destory,
-    };
+    let div: HTMLElement | null = document.createElement('div');
+    if (options.once) {
+        const id = `__fv-global-message-bar__`;
+        div = document.getElementById(id);
+        if (!div) {
+            div = document.createElement('div');
+            div.id = id;
+            document.body.appendChild(div);
+        }
+    } else document.body.appendChild(div);
+    render(vnode(div), div);
 }
 
-export type MessageBarMethod = (options: MessageOptions) => MessageBarParams;
+export type SwiftWarningOptions = {
+    oriContent?: null | string;
+    oriClass?: null | string;
+    oriStyle?: null | string;
+    replaceTitle?: null | string;
+    color?: string;
+};
 
-export const MessageBarKey: InjectionKey<MessageBarMethod> =
-    Symbol('$barWarning');
+interface SwiftWarningElement extends HTMLElement {
+    fvSwiftWarning: boolean;
+}
+
+export function createSwiftWarning(
+    element: SwiftWarningElement,
+    options: SwiftWarningOptions
+) {
+    if (element.fvSwiftWarning) return 0;
+    let thisOptions: SwiftWarningOptions = {
+        color: 'rgba(200, 50, 59, 1)',
+        replaceTitle: 'SwiftWarning'
+    };
+    thisOptions = Object.assign(thisOptions, options);
+    thisOptions.oriContent = element.innerHTML;
+    thisOptions.oriClass = element.getAttribute('class');
+    thisOptions.oriStyle = element.getAttribute('style');
+    if (thisOptions.oriClass == undefined) thisOptions.oriClass = '';
+    if (thisOptions.oriStyle == undefined) thisOptions.oriStyle = '';
+    element.fvSwiftWarning = true;
+    element.innerHTML = thisOptions.replaceTitle ?? 'SwiftWarning';
+    element.setAttribute('class', thisOptions.oriClass + ` fv-swift-warning`);
+    element.setAttribute(
+        'style',
+        thisOptions.oriStyle + ` color: ${thisOptions.color};`
+    );
+    setTimeout(() => {
+        element.innerHTML = thisOptions.oriContent ?? '';
+        element.setAttribute('class', thisOptions.oriClass ?? '');
+        element.setAttribute('style', thisOptions.oriStyle ?? '');
+        element.fvSwiftWarning = false;
+    }, 3000);
+}
 
 export const messageBarPlugin: Plugin = {
     install(app: App) {
-        const method = (options: MessageOptions) => {
-            const instance = createMessageBar(options, {
-                context: app._context,
-            });
-            return instance;
+        app.config.globalProperties.$barWarning = (
+            msg: string | VNode,
+            options: MessageOptions
+        ) => {
+            createMessageBar(
+                msg,
+                { ...options, status: 'warning' },
+                app._context
+            );
         };
-        app.config.globalProperties.$barWarning = method;
-        app.provide<MessageBarMethod>(MessageBarKey, method);
-    },
+        app.config.globalProperties.$swiftWarning = createSwiftWarning;
+    }
 };

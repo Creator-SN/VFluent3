@@ -1,125 +1,91 @@
-import { isNumber, isObject } from '@/utils/common';
-import type { VNode, ref, Plugin, App, AppContext, InjectionKey } from 'vue';
-import { withDirectives, render, h, Transition } from 'vue';
+import { h, render } from 'vue';
 import InfoBox from './index.vue';
+import type { VNode, ref, Plugin, App, AppContext, InjectionKey } from 'vue';
 
-export type InfoOptions = {
-    icon?: string;
-    message?: string | VNode;
-    control?: string | VNode;
+export type InfoBoxOptions = {
     title?: string;
-    status?: 'info' | 'warning' | 'correct' | 'blocked' | 'error';
-    theme?: string;
+    status?: 'default' | 'warning' | 'error' | 'correct' | 'blocked';
+    mode?: 'fixed' | 'relative';
     confirmTitle?: string;
     cancelTitle?: string;
-    confirm?: Function;
-    cancel?: Function;
-};
-
-export interface InfoBoxParams {
-    close: () => void;
-}
-
-
-export type InfoArgs = {
-    context?: AppContext;
+    acrylic?: boolean;
+    control_panel?: VNode;
+    confirm?: () => void;
+    cancel?: () => void;
+    theme?: 'global' | 'light' | 'dark';
+    once?: boolean;
 };
 
 export function createInfoBox(
-    options: InfoOptions = {},
-    args: InfoArgs = {}
-): InfoBoxParams {
-    const defaultOptions = {
-        status: 'info',
-        theme: 'light'
-    };
-    if (isObject(options)) {
-        options = Object.assign(defaultOptions, options);
-    }
-    const container = document.createElement('div');
-    container.classList.add('fv-info-box--container');
-    if (options.theme!==undefined)
-        container.classList.add(options.theme)
-    const scrollFunc = (e:Event)=>e.preventDefault();
-    container.addEventListener("touchmove",scrollFunc)
-    container.addEventListener("scroll",scrollFunc)
-    document.body.classList.add("fv-info-box-mask")
-    document.body.appendChild(container);
-    let onRender: Function;
-    const destory = () => {
-        render(onRender(false, args.context), container);
-    };
-    onRender = (show: boolean = false, context: AppContext) => {
-        const vnode = h(
-            Transition,
+    msg: string | VNode,
+    options: InfoBoxOptions,
+    context: AppContext
+) {
+    let vnode = (container: HTMLElement) => {
+        let thisOptions = {
+            title: 'Tip',
+            status: 'default',
+            mode: 'fixed',
+            confirmTitle: '确定',
+            cancelTitle: '取消',
+            acrylic: false,
+            control_panel: null,
+            confirm: async () => {},
+            cancel: async () => {},
+            theme: 'global'
+        };
+        thisOptions = Object.assign(thisOptions, options);
+        const n = h(
+            InfoBox,
             {
-                name: 'fv-info-box-fade-in',
-                onAfterLeave: () => {
+                title: thisOptions.title,
+                status: thisOptions.status,
+                mode: thisOptions.mode,
+                confirmTitle: thisOptions.confirmTitle,
+                cancelTitle: thisOptions.cancelTitle,
+                acrylic: thisOptions.acrylic,
+                onConfirm: async () => {
+                    await thisOptions.confirm();
                     render(null, container);
-                    container.removeEventListener("touchmove",scrollFunc)
-                    container.removeEventListener("scroll",scrollFunc)
-                    document.body.classList.remove("fv-info-box-mask")
                     container.remove();
                 },
+                onClose: async () => {
+                    await thisOptions.cancel();
+                    render(null, container);
+                    container.remove();
+                },
+                destroy: () => {
+                    render(null, container);
+                    container.remove();
+                },
+                theme: thisOptions.theme
             },
-            [
-                show
-                    ? h(
-                          InfoBox,
-                          {
-                              title: options.title,
-                              icon: options.icon,
-                              status: options.status,
-                              theme: options.theme,
-                              cancelText: options.cancelTitle,
-                              confirmText: options.confirmTitle,
-                              onConfirm: () => {
-                                  if (options.confirm !== undefined) {
-                                      options.confirm();
-                                  }
-                                  destory();
-                              },
-                              onCancel: () => {
-                                  if (options.cancel !== undefined) {
-                                      options.cancel();
-                                  }
-                                  destory();
-                              },
-                          },
-                          {
-                              default: () => options.message,
-                              control: () => options.control,
-                          }
-                      )
-                    : undefined,
-            ]
+            {
+                msg: msg,
+                'control-panel': thisOptions.control_panel
+            }
         );
-        if (context !== undefined) {
-            vnode.appContext = context;
-        }
-        return vnode;
+        n.appContext = context;
+        return n;
     };
-    render(onRender(false, args.context), container);
-    render(onRender(true, args.context), container);
-    return {
-        close: destory,
-    };
+
+    const id = `__fv-global-info-box__`;
+    let div = document.getElementById(id);
+    if (!div) {
+        div = document.createElement('div');
+        div.id = id;
+        document.body.appendChild(div);
+    }
+    render(vnode(div), div);
 }
-
-export type InfoBoxMethod = (options: InfoOptions) => InfoBoxParams;
-
-export const InfoBoxKey: InjectionKey<InfoBoxMethod> =
-    Symbol('$infoBox');
 
 export const infoBoxPlugin: Plugin = {
     install(app: App) {
-        const method = (options: InfoOptions) => {
-            const instance = createInfoBox(options, {
-                context: app._context,
-            });     
-            return instance;
+        app.config.globalProperties.$infoBox = (
+            msg: string | VNode,
+            options: InfoBoxOptions
+        ) => {
+            createInfoBox(msg, options, app._context);
         };
-        app.config.globalProperties.$infoBox = method;
-        app.provide<InfoBoxMethod>(InfoBoxKey, method);
-    },
+    }
 };

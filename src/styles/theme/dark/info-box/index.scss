@@ -1,68 +1,28 @@
-.fv-info-box{
-    &.dark{   
-        transition: border-color .3s linear;
-        transition-delay: .3s;
-        border-color: var(--fv-dark-bgcolor-2);
-        .title-bar {
-            background: var(--fv-dark-bgcolor-2);
-            border-bottom-color: var(--fv-dark-bgcolor-2);
-        }
-        .control-panel {
-            background: var(--fv-dark-bgcolor-2);
-            border-top-color: var(--fv-dark-bgcolor-2);
-        }
-        .content{
-            background: var(--fv-dark-bgcolor-3);
-        }
-        &.info {        
-            &:hover {
-                border-color: rgba(var(--fv-primary-color), 1);
-            }
-            .title-bar {
-                .icon {
-                    color: rgba(var(--fv-primary-color), 1);
-                }
-            }   
-        }
-        &.correct{
-            &:hover {
-                border-color: rgba(var(--fv-success-color), 1);
-            }
-            .title-bar {
-                .icon {
-                    color: rgba(var(--fv-success-color), 1);
-                }
+@import '@/styles/theme/index.scss';
+
+.fv-InfoBox {&.dark {    
+    
+    background: rgba(0, 0, 0, 0.6);
+    color: whitesmoke;
+
+    .sinfo-box-block {
+        background: rgba(43, 43, 43, 0.9);
+        border: rgba(0, 0, 0, 0.5) solid 1px;
+
+        .title-bar
+        {
+            background: rgba(32, 32, 32, 1);
+
+            .title-content
+            {
+                color: rgba(239, 239, 239, 1);
             }
         }
-        &.error{
-            &:hover {
-                border-color: rgba(var(--fv-error-color), 1);
-            }
-            .title-bar {
-                .icon {
-                    color: rgba(var(--fv-error-color), 1);
-                }
-            }
-        }
-        &.warning{
-            &:hover {
-                border-color: rgba(var(--fv-warning-color), 1);
-            }
-            .title-bar {
-                .icon {
-                    color: rgba(var(--fv-warning-color), 1);
-                }
-            }
-        }
-        &.blocked{
-            &:hover {
-                border-color: rgba(var(--fv-error-color), 1);
-            }
-            .title-bar {
-                .icon {
-                    color: rgba(var(--fv-error-color), 1);
-                }
-            }
+
+        .info-box-control-block
+        {
+            background: rgba(32, 32, 32, 1);
         }
     }
+}
 }

@@ -2,208 +2,355 @@
 page: true
 title: MessageBar
 --- 
-
-<script lang="ts" setup>
-import { MessageBarKey, MessageBarMethod, MessageBarParams } from '@/packages';
-import { inject, ref } from 'vue'; 
-import { useTheme } from '../common/index.js'; 
-
-const {theme} = useTheme()
-const message = inject<MessageBarMethod>(MessageBarKey)
-
-let instance:MessageBarParams;
-
-const onClose = (type?:'info'|'warning'|'correct'|'blocked'|'error')=>{
-    if (message!==undefined){
-        if (instance!==undefined){
-            instance.close()
-        }
-        instance = message({
-            status: type,
-            message: `close ${type} message bar `,
-            autoClose: 0,
-            theme: theme.value,
-            showControl: true,
-            confirm:()=>{
-                if (instance!==undefined){
-                    instance.close()
-                }
-                instance = message({
-                    status:"correct",
-                    message:"Confirm",
-                    theme: theme.value,
-                    autoClose: 0
-                })
-            },
-            cancel:()=>{
-                if (instance!==undefined){
-                    instance.close()
-                }
-                instance = message({
-                    status:"blocked",
-                    message:"Cancel",
-                    theme: theme.value,
-                    autoClose: 0
-                })
-            }
-        })
-    }
-}
-
-</script>
-
-# MessageBar
-
-## Quick Start
-
-### Default
-
+### MessageBar-DEMO
 ---
 
-1. info
+<script>
+import { h, resolveComponent } from "vue";
 
-<fv-message-bar @close="onClose('info')" status="info" :theme="theme">
-</fv-message-bar>
+export default {
+    data () {
+        return {}
+    },
+    methods: {
+        show1 () {
+            this.$barWarning('This is a toast message.', {
+                status: 'correct'
+            });
+        },
+        show2 () {
+            this.$barWarning(h('div', [
+                h('span', { class: 'header' }, 'Message'),
+                'This is a toast message.',
+                h('a', 'Visit our website.')
+            ]), {
+                status: 'correct'
+            });
+        },
+        show3 () {
+            this.$barWarning(h('div', [
+                h('span', { class: 'header' }, 'Message'),
+                'This is a toast message.',
+                h('a', 'Visit our website.')
+            ]), {
+                status: 'correct',
+                showControl: true,
+                autoClose: -1,
+                control: x => {
+                    return h('div', {
+                        style: {
+                            display: "flex",
+                            alignItems: "center"
+                        }
+                    }, [
+                        h(resolveComponent('fv-button'), {
+                            onClick: () => {
+                                alert('Yes');
+                                x.cancel();
+                            },
+                        }, 'Yes'),
+                        h(resolveComponent('fv-button'), {
+                            onClick: () => {
+                                alert('No');
+                                x.cancel();
+                            },
+                            style: 'margin-left: 5px;' }, 'No')
+                    ]);
+                }
+            });
+        },
+        showSwiftWarning () {
+            this.$swiftWarning(document.getElementById('example'), {
+                color: "rgba(173, 38, 45, 1)",
+                replaceTitle: "You clicked Swift Warning."
+            });
+        }
+    }
+}
+</script>
 
-```vue-html
-    <fv-message-bar @close="onClose('info')" status="info" :theme="theme">
-    </fv-message-bar>
-```
 
-2. correct
 
-<fv-message-bar @close="onClose('correct')" status="correct" :theme="theme">
-</fv-message-bar>
+Default
 
-```vue-html
-    <fv-message-bar @close="onClose('correct')" status="correct" :theme="theme">
-    </fv-message-bar>
-```
 
-3. warning
+<ClientOnly>
+<fv-MessageBar>
+</fv-MessageBar>
+</ClientOnly>
 
-<fv-message-bar @close="onClose('warning')" status="warning" :theme="theme">
-</fv-message-bar>
+Error
 
-```vue-html
-    <fv-message-bar @close="onClose('warning')" status="warning" :theme="theme">
-    </fv-message-bar>
-```
 
-4. error
+<ClientOnly>
+<fv-MessageBar status="error">
+</fv-MessageBar>
+</ClientOnly>
 
-<fv-message-bar @close="onClose('error')" status="error" :theme="theme">
-</fv-message-bar>
+Blocked
 
-```vue-html
-    <fv-message-bar @close="onClose('error')" status="error" :theme="theme">
-    </fv-message-bar>
-```
 
-5. blocked
+<ClientOnly>
+<fv-MessageBar status="blocked">
+</fv-MessageBar>
+</ClientOnly>
 
-<fv-message-bar @close="onClose('blocked')" status="blocked" :theme="theme">
-</fv-message-bar>
+Correct
 
-```vue-html
-    <fv-message-bar @close="onClose('blocked')" status="blocked" :theme="theme">
-    </fv-message-bar>
-```
 
-### Global Function
+<ClientOnly>
+<fv-MessageBar status="correct">
+</fv-MessageBar>
+</ClientOnly>
 
-1. use setup (recommend)
+Warning
+
+
+<ClientOnly>
+<fv-MessageBar status="warning">
+</fv-MessageBar>
+</ClientOnly>
 
 ```vue
-<script lang="ts" setup>
-const {theme} = useTheme()
-const message = inject<MessageBarMethod>(MessageBarKey)
+Default
 
-let instance:MessageBarParams;
+<fv-MessageBar>
+</fv-MessageBar>
 
-const onClose = (type?:'info'|'warning'|'correct'|'blocked'|'error')=>{
-    if (message!==undefined){
-        if (instance!==undefined){
-            instance.close()
-        }
-        instance = message({
-            status: type,
-            message: `close ${type} message bar `,
-            autoClose: 0,
-            theme: theme.value,
-            showControl: true,
-            confirm:()=>{
-                if (instance!==undefined){
-                    instance.close()
-                }
-                instance = message({
-                    status:"correct",
-                    message:"Confirm",
-                    theme: theme.value,
-                    autoClose: 0
-                })
-            },
-            cancel:()=>{
-                if (instance!==undefined){
-                    instance.close()
-                }
-                instance = message({
-                    status:"blocked",
-                    message:"Cancel",
-                    theme: theme.value,
-                    autoClose: 0
-                })
+Error
+
+<fv-MessageBar status="error">
+</fv-MessageBar>
+
+Blocked
+
+<fv-MessageBar status="blocked">
+</fv-MessageBar>
+
+Correct
+
+<fv-MessageBar status="correct">
+</fv-MessageBar>
+
+Warning
+
+<fv-MessageBar status="warning">
+</fv-MessageBar>
+```
+
+### MessageBar-Dark Theme
+---
+
+Default
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark">
+</fv-MessageBar>
+</ClientOnly>
+
+Error
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark" status="error">
+</fv-MessageBar>
+</ClientOnly>
+
+Blocked
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark" status="blocked">
+</fv-MessageBar>
+</ClientOnly>
+
+Correct
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark" status="correct">
+</fv-MessageBar>
+</ClientOnly>
+
+Warning
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark" status="warning">
+</fv-MessageBar>
+</ClientOnly>
+
+### MessageBar-Toast
+---
+1. Standard
+
+
+<ClientOnly>
+<fv-button style="width: 200px;" @click="show1">Show MessageBar</fv-button>
+</ClientOnly>
+
+```vue
+<fv-button style="width: 200px;" @click="show1">Show MessageBar</fv-button>
+```
+
+```javascript
+this.$barWarning('This is a toast message.', {
+    status: 'correct'
+});
+```
+
+2. Customize Message Template
+
+
+<ClientOnly>
+<fv-button style="width: 200px;" @click="show2">Show MessageBar</fv-button>
+</ClientOnly>
+
+```vue
+<fv-button style="width: 200px;" @click="show2">Show MessageBar</fv-button>
+```
+
+```javascript
+this.$barWarning(h('div', [
+    h('span', { class: 'header' }, 'Message'),
+    'This is a toast message.',
+    h('a', 'Visit our website.')
+]), {
+    status: 'correct'
+});
+```
+
+3. Customize Control Template
+
+
+<ClientOnly>
+<fv-button style="width: 200px;" @click="show3">Show MessageBar</fv-button>
+</ClientOnly>
+
+```vue
+<fv-button style="width: 200px;" @click="show3">Show MessageBar</fv-button>
+```
+
+```javascript
+this.$barWarning(h('div', [
+    h('span', { class: 'header' }, 'Message'),
+    'This is a toast message.',
+    h('a', 'Visit our website.')
+]), {
+    status: 'correct',
+    showControl: true,
+    autoClose: -1,
+    control: x => {
+        return h('div', {
+            style: {
+                display: "flex",
+                alignItems: "center"
             }
-        })
-    }
-}
-</script>
-```
-
-2. use options
-``` vue
-<script lang="ts">
-export default{
-    methods:{
-        message(){
-            this.instance = this.$barWarning({
-                status: this.type,
-                message: `close ${this.type} message bar`,
-                autoClose: 0,
-                theme: this.theme.value,
-                showControl: true,
-                confirm:()=>{
-                    if (this.instance!==undefined){
-                        this.instance.close()
-                    }
-                    this.instance = this.$barWarning({
-                        status:"correct",
-                        message:"Confirm",
-                        theme: this.theme.value,
-                        autoClose: 0
-                    })
+        }, [
+            h(resolveComponent('fv-button'), {
+                onClick: () => {
+                    alert('Yes');
+                    x.cancel();
                 },
-                cancel:()=>{
-                    if (this.instance!==undefined){
-                        this.instance.close()
-                    }
-                    this.instance = this.$barWarning({
-                        status:"blocked",
-                        message:"Cancel",
-                        theme: this.theme.value,
-                        autoClose: 0
-                    })
-                }
-            })
-        }
+            }, 'Yes'),
+            h(resolveComponent('fv-button'), {
+                onClick: () => {
+                    alert('No');
+                    x.cancel();
+                },
+                style: 'margin-left: 5px;' }, 'No')
+        ]);
     }
-}
-</script>
+});
+```
+
+### SwiftWarning
+
+<p id="example">Swift Warning</p>
+
+
+<ClientOnly>
+<fv-button style="width: 200px;" @click="showSwiftWarning">Click to Show SwiftWarning</fv-button>
+</ClientOnly>
+
+```vue
+<p id="example">Swift Warning</p>
+
+<fv-button style="width: 200px;" @click="showSwiftWarning">Click to Show SwiftWarning</fv-button>
+```
+
+```javascript
+this.$swiftWarning(document.getElementById('example'), {
+    color: "rgba(173, 38, 45, 1)",
+    replaceTitle: "You clicked Swift Warning."
+});
 ```
 
 
 
+### Propoties
+---
+| 属性(attr)  |                    类型(type)                     | 必填(required) | 默认值(default) |                       说明(statement)                        |
+|:-----------:|:-------------------------------------------------:|:--------------:|:---------------:|:------------------------------------------------------------:|
+|   status    | ['default','warning','correct','blocked','error'] |       No       |     default     |                     显示状态, 一共有5种                      |
+| showControl |                      Boolean                      |       No       |      false      |                       是否显示控制按钮                       |
+|  showClose  |                      Boolean                      |       No       |      true       |                       是否显示关闭按钮                       |
+|    mode     |               ['relative','fixed']                |       No       |    relative     |   显示模式`relative`下位相对定位, `fixed`下为悬浮固定定位    |
+|  autoClose  |                      Number                       |       No       |      3000       | MessageBar自动关闭时间, 单位为`ms`, 设为`-1`时永远不自动消失 |
 
-<!--@include: ./properties.md-->
+### Events
+---
+| 事件名(Name) | 参数类型(args) |      说明(statement)       |
+|:------------:|:--------------:|:--------------------------:|
+|    close     |                | 关闭`MessageBar`时触发事件 |
 
-<!--@include: ./emits.md-->
+### Slot
+---
+
+1. Msg
+
+- 默认为正常标题
+- `class="header"` 加粗标题
+- `<a></a>` 链接
+
+```vue
+<template v-slot:msg>
+    <span>Normal content <span class="header">Header content</span><a>Link</a></span>
+</template>
+```
+
+2. Control
+
+- cancel: 取消函数
+- theme: 当前主题
+
+```vue
+<template v-slot:control="x">
+    <fv-button @click="x.cancel()">Yes</fv-button>
+</template>
+```
+
+### Toast
+---
+
+```javascript
+this.$barWarning(msg, options = {
+    status: 'default',
+    showControl: false,
+    showClose: true,
+    control: null,
+    mode: 'fixed',
+    autoClose: 3000
+});
+
+control_panel: x => h() // 传入具名插槽属性参数的函数, 函数返回值为$createElement函数
+```
+
+```javascript
+this.$swiftWarning(element, options = {
+    color: "rgba(173, 38, 45, 1)",
+    replaceTitle: "Swift Warning"
+});
+```
+  
