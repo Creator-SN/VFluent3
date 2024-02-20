@@ -1,7 +1,7 @@
 {
   "name": "@creatorsn/vfluent3",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "files": [
     "dist"
   ],
@@ -38,11 +38,11 @@
   },
   "dependencies": {
     "@vue/shared": "^3.4.19",
-    "pinia": "^2.0.16",
-    "vue": "^3.2.37",
     "gsap": "3.1.1",
     "onecolor": "3.1.0",
-    "swiper": "8.3.2"
+    "pinia": "^2.0.16",
+    "swiper": "8.3.2",
+    "vue": "^3.2.37"
   },
   "devDependencies": {
     "@types/color": "^3.0.3",
