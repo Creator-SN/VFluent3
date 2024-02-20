@@ -1,40 +1,57 @@
-<script lang="ts" setup>
-import { isNumber, isString } from "@/utils/common/types";
-import { imgProps, imgEmits, useImg } from "."
-import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
-import { h, render, ref, onMounted } from "vue";
-
-defineOptions({
-    name: "FvImg"
-})
-
-const emits = defineEmits(imgEmits)
-
-const props = defineProps(imgProps)
-
-const { theme } = useTheme(props)
-
-const { container, loading, imgContainer } = useImg(props, emits)
-
-const { cls: computedImgClass } = new ClassBuilder()
-    .add(`fv-img`)
-    .add(() => theme.value)
-    .computed()
-
-const { style: computedImgStyle } = new StyleBuilder()
-    .add('--fv-img-fit', () => props.fit, () => isString(props.fit))
-    .computed()
-
-</script>
 <template>
-    <div ref="imgContainer" :class="computedImgClass" :style="computedImgStyle">
-        <div class="loading-container" v-show="loading">
-            <div class="bg"></div>
-            <fv-progress-ring :theme="theme" indeterminate></fv-progress-ring>
-        </div>
-        <transition name="fv-img-fade-in">
-            <div v-show="!loading" class="container" ref="container">
-            </div>
-        </transition>
+    <div
+        class="fv-Img"
+        :class="[$theme]"
+    >
+        <fv-ImgBox
+            v-if="status == 'imgBox'"
+            :url="src"
+            :onlazy="onlazy"
+            :loadingColor="loadingColor"
+            :onbackground="onbackground"
+            style="width: 100%; height: 100%;"
+            @error="status = 'image'"
+        ></fv-ImgBox>
+        <fv-Image
+            v-if="status == 'image'"
+            :src="src"
+            :onlazy="onlazy"
+            style="width: 100%; height: 100%;"
+        ></fv-Image>
     </div>
 </template>
+        
+<script>
+import { imgProps } from '.';
+import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+
+export default {
+    name: 'FvImg',
+    props: {
+        ...imgProps,
+        src: {
+            default: ''
+        },
+        onlazy: {
+            default: false
+        },
+        loadingColor: {
+            default: 'rgba(36, 36, 36, 1)'
+        },
+        onbackground: {
+            default: false
+        }
+    },
+    data() {
+        return {
+            status: 'imgBox'
+        };
+    },
+    computed: {
+        $theme() {
+            return useTheme(this.$props).theme.value;
+        }
+    }
+};
+</script>
+

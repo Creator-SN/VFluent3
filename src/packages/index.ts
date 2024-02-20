@@ -21,7 +21,9 @@ export * from "./drop-down"
 export * from "./expander"
 export * from "./flip-view"
 export * from "./icon-element"
+export * from "./image"
 export * from "./img"
+export * from "./img-box"
 export * from "./infinite-scroll-view"
 export * from "./info-box"
 export * from "./list-view"
@@ -80,7 +82,9 @@ import DropDown from "./drop-down"
 import Expander from "./expander"
 import FlipView from "./flip-view"
 import IconElement from "./icon-element"
+import Image from "./image"
 import Img from "./img"
+import ImgBox from "./img-box"
 import InfiniteScrollView from "./infinite-scroll-view"
 import InfoBox from "./info-box"
 import ListView from "./list-view"
@@ -133,7 +137,9 @@ const components = [
     Expander,
     FlipView,
     IconElement,
+    Image,
     Img,
+    ImgBox,
     InfiniteScrollView,
     InfoBox,
     ListView,
