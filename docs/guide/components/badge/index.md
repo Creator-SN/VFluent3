@@ -6,13 +6,13 @@ title: Badge
 ---
 
 <ClientOnly>
-<fv-Badge :value="3">
+<fv-Badge :modelValue="3">
 <fv-button>Badge</fv-button>
 </fv-Badge>
 </ClientOnly>
 
 ```vue
-<fv-Badge :value="3">
+<fv-Badge :modelValue="3">
     <fv-button>Badge</fv-button>
 </fv-Badge>
 ```
@@ -22,13 +22,13 @@ title: Badge
 
 Success
 <ClientOnly>
-<fv-Badge :value="12" type="success">
+<fv-Badge :modelValue="12" type="success">
 <fv-button>Badge</fv-button>
 </fv-Badge>
 </ClientOnly>
 
 ```vue
-<fv-Badge :value="12" type="success">
+<fv-Badge :modelValue="12" type="success">
     <fv-button>Badge</fv-button>
 </fv-Badge>
 ```
@@ -36,26 +36,26 @@ Success
 Warning
 
 <ClientOnly>
-<fv-Badge :value="2" type="warning">
+<fv-Badge :modelValue="2" type="warning">
 <fv-button>Badge</fv-button>
 </fv-Badge>
 </ClientOnly>
 
 ```vue
-<fv-Badge :value="2" type="warning">
+<fv-Badge :modelValue="2" type="warning">
     <fv-button>Badge</fv-button>
 </fv-Badge>
 ```
 
 Primary
 <ClientOnly>
-<fv-Badge :value="9" type="primary">
+<fv-Badge :modelValue="9" type="primary">
 <fv-button>Badge</fv-button>
 </fv-Badge>
 </ClientOnly>
 
 ```vue
-<fv-Badge :value="9" type="primary">
+<fv-Badge :modelValue="9" type="primary">
     <fv-button>Badge</fv-button>
 </fv-Badge>
 ```
