@@ -594,7 +594,7 @@ export default {
     beforeUnmount() {
         this.destoryEvent();
         this._popper.$el.remove();
-        this._popper.$destroy();
+        // this._popper.$destroy();
     }
 };
 </script>
