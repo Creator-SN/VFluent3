@@ -10,8 +10,9 @@ export const useFvConfig = defineStore("FvConfig", {
 		variables: {},
 	}),
 	actions: {
-		changeTheme(val: string) {
-			this.theme = val;
+		changeTheme(val: null | string) {
+            if(!val) this.theme = this.theme === "light" ? "dark" : "light";
+			else this.theme = val;
 		},
 		refreshVariables() {
 			if (document !== undefined) {
