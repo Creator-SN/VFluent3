@@ -390,7 +390,7 @@ this.$infoBox(msg, options = {
     confirm: async () => {},
     cancel: async () => {},
     control_panel: null,
-    theme: 'system'
+    theme: 'global'
 });
 
 msg: h() // 传入$createElement函数

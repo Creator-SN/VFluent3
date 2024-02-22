@@ -56,8 +56,7 @@ export * from "./verify-box"
 export * from "./web-window"
 
 import '@/styles/theme/index.scss';
-import { SDate } from '@/utils/common/usual';
-import { SUtility } from '@/utils/common/usual';
+import { UtilsPlugin } from '@/utils/plugins/install-utils';
 
 import type { App, Plugin } from 'vue';
 import { createPinia } from 'pinia';
@@ -176,8 +175,7 @@ export const FvComponentPlugins: Plugin = {
     install(app: App, options: any) {
         const pinia = createPinia();
         app.use(pinia);
-        app.config.globalProperties.$SDate = SDate;
-        app.config.globalProperties.$SUtility = SUtility;
+        app.use(UtilsPlugin);
         for (const component of components) {
             app.use(component);
         }

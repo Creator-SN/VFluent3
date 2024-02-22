@@ -77,7 +77,7 @@ export default {
                 this.show = false;
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer);
     }
 };

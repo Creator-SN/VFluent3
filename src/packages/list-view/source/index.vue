@@ -554,7 +554,7 @@ export default {
             this.onChoosen({ target: items[index] }, cur);
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         this.$RevealDirect.destroy(this.FR);
     }
 };

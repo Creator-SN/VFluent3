@@ -87,7 +87,7 @@ export default {
             } catch (e) {}
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer);
     }
 };

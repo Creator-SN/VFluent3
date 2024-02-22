@@ -166,7 +166,7 @@ export default {
             }, 30);
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer.widthTimer);
     }
 };

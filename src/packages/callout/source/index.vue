@@ -591,7 +591,7 @@ export default {
         document.body.append(this._popper.$el);
         this.init();
     },
-    beforeDestroy() {
+    beforeUnmount() {
         this.destoryEvent();
         this._popper.$el.remove();
         this._popper.$destroy();

@@ -213,7 +213,7 @@ export default {
         this.init();
         this.loadEvent();
     },
-    beforeDestroy() {
+    beforeUnmount() {
         this.removeEvent();
     },
     methods: {

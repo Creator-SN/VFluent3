@@ -112,7 +112,7 @@ export default {
         this.setStyle();
         this.initShow = true;
     },
-    beforeDestroy() {
+    beforeUnmount() {
         for (let key in this.window) {
             window.removeEventListener(key, this.window);
         }

@@ -397,7 +397,7 @@ export default {
             return this.currentChoose.indexOf(item) > -1;
         },
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer.updateRange);
         clearInterval(this.timer.scroller);
         this.uR.revealMaskedJs.destroy(this.FR);

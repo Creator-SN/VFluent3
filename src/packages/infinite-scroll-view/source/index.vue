@@ -98,7 +98,7 @@ export default {
             });
         }
     },
-    beforeDestroy () {
+    beforeUnmount () {
         this.looper = false;
     }
 }

@@ -209,7 +209,7 @@ export default {
             }, 300);
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.formatTimer);
         clearInterval(this.lazyTimer);
     }

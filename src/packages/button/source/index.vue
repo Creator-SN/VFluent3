@@ -132,6 +132,6 @@ export default {
             this.$emit("click", event);
         },
     },
-    beforeDestroy() {},
+    beforeUnmount() {},
 };
 </script>

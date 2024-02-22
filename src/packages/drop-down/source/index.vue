@@ -268,7 +268,7 @@ export default {
             this.$emit('change', event);
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer);
     }
 };

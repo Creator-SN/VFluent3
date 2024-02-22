@@ -75,7 +75,7 @@ export default {
         },
         theme: {
             type: String,
-            default: 'system'
+            default: "global"
         }
     },
     data() {

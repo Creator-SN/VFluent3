@@ -32,7 +32,6 @@
                 ></fv-calendar-view>
             </div>
         </transition>
-        {{value}}
     </div>
 </template>
         

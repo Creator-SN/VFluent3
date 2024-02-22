@@ -4304,7 +4304,7 @@ var Swiper = class _Swiper {
     if (typeof swiper.params === "undefined" || swiper.destroyed) {
       return null;
     }
-    swiper.emit("beforeDestroy");
+    swiper.emit("beforeUnmount");
     swiper.initialized = false;
     swiper.detachEvents();
     if (params.loop) {
@@ -8021,7 +8021,7 @@ function Thumb(_ref) {
       return;
     thumbsSwiper.setTransition(duration);
   });
-  on2("beforeDestroy", () => {
+  on2("beforeUnmount", () => {
     const thumbsSwiper = swiper.thumbs.swiper;
     if (!thumbsSwiper || thumbsSwiper.destroyed)
       return;

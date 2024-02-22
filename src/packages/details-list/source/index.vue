@@ -691,7 +691,7 @@ export default {
             return val;
         }
     },
-    beforeDestroy () {
+    beforeUnmount () {
         for(let item in this.timer) {
             clearInterval(this.timer[item]);
         }

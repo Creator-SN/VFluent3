@@ -250,7 +250,7 @@ export default {
             else this.currentLeft = targetLeft - thisLeft;
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         this.$RevealDirect.destroy(this.FR);
     }
 };

@@ -506,7 +506,7 @@ export default {
             return val;
         },
     },
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.revealContainer === false) {
             this.revealCache.removeRevealHandler(this.id);
         } else {

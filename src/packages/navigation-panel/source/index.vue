@@ -288,7 +288,7 @@ export default {
             this.$emit('expand-click', this.thisExpand);
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer.widthTimer);
 
         this.uR.revealDirectJs.destroy(this.FR);

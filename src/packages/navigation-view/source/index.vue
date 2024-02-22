@@ -253,7 +253,7 @@ export default {
             this.thisValue = c;
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer);
     }
 };

@@ -230,7 +230,7 @@ export default {
         },
         theme: {
             type: String,
-            default: 'system'
+            default: "global"
         }
     },
     data() {
@@ -419,7 +419,7 @@ export default {
             this.dropMode = 'leave';
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer.requireRender);
     }
 };

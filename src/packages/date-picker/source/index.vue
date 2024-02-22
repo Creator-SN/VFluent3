@@ -347,7 +347,7 @@ export default {
             window.addEventListener(key, this.windowEvent[key]);
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.$refs.day !== undefined)
             this.$refs.day.removeEventListener(
                 'scroll',

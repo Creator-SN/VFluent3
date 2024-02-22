@@ -86,7 +86,7 @@ export default {
             }, 300);
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.lazyTimer);
     }
 };

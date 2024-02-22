@@ -225,7 +225,7 @@ export default {
             this.$emit('choose', item);
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer.updateRange);
         this.uR.revealMaskedJs.destroy(this.FR);
     }
