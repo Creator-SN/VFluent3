@@ -9,7 +9,7 @@ title: Callout
       return {
         text:"1233",
         show:true,
-        color:'rgba(36, 36, 36, 1)',
+        color:'#242424FF',
         beak:10,
         space:0,
         position:{key:'topLeft',text:'topLeft'},
@@ -43,18 +43,18 @@ title: Callout
 <ClientOnly>
 <fv-callout :visible.sync="show" effect="hover" position="bottomLeft" :keepalive="false">
   <fv-button icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Color</fv-button>
-  <main>
+  <template v-slot:main>
     <fv-color-picker v-model="color" style="width:500px"></fv-color-picker>
-  </main>
+  </template>
 </fv-callout>
 </ClientOnly>
 
 ```vue
 <fv-callout :visible.sync="show" effect="hover" position="bottomLeft">
   <fv-button icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Callout</fv-button>
-  <main>
+  <template v-slot:main>
     <fv-color-picker v-model="color" style="width:500px"></fv-color-picker>
-  </main>
+  </template>
 </fv-callout>
 ```
 
@@ -87,30 +87,30 @@ position:
 <ClientOnly>
 <fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :popperStyle="{backgroundColor:color}" theme="dark" >
   <fv-button :background="color" theme="dark" icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Callout</fv-button>
-  <header>
+  <template v-slot:header>
     Fluent UI
-  </header>
-  <main>
+  </template>
+  <template v-slot:main>
     Hello Vue! Nice to meet you!
-  </main>
-  <footer>
+  </template>
+  <template v-slot:footer>
     @Copyright Creator SN
-  </footer>
+  </template>
 </fv-callout>
 </ClientOnly>
 
 ```vue
 <fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :popperStyle="{ backgroundColor: color }" theme="dark">
   <fv-button :background="color" theme="dark" icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Callout</fv-button>
-  <header>
+  <template v-slot:header>
     Fluent UI
-  </header>
-  <main>
+  </template>
+  <template v-slot:main>
     Hello Vue! Nice to meet you!
-  </main>
-  <footer>
+  </template>
+  <template v-slot:footer>
     @Copyright Creator SN
-  </footer>
+  </template>
 </fv-callout>
 ```
 

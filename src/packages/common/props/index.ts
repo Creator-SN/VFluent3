@@ -12,3 +12,9 @@ export const commonProps = {
         default: "global"
     }
 }
+
+export type commonPropsType = {
+    theme?: "global" | "light" | "dark";
+    disabled?: boolean,
+    lang?: "global" | string,
+}

@@ -1,6 +1,6 @@
 import "./chunk-Y2F7D3TJ.js";
 
-// node_modules/gsap/gsap-core.js
+// node_modules/.pnpm/gsap@3.1.1/node_modules/gsap/gsap-core.js
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -2733,7 +2733,7 @@ var Sine = _easeMap.Sine;
 var Expo = _easeMap.Expo;
 var Circ = _easeMap.Circ;
 
-// node_modules/gsap/CSSPlugin.js
+// node_modules/.pnpm/gsap@3.1.1/node_modules/gsap/CSSPlugin.js
 var _win2;
 var _doc2;
 var _docElement;
@@ -3700,7 +3700,7 @@ _forEachName("x,y,z,top,right,bottom,left,width,height,fontSize,padding,margin,p
 });
 gsap.registerPlugin(CSSPlugin);
 
-// node_modules/gsap/index.js
+// node_modules/.pnpm/gsap@3.1.1/node_modules/gsap/index.js
 var gsapWithCSS = gsap.registerPlugin(CSSPlugin) || gsap;
 var TweenMaxWithCSS = gsapWithCSS.core.Tween;
 export {

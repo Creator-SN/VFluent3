@@ -1,6 +1,6 @@
 import "./chunk-Y2F7D3TJ.js";
 
-// node_modules/ssr-window/ssr-window.esm.js
+// node_modules/.pnpm/ssr-window@4.0.2/node_modules/ssr-window/ssr-window.esm.js
 function isObject(obj) {
   return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
 }
@@ -144,7 +144,7 @@ function getWindow() {
   return win;
 }
 
-// node_modules/dom7/dom7.esm.js
+// node_modules/.pnpm/dom7@4.0.6/node_modules/dom7/dom7.esm.js
 function makeReactive(obj) {
   const proto = obj.__proto__;
   Object.defineProperty(obj, "__proto__", {
@@ -826,7 +826,7 @@ var touchmove = shortcut("touchmove");
 var resize = shortcut("resize");
 var scroll = shortcut("scroll");
 
-// node_modules/swiper/shared/dom.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/dom.js
 var Methods = {
   addClass,
   removeClass,
@@ -873,7 +873,7 @@ Object.keys(Methods).forEach((methodName) => {
 });
 var dom_default = $;
 
-// node_modules/swiper/shared/utils.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/utils.js
 function deleteProps(obj) {
   const object = obj;
   Object.keys(object).forEach((key) => {
@@ -1040,7 +1040,7 @@ function animateCSSModeScroll(_ref) {
   animate();
 }
 
-// node_modules/swiper/shared/get-support.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/get-support.js
 var support;
 function calcSupport() {
   const window2 = getWindow();
@@ -1074,7 +1074,7 @@ function getSupport() {
   return support;
 }
 
-// node_modules/swiper/shared/get-device.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/get-device.js
 var deviceCached;
 function calcDevice(_temp) {
   let {
@@ -1123,7 +1123,7 @@ function getDevice(overrides) {
   return deviceCached;
 }
 
-// node_modules/swiper/shared/get-browser.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/get-browser.js
 var browser;
 function calcBrowser() {
   const window2 = getWindow();
@@ -1143,7 +1143,7 @@ function getBrowser() {
   return browser;
 }
 
-// node_modules/swiper/core/modules/resize/resize.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/modules/resize/resize.js
 function Resize(_ref) {
   let {
     swiper,
@@ -1217,7 +1217,7 @@ function Resize(_ref) {
   });
 }
 
-// node_modules/swiper/core/modules/observer/observer.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/modules/observer/observer.js
 function Observer(_ref) {
   let {
     swiper,
@@ -1284,7 +1284,7 @@ function Observer(_ref) {
   on2("destroy", destroy);
 }
 
-// node_modules/swiper/core/events-emitter.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/events-emitter.js
 var events_emitter_default = {
   on(events2, handler, priority) {
     const self = this;
@@ -1401,7 +1401,7 @@ var events_emitter_default = {
   }
 };
 
-// node_modules/swiper/core/update/updateSize.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/updateSize.js
 function updateSize() {
   const swiper = this;
   let width;
@@ -1433,7 +1433,7 @@ function updateSize() {
   });
 }
 
-// node_modules/swiper/core/update/updateSlides.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/updateSlides.js
 function updateSlides() {
   const swiper = this;
   function getDirectionLabel(property) {
@@ -1713,7 +1713,7 @@ function updateSlides() {
   }
 }
 
-// node_modules/swiper/core/update/updateAutoHeight.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/updateAutoHeight.js
 function updateAutoHeight(speed) {
   const swiper = this;
   const activeSlides = [];
@@ -1757,7 +1757,7 @@ function updateAutoHeight(speed) {
     swiper.$wrapperEl.css("height", `${newHeight}px`);
 }
 
-// node_modules/swiper/core/update/updateSlidesOffset.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/updateSlidesOffset.js
 function updateSlidesOffset() {
   const swiper = this;
   const slides = swiper.slides;
@@ -1766,7 +1766,7 @@ function updateSlidesOffset() {
   }
 }
 
-// node_modules/swiper/core/update/updateSlidesProgress.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/updateSlidesProgress.js
 function updateSlidesProgress(translate) {
   if (translate === void 0) {
     translate = this && this.translate || 0;
@@ -1810,7 +1810,7 @@ function updateSlidesProgress(translate) {
   swiper.visibleSlides = dom_default(swiper.visibleSlides);
 }
 
-// node_modules/swiper/core/update/updateProgress.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/updateProgress.js
 function updateProgress(translate) {
   const swiper = this;
   if (typeof translate === "undefined") {
@@ -1854,7 +1854,7 @@ function updateProgress(translate) {
   swiper.emit("progress", progress);
 }
 
-// node_modules/swiper/core/update/updateSlidesClasses.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/updateSlidesClasses.js
 function updateSlidesClasses() {
   const swiper = this;
   const {
@@ -1905,7 +1905,7 @@ function updateSlidesClasses() {
   swiper.emitSlidesClasses();
 }
 
-// node_modules/swiper/core/update/updateActiveIndex.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/updateActiveIndex.js
 function updateActiveIndex(newActiveIndex) {
   const swiper = this;
   const translate = swiper.rtlTranslate ? swiper.translate : -swiper.translate;
@@ -1968,7 +1968,7 @@ function updateActiveIndex(newActiveIndex) {
   }
 }
 
-// node_modules/swiper/core/update/updateClickedSlide.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/updateClickedSlide.js
 function updateClickedSlide(e) {
   const swiper = this;
   const params = swiper.params;
@@ -2001,7 +2001,7 @@ function updateClickedSlide(e) {
   }
 }
 
-// node_modules/swiper/core/update/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/update/index.js
 var update_default = {
   updateSize,
   updateSlides,
@@ -2014,7 +2014,7 @@ var update_default = {
   updateClickedSlide
 };
 
-// node_modules/swiper/core/translate/getTranslate.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/translate/getTranslate.js
 function getSwiperTranslate(axis) {
   if (axis === void 0) {
     axis = this.isHorizontal() ? "x" : "y";
@@ -2038,7 +2038,7 @@ function getSwiperTranslate(axis) {
   return currentTranslate || 0;
 }
 
-// node_modules/swiper/core/translate/setTranslate.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/translate/setTranslate.js
 function setTranslate(translate, byController) {
   const swiper = this;
   const {
@@ -2080,17 +2080,17 @@ function setTranslate(translate, byController) {
   swiper.emit("setTranslate", swiper.translate, byController);
 }
 
-// node_modules/swiper/core/translate/minTranslate.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/translate/minTranslate.js
 function minTranslate() {
   return -this.snapGrid[0];
 }
 
-// node_modules/swiper/core/translate/maxTranslate.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/translate/maxTranslate.js
 function maxTranslate() {
   return -this.snapGrid[this.snapGrid.length - 1];
 }
 
-// node_modules/swiper/core/translate/translateTo.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/translate/translateTo.js
 function translateTo(translate, speed, runCallbacks, translateBounds, internal) {
   if (translate === void 0) {
     translate = 0;
@@ -2180,7 +2180,7 @@ function translateTo(translate, speed, runCallbacks, translateBounds, internal) 
   return true;
 }
 
-// node_modules/swiper/core/translate/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/translate/index.js
 var translate_default = {
   getTranslate: getSwiperTranslate,
   setTranslate,
@@ -2189,7 +2189,7 @@ var translate_default = {
   translateTo
 };
 
-// node_modules/swiper/core/transition/setTransition.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/transition/setTransition.js
 function setTransition(duration, byController) {
   const swiper = this;
   if (!swiper.params.cssMode) {
@@ -2198,7 +2198,7 @@ function setTransition(duration, byController) {
   swiper.emit("setTransition", duration, byController);
 }
 
-// node_modules/swiper/core/transition/transitionEmit.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/transition/transitionEmit.js
 function transitionEmit(_ref) {
   let {
     swiper,
@@ -2234,7 +2234,7 @@ function transitionEmit(_ref) {
   }
 }
 
-// node_modules/swiper/core/transition/transitionStart.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/transition/transitionStart.js
 function transitionStart(runCallbacks, direction) {
   if (runCallbacks === void 0) {
     runCallbacks = true;
@@ -2256,7 +2256,7 @@ function transitionStart(runCallbacks, direction) {
   });
 }
 
-// node_modules/swiper/core/transition/transitionEnd.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/transition/transitionEnd.js
 function transitionEnd2(runCallbacks, direction) {
   if (runCallbacks === void 0) {
     runCallbacks = true;
@@ -2277,14 +2277,14 @@ function transitionEnd2(runCallbacks, direction) {
   });
 }
 
-// node_modules/swiper/core/transition/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/transition/index.js
 var transition_default = {
   setTransition,
   transitionStart,
   transitionEnd: transitionEnd2
 };
 
-// node_modules/swiper/core/slide/slideTo.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/slide/slideTo.js
 function slideTo(index2, speed, runCallbacks, internal, initial) {
   if (index2 === void 0) {
     index2 = 0;
@@ -2440,7 +2440,7 @@ function slideTo(index2, speed, runCallbacks, internal, initial) {
   return true;
 }
 
-// node_modules/swiper/core/slide/slideToLoop.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/slide/slideToLoop.js
 function slideToLoop(index2, speed, runCallbacks, internal) {
   if (index2 === void 0) {
     index2 = 0;
@@ -2467,7 +2467,7 @@ function slideToLoop(index2, speed, runCallbacks, internal) {
   return swiper.slideTo(newIndex, speed, runCallbacks, internal);
 }
 
-// node_modules/swiper/core/slide/slideNext.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/slide/slideNext.js
 function slideNext(speed, runCallbacks, internal) {
   if (speed === void 0) {
     speed = this.params.speed;
@@ -2500,7 +2500,7 @@ function slideNext(speed, runCallbacks, internal) {
   return swiper.slideTo(swiper.activeIndex + increment, speed, runCallbacks, internal);
 }
 
-// node_modules/swiper/core/slide/slidePrev.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/slide/slidePrev.js
 function slidePrev(speed, runCallbacks, internal) {
   if (speed === void 0) {
     speed = this.params.speed;
@@ -2562,7 +2562,7 @@ function slidePrev(speed, runCallbacks, internal) {
   return swiper.slideTo(prevIndex, speed, runCallbacks, internal);
 }
 
-// node_modules/swiper/core/slide/slideReset.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/slide/slideReset.js
 function slideReset(speed, runCallbacks, internal) {
   if (speed === void 0) {
     speed = this.params.speed;
@@ -2574,7 +2574,7 @@ function slideReset(speed, runCallbacks, internal) {
   return swiper.slideTo(swiper.activeIndex, speed, runCallbacks, internal);
 }
 
-// node_modules/swiper/core/slide/slideToClosest.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/slide/slideToClosest.js
 function slideToClosest(speed, runCallbacks, internal, threshold) {
   if (speed === void 0) {
     speed = this.params.speed;
@@ -2608,7 +2608,7 @@ function slideToClosest(speed, runCallbacks, internal, threshold) {
   return swiper.slideTo(index2, speed, runCallbacks, internal);
 }
 
-// node_modules/swiper/core/slide/slideToClickedSlide.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/slide/slideToClickedSlide.js
 function slideToClickedSlide() {
   const swiper = this;
   const {
@@ -2646,7 +2646,7 @@ function slideToClickedSlide() {
   }
 }
 
-// node_modules/swiper/core/slide/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/slide/index.js
 var slide_default = {
   slideTo,
   slideToLoop,
@@ -2657,7 +2657,7 @@ var slide_default = {
   slideToClickedSlide
 };
 
-// node_modules/swiper/core/loop/loopCreate.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/loop/loopCreate.js
 function loopCreate() {
   const swiper = this;
   const document2 = getDocument();
@@ -2703,7 +2703,7 @@ function loopCreate() {
   }
 }
 
-// node_modules/swiper/core/loop/loopFix.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/loop/loopFix.js
 function loopFix() {
   const swiper = this;
   swiper.emit("beforeLoopFix");
@@ -2741,7 +2741,7 @@ function loopFix() {
   swiper.emit("loopFix");
 }
 
-// node_modules/swiper/core/loop/loopDestroy.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/loop/loopDestroy.js
 function loopDestroy() {
   const swiper = this;
   const {
@@ -2753,14 +2753,14 @@ function loopDestroy() {
   slides.removeAttr("data-swiper-slide-index");
 }
 
-// node_modules/swiper/core/loop/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/loop/index.js
 var loop_default = {
   loopCreate,
   loopFix,
   loopDestroy
 };
 
-// node_modules/swiper/core/grab-cursor/setGrabCursor.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/grab-cursor/setGrabCursor.js
 function setGrabCursor(moving) {
   const swiper = this;
   if (swiper.support.touch || !swiper.params.simulateTouch || swiper.params.watchOverflow && swiper.isLocked || swiper.params.cssMode)
@@ -2770,7 +2770,7 @@ function setGrabCursor(moving) {
   el.style.cursor = moving ? "grabbing" : "grab";
 }
 
-// node_modules/swiper/core/grab-cursor/unsetGrabCursor.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/grab-cursor/unsetGrabCursor.js
 function unsetGrabCursor() {
   const swiper = this;
   if (swiper.support.touch || swiper.params.watchOverflow && swiper.isLocked || swiper.params.cssMode) {
@@ -2779,13 +2779,13 @@ function unsetGrabCursor() {
   swiper[swiper.params.touchEventsTarget === "container" ? "el" : "wrapperEl"].style.cursor = "";
 }
 
-// node_modules/swiper/core/grab-cursor/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/grab-cursor/index.js
 var grab_cursor_default = {
   setGrabCursor,
   unsetGrabCursor
 };
 
-// node_modules/swiper/core/events/onTouchStart.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/events/onTouchStart.js
 function closestElement(selector, base) {
   if (base === void 0) {
     base = this;
@@ -2900,7 +2900,7 @@ function onTouchStart(event2) {
   swiper.emit("touchStart", e);
 }
 
-// node_modules/swiper/core/events/onTouchMove.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/events/onTouchMove.js
 function onTouchMove(event2) {
   const document2 = getDocument();
   const swiper = this;
@@ -3087,7 +3087,7 @@ function onTouchMove(event2) {
   swiper.setTranslate(data.currentTranslate);
 }
 
-// node_modules/swiper/core/events/onTouchEnd.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/events/onTouchEnd.js
 function onTouchEnd(event2) {
   const swiper = this;
   const data = swiper.touchEventsData;
@@ -3223,7 +3223,7 @@ function onTouchEnd(event2) {
   }
 }
 
-// node_modules/swiper/core/events/onResize.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/events/onResize.js
 function onResize() {
   const swiper = this;
   const {
@@ -3260,7 +3260,7 @@ function onResize() {
   }
 }
 
-// node_modules/swiper/core/events/onClick.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/events/onClick.js
 function onClick(e) {
   const swiper = this;
   if (!swiper.enabled)
@@ -3275,7 +3275,7 @@ function onClick(e) {
   }
 }
 
-// node_modules/swiper/core/events/onScroll.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/events/onScroll.js
 function onScroll() {
   const swiper = this;
   const {
@@ -3308,7 +3308,7 @@ function onScroll() {
   swiper.emit("setTranslate", swiper.translate, false);
 }
 
-// node_modules/swiper/core/events/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/events/index.js
 var dummyEventAttached = false;
 function dummyEventListener() {
 }
@@ -3385,7 +3385,7 @@ var events_default = {
   detachEvents
 };
 
-// node_modules/swiper/core/breakpoints/setBreakpoint.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/breakpoints/setBreakpoint.js
 var isGridEnabled = (swiper, params) => {
   return swiper.grid && params.grid && params.grid.rows > 1;
 };
@@ -3457,7 +3457,7 @@ function setBreakpoint() {
   swiper.emit("breakpoint", breakpointParams);
 }
 
-// node_modules/swiper/core/breakpoints/getBreakpoint.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/breakpoints/getBreakpoint.js
 function getBreakpoint(breakpoints, base, containerEl) {
   if (base === void 0) {
     base = "window";
@@ -3498,13 +3498,13 @@ function getBreakpoint(breakpoints, base, containerEl) {
   return breakpoint || "max";
 }
 
-// node_modules/swiper/core/breakpoints/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/breakpoints/index.js
 var breakpoints_default = {
   setBreakpoint,
   getBreakpoint
 };
 
-// node_modules/swiper/core/classes/addClasses.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/classes/addClasses.js
 function prepareClasses(entries, prefix) {
   const resultClasses = [];
   entries.forEach((item) => {
@@ -3558,7 +3558,7 @@ function addClasses() {
   swiper.emitContainerClasses();
 }
 
-// node_modules/swiper/core/classes/removeClasses.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/classes/removeClasses.js
 function removeClasses() {
   const swiper = this;
   const {
@@ -3569,13 +3569,13 @@ function removeClasses() {
   swiper.emitContainerClasses();
 }
 
-// node_modules/swiper/core/classes/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/classes/index.js
 var classes_default = {
   addClasses,
   removeClasses
 };
 
-// node_modules/swiper/core/images/loadImage.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/images/loadImage.js
 function loadImage(imageEl, src, srcset, sizes, checkForComplete, callback) {
   const window2 = getWindow();
   let image;
@@ -3606,7 +3606,7 @@ function loadImage(imageEl, src, srcset, sizes, checkForComplete, callback) {
   }
 }
 
-// node_modules/swiper/core/images/preloadImages.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/images/preloadImages.js
 function preloadImages() {
   const swiper = this;
   swiper.imagesToLoad = swiper.$el.find("img");
@@ -3627,13 +3627,13 @@ function preloadImages() {
   }
 }
 
-// node_modules/swiper/core/images/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/images/index.js
 var images_default = {
   loadImage,
   preloadImages
 };
 
-// node_modules/swiper/core/check-overflow/index.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/check-overflow/index.js
 function checkOverflow() {
   const swiper = this;
   const {
@@ -3667,7 +3667,7 @@ var check_overflow_default = {
   checkOverflow
 };
 
-// node_modules/swiper/core/defaults.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/defaults.js
 var defaults_default = {
   init: true,
   direction: "horizontal",
@@ -3793,7 +3793,7 @@ var defaults_default = {
   _emitClasses: false
 };
 
-// node_modules/swiper/core/moduleExtendParams.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/moduleExtendParams.js
 function moduleExtendParams(params, allModulesParams) {
   return function extendParams(obj) {
     if (obj === void 0) {
@@ -3830,7 +3830,7 @@ function moduleExtendParams(params, allModulesParams) {
   };
 }
 
-// node_modules/swiper/core/core.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/core/core.js
 var prototypes = {
   eventsEmitter: events_emitter_default,
   update: update_default,
@@ -4304,7 +4304,7 @@ var Swiper = class _Swiper {
     if (typeof swiper.params === "undefined" || swiper.destroyed) {
       return null;
     }
-    swiper.emit("beforeUnmount");
+    swiper.emit("beforeDestroy");
     swiper.initialized = false;
     swiper.detachEvents();
     if (params.loop) {
@@ -4363,7 +4363,7 @@ Object.keys(prototypes).forEach((prototypeGroup) => {
 Swiper.use([Resize, Observer]);
 var core_default = Swiper;
 
-// node_modules/swiper/modules/virtual/virtual.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/virtual/virtual.js
 function Virtual(_ref) {
   let {
     swiper,
@@ -4631,7 +4631,7 @@ function Virtual(_ref) {
   });
 }
 
-// node_modules/swiper/modules/keyboard/keyboard.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/keyboard/keyboard.js
 function Keyboard(_ref) {
   let {
     swiper,
@@ -4759,7 +4759,7 @@ function Keyboard(_ref) {
   });
 }
 
-// node_modules/swiper/modules/mousewheel/mousewheel.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/mousewheel/mousewheel.js
 function Mousewheel(_ref) {
   let {
     swiper,
@@ -5075,7 +5075,7 @@ function Mousewheel(_ref) {
   });
 }
 
-// node_modules/swiper/shared/create-element-if-not-defined.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/create-element-if-not-defined.js
 function createElementIfNotDefined(swiper, originalParams, params, checkProps) {
   const document2 = getDocument();
   if (swiper.params.createElements) {
@@ -5095,7 +5095,7 @@ function createElementIfNotDefined(swiper, originalParams, params, checkProps) {
   return params;
 }
 
-// node_modules/swiper/modules/navigation/navigation.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/navigation/navigation.js
 function Navigation(_ref) {
   let {
     swiper,
@@ -5280,7 +5280,7 @@ function Navigation(_ref) {
   });
 }
 
-// node_modules/swiper/shared/classes-to-selector.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/classes-to-selector.js
 function classesToSelector(classes) {
   if (classes === void 0) {
     classes = "";
@@ -5288,7 +5288,7 @@ function classesToSelector(classes) {
   return `.${classes.trim().replace(/([\.:!\/])/g, "\\$1").replace(/ /g, ".")}`;
 }
 
-// node_modules/swiper/modules/pagination/pagination.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/pagination/pagination.js
 function Pagination(_ref) {
   let {
     swiper,
@@ -5670,7 +5670,7 @@ function Pagination(_ref) {
   });
 }
 
-// node_modules/swiper/modules/scrollbar/scrollbar.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/scrollbar/scrollbar.js
 function Scrollbar(_ref) {
   let {
     swiper,
@@ -6034,7 +6034,7 @@ function Scrollbar(_ref) {
   });
 }
 
-// node_modules/swiper/modules/parallax/parallax.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/parallax/parallax.js
 function Parallax(_ref) {
   let {
     swiper,
@@ -6147,7 +6147,7 @@ function Parallax(_ref) {
   });
 }
 
-// node_modules/swiper/modules/zoom/zoom.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/zoom/zoom.js
 function Zoom(_ref) {
   let {
     swiper,
@@ -6694,7 +6694,7 @@ function Zoom(_ref) {
   });
 }
 
-// node_modules/swiper/modules/lazy/lazy.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/lazy/lazy.js
 function Lazy(_ref) {
   let {
     swiper,
@@ -6967,7 +6967,7 @@ function Lazy(_ref) {
   });
 }
 
-// node_modules/swiper/modules/controller/controller.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/controller/controller.js
 function Controller(_ref) {
   let {
     swiper,
@@ -7125,7 +7125,7 @@ function Controller(_ref) {
   });
 }
 
-// node_modules/swiper/modules/a11y/a11y.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/a11y/a11y.js
 function A11y(_ref) {
   let {
     swiper,
@@ -7404,7 +7404,7 @@ function A11y(_ref) {
   });
 }
 
-// node_modules/swiper/modules/history/history.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/history/history.js
 function History(_ref) {
   let {
     swiper,
@@ -7543,7 +7543,7 @@ function History(_ref) {
   });
 }
 
-// node_modules/swiper/modules/hash-navigation/hash-navigation.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/hash-navigation/hash-navigation.js
 function HashNavigation(_ref) {
   let {
     swiper,
@@ -7632,7 +7632,7 @@ function HashNavigation(_ref) {
   });
 }
 
-// node_modules/swiper/modules/autoplay/autoplay.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/autoplay/autoplay.js
 function Autoplay(_ref) {
   let {
     swiper,
@@ -7845,7 +7845,7 @@ function Autoplay(_ref) {
   });
 }
 
-// node_modules/swiper/modules/thumbs/thumbs.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/thumbs/thumbs.js
 function Thumb(_ref) {
   let {
     swiper,
@@ -8021,7 +8021,7 @@ function Thumb(_ref) {
       return;
     thumbsSwiper.setTransition(duration);
   });
-  on2("beforeUnmount", () => {
+  on2("beforeDestroy", () => {
     const thumbsSwiper = swiper.thumbs.swiper;
     if (!thumbsSwiper || thumbsSwiper.destroyed)
       return;
@@ -8035,7 +8035,7 @@ function Thumb(_ref) {
   });
 }
 
-// node_modules/swiper/modules/free-mode/free-mode.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/free-mode/free-mode.js
 function freeMode(_ref) {
   let {
     swiper,
@@ -8260,7 +8260,7 @@ function freeMode(_ref) {
   });
 }
 
-// node_modules/swiper/modules/grid/grid.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/grid/grid.js
 function Grid(_ref) {
   let {
     swiper,
@@ -8367,7 +8367,7 @@ function Grid(_ref) {
   };
 }
 
-// node_modules/swiper/modules/manipulation/methods/appendSlide.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/manipulation/methods/appendSlide.js
 function appendSlide(slides) {
   const swiper = this;
   const {
@@ -8393,7 +8393,7 @@ function appendSlide(slides) {
   }
 }
 
-// node_modules/swiper/modules/manipulation/methods/prependSlide.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/manipulation/methods/prependSlide.js
 function prependSlide(slides) {
   const swiper = this;
   const {
@@ -8423,7 +8423,7 @@ function prependSlide(slides) {
   swiper.slideTo(newActiveIndex, 0, false);
 }
 
-// node_modules/swiper/modules/manipulation/methods/addSlide.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/manipulation/methods/addSlide.js
 function addSlide(index2, slides) {
   const swiper = this;
   const {
@@ -8478,7 +8478,7 @@ function addSlide(index2, slides) {
   }
 }
 
-// node_modules/swiper/modules/manipulation/methods/removeSlide.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/manipulation/methods/removeSlide.js
 function removeSlide(slidesIndexes) {
   const swiper = this;
   const {
@@ -8524,7 +8524,7 @@ function removeSlide(slidesIndexes) {
   }
 }
 
-// node_modules/swiper/modules/manipulation/methods/removeAllSlides.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/manipulation/methods/removeAllSlides.js
 function removeAllSlides() {
   const swiper = this;
   const slidesIndexes = [];
@@ -8534,7 +8534,7 @@ function removeAllSlides() {
   swiper.removeSlide(slidesIndexes);
 }
 
-// node_modules/swiper/modules/manipulation/manipulation.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/manipulation/manipulation.js
 function Manipulation(_ref) {
   let {
     swiper
@@ -8548,7 +8548,7 @@ function Manipulation(_ref) {
   });
 }
 
-// node_modules/swiper/shared/effect-init.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/effect-init.js
 function effectInit(params) {
   const {
     effect,
@@ -8611,7 +8611,7 @@ function effectInit(params) {
   });
 }
 
-// node_modules/swiper/shared/effect-target.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/effect-target.js
 function effectTarget(effectParams, $slideEl) {
   if (effectParams.transformEl) {
     return $slideEl.find(effectParams.transformEl).css({
@@ -8622,7 +8622,7 @@ function effectTarget(effectParams, $slideEl) {
   return $slideEl;
 }
 
-// node_modules/swiper/shared/effect-virtual-transition-end.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/effect-virtual-transition-end.js
 function effectVirtualTransitionEnd(_ref) {
   let {
     swiper,
@@ -8658,7 +8658,7 @@ function effectVirtualTransitionEnd(_ref) {
   }
 }
 
-// node_modules/swiper/modules/effect-fade/effect-fade.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/effect-fade/effect-fade.js
 function EffectFade(_ref) {
   let {
     swiper,
@@ -8723,7 +8723,7 @@ function EffectFade(_ref) {
   });
 }
 
-// node_modules/swiper/modules/effect-cube/effect-cube.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/effect-cube/effect-cube.js
 function EffectCube(_ref) {
   let {
     swiper,
@@ -8893,7 +8893,7 @@ function EffectCube(_ref) {
   });
 }
 
-// node_modules/swiper/shared/create-shadow.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/shared/create-shadow.js
 function createShadow(params, $slideEl, side) {
   const shadowClass = `swiper-slide-shadow${side ? `-${side}` : ""}`;
   const $shadowContainer = params.transformEl ? $slideEl.find(params.transformEl) : $slideEl;
@@ -8905,7 +8905,7 @@ function createShadow(params, $slideEl, side) {
   return $shadowEl;
 }
 
-// node_modules/swiper/modules/effect-flip/effect-flip.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/effect-flip/effect-flip.js
 function EffectFlip(_ref) {
   let {
     swiper,
@@ -9010,7 +9010,7 @@ function EffectFlip(_ref) {
   });
 }
 
-// node_modules/swiper/modules/effect-coverflow/effect-coverflow.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/effect-coverflow/effect-coverflow.js
 function EffectCoverflow(_ref) {
   let {
     swiper,
@@ -9109,7 +9109,7 @@ function EffectCoverflow(_ref) {
   });
 }
 
-// node_modules/swiper/modules/effect-creative/effect-creative.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/effect-creative/effect-creative.js
 function EffectCreative(_ref) {
   let {
     swiper,
@@ -9244,7 +9244,7 @@ function EffectCreative(_ref) {
   });
 }
 
-// node_modules/swiper/modules/effect-cards/effect-cards.js
+// node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/modules/effect-cards/effect-cards.js
 function EffectCards(_ref) {
   let {
     swiper,

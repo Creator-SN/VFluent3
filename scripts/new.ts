@@ -114,7 +114,6 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
         const pinia = createPinia();
         app.use(pinia);
         app.use(UtilsPlugin);
-        app.config.globalProperties.$SUtility = SUtility;
         for (const component of components) {
             app.use(component);
         }

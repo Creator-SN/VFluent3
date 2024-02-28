@@ -3,7 +3,7 @@ import {
   isVue2,
   isVue3,
   set
-} from "./chunk-6NMAXBHK.js";
+} from "./chunk-YBSDT2V7.js";
 import {
   Fragment,
   TransitionGroup,
@@ -39,10 +39,10 @@ import {
   version,
   watch,
   watchEffect
-} from "./chunk-XJZ34XUT.js";
+} from "./chunk-ONAFGLLO.js";
 import "./chunk-Y2F7D3TJ.js";
 
-// node_modules/@vueuse/shared/index.mjs
+// node_modules/.pnpm/@vueuse+shared@10.9.0_vue@3.4.20/node_modules/@vueuse/shared/index.mjs
 function computedEager(fn, options) {
   var _a;
   const result = shallowRef();
@@ -1521,17 +1521,24 @@ function getOldValue(source) {
   return Array.isArray(source) ? source.map(() => void 0) : void 0;
 }
 function whenever(source, cb, options) {
-  return watch(
+  const stop = watch(
     source,
     (v, ov, onInvalidate) => {
-      if (v)
+      if (v) {
+        if (options == null ? void 0 : options.once)
+          nextTick(() => stop());
         cb(v, ov, onInvalidate);
+      }
     },
-    options
+    {
+      ...options,
+      once: false
+    }
   );
+  return stop;
 }
 
-// node_modules/@vueuse/core/index.mjs
+// node_modules/.pnpm/@vueuse+core@10.9.0_vue@3.4.20/node_modules/@vueuse/core/index.mjs
 function computedAsync(evaluationCallback, initialState, optionsOrRef) {
   let options;
   if (isRef(optionsOrRef)) {
@@ -1996,18 +2003,19 @@ function useActiveElement(options = {}) {
     }
     return element;
   };
-  const activeElement = computedWithControl(
-    () => null,
-    () => getDeepActiveElement()
-  );
+  const activeElement = ref();
+  const trigger = () => {
+    activeElement.value = getDeepActiveElement();
+  };
   if (window2) {
     useEventListener(window2, "blur", (event) => {
       if (event.relatedTarget !== null)
         return;
-      activeElement.trigger();
+      trigger();
     }, true);
-    useEventListener(window2, "focus", activeElement.trigger, true);
+    useEventListener(window2, "focus", trigger, true);
   }
+  trigger();
   return activeElement;
 }
 function useMounted() {
@@ -2016,7 +2024,7 @@ function useMounted() {
   if (instance) {
     onMounted(() => {
       isMounted.value = true;
-    }, instance);
+    }, isVue2 ? null : instance);
   }
   return isMounted;
 }
@@ -2927,7 +2935,7 @@ function useClipboard(options = {}) {
   const copied = ref(false);
   const timeout = useTimeoutFn(() => copied.value = false, copiedDuring);
   function updateText() {
-    if (isClipboardApiSupported.value && permissionRead.value !== "denied") {
+    if (isClipboardApiSupported.value && isAllowed(permissionRead.value)) {
       navigator.clipboard.readText().then((value) => {
         text.value = value;
       });
@@ -2939,7 +2947,7 @@ function useClipboard(options = {}) {
     useEventListener(["copy", "cut"], updateText);
   async function copy(value = toValue(source)) {
     if (isSupported.value && value != null) {
-      if (isClipboardApiSupported.value && permissionWrite.value !== "denied")
+      if (isClipboardApiSupported.value && isAllowed(permissionWrite.value))
         await navigator.clipboard.writeText(value);
       else
         legacyCopy(value);
@@ -2961,6 +2969,9 @@ function useClipboard(options = {}) {
   function legacyRead() {
     var _a, _b, _c;
     return (_c = (_b = (_a = document == null ? void 0 : document.getSelection) == null ? void 0 : _a.call(document)) == null ? void 0 : _b.toString()) != null ? _c : "";
+  }
+  function isAllowed(status) {
+    return status === "granted" || status === "prompt";
   }
   return {
     isSupported,
@@ -3129,30 +3140,29 @@ function useStorage(key, defaults2, storage, options = {}) {
   }
   if (!initOnMounted)
     update();
-  return data;
+  function dispatchWriteEvent(oldValue, newValue) {
+    if (window2) {
+      window2.dispatchEvent(new CustomEvent(customStorageEventName, {
+        detail: {
+          key,
+          oldValue,
+          newValue,
+          storageArea: storage
+        }
+      }));
+    }
+  }
   function write(v) {
     try {
       const oldValue = storage.getItem(key);
-      const dispatchWriteEvent = (newValue) => {
-        if (window2) {
-          window2.dispatchEvent(new CustomEvent(customStorageEventName, {
-            detail: {
-              key,
-              oldValue,
-              newValue,
-              storageArea: storage
-            }
-          }));
-        }
-      };
       if (v == null) {
-        dispatchWriteEvent(null);
+        dispatchWriteEvent(oldValue, null);
         storage.removeItem(key);
       } else {
         const serialized = serializer.write(v);
         if (oldValue !== serialized) {
           storage.setItem(key, serialized);
-          dispatchWriteEvent(serialized);
+          dispatchWriteEvent(oldValue, serialized);
         }
       }
     } catch (e) {
@@ -3178,9 +3188,6 @@ function useStorage(key, defaults2, storage, options = {}) {
       return serializer.read(rawValue);
     }
   }
-  function updateFromCustomEvent(event) {
-    update(event.detail);
-  }
   function update(event) {
     if (event && event.storageArea !== storage)
       return;
@@ -3203,6 +3210,10 @@ function useStorage(key, defaults2, storage, options = {}) {
         resumeWatch();
     }
   }
+  function updateFromCustomEvent(event) {
+    update(event.detail);
+  }
+  return data;
 }
 function usePreferredDark(options) {
   return useMediaQuery("(prefers-color-scheme: dark)", options);
@@ -6842,13 +6853,12 @@ var elInitialOverflow = /* @__PURE__ */ new WeakMap();
 function useScrollLock(element, initialState = false) {
   const isLocked = ref(initialState);
   let stopTouchMoveListener = null;
-  let initialOverflow;
   watch(toRef2(element), (el) => {
     const target = resolveElement(toValue(el));
     if (target) {
       const ele = target;
       if (!elInitialOverflow.get(ele))
-        elInitialOverflow.set(ele, initialOverflow);
+        elInitialOverflow.set(ele, ele.style.overflow);
       if (isLocked.value)
         ele.style.overflow = "hidden";
     }
