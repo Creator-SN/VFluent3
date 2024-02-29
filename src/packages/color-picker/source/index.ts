@@ -14,6 +14,10 @@ export const colorPickerProps = {
     modelValue: {
         type: [String],
     },
+    foreground: {
+        type: [String],
+        default: '',
+    },
     type: {
         type: [String],
         default: 'box',
@@ -47,18 +51,29 @@ export const useColorPicker = (
         'rgb(255, 0, 153)',
         'rgb(255, 0, 0)',
     ];
-    const colorModeOptions = [
-        {
-            key: 'HSV',
-        },
-        {
-            key: 'RGB',
-        },
-    ];
+    const colorModeOptions: Array<{
+        key: string;
+        text: string;
+    }> = [
+            {
+                key: 'HSV',
+                text: 'HSV',
+            },
+            {
+                key: 'RGB',
+                text: 'RGB',
+            },
+        ];
     const colorArea = ref<HTMLElement>();
     const colorValue = ref<HTMLElement>();
     const colorAlpha = ref<HTMLElement>();
-    const colorMode = ref<'HSV' | 'RGB'>('RGB');
+    const colorMode = ref<{
+        key: string;
+        text: string;
+    }>({
+        key: 'RGB',
+        text: 'RGB',
+    });
     const color = ref('#000000FF');
     const r = ref('0');
     const g = ref('0');

@@ -42,6 +42,7 @@
                 :mask="mask"
                 :flag="flag"
                 :pattern="pattern"
+                :inputRules="inputRules"
                 :readonly="readonly"
                 :maxlength="maxlength"
                 :disabled="disabled"
@@ -49,7 +50,7 @@
                 :fontWeight="fontWeight"
                 :foreground="foreground"
                 :textAlign="textAlign"
-                :v-model:focus="isFocus"
+                v-model:focus="isFocus"
                 @keydown="$emit('keydown', $event)"
                 @keyup="$emit('keyup', $event)"
                 @change="$emit('change', $event)"
@@ -89,7 +90,8 @@ export default {
         'change',
         'paste',
         'left-icon-click',
-        'icon-click'
+        'icon-click',
+        'click'
     ],
     props: {
         ...textBoxProps,
@@ -119,6 +121,10 @@ export default {
         pattern: {
             type: String,
             default: '[Ss]*'
+        },
+        inputRules: {
+            type: String,
+            default: '[\S\s]*'
         },
         readonly: {
             default: false

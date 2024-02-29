@@ -297,7 +297,8 @@ Customize background
 |         type          |       String       |       No       |      text       |                            等同HTML[input]                            |
 |         mask          |       String       |       No       |    mask:___     |                     The mask mode input template                      |
 |         flag          |       String       |       No       |        _        |                       The mask mode input flag                        |
-|        pattern        |       String       |       No       |     [\S\s]*     |                  The pattern for limiting input char                  |
+|        pattern        |       String       |       No       |     [\S\s]*     |                          输入字符的正则限制                           |
+|      inputRules       |       String       |       No       |     [\S\s]*     |                 输入文本的正则限制, 在Mask模式下无效                  |
 |       readonly        |      Boolean       |       No       |      false      |                            等同HTML[input]                            |
 |       maxlength       |       Number       |       No       |       N/A       |                            等同HTML[input]                            |
 |        prefix         |       String       |       No       |       N/A       |                                 前缀                                  |

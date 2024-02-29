@@ -43,8 +43,8 @@
                 <div
                     v-for="(item, index) in options"
                     class="fv-combobox-item"
-                    :class="{hr:valueTrigger(item.type) == 'divider', normal: (valueTrigger(item.type) == 'default' || valueTrigger(item.type) == undefined) && !valueTrigger(item.disabled), disabled: valueTrigger(item.disabled), choose: item === thisValue, title: valueTrigger(item.type) == 'header'}"
-                    :style="{height: `${itemHeight}px`, background: item === thisValue ? choosenBackground : '', color: valueTrigger(item.type) === 'header' ? titleForeground : ''}"
+                    :class="{hr:valueTrigger(item.type) == 'divider', normal: (valueTrigger(item.type) == 'default' || valueTrigger(item.type) == undefined) && !valueTrigger(item.disabled), disabled: valueTrigger(item.disabled), choose: item.key === thisValue.key, title: valueTrigger(item.type) == 'header'}"
+                    :style="{height: `${itemHeight}px`, background: item.key === thisValue.key ? choosenBackground : '', color: valueTrigger(item.type) === 'header' ? titleForeground : ''}"
                     @click="Choose($event, item)"
                     :key="index"
                     :title="valueTrigger(item.text)"

@@ -1,58 +1,58 @@
 {
-  "hash": "30f87ba2",
-  "configHash": "dd5d0992",
-  "lockfileHash": "69f0fe9f",
-  "browserHash": "745c5efc",
+  "hash": "fb8eb9d2",
+  "configHash": "6e5ab9e3",
+  "lockfileHash": "1eb793dc",
+  "browserHash": "3babde93",
   "optimized": {
     "vue": {
-      "src": "../../../../node_modules/.pnpm/vue@3.4.20_typescript@4.9.5/node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "bd36627e",
+      "fileHash": "b9566064",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
-      "src": "../../../../node_modules/.pnpm/@vue+devtools-api@7.0.15_vue@3.4.20/node_modules/@vue/devtools-api/dist/index.js",
+      "src": "../../../../node_modules/vitepress/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "42873f4f",
+      "fileHash": "1dcf9026",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
-      "src": "../../../../node_modules/.pnpm/@vueuse+core@10.9.0_vue@3.4.20/node_modules/@vueuse/core/index.mjs",
+      "src": "../../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "bea1b6fa",
+      "fileHash": "8c46beae",
       "needsInterop": false
     },
     "pinia": {
-      "src": "../../../../node_modules/.pnpm/pinia@2.1.7_typescript@4.9.5_vue@3.4.20/node_modules/pinia/dist/pinia.mjs",
+      "src": "../../../../node_modules/pinia/dist/pinia.mjs",
       "file": "pinia.js",
-      "fileHash": "f4e7baab",
+      "fileHash": "51f4675c",
       "needsInterop": false
     },
-    "onecolor": {
-      "src": "../../../../node_modules/.pnpm/onecolor@3.1.0/node_modules/onecolor/index.js",
-      "file": "onecolor.js",
-      "fileHash": "98967b29",
-      "needsInterop": true
-    },
     "gsap": {
-      "src": "../../../../node_modules/.pnpm/gsap@3.1.1/node_modules/gsap/index.js",
+      "src": "../../../../node_modules/gsap/index.js",
       "file": "gsap.js",
-      "fileHash": "04f8fbfc",
+      "fileHash": "0471b5f8",
       "needsInterop": false
     },
     "swiper": {
-      "src": "../../../../node_modules/.pnpm/swiper@8.3.2/node_modules/swiper/swiper.esm.js",
+      "src": "../../../../node_modules/swiper/swiper.esm.js",
       "file": "swiper.js",
-      "fileHash": "8c7ad95a",
+      "fileHash": "df5a015f",
       "needsInterop": false
+    },
+    "onecolor": {
+      "src": "../../../../node_modules/onecolor/index.js",
+      "file": "onecolor.js",
+      "fileHash": "a50bd2fb",
+      "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-YBSDT2V7": {
-      "file": "chunk-YBSDT2V7.js"
+    "chunk-6NMAXBHK": {
+      "file": "chunk-6NMAXBHK.js"
     },
-    "chunk-ONAFGLLO": {
-      "file": "chunk-ONAFGLLO.js"
+    "chunk-XJZ34XUT": {
+      "file": "chunk-XJZ34XUT.js"
     },
     "chunk-Y2F7D3TJ": {
       "file": "chunk-Y2F7D3TJ.js"

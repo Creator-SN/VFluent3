@@ -103,7 +103,7 @@
         transform 0.3s ease-out;
 }
 
-.fv-callout-fade-enter {
+.fv-callout-fade-enter-from {
     transform: scale(0);
     opacity: 0;
     &.bottomCenter {
@@ -177,7 +177,7 @@
     transition: transform 0.3s ease-out;
 }
 
-.fv-callout-fade-leave {
+.fv-callout-fade-leave-from {
     transform: scale(1);
     &.bottomCenter {
         transform: translate(-50%, 0) scale(1);

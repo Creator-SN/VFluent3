@@ -15,7 +15,6 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - uses: pnpm/action-setup@v2
               with:
                   version: 6.32.9
 
@@ -23,13 +22,13 @@ jobs:
               with:
                   node-version: 16
                   registry-url: https://registry.npmjs.org/
-                  cache: 'pnpm'
+                  cache: 'yarn'
 
             - name: 🚓loading denpendencies
-              run: pnpm i --frozen-lockfile
+              run: yarn i --frozen-lockfile
 
             - name: 🚕build docs
-              run: pnpm docs:build
+              run: yarn docs:build
 
             - name: 🚄deploy docs
               uses: peaceiris/actions-gh-pages@v3

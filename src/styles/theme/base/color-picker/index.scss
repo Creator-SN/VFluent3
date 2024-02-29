@@ -182,8 +182,10 @@
                     margin: 10px 0px;
                     .cell {
                         min-width: 180px;
-                        .text {
-                            padding: 0 10px;
+                        .fv-color-picker-text {
+                            margin: 5px 0px;
+                            font-size: 12px;
+                            font-weight: bold;
                         }
                     }
                 }

@@ -1,8 +1,47 @@
 <template>
-<div class="text-box-container">
-    <input v-if="mode == 'default'" v-model="thisValue" :inputmode="inputmode" :type="type" :placeholder="placeholder" class="fv-text-box-input" :readonly="isReadOnly" :disabled="isDisabled" :maxlength="maxlength" ref="input" :style="{'font-size': `${fontSize}px`, 'font-weight': fontWeight, color: foreground, 'text-align': textAlign}" @keydown="keyDown" @keyup="$emit('keyup', $event)" @change="$emit('change', $event)" @paste="$emit('paste', $event)" @focus="$emit('update:focus', true)" @blur="$emit('update:focus', false)"/>
-    <mask-input v-if="mode == 'mask'" ref="mask_input" v-model="thisMaskValue" :inputmode="inputmode" :type="type" :placeholder="placeholder" :mask="mask" :flag="flag" :pattern="pattern" :readonly="isReadOnly" :disabled="isDisabled" :fontSize="fontSize" :fontWeight="fontWeight" :textAlign="textAlign" @keydown="$emit('keydown', $event)" @keyup="$emit('keyup', $event)" @change="$emit('change', $event)" @paste="$emit('paste', $event)" @focus="$emit('update:focus', true)" @blur="$emit('update:focus', false)"></mask-input>
-</div>
+    <div class="text-box-container">
+        <input
+            v-if="mode == 'default'"
+            v-model="thisValue"
+            :inputmode="inputmode"
+            :type="type"
+            :placeholder="placeholder"
+            class="fv-text-box-input"
+            :readonly="isReadOnly"
+            :disabled="isDisabled"
+            :maxlength="maxlength"
+            ref="input"
+            :style="{'font-size': `${fontSize}px`, 'font-weight': fontWeight, color: foreground, 'text-align': textAlign}"
+            @keydown="keyDown"
+            @keyup="$emit('keyup', $event)"
+            @change="$emit('change', $event)"
+            @paste="$emit('paste', $event)"
+            @focus="$emit('update:focus', true)"
+            @blur="$emit('update:focus', false)"
+        />
+        <mask-input
+            v-if="mode == 'mask'"
+            ref="mask_input"
+            v-model="thisMaskValue"
+            :inputmode="inputmode"
+            :type="type"
+            :placeholder="placeholder"
+            :mask="mask"
+            :flag="flag"
+            :pattern="pattern"
+            :readonly="isReadOnly"
+            :disabled="isDisabled"
+            :fontSize="fontSize"
+            :fontWeight="fontWeight"
+            :textAlign="textAlign"
+            @keydown="$emit('keydown', $event)"
+            @keyup="$emit('keyup', $event)"
+            @change="$emit('change', $event)"
+            @paste="$emit('paste', $event)"
+            @focus="$emit('update:focus', true)"
+            @blur="$emit('update:focus', false)"
+        ></mask-input>
+    </div>
 </template>
 
 <script>
@@ -13,34 +52,47 @@ export default {
     components: {
         maskInput
     },
-    emits: ['update:modelValue', 'update:focus', 'keydown', 'keyup', 'change', 'paste'],
+    emits: [
+        'update:modelValue',
+        'update:focus',
+        'keydown',
+        'keyup',
+        'change',
+        'paste',
+        'focus',
+        'blur'
+    ],
     props: {
         modelValue: {
-            default: ""
+            default: ''
         },
         mode: {
-            default: "default"
+            default: 'default'
         },
         inputmode: {
-            default: "text"
+            default: 'text'
         },
         placeholder: {
-            default: ""
+            default: ''
         },
         type: {
-            default: "text"
+            default: 'text'
         },
         mask: {
             type: String,
-            default: "mask:___"
+            default: 'mask:___'
         },
         flag: {
             type: String,
-            default: "_"
+            default: '_'
         },
         pattern: {
             type: String,
-            default: "[\S\s]*"
+            default: '[\S\s]*'
+        },
+        inputRules: {
+            type: String,
+            default: '[\S\s]*'
         },
         readonly: {
             default: false
@@ -61,80 +113,87 @@ export default {
             default: 'normal'
         },
         foreground: {
-            default: ""
+            default: ''
         },
         textAlign: {
             default: 'left'
         },
         theme: {
             type: String,
-            default: "global"
+            default: 'global'
         }
     },
-    data () {
+    data() {
         return {
-            thisValue: (typeof(this.modelValue)).toString() == 'string' ? this.modelValue : '',
-            thisMaskValue: (typeof(this.modelValue)).toString() == 'object' ? this.modelValue : [],
-            thisPattern: new RegExp(this.partten)
+            thisValue:
+                (typeof this.modelValue).toString() == 'string'
+                    ? this.modelValue
+                    : '',
+            thisMaskValue:
+                (typeof this.modelValue).toString() == 'object'
+                    ? this.modelValue
+                    : [],
+            thisPattern: new RegExp(this.partten),
+            thisInputRules: new RegExp(this.inputRules)
         };
     },
     watch: {
-        modelValue (val) {
-            if((typeof(val)).toString() == 'string')
-                this.thisValue = val;
-            else
-                this.thisMaskValue = val;
+        modelValue(val) {
+            if ((typeof val).toString() == 'string') this.thisValue = val;
+            else this.thisMaskValue = val;
         },
-        mode (val) {
-            if(val == 'default')
-                this.thisValue = "";
-            else
-                this.thisMaskValue = [];
+        mode(val) {
+            if (val == 'default') this.thisValue = '';
+            else this.thisMaskValue = [];
         },
-        thisValue (val) {
-            this.$emit("update:modelValue", val);
+        thisValue(val, oldVal) {
+            if (!val || this.thisInputRules.test(val))
+                this.$emit('update:modelValue', val);
+            else val = oldVal;
         },
-        thisMaskValue (val) {
-            this.$emit("update:modelValue", val);
+        thisMaskValue(val) {
+            this.$emit('update:modelValue', val);
         },
-        pattern (val) {
+        pattern(val) {
             this.thisPattern = new RegExp(val);
+        },
+        inputRules(val) {
+            this.thisInputRules = new RegExp(val);
         }
     },
     computed: {
         $theme() {
             return useTheme(this.$props).theme.value;
         },
-        isReadOnly () {
+        isReadOnly() {
             return (
-                this.readonly.toString() == "true" ||
-                this.readonly == "readonly" ||
-                this.readonly === ""
+                this.readonly.toString() == 'true' ||
+                this.readonly == 'readonly' ||
+                this.readonly === ''
             );
         },
-        isDisabled () {
+        isDisabled() {
             return (
-                this.disabled.toString() == "true" ||
-                this.disabled == "disabled" ||
-                this.disabled === ""
+                this.disabled.toString() == 'true' ||
+                this.disabled == 'disabled' ||
+                this.disabled === ''
             );
         }
     },
-    mounted () {
+    mounted() {
         this.thisPattern = new RegExp(this.pattern);
+        this.thisInputRules = new RegExp(this.inputRules);
     },
     methods: {
-        keyDown (event) {
-            this.$emit("keydown", event);
-            if(!event.key) return;
-            if(!this.thisPattern.test(event.key))
-                event.preventDefault();
+        keyDown(event) {
+            this.$emit('keydown', event);
+            if (!event.key) return;
+            if (event.key.length > 1) return;
+            if (!this.thisPattern.test(event.key)) event.preventDefault();
         },
-        focusInspect () {
-            if(this.mode == 'mask')
-                this.$refs.mask_input.focusInspect();
-            else
-                this.$refs.input.focus();
+        focusInspect() {
+            if (this.mode == 'mask') this.$refs.mask_input.focusInspect();
+            else this.$refs.input.focus();
         }
     }
 };
