@@ -64,7 +64,7 @@ beak:
 
 <fv-slider v-model="beak" :color="color" :mininum="9" :maxinum="30"  :showLabel="true">
 <template v-slot:default="x">
-  <span>?px</span>
+  <span>{{x}} px</span>
 </template>
 </fv-slider>
 
@@ -72,7 +72,7 @@ space:
 
 <fv-slider v-model="space" :color="color" :scale="10" :maxinum="30" :showLabel="true">
 <template v-slot:default="x">
-  <span>?px</span>
+  <span>{{x}} px</span>
 </template>
 </fv-slider>
 

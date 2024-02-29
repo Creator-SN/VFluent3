@@ -6,3 +6,4 @@ export * from './dom';
 export * from './color';
 export * from './tools';
 export * from './events';
+export * from "./slot"

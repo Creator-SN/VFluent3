@@ -1,5 +1,5 @@
 import { commonPropsType } from '@/packages/common/props';
-import { ComponentInternalInstance, computed, ExtractPropTypes, ModelRef, ref, Slots, StyleValue, useSlots } from 'vue';
+import { ComponentInternalInstance, computed, ExtractPropTypes, ModelRef, ref, Slots, StyleValue, useSlots, VNode } from 'vue';
 import { EmitFn } from '@/types/components';
 import {getBoundingClientRect} from "@/utils/common/dom"
 
@@ -55,7 +55,6 @@ export const useCallout = (props: CalloutProps, emits: EmitFn<CalloutEmits>, vis
     const adjustPopperPosition=(position: Position)=> {
         if (targetElement.value===undefined || popper.value===undefined) return;
         const rect = getBoundingClientRect(popper.value);
-        console.log(rect)
         const { width, height } = rect;
         let startIndex = positionName.indexOf(position);
         let positionPriority = [];
@@ -160,6 +159,7 @@ export const useCallout = (props: CalloutProps, emits: EmitFn<CalloutEmits>, vis
 
     const setPopperPosition=(position: Position) =>{
         const target = getBoundingClientRect(targetElement.value);
+        beak.value = {}
         if (props.beak===undefined || props.beak<10){
             beak.value.display = "none"
         }else{

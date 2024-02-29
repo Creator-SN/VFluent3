@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { CalloutProps, useCallout, CalloutEmits } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { ClassBuilder, StyleBuilder, useTheme, createRefSlot } from '@/utils/common';
 import { StyleValue, computed, onMounted, ref, useSlots, getCurrentInstance, onBeforeUnmount } from 'vue';
 
 defineOptions({
@@ -28,11 +28,18 @@ const emits = defineEmits()
 
 const visible = defineModel<boolean|undefined>()
 
+const slots = useSlots()
+const slotRef = ref(null)
+const Slot = createRefSlot(slots)
+
 const {popperShow, beak, callout, calloutClass, initTargetEvents, windowEvents, targetEvents, targetElement,popperEvents,popper } = useCallout(props, emits, visible)
 
 onMounted(()=>{
     const instance = getCurrentInstance()
     if (instance!==null){
+        if (slotRef.value!==null)
+            targetElement.value = (slotRef.value as any).$el
+        // targetElement.value = slotVnode.value?.root
         initTargetEvents(instance)
         for (const evt in windowEvents) {
             window.addEventListener(evt, windowEvents[evt])
@@ -71,10 +78,7 @@ defineExpose({popperShow, popperEvents})
 </script>
 
 <template>
-    <div ref="targetElement">
-        <slot>
-        </slot>
-    </div>
+    <Slot ref="slotRef"></Slot>
     <Teleport to="body">
         <transition name="fv-callout-fade">
             <div ref="popper" :style="[callout as StyleValue, props.popperStyle]" :class="[`fv-Callout`, theme, props.popperClass, calloutClass]" name="fv-callout" v-show="popperShow">
