@@ -25,7 +25,7 @@ jobs:
                   cache: 'yarn'
 
             - name: 🚓loading denpendencies
-              run: yarn --frozen-lockfile
+              run: yarn
 
             - name: 🚕build docs
               run: yarn docs:build
