@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { CalloutProps, useCallout, CalloutEmits } from '.';
+import { CalloutProps, useCallout, CalloutEmits, calloutProps } from '.';
 import { ClassBuilder, StyleBuilder, useTheme, createRefSlot } from '@/utils/common';
 import { StyleValue, computed, onMounted, ref, useSlots, getCurrentInstance, onBeforeUnmount } from 'vue';
 
@@ -7,20 +7,7 @@ defineOptions({
     name:"FvCallout"
 })
 
-const props = withDefaults(defineProps<CalloutProps>(),{
-    theme: 'global',
-    disabled: false,
-    space: 0,
-    beak: 10,
-    position: 'bottomCenter',
-    lockScroll: false,
-    focusTrap: false,
-    delayClose: 0,
-    effect: 'click',
-    popperStyle: ()=>({}),
-    popperClass: ()=>[],
-    keepalive: false
-})
+const props = defineProps(calloutProps)
 
 const { theme } = useTheme(props)
 

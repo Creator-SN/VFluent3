@@ -1,22 +1,56 @@
-import { commonPropsType } from '@/packages/common/props';
+import { commonProps, commonPropsType } from '@/packages/common/props';
 import { ComponentInternalInstance, computed, ExtractPropTypes, ModelRef, ref, Slots, StyleValue, useSlots, VNode } from 'vue';
 import { EmitFn } from '@/types/components';
 import {getBoundingClientRect} from "@/utils/common/dom"
 
-type Position = 'bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight' | 'leftTop' | 'leftCenter' | 'leftBottom' | 'rightTop' | 'rightCenter' | 'rightBottom'
+type Position = 'bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight' | 'leftTop' | 'leftCenter' | 
+'leftBottom' | 'rightTop' | 'rightCenter' | 'rightBottom'
 
-export type CalloutProps = commonPropsType & {
-    space?: number;
-    beak?: number;
-    position?: Position,
-    lockScroll?: boolean,
-    focusTrap?: boolean,
-    delayClose?: number,
-    effect?: 'hover' | 'click' | 'always',
-    popperStyle?: Record<string,string>,
-    popperClass?: Array<string | Record<string,string>>
-    keepalive?: boolean
-};
+export const calloutProps = {
+    ...commonProps,
+    space:{
+        type: Number,
+        default: 0
+    },
+    beak:{
+        type: Number,
+        default: 0
+    },
+    position:{
+        type: String as ()=>Position,
+        default: 'bottomCenter'
+    },
+    lockScroll:{
+        type: Boolean,
+        default: true
+    },
+    focusTrap:{
+        type: Boolean,
+        default: true
+    },
+    delayClose:{
+        type: Number,
+        default: 0
+    },
+    effect:{
+        type: String as ()=>('hover' | 'click' | 'always'),
+        default: 'hover'
+    },
+    popperStyle:{
+        type: Object as ()=>Record<string,string>,
+        default: ()=>({})
+    },
+    popperClass:{
+        type: Array as ()=>Array<string | Record<string,string>>,
+        default: ()=>[]
+    },
+    keepalive:{
+        type: Boolean,
+        default: false
+    }
+}
+
+export type CalloutProps = ExtractPropTypes<typeof calloutProps>
 
 export const calloutEmits = {}
 
