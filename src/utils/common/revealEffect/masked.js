@@ -70,15 +70,13 @@ class RevealHelper {
                         if (cur >= 1000) clearInterval(elObj.clickWave);
                         else {
                             elObj.wave = cur;
-                            backgroundLight = `radial-gradient(circle ${this.valueTrigger(elObj.options.backgroundGradientSize)}px at ${elObj.revealPosition.x}px ${
-                                elObj.revealPosition.y
-                            }px, ${this.valueTrigger(elObj.options.backgroundLightColor)}, rgba(255,255,255,0)), radial-gradient(circle ${elObj.wave}px at ${elObj.revealPosition.x}px ${
-                                elObj.revealPosition.y
-                            }px, rgba(255,255,255,0), ${this.valueTrigger(elObj.options.backgroundLightColor)}, rgba(255,255,255,0), rgba(255,255,255,0))`;
+                            backgroundLight = `radial-gradient(circle ${this.valueTrigger(elObj.options.backgroundGradientSize)}px at ${elObj.revealPosition.x}px ${elObj.revealPosition.y
+                                }px, ${this.valueTrigger(elObj.options.backgroundLightColor)}, rgba(255,255,255,0)), radial-gradient(circle ${elObj.wave}px at ${elObj.revealPosition.x}px ${elObj.revealPosition.y
+                                }px, rgba(255,255,255,0), ${this.valueTrigger(elObj.options.backgroundLightColor)}, rgba(255,255,255,0), rgba(255,255,255,0))`;
                             elObj.el.style.backgroundImage = backgroundLight;
                             elObj.el.style.backgroundRepeat = 'no-repeat';
                         }
-                    } catch (e) {}
+                    } catch (e) { }
                 }, 50);
             } else {
                 clearInterval(elObj.clickWave);
@@ -197,6 +195,7 @@ export class RevealMasked {
         this.FvRevealElementList = {
             window: {},
         };
+        this.windowEventBinded = false;
         this.applyCommonEffects();
         this.timer = setInterval(() => {
             for (let key in this.FvRevealElementList['window']) {
@@ -237,6 +236,7 @@ export class RevealMasked {
                 targetChildren: this.getChildrenX(targetChildren, options),
                 maskedChildren: this.getChildrenX(maskedChildren, options, 'masked'),
             };
+            this.applyCommonEffects();
         } else {
             this.FvRevealElementList[options.key] = {
                 key: options.key,
@@ -326,9 +326,13 @@ export class RevealMasked {
     }
 
     applyCommonEffects(key = 'window') {
+        // if it's not in the browser environment, return
+        if (typeof global !== 'undefined') return;
         let target = undefined;
         if (window !== undefined) {
             target = window;
+            if (this.windowEventBinded) return;
+            this.windowEventBinded = true;
         }
         if (key != 'window') target = this.FvRevealElementList[key].el;
         if (target === undefined) {
