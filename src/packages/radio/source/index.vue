@@ -1,7 +1,7 @@
 <template>
     <div
         class="fv-Radio"
-        :class="[$theme, {'with-icon':this.icon || this.image},{actived:isActived},{disabled:isDisabled}]"
+        :class="[$theme, {'with-icon':icon || image},{actived:isActived},{disabled:isDisabled}]"
         @click="click"
         :style="{
             'border-color': isActived ? foreground : '',
@@ -28,7 +28,7 @@
             <i
                 v-else-if="icon"
                 class="with-icon ms-Icon"
-                :class="'ms-Icon--'+this.icon"
+                :class="'ms-Icon--'+icon"
             ></i>
             <span>
                 <slot></slot>
