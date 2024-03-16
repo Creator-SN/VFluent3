@@ -67,7 +67,7 @@
     "typescript": "^4.9.5",
     "unplugin-vue-define-options": "^0.6.2",
     "vite": "^3.2.8",
-    "vitepress": "1.0.0-rc.44",
+    "vitepress": "1.0.0-rc.45",
     "vue-tsc": "^0.38.9"
   },
   "pnpm": {
