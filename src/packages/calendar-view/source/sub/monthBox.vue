@@ -40,6 +40,7 @@ export default {
     },
     setup () {
         const uR = useRevealCache();
+        uR.initRevealInstances();
 
         return {
             uR
