@@ -69,10 +69,10 @@ defineExpose({popperShow, popperEvents})
     <Teleport to="body">
         <transition name="fv-callout-fade">
             <div ref="popper" :style="[callout as StyleValue, props.popperStyle]" :class="[`fv-Callout`, theme, props.popperClass, calloutClass]" name="fv-callout" v-show="popperShow">
-                <div class="fv-callout-bg" />
-                <div class="beak" :style="(beak as StyleValue)" />
+                <div class="fv-callout-bg" ></div>
+                <div class="beak" :style="(beak as StyleValue)" ></div>
                 <div class="header">
-                    <slot name="header" />
+                    <slot name="header" ></slot>
                 </div>
                 <div class="main">
                     <slot name="main"></slot>
