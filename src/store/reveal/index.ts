@@ -12,15 +12,13 @@ export const useRevealCache = defineStore('RevealCache', {
         //[{id: String, moveHandler: Function, leaveHandler: Function}], for revealContainer
         revealHandlerList: new Array<RevealHandler>(),
         // for globalReveal
-        revealDirectJs: undefined,
-        revealMaskedJs: undefined
+        revealDirectJs: new RevealDirect(),
+        revealMaskedJs: new RevealMasked(),
     }),
     actions: {
         initRevealInstances() {
-            if (!this.revealDirectJs)
-                this.revealDirectJs = new RevealDirect()
-            if (!this.revealMaskedJs)
-                this.revealMaskedJs = new RevealMasked()
+            this.revealDirectJs.init();
+            this.revealMaskedJs.init();
         },
         setRevealHandler(revealHandler: RevealHandler) {
             this.revealHandlerList.push(revealHandler);

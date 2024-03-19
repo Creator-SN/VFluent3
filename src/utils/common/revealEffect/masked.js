@@ -196,6 +196,11 @@ export class RevealMasked {
             window: {},
         };
         this.windowEventBinded = false;
+        this.initStatus = false;
+    }
+
+    init() {
+        if (this.initStatus) return;
         this.applyCommonEffects();
         this.timer = setInterval(() => {
             for (let key in this.FvRevealElementList['window']) {
@@ -207,6 +212,7 @@ export class RevealMasked {
                 }
             }
         }, 1000);
+        this.initStatus = true;
     }
 
     apply(parent, options) {
