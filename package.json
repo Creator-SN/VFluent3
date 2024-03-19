@@ -11,8 +11,10 @@
   "exports": {
     ".": {
       "import": "./dist/vfluent3.js",
-      "require": "./dist/vfluent3.umd.cjs"
-    }
+      "require": "./dist/vfluent3.umd.cjs",
+      "types": "./dist/types/packages/index.d.ts"
+    },
+    "./style.css": "./dist/style.css"
   },
   "license": "MIT",
   "types": "./dist/types/packages/index.d.ts",

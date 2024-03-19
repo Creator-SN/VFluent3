@@ -181,3 +181,5 @@ export const FvComponentPlugins: Plugin = {
         }
     },
 };
+
+export default FvComponentPlugins;
