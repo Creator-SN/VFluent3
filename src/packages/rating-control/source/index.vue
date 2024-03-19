@@ -10,8 +10,8 @@
                 class="fv-rating-unit"
                 @mousemove="handlerHover($event, index)"
                 @touchmove="handlerHover($event, index)"
-                @mouseleave="hover[index] = {status: false, ratio: 100}"
-                @touchend="hover[index] = {status: false, ratio: 100}"
+                @mouseleave="handlerLeave(index)"
+                @touchend="handlerLeave(index)"
                 @click="handlerClick($event, index)"
             >
                 <i
@@ -154,6 +154,11 @@ export default {
                 status: true,
                 ratio: finalRatio
             });
+        },
+        handlerLeave(index) {
+            if (this.isReadOnly) return;
+            this.hover[index] = {status: false, ratio: 100}
+            this.$emit('leave', index);
         },
         handlerClick(event, index) {
             if (this.isReadOnly) return;
