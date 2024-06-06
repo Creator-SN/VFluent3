@@ -9,11 +9,13 @@ const emits = defineEmits(animatedIconEmits)
 const props = defineProps(animatedIconProps)
 
 const { theme } = useTheme(props)
+
+const { down, up, move, enter, leave, animatedStyle, computedFontSize } = useAnimatedIcon(props, emits)
 </script>
 
 <template>
     <div class="fv-AnimatedIcon" :class="[theme]"
-        :style="[{ width: `${fontSize * 1 + 3}px`, background: background, fontSize: `${fontSize}px` }]"
+        :style="[{ width: `${computedFontSize * 1 + 3}px`, background: background, fontSize: `${fontSize}px` }]"
         @mousedown="down" @mouseup="up" @touchstart="down" @touchend="up" @mouseenter="enter" @mousemove="move"
         @touchmove="move" @mouseleave="leave">
         <div draggable="false" class="fv-animated-icon-container" :class="[{ hideContent }]" :style="[animatedStyle]">

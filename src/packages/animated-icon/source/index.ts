@@ -2,7 +2,9 @@ import { commonProps } from '@/packages/common/props';
 import { computed, ExtractPropTypes, PropType, ref } from 'vue';
 import { EmitFn } from '@/types/components';
 
-const animations = {
+type animationsKey = 'scaleDown' | 'scaleXDown' | 'scaleYDown' | 'backScale' | 'bounceRotate'
+type animationsValueKey = 'enter' | 'move' | 'down' | 'up' | 'leave'
+const animations:Record<animationsKey,  Partial<Record<animationsValueKey, Record<string,string> | Array<Record<string,string>>>>> = {
     scaleDown: {
         down: {
             transform: 'scale(0.8)',
@@ -121,9 +123,6 @@ const animations = {
     }
 }
 
-type animationsKey = keyof typeof animations
-type animationsValueKey = keyof typeof animations[keyof typeof animations]
-
 export const animatedIconProps = {
     ...commonProps,
     modelValue: {
@@ -135,7 +134,7 @@ export const animatedIconProps = {
         default: 'Search'
     },
     customizeAnimation: {
-        type:  Object as PropType<Record<string,string> | Boolean>,
+        type:  [Object, Boolean] as PropType<Record<animationsValueKey,string> | Boolean>,
         default: false
     },
     background: {
@@ -143,7 +142,7 @@ export const animatedIconProps = {
         default: ''
     },
     fontSize: {
-        type: Number,
+        type: [Number,String],
         default: 16
     },
     hideContent: {
@@ -179,7 +178,6 @@ export const useAnimatedIcon = (props: AnimatedIconProps, emits: EmitFn<Animated
             emits("update:modelValue",val);
         }
     })
-    // const animations = ref()
     const animatedStyle = ref<Record<string,any>>({})
     const animationsQueue = ref<Array<any>>([])
     const onClick = (evt:Event)=>{
@@ -198,8 +196,8 @@ export const useAnimatedIcon = (props: AnimatedIconProps, emits: EmitFn<Animated
     }
     const getAnimation= (name: animationsValueKey) =>{
         if (props.customizeAnimation && typeof props.customizeAnimation!=='boolean') {
-            if (!props.customizeAnimation[name]) return false;
-            return props.customizeAnimation[name];
+            if (!(props.customizeAnimation as Record<animationsValueKey,string>)[name]) return false;
+            return (props.customizeAnimation as Record<animationsValueKey,string>)[name];
         }
         if (!animations[modelValue.value]) return false;
         let animation = animations[modelValue.value];
@@ -207,20 +205,18 @@ export const useAnimatedIcon = (props: AnimatedIconProps, emits: EmitFn<Animated
         return animation[name];
     }
     const enter = ()=>{
-        return false;
-        // let animation = getAnimation('enter');
-        // if (!animation) return false;
-        // animationsQueue.value = [];
-        // animationsQueue.value = animationsQueue.value.concat(animation);
-        // popAnimation();
+        let animation = getAnimation('enter');
+        if (!animation) return false;
+        animationsQueue.value = [];
+        animationsQueue.value = animationsQueue.value.concat(animation);
+        popAnimation();
     }
     const move = ()=>{
-        return false;
-        // const animation = getAnimation("move")
-        // if (!animation) return false;
-        // animationsQueue.value = [];
-        // animationsQueue.value = animationsQueue.value.concat(animation);
-        // popAnimation();
+        const animation = getAnimation("move")
+        if (!animation) return false;
+        animationsQueue.value = [];
+        animationsQueue.value = animationsQueue.value.concat(animation);
+        popAnimation();
     }
     const down = (evt:Event)=>{
         evt.preventDefault();
@@ -241,6 +237,12 @@ export const useAnimatedIcon = (props: AnimatedIconProps, emits: EmitFn<Animated
         animationsQueue.value = animationsQueue.value.concat(animation);
         popAnimation();
     }
+    const computedFontSize = computed<number>(()=>{
+        if (typeof props.fontSize==='string'){
+            return parseInt(props.fontSize)
+        }
+        return props.fontSize
+    })
     return {
         onClick,
         animationInit,
@@ -253,6 +255,7 @@ export const useAnimatedIcon = (props: AnimatedIconProps, emits: EmitFn<Animated
         up,
         leave,
         getAnimation,
-        popAnimation
+        popAnimation,
+        computedFontSize
     }
 }
