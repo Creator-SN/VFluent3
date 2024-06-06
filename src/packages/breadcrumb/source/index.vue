@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { onMounted, onUnmounted } from "vue";
 import { breadcrumbProps, breadcrumbEmits, useBreadcrumb } from "."
 import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
 
@@ -12,7 +13,15 @@ const props = defineProps(breadcrumbProps)
 
 const { theme } = useTheme(props)
 
-const { root, mode, main, isDisabled, editor, editorMode, routeClick, separatorIcon, routeList, routeItemClick, tempValue, handleEnter } = useBreadcrumb(props, emits)
+const { root, mode, main, isDisabled, editor, editorMode, routeClick, separatorIcon, routeList, routeItemClick, tempValue, handleEnter, outsideClickInit, destory } = useBreadcrumb(props, emits)
+
+onMounted(() => {
+    outsideClickInit()
+})
+
+onUnmounted(() => {
+    destory()
+})
 
 </script>
 

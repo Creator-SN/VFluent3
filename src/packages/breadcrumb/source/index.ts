@@ -111,19 +111,23 @@ export const useBreadcrumb = (props: BreadcrumbProps, emits: EmitFn<BreadcrumbEm
         return props.disabled
     })
     const root = ref<HTMLElement>();
-    const outsideClickInit = ()=>{
-        window.addEventListener("click", (evt:MouseEvent)=>{
-            let x = evt.target as HTMLElement;
-            let _self = false;
-            while (x && x.tagName && x.tagName.toLowerCase() != "body") {
-                if (x == root.value) {
-                    _self = true;
-                    break;
-                }
-                x = x.parentNode as HTMLElement
+    const outsideEvent = (evt:MouseEvent)=>{
+        let x = evt.target as HTMLElement;
+        let _self = false;
+        while (x && x.tagName && x.tagName.toLowerCase() != "body") {
+            if (x == root.value) {
+                _self = true;
+                break;
             }
-            if (!_self) mode.value = "default";
-        })
+            x = x.parentNode as HTMLElement
+        }
+        if (!_self) mode.value = "default";
+    }
+    const outsideClickInit = ()=>{
+        window.addEventListener("click", outsideEvent)
+    }
+    const destory = ()=>{
+        window.removeEventListener("click", outsideEvent)
     }
     const main = ref<HTMLElement>()
     const editor = ref<HTMLInputElement>();
@@ -181,6 +185,7 @@ export const useBreadcrumb = (props: BreadcrumbProps, emits: EmitFn<BreadcrumbEm
         outsideClickInit,
         handleEnter,
         routeClick,
-        routeItemClick
+        routeItemClick,
+        destory
     }
 }
