@@ -10,6 +10,9 @@ export function useTheme(
         if (props.theme === 'global' && props.theme !== undefined) {
             return config.theme;
         }
+        if (props.theme===undefined){
+            return "global"
+        }
         return props.theme;
     });
 

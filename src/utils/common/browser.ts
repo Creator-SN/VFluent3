@@ -2,6 +2,19 @@ export function isBrowser() {
     return window !== undefined;
 }
 
+export function getLanguage():string{ 
+    let primaryLanguage: string | Array<string> = 'en';
+    if (navigator.languages && navigator.languages.length) {
+        primaryLanguage = navigator.languages[0];
+        return primaryLanguage;
+    } else {
+        primaryLanguage = navigator.language;
+    }
+    primaryLanguage = primaryLanguage.split('-')
+    primaryLanguage = primaryLanguage[0]
+    return primaryLanguage;
+}
+
 export function isMobile() {
     let check = false;
     (function (a) {
