@@ -1,3 +1,5 @@
+import { isNumber } from "./types";
+
 export function throttle(func: Function, ms?: number) {
     let lock = false;
     return function inner(...args: any[]): void {
@@ -20,4 +22,18 @@ export function throttle(func: Function, ms?: number) {
             );
         }
     };
+}
+
+export async function sleep(millionseconds: number | string = 'auto'){
+    return await new Promise((resolve: (millionseconds:number | string)=>void)=>{
+        if (isNumber(millionseconds)){
+            setTimeout(() => {
+                resolve(millionseconds) 
+            }, millionseconds);
+        }else{
+            window.requestAnimationFrame(()=>{
+                resolve(millionseconds)
+            })
+        }
+    })
 }
