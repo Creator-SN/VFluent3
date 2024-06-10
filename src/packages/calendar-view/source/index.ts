@@ -1,7 +1,7 @@
 import { commonProps } from '@/packages/common/props';
 import { computed, ExtractPropTypes, PropType, ref, watch } from 'vue';
 import { EmitFn } from '@/types/components';
-import { SDate} from '@/utils/common/usual';
+import { SDate } from '@/utils/common/usual';
 import { getLanguage } from '@/utils/common/browser';
 import dateBox from './sub/dateBox.vue';
 import monthBox from './sub/monthBox.vue';
@@ -14,9 +14,9 @@ const monthList = {
 
 export const calendarViewProps = {
     ...commonProps,
-    modelValue:{
+    modelValue: {
         type: Object as PropType<Date>,
-        default: ()=>new Date()
+        default: () => new Date()
     },
     start: {
         type: Number,
@@ -35,19 +35,19 @@ export const calendarViewProps = {
 export type CalendarViewProps = ExtractPropTypes<typeof calendarViewProps>;
 
 export const calendarViewEmits = {
-    "update:modelValue":(val:Date)=>{
+    "update:modelValue": (val: Date) => {
         return true;
     },
-    "choose-year": (val: number)=>{
+    "choose-year": (val: number) => {
         return true
     },
-    "choose-month": (val: Date)=>{
+    "choose-month": (val: Date) => {
         return true
     },
-    "choose-date": (val: Date)=>{
+    "choose-date": (val: Date) => {
         return true
     },
-    "choosen-dates": (val: Array<Date>)=>{
+    "choosen-dates": (val: Array<Date>) => {
         return true;
     }
 }
@@ -59,39 +59,39 @@ export const useCalendarView = (props: CalendarViewProps, emits: EmitFn<Calendar
     const thisValue = ref<Date>(props.modelValue)
     const yearRange = ref(new Date().getFullYear())
     const monthRange = ref({
-        year: new Date().getFullYear(), 
+        year: new Date().getFullYear(),
         no: new Date().getMonth()
     })
     const dayRange = ref({
         year: new Date().getFullYear(), month: new Date().getMonth(), no: 1
     })
     const transitionName = ref<string>("fv-calendar-scale-down")
-    watch(()=>props.modelValue, (newVal:Date, oldVal: Date)=>{
-        if (SDate.IsSameDate(oldVal, newVal)){
+    watch(() => props.modelValue, (newVal: Date, oldVal: Date) => {
+        if (SDate.IsSameDate(oldVal, newVal)) {
             thisValue.value = SDate.Parse(SDate.DateToString(newVal))
         }
     })
     const year = ref<InstanceType<typeof yearBox>>();
     const month = ref<InstanceType<typeof monthBox>>();
     const day = ref<InstanceType<typeof dateBox>>();
-    const statement = computed(()=>{
-        const lang = props.lang==='global'? getLanguage():props.lang;
-        if (status.value ==='date'){  
-            if (lang === 'zh'){
+    const statement = computed(() => {
+        const lang = props.lang === 'global' ? getLanguage() : props.lang;
+        if (status.value === 'date') {
+            if (lang === 'zh') {
                 return `${dayRange.value.year}年${dayRange.value.month + 1}日`;
-            }else{
+            } else {
                 return `${monthList['en'][dayRange.value.month]} ${dayRange.value.year}`
             }
-        }else if (status.value === 'month'){
-            if (lang==='zh'){
+        } else if (status.value === 'month') {
+            if (lang === 'zh') {
                 return `${monthRange.value.year}年`
-            }else{
+            } else {
                 return `${monthRange.value.year}`
             }
         }
         return `${yearRange.value} - ${yearRange.value + 9}`;
     })
-    const daySlide = (a:number = 1)=>{
+    const daySlide = (a: number = 1) => {
         let d = SDate.Parse(`${dayRange.value.year}-${dayRange.value.month + 1}-${dayRange.value.no} 0:0:0`)
         d.setDate(1);
         d.setMonth(d.getMonth() + a)
@@ -101,41 +101,41 @@ export const useCalendarView = (props: CalendarViewProps, emits: EmitFn<Calendar
             no: d.getDate()
         })
     }
-    const slideUp = ()=>{
-        if (status.value === 'year'){
+    const slideUp = () => {
+        if (status.value === 'year') {
             year.value?.slide(yearRange.value - 10)
-        }else if (status.value === 'month'){
-            monthRange.value.year +=1 
+        } else if (status.value === 'month') {
+            monthRange.value.year -= 1
             month.value?.slide(monthRange.value)
-        }else{
+        } else {
             daySlide(-1)
         }
     }
-    const slideDown = ()=>{
-        if (status.value === 'year'){
+    const slideDown = () => {
+        if (status.value === 'year') {
             year.value?.slide(yearRange.value + 10)
-        }else if (status.value === 'month'){
-            monthRange.value.year +=1;
+        } else if (status.value === 'month') {
+            monthRange.value.year += 1;
             month.value?.slide(monthRange.value)
-        }else{
+        } else {
             daySlide()
         }
     }
-    const switchView = ()=>{
+    const switchView = () => {
         transitionName.value = 'fv-calendar-scale-down'
-        if (status.value === 'date'){
+        if (status.value === 'date') {
             status.value = 'month'
-        }else if (status.value === 'month'){
+        } else if (status.value === 'month') {
             status.value = 'year'
         }
     }
-    const chooseYear = (item:number)=>{
+    const chooseYear = (item: number) => {
         transitionName.value = 'fv-calendar-scale-up'
         thisValue.value.setFullYear(item)
         status.value = 'month'
         emits("choose-year", item)
     }
-    const chooseMonth = (item: typeof monthRange.value)=>{
+    const chooseMonth = (item: typeof monthRange.value) => {
         transitionName.value = 'fv-calendar-scale-up'
         thisValue.value.setDate(1)
         thisValue.value.setMonth(item.no)
@@ -143,7 +143,7 @@ export const useCalendarView = (props: CalendarViewProps, emits: EmitFn<Calendar
         status.value = 'date'
         emits("choose-month", thisValue.value)
     }
-    const chooseDate = (item: typeof dayRange.value)=>{
+    const chooseDate = (item: typeof dayRange.value) => {
         thisValue.value.setDate(item.no)
         thisValue.value.setMonth(item.month)
         thisValue.value.setFullYear(item.year)

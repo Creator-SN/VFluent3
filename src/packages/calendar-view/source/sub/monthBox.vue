@@ -4,7 +4,7 @@ import { calendarViewMonthBoxProps, calendarViewMonthBoxEmits, useCalendarViewMo
 const props = defineProps(calendarViewMonthBoxProps)
 const emits = defineEmits(calendarViewMonthBoxEmits)
 
-const { FRInit, monthsInit, scrollBottomToLoadInit, rangeTimerInit, scrollTopToLoadInit, timer, main, uR, FR, months, currentRange, nowYear, nowMonth, choose } = useCalendarViewMonthBox(props, emits)
+const { FRInit, monthsInit, scrollBottomToLoadInit, rangeTimerInit, scrollTopToLoadInit, timer, main, uR, FR, months, currentRange, nowYear, nowMonth, choose, slide } = useCalendarViewMonthBox(props, emits)
 
 onMounted(() => {
     FRInit();
@@ -16,6 +16,10 @@ onMounted(() => {
 onBeforeUnmount(() => {
     clearInterval(timer.value.updateRange);
     uR.revealMaskedJs.destroy(FR);
+})
+
+defineExpose({
+    slide
 })
 
 </script>

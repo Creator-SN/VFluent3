@@ -2,26 +2,10 @@ import { commonProps } from "@/packages/common/props";
 import { useRevealCache } from "@/store/reveal";
 import { EmitFn } from "@/types/components";
 import { sleep, useTheme } from "@/utils/common";
-import { getLanguage } from "@/utils/common/browser";
 import { SDate } from "@/utils/common/usual";
 import { ExtractPropTypes, PropType, computed, ref, watch } from "vue";
 
-const monthList = [
-    { en: 'Jan', zh: '一月' },
-    { en: 'Feb', zh: '二月' },
-    { en: 'Mar', zh: '三月' },
-    { en: 'Apr', zh: '四月' },
-    { en: 'May', zh: '五月' },
-    { en: 'Jun', zh: '六月' },
-    { en: 'Jul', zh: '七月' },
-    { en: 'Aug', zh: '八月' },
-    { en: 'Set', zh: '九月' },
-    { en: 'Oct', zh: '十月' },
-    { en: 'Nov', zh: '十一月' },
-    { en: 'Dec', zh: '十二月' }
-];
-
-export const calendarViewMonthBoxProps = {
+export const calendarViewYearBoxProps = {
     ...commonProps,
     value: {
         type: Object as PropType<Date>,
@@ -41,49 +25,43 @@ export const calendarViewMonthBoxProps = {
     }
 }
 
-type RangeItem = {
-    year: number,
-    no: number,
-    name?: string
-}
+export type CalendarViewYearBoxProps = ExtractPropTypes<typeof calendarViewYearBoxProps>
 
-export type CalendarViewMonthBoxProps = ExtractPropTypes<typeof calendarViewMonthBoxProps>
-
-export const calendarViewMonthBoxEmits = {
-    "range-change": (val: RangeItem) => {
+export const calendarViewYearBoxEmits = {
+    "choose": (val: number) => {
         return true;
     },
-    "choose": (val: RangeItem) => {
-        return true;
+    'range-change': (val: number) => {
+        return true
     }
 }
 
-export type CalendarViewMonthBoxEmits = typeof calendarViewMonthBoxEmits
+export type CalendarViewYearBoxEmits = typeof calendarViewYearBoxEmits;
 
-export const useCalendarViewMonthBox = (props: CalendarViewMonthBoxProps, emits: EmitFn<CalendarViewMonthBoxEmits>) => {
+export const useCalendarViewYearBox = (props: CalendarViewYearBoxProps, emits: EmitFn<CalendarViewYearBoxEmits>) => {
     const { theme } = useTheme(props)
     const FR = ref<any>();
     const uR = useRevealCache();
-    uR.initRevealInstances()
-    const thisValue = ref<Date>(SDate.Parse(SDate.DateToString(props.value)))
-    const months = ref<Array<RangeItem>>([]);
-    const currentRange = ref<RangeItem>({
-        year: 0,
-        no: 0
+    uR.initRevealInstances();
+    const thisValue = ref<Date>(SDate.Parse(SDate.DateToString(
+        props.value
+    )))
+    const years = ref<Array<number>>([]);
+    const currentRange = ref(0);
+    watch(() => currentRange.value, (newVal: number, oldVal: number) => {
+        emits("range-change", newVal)
     })
     const timer = ref<{
-        updateRange?: number | NodeJS.Timeout,
+        updateRange?: number | NodeJS.Timeout
         scroller?: number | NodeJS.Timeout
     }>({
         updateRange: undefined,
         scroller: undefined
     })
-    const lock = ref({
+    const lock = ref<{
+        slide: boolean
+    }>({
         slide: true
-    })
-
-    watch(() => currentRange.value, (val: RangeItem) => {
-        emits("range-change", val)
     })
     const year = computed(() => {
         return thisValue.value.getFullYear()
@@ -132,79 +110,51 @@ export const useCalendarViewMonthBox = (props: CalendarViewMonthBoxProps, emits:
             backgroundLightColor: backgroundLightColor.value
         })
     }
-    const lang = computed(() => {
-        if (props.lang === 'global') {
-            return getLanguage()
-        }
-        return props.lang
-    })
-    const monthsInit = () => {
-        let m = [];
-        let num = year.value - 1;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < monthList.length; j++) {
-                m.push({
-                    year: num,
-                    no: j,
-                    name: monthList[j][lang.value === 'zh' ? 'zh' : 'en']
-                });
-            }
+    const yearsInit = () => {
+        const y = []
+        let num = year.value - 8
+        for (let i = 0; i < 28; ++i) {
+            y.push(num)
             num++;
         }
-        months.value = m;
-        setTimeout(() => {
-            if (main.value?.scrollTop !== undefined) {
-                main.value.scrollTop =
-                    main.value.scrollTop + props.size * 3;
-            }
-        }, 50);
+        years.value = y
     }
     const loadPrev = async () => {
-        let num = months.value[0].year;
+        let num = years.value[0];
         if (num == props.start) return 0;
-        num--;
-        for (let j = monthList.length - 1; j >= 0; j--) {
-            months.value.splice(0, 0, {
-                year: num,
-                no: j,
-                name: monthList[j][lang.value === 'zh' ? 'zh' : 'en']
-            });
+        for (let i = 0; i < 16; i++) {
+            if (num <= props.start) return 0;
+            num--;
+            years.value.splice(0, 0, num);
         }
         await sleep(30);
         if (main.value?.scrollTop !== undefined) {
             main.value.scrollTop =
-                main.value.scrollTop + (12 / 4) * props.size;
+                main.value.scrollTop + (16 / 4) * props.size;
         }
     }
     const loadNext = async () => {
-        let num = months.value[months.value.length - 1].year;
+        let num = years.value[years.value.length - 1];
         if (num == props.end) return 0;
-        num++;
-        for (let j = 0; j < monthList.length; j++) {
-            months.value.push({
-                year: num,
-                no: j,
-                name: monthList[j][lang.value === 'zh' ? 'zh' : 'en']
-            });
+        for (let i = 0; i < 16; i++) {
+            if (num >= props.end) return 0;
+            num++;
+            years.value.push(num);
         }
         await sleep(30);
     }
-    const slide = async (val: RangeItem) => {
+    const slide = async (val: number) => {
         if (!lock.value.slide) return 0;
         lock.value.slide = false;
         clearInterval(timer.value.scroller);
         return await new Promise((resolve) => {
             timer.value.scroller = setInterval(() => {
-                let target = months.value.find(
-                    (item) => item.year == val.year && item.no == 0
-                );
-                if (target == undefined) {
-                    if (val.year < currentRange.value.year) {
+                let index = years.value.indexOf(val);
+                if (index == -1) {
+                    if (val < currentRange.value) {
                         loadPrev();
                     } else loadNext();
-                    return 0;
                 }
-                let index = months.value.indexOf(target);
                 let height = Math.floor(index / 4) * props.size;
                 if (main.value?.scrollTop !== undefined) {
                     let speed = -Math.floor(
@@ -222,21 +172,25 @@ export const useCalendarViewMonthBox = (props: CalendarViewMonthBoxProps, emits:
             }, 30);
         });
     }
-    const scrollBottomToLoadInit = (offset = 0) => {
+    const scrollBottomToLoadInit = (offset: number = 0) => {
         let target = main.value;
-        target?.addEventListener('scroll', (event) => {
-            if (
-                target.scrollTop + offset >=
-                target.scrollHeight - target.clientHeight
-            )
-                loadNext();
-        });
+        if (target !== undefined) {
+            target.addEventListener("scroll", (event) => {
+                if (
+                    target.scrollTop + offset >=
+                    target.scrollHeight - target.clientHeight
+                )
+                    loadNext();
+            })
+        }
     }
-    const scrollTopToLoadInit = (offset = 0) => {
-        let target = main.value;
-        target?.addEventListener('scroll', (event) => {
-            if (target.scrollTop <= 80) loadPrev();
-        });
+    const scrollTopToLoadInit = (offset: number = 0) => {
+        let target = main.value
+        if (target !== undefined) {
+            target.addEventListener('scroll', (event) => {
+                if (target.scrollTop <= 80) loadPrev();
+            });
+        }
     }
     const rangeTimerInit = () => {
         clearInterval(timer.value.updateRange);
@@ -247,45 +201,41 @@ export const useCalendarViewMonthBox = (props: CalendarViewMonthBoxProps, emits:
                     scrollTop = scrollTop + props.size * 2;
                     scrollTop = (scrollTop / props.size) * 4;
                     scrollTop = Math.floor(scrollTop);
-                    currentRange.value = months.value[scrollTop + 3];
+                    currentRange.value =
+                        Math.floor(years.value[scrollTop] / 10) * 10;
                 }
             } catch (e) {
-                currentRange.value = {
-                    year: 0,
-                    no: 0,
-                    name: monthList[0][lang.value === 'zh' ? 'zh' : 'en']
-                };
+                currentRange.value = 0;
             }
         }, 300);
     }
-    const choose = (item: RangeItem) => {
+    const choose = (item: number) => {
         emits("choose", item)
     }
-
     return {
-        theme,
-        FR,
         uR,
         thisValue,
-        months,
+        years,
         currentRange,
         timer,
-        lock,
         year,
         month,
         date,
         nowYear,
         nowMonth,
         nowDate,
-        FRInit,
+        borderLightColor,
+        backgroundLightColor,
         main,
-        monthsInit,
-        slide,
-        loadPrev,
+        FRInit,
         loadNext,
+        loadPrev,
+        slide,
         scrollBottomToLoadInit,
         scrollTopToLoadInit,
         rangeTimerInit,
-        choose
+        choose,
+        yearsInit,
+        FR
     }
 }

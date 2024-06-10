@@ -131,7 +131,7 @@ export const useCalendarViewDateBox = (props: CalendarViewDateBoxProps, emits: E
     const root = ref<HTMLElement>()
     const main = ref<HTMLElement>()
     const FRInit = () => {
-        uR.revealMaskedJs.apply(root.value, {
+        FR.value = uR.revealMaskedJs.apply(root.value, {
             maskedSelector: main.value,
             selector: [],
             borderGradientSize: 90,
