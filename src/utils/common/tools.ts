@@ -37,3 +37,8 @@ export async function sleep(millionseconds: number | string = 'auto'){
         }
     })
 }
+
+export function callFunction(func: Function | any, ...args: any[]){
+    if (typeof func==='function') return func(...args)
+    return func
+}

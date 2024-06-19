@@ -11,7 +11,6 @@ export * from "./callout"
 export * from "./check-box"
 export * from "./collapse"
 export * from "./color-picker"
-export * from "./combo-box"
 export * from "./combobox"
 export * from "./command-bar"
 export * from "./date-picker"
@@ -71,7 +70,6 @@ import Callout from "./callout"
 import CheckBox from "./check-box"
 import Collapse from "./collapse"
 import ColorPicker from "./color-picker"
-import ComboBox from "./combo-box"
 import Combobox from "./combobox"
 import CommandBar from "./command-bar"
 import DatePicker from "./date-picker"
@@ -126,7 +124,6 @@ const components = [
     CheckBox,
     Collapse,
     ColorPicker,
-    ComboBox,
     Combobox,
     CommandBar,
     DatePicker,
