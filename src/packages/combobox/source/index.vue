@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { callFunction } from '@/utils/common';
 import { comboboxEmits, comboboxProps, useCombobox } from '.';
-import { onMounted } from 'vue';
+import { onBeforeMount, onMounted, onUnmounted } from 'vue';
 
 defineOptions({
     name: "FvCombobox"
@@ -10,10 +10,14 @@ defineOptions({
 const emits = defineEmits(comboboxEmits)
 const props = defineProps(comboboxProps)
 
-const { choose, thisValue, status, backgroundLightColor, borderLightColor, root, coItems, outsideClickInit } = useCombobox(props, emits)
+const { choose, thisValue, status, backgroundLightColor, borderLightColor, root, coItems, outsideClickInit, outsideClickDestroy } = useCombobox(props, emits)
 
 onMounted(() => {
     outsideClickInit()
+})
+
+onBeforeMount(() => {
+    outsideClickDestroy()
 })
 
 </script>

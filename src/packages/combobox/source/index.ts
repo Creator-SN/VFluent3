@@ -121,17 +121,18 @@ export const useCombobox = (props: ComboboxProps, emits: EmitFn<ComboboxEmits>) 
     })
     const root = ref<HTMLElement>();
     const status = ref(false);
+    const outsideEvent = (evt:Event)=>{
+        if (clickOutside(evt.target as HTMLElement, root.value)){
+            status.value = false;
+        }
+    }
     const outsideClickInit = ()=>{
-        window.addEventListener("click", evt=>{
-            if (clickOutside(evt.target as HTMLElement, root.value)){
-                status.value = false;
-            }
-        })
-        window.addEventListener("touchend", evt=>{
-            if (clickOutside(evt.target as HTMLElement, root.value)){
-                status.value = false;
-            }
-        })
+        window.addEventListener("click", outsideEvent)
+        window.addEventListener("touchend", outsideEvent)
+    }
+    const outsideClickDestroy = ()=>{
+        window.removeEventListener('click', outsideEvent)
+        window.removeEventListener('touchend', outsideEvent)
     }
     const coItems = ref<HTMLElement>();
     const choose = (evt:Event, item: OptionItem)=>{
@@ -158,6 +159,7 @@ export const useCombobox = (props: ComboboxProps, emits: EmitFn<ComboboxEmits>) 
         borderLightColor,
         backgroundLightColor,
         outsideClickInit,
+        outsideClickDestroy,
         choose,
         root,
         coItems,
