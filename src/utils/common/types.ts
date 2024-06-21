@@ -22,5 +22,17 @@ export function isObject(obj: unknown): obj is object {
     return typeof obj === 'object';
 }
 
+export function isNullOrUndefined<T>(obj: T | undefined|null): obj is T{
+    return obj===null || obj===undefined;
+}
+
+export function isDefined<T>(obj: T | undefined): obj is T{
+    return obj!==undefined;
+}
+
+export function isNotNull<T>(obj: T | null): obj is T{
+    return obj!==null;
+}
+
 export type ItemOfArray<ArrayType extends readonly unknown[]> = 
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
