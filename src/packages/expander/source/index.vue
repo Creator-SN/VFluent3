@@ -1,7 +1,23 @@
+<script setup lang="ts">
+import { useTheme } from '@/utils/common';
+import { expanderEmits, expanderProps, useExpander } from '.';
+
+defineOptions({
+    name:"FvExpander"
+})
+
+const props = defineProps(expanderProps)
+const emits = defineEmits(expanderEmits)
+const {theme} = useTheme(props)
+const {hover,thisValue,hoverBackground,itemClick} = useExpander(props, emits)
+
+
+</script>
+
 <template>
     <div
         class="fv-Expander"
-        :class="[$theme, {visibleOverflow: disabledExpander && visibleOverflow}]"
+        :class="[theme, {visibleOverflow: disabled && visibleOverflow}]"
         :style="{height: !thisValue ? `${defaultHeight}px` : `${maxHeight}px`, 'max-height': `${maxHeight}px`}"
         @mouseenter="hover = true"
         @touchstart="hover = true"
@@ -10,13 +26,13 @@
     >
         <div
             class="expander-description-container"
-            :style="{height: `${defaultHeight}px`, background: hover ? hoverBackground : titleBackground}"
+            :style="{height: `${defaultHeight}px`, background: hover ? hoverBackground() : titleBackground}"
             @click="itemClick"
         >
             <div class="expander-description-box">
                 <div
                     class="expander-description"
-                    @click="$emit('description-click')"
+                    @click="emits('description-click')"
                 >
                     <div class="expander-text">
                         <slot
@@ -39,18 +55,18 @@
                 <slot
                     name="expand-icon"
                     :value="thisValue"
-                    :disabledCollaspe="disabledExpander"
+                    :disabledCollaspe="disabled"
                 >
                     <i
                         v-show="thisValue"
                         class="ms-Icon ms-Icon--ChevronUpMed"
                     ></i>
                     <i
-                        v-show="!thisValue && !disabledExpander"
+                        v-show="!thisValue && !disabled"
                         class="ms-Icon ms-Icon--ChevronDownMed"
                     ></i>
                     <i
-                        v-show="!thisValue && disabledExpander"
+                        v-show="!thisValue && disabled"
                         class="ms-Icon ms-Icon--ChevronRightMed"
                     ></i>
                 </slot>
@@ -68,84 +84,4 @@
     </div>
 </template>
         
-<script>
-import { expanderProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
-import one from 'onecolor';
-
-export default {
-    name: 'FvExpander',
-    emits: ['update:modelValue', 'item-click'],
-    props: {
-        ...expanderProps,
-        modelValue: {
-            default: false
-        },
-        icon: {
-            type: String,
-            default: 'Mail'
-        },
-        title: {
-            type: String,
-            default: 'Title of Expander.'
-        },
-        content: {
-            type: String,
-            default: 'Content information of Expander.'
-        },
-        titleBackground: {
-            default: ''
-        },
-        expandBackground: {
-            default: ''
-        },
-        defaultHeight: {
-            default: 50
-        },
-        maxHeight: {
-            default: 300
-        },
-        disabledExpander: {
-            default: false
-        },
-        visibleOverflow: {
-            default: true
-        }
-    },
-    data() {
-        return {
-            thisValue: this.modelValue,
-            hover: false
-        };
-    },
-    watch: {
-        modelValue(val) {
-            this.thisValue = val;
-        },
-        thisValue(val) {
-            this.$emit('update:modelValue', val);
-        }
-    },
-    computed: {
-        hoverBackground() {
-            try {
-                let color = one(this.titleBackground);
-                let hue = color.hue();
-                return color.hue(hue - 0.01).cssa();
-            } catch (e) {
-                return '';
-            }
-        },
-        $theme() {
-            return useTheme(this.$props).theme.value;
-        }
-    },
-    methods: {
-        itemClick() {
-            !this.disabledExpander ? (this.thisValue ^= true) : '';
-            this.$emit('item-click', this.thisValue);
-        }
-    }
-};
-</script>
 
