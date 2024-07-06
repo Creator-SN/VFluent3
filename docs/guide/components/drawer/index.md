@@ -16,6 +16,9 @@ title: Drawer
     methods:{
       toggle(){
         this.visible=!this.visible;
+      },
+      toggleV2(){
+        this.v2 = !this.v2;
       }
     }, 
     computed:{
@@ -56,9 +59,9 @@ title: Drawer
 
 - Change Side
 
-<fv-button style="width: 120px;" @click="v2 ^= true" >Show / Hide</fv-button>
+<fv-button  style="width: 120px;" @click="toggleV2" >Show / Hide</fv-button>
 
-<fv-drawer v-model="v2" position="left" appendBody>
+<fv-drawer :zIndex="9999" v-model="v2" position="left" appendBody>
 </fv-drawer>
 
 ```vue
