@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from 'vue';
 import { drawerEmits, drawerProps, useDrawer } from '.';
+import { useTheme } from '@/utils/common';
 
 defineOptions({
     name:"FvDrawer"
@@ -8,6 +9,8 @@ defineOptions({
 
 const props = defineProps(drawerProps)
 const emits = defineEmits(drawerEmits)
+
+const {theme} = useTheme(props)
 
 const {initShow,style,close, drawer,init,destroy,setStyle} = useDrawer(props, emits)
 
