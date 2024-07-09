@@ -3,17 +3,18 @@ import InfoBox from './index.vue';
 import type { VNode, ref, Plugin, App, AppContext, InjectionKey } from 'vue';
 
 export type InfoBoxOptions = {
-    title?: string;
-    status?: 'default' | 'warning' | 'error' | 'correct' | 'blocked';
-    mode?: 'fixed' | 'relative';
-    confirmTitle?: string;
-    cancelTitle?: string;
-    acrylic?: boolean;
+    title: string;
+    status: 'default' | 'warning' | 'error' | 'correct' | 'blocked';
+    mode: 'fixed' | 'relative';
+    confirmTitle: string;
+    cancelTitle: string;
+    acrylic: boolean;
     control_panel?: VNode;
-    confirm?: () => void;
-    cancel?: () => void;
-    theme?: 'global' | 'light' | 'dark';
+    confirm: (() => void) | (()=>Promise<void>);   
+    cancel: (() => void) | (()=>Promise<void>);
+    theme: 'global' | 'light' | 'dark';
     once?: boolean;
+    destroy?: ()=>void
 };
 
 export function createInfoBox(
@@ -22,14 +23,14 @@ export function createInfoBox(
     context: AppContext
 ) {
     let vnode = (container: HTMLElement) => {
-        let thisOptions = {
+        let thisOptions:InfoBoxOptions = {
             title: 'Tip',
             status: 'default',
             mode: 'fixed',
             confirmTitle: '确定',
             cancelTitle: '取消',
             acrylic: false,
-            control_panel: null,
+            control_panel: undefined,
             confirm: async () => {},
             cancel: async () => {},
             theme: 'global'
@@ -61,7 +62,7 @@ export function createInfoBox(
                 theme: thisOptions.theme
             },
             {
-                msg: msg,
+                msg: ()=>msg,
                 'control-panel': thisOptions.control_panel
             }
         );
