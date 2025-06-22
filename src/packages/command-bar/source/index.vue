@@ -25,21 +25,21 @@ onBeforeUnmount(() => {
     <div ref="root" class="fv-CommandBar" :class="[theme]" :style="{ background: background }">
         <div class="left-command-bar-container">
             <span
-                v-show="valueTrigger(item.show)"
+                v-show="callFunction(item.show)"
                 v-for="(item, index) in thisOptions"
                 class="command-bar-item"
-                :class="[valueTrigger(item.type) == 'divider' ? 'hr' : 'normal', {not_disabled: !valueTrigger(item.disabled)}, {disabled: valueTrigger(item.disabled)}]"
+                :class="[callFunction(item.type) == 'divider' ? 'hr' : 'normal', {not_disabled: !callFunction(item.disabled)}, {disabled: callFunction(item.disabled)}]"
                 :key="index"
-                :title="valueTrigger(item.name)"
-                :style="{background: valueTrigger(item.background), color: valueTrigger(item.foreground)}"
+                :title="callFunction(item.name)"
+                :style="{background: callFunction(item.background), color: callFunction(item.foreground)}"
                 @click="itemClick($event, item)"
             >
                 <span
-                    v-show="valueTrigger(item.type) !== 'more'"
+                    v-show="callFunction(item.type) !== 'more'"
                     class="s1-container"
                 >
                     <fv-reveal-container
-                        v-if="valueTrigger(item.type) != 'divider' && !valueTrigger(item.disabled)"
+                        v-if="callFunction(item.type) != 'divider' && !callFunction(item.disabled)"
                         :parent="() => $el"
                         class="fv-command-bar-reveal-container"
                         :backgroundColor="backgroundLightColor"
@@ -50,20 +50,20 @@ onBeforeUnmount(() => {
                     ></fv-reveal-container>
                     <i
                         class="ms-Icon icon"
-                        :class="[`ms-Icon--${valueTrigger(item.icon)}`]"
-                        :style="{color: valueTrigger(item.iconColor)}"
+                        :class="[`ms-Icon--${callFunction(item.icon)}`]"
+                        :style="{color: callFunction(item.iconColor)}"
                     ></i>
                     <p
                         v-show="!compact"
                         class="name"
-                        :style="{color: valueTrigger(item.foreground)}"
+                        :style="{color: callFunction(item.foreground)}"
                     >
-                        {{valueTrigger(item.name)}}
+                        {{callFunction(item.name)}}
                     </p>
                     <i
                         v-show="item.secondary.length > 0"
                         class="ms-Icon ms-Icon--ChevronDown icon"
-                        :style="{color: valueTrigger(item.foreground)}"
+                        :style="{color: callFunction(item.foreground)}"
                     ></i>
                 </span>
                 <span v-show="callFunction(item.type) === 'more'" class="s1-container">

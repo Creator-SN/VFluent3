@@ -190,6 +190,7 @@ export const useCommandBar = (props: CommandBarProps, emits: EmitFn<CommandBarEm
         backgroundLightColor,
         borderLightColor,
         root,
-        chooseItem
+        chooseItem,
+        callFunction
     }
 }
