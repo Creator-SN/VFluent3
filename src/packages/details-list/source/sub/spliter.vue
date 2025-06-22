@@ -1,72 +1,16 @@
+<script setup lang="ts">
+import { spliterEmits, spliterProps, useSpliter } from './spliter';
+
+const props = defineProps(spliterProps)
+
+const emits = defineEmits(spliterEmits)
+
+const {forward, stop} = useSpliter(props, emits)
+
+</script>
+
 <template>
 <div class="fv-details-list-spliter" @mousedown="forward" @mouseup="stop" @touchstart="forward" @touchend="stop">
     <i></i>
 </div>
 </template>
-
-<script>
-import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
-
-export default {
-    emits: ["mousedown", "mouseup", "mousemove", "touchstart", "touchend", "touchmove"],
-	props: {
-		theme: {
-			type: String,
-			default: "global"
-		}
-    },
-    data () {
-		return {
-            moveable: false
-        };
-	},
-	computed: {
-		$theme () {
-            return useTheme(this.$props).theme.value;
-        }
-    },
-    mounted () {
-        this.Init();
-    },
-    methods: {
-        Init () {
-            window.addEventListener("mousemove", (event => {
-                if (this.moveable) {
-                    this.$emit("mousemove", event);
-                }
-            }));
-            window.addEventListener("mouseup", (event => {
-                if (this.moveable) {
-                    this.stop();
-                }
-            }));
-            window.addEventListener("touchmove", (event => {
-                if (this.moveable) {
-                    this.$emit("touchmove", event);
-                }
-            }));
-            window.addEventListener("touchend", (event => {
-                if (this.moveable) {
-                    this.stop();
-                }
-            }));
-        },
-        forward(event) {
-            event.preventDefault();
-            this.moveable = true;
-            if(event.type === 'mousedown')
-                this.$emit("mousedown", event);
-            else
-                this.$emit("touchstart", event);
-        },
-        stop (event) {
-            this.moveable = false;
-            if(!event) return;
-            if(event.type === 'mouseup')
-                this.$emit("mouseup", event);
-            else
-                this.$emit("touchend", event);
-        }
-    }
-};
-</script>

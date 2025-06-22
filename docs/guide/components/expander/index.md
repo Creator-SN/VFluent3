@@ -24,14 +24,14 @@ Disabled Expander
 
 <div>
 <ClientOnly>
-<fv-Expander :disabledExpander="true">
+<fv-Expander :disabled="true">
     <div style="position: relative; height: 500px; background: black; transition: all 0.3s;"></div>
 </fv-Expander>
 </ClientOnly>
 </div>
 
 ```vue
-<fv-Expander :disabledExpander="true">
+<fv-Expander :disabled="true">
     <div style="position: relative; height: 500px; background: black; transition: all 0.3s;"></div>
 </fv-Expander>
 ```
@@ -40,7 +40,7 @@ Extension
 
 <div>
 <ClientOnly>
-<fv-Expander :disabledExpander="true">
+<fv-Expander :disabled="true">
     <template v-slot:extension>
         <fv-button>Operation</fv-button>
     </template>
@@ -49,7 +49,7 @@ Extension
 </div>
 
 ```vue
-<fv-Expander :disabledExpander="true">
+<fv-Expander :disabled="true">
     <template v-slot:extension>
         <fv-button>Operation</fv-button>
     </template>
@@ -105,7 +105,7 @@ Extension
 | expandBackground | [string(color)] |       No       |               N/A                |                  客制化 `Expander` 背景                   |
 |  defaultHeight   |     Number      |       No       |                70                |                         默认高度                          |
 |    maxHeight     |     Number      |       No       |               300                |                       展开最大高度                        |
-| disabledExpander |     Boolean     |       No       |              false               |                    禁用展开 `Expander`                    |
+| disabled |     Boolean     |       No       |              false               |                    禁用展开 `Expander`                    |
 | visibleOverflow  |     Boolean     |       No       |               true               |       在禁用展开 `Expander` , 允许overflow内容显示        |
 |      theme       |     String      |       No       |              system              | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
 
@@ -172,11 +172,11 @@ Extension
         class="ms-Icon ms-Icon--ChevronUpMed"
     ></i>
     <i
-        v-show="!x.value && !x.disabledExpander"
+        v-show="!x.value && !x.disabled"
         class="ms-Icon ms-Icon--ChevronDownMed"
     ></i>
     <i
-        v-show="!x.value && x.disabledExpander"
+        v-show="!x.value && x.disabled"
         class="ms-Icon ms-Icon--ChevronRightMed"
     ></i>
 </template>

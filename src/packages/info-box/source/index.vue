@@ -1,7 +1,22 @@
+<script setup lang="ts">
+import { useTheme } from '@/utils/common';
+import { infoBoxEmits, infoBoxProps, useInfoBox } from '.';
+
+defineOptions({
+    name:"FvInfoBox"
+})
+
+const props = defineProps(infoBoxProps)
+const emits = defineEmits(infoBoxEmits)
+
+const {iconList,confirm,close} = useInfoBox(props, emits)
+const {theme} = useTheme(props)
+</script>
+
 <template>
     <div
         class="fv-InfoBox"
-        :class="[$theme, mode, {acrylic: acrylic}]"
+        :class="[theme, mode, {acrylic: acrylic}]"
     >
         <div
             class="sinfo-box-block"
@@ -26,13 +41,13 @@
             <div class="info-box-control-block">
                 <slot
                     name="control-panel"
-                    :theme="$theme"
+                    :theme="theme"
                     :confirm="confirm"
                     :cancel="close"
                     :iconList="iconList"
                 >
                     <fv-button
-                        :theme="'dark'"
+                        theme="dark"
                         :background="iconList[status].backgroundColor"
                         :isBoxShadow="true"
                         :borderRadius="6"
@@ -40,7 +55,7 @@
                         @click="confirm"
                     >{{confirmTitle}}</fv-button>
                     <fv-button
-                        :theme="$theme"
+                        :theme="theme"
                         :isBoxShadow="true"
                         :borderRadius="6"
                         style="width: 50%; height: 35px; margin-left: 2.5px;"
@@ -51,85 +66,5 @@
         </div>
     </div>
 </template>
-        
-<script>
-import { infoBoxProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 
-export default {
-    name: 'FvInfoBox',
-    emits: ['confirm', 'close'],
-    props: {
-        ...infoBoxProps,
-        title: {
-            default: 'Tip'
-        },
-        status: {
-            default: 'default'
-        },
-        mode: {
-            default: 'relative'
-        },
-        confirmTitle: {
-            default: '确定'
-        },
-        cancelTitle: {
-            default: '取消'
-        },
-        showTitleBar: {
-            default: true
-        },
-        acrylic: {
-            default: false
-        },
-        destroy: {
-            default: false
-        }
-    },
-    data() {
-        return {
-            iconList: {
-                default: {
-                    icon: 'Error',
-                    background: '',
-                    backgroundColor: 'rgba(0, 98, 158, 0.8)'
-                },
-                warning: {
-                    icon: 'Warning',
-                    background: 'brown',
-                    backgroundColor: 'rgba(234, 183, 2, 1)'
-                },
-                correct: {
-                    icon: 'Completed',
-                    background: 'green',
-                    backgroundColor: 'rgba(69, 172, 97, 1)'
-                },
-                blocked: {
-                    icon: 'Blocked12   ',
-                    background: 'red',
-                    backgroundColor: 'rgba(200, 50, 59, 1)'
-                },
-                error: {
-                    icon: 'ErrorBadge',
-                    background: 'red',
-                    backgroundColor: 'rgba(200, 50, 59, 1)'
-                }
-            }
-        };
-    },
-    computed: {
-        $theme() {
-            return useTheme(this.$props).theme.value;
-        }
-    },
-    methods: {
-        confirm() {
-            this.$emit('confirm');
-        },
-        close() {
-            this.$emit('close');
-        }
-    }
-};
-</script>
 

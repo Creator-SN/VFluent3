@@ -55,11 +55,11 @@ export default {
 1. Set border width.
 
 <ClientOnly>
-<fv-checkBox v-model="value" borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
+<fv-checkBox v-model="value" :borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
 </ClientOnly>
 
 ```vue
-<fv-checkBox v-model="value" borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
+<fv-checkBox v-model="value" :borderWidth="2">Checkbox rendered with borderWidth "2"</fv-checkBox>
 ```
 
 2. Set background and border color.

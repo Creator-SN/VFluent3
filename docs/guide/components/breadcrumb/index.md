@@ -9,6 +9,8 @@ import { useTheme } from '../common/index.js';
 
 const {theme} = useTheme()
 
+const modelValue = ref("/creatorsn/vfluent/breadcrumb")
+
 
 </script>
 
@@ -32,12 +34,12 @@ Basic
 ---
 
 <ClientOnly>
-<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false">
+<fv-Breadcrumb v-model="modelValue" :readOnly="false">
 </fv-Breadcrumb>
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false">
+<fv-Breadcrumb v-model="modelValue" :readOnly="false">
 </fv-Breadcrumb>
 ```
 

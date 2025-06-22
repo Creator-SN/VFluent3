@@ -195,10 +195,10 @@ positionsFour: [
 ### IconElement-Icon Button
 ---
 
-<fv-IconElement :value="heart" :iconButton="true" paddingWidth="3"></fv-IconElement>
+<fv-IconElement :value="heart" :iconButton="true" :paddingWidth="3"></fv-IconElement>
 
 ```vue
-<fv-IconElement :value="heart" :iconButton="true" paddingWidth="3"></fv-IconElement>
+<fv-IconElement :value="heart" :iconButton="true" :paddingWidth="3"></fv-IconElement>
 ```
 
 ### Propoties

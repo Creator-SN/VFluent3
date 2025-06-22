@@ -33,11 +33,11 @@ export default {
 ---
 
 <ClientOnly>
-<fv-CalendarView multiple="multiple" lan="zh"></fv-CalendarView>
+<fv-CalendarView multiple="multiple" lang="global"></fv-CalendarView>
 </ClientOnly>
 
 ```vue
-<fv-CalendarView multiple="multiple" lan="zh"></fv-CalendarView>
+<fv-CalendarView multiple="multiple" lang="global"></fv-CalendarView>
 ```
 
 ### CalendarView Init Day
@@ -45,11 +45,11 @@ export default {
 ---
 
 <ClientOnly>
-<fv-CalendarView :value="value" multiple="multiple" lan="zh"></fv-CalendarView>
+<fv-CalendarView :value="value" multiple="multiple" lang="global"></fv-CalendarView>
 </ClientOnly>
 
 ```vue
-<fv-CalendarView :value="value" multiple="multiple" lan="zh"></fv-CalendarView>
+<fv-CalendarView :value="value" multiple="multiple" lang="global"></fv-CalendarView>
 ```
 
 ### CalendarView Range Choose
@@ -86,7 +86,7 @@ export default {
 |   start    |              Number              |       No       |      1900       |      Minium Year.      |
 |    end     |              Number              |       No       |      3000       |      Maxium Year.      |
 |  multiple  |   ['single','multiple','range']    |       No       |     single      |                        |
-|    lan     |            ['en','zh']             |       No       |       en        | CalendarView language. |
+|    lang     |            ['en','zh','global']             |       No       |       global        | CalendarView language. |
 |     theme     | String |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式              |
 
 ### Events
@@ -95,7 +95,7 @@ export default {
 
 | 事件名(Name)  | 参数类型(args) |                   说明(statement)                   |
 |:-------------:|:--------------:|:---------------------------------------------------:|
-|  choose-year  |     string     |                 选择年份后返回年份                  |
-| choose-month  |     string     |                 选择月份后返回月份                  |
+|  choose-year  |     number     |                 选择年份后返回年份                  |
+| choose-month  |     date     |                 选择月份后返回月份                  |
 |  choose-date  |      date      |                 选择日期后返回日期                  |
 | choosen-dates |     array      | 选择多个日期后返回日期数组, 类型为[{year,month,no}] |
