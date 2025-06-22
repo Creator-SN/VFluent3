@@ -1,0 +1,11 @@
+:root {
+  --vp-c-brand-1: #747bff;       /* 品牌色 */
+  --vp-c-brand-light: #747bff; /* 浅色 */
+  --vp-c-brand-lighter: #9499ff; /* 更浅 */
+  --vp-c-brand-dark: #535bf2;   /* 深色 */
+  --vp-c-brand-darker: #454ce1; /* 更深 */
+  
+  /* 其他可自定义颜色 */
+  --vp-c-accent: #ff9800;
+  --vp-button-brand-bg: var(--vp-c-brand);
+}
