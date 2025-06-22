@@ -112,11 +112,6 @@ export default {
         this.setStyle();
         this.initShow = true;
     },
-    beforeUnmount() {
-        for (let key in this.window) {
-            window.removeEventListener(key, this.window);
-        }
-    },
     methods: {
         init() {
             for (let key in this.window) {
@@ -128,6 +123,16 @@ export default {
                 this.$refs.drawer.remove();
                 document.body.appendChild(this.$refs.drawer);
             }
+        },
+        globalAppendInit() {
+            this.$nextTick(() => {
+                const body = document.querySelector('body');
+                if (body.append) {
+                    body.append(this.$el);
+                } else {
+                    body.appendChild(this.$el);
+                }
+            });
         },
         setStyle() {
             let length = this.length;
@@ -191,6 +196,17 @@ export default {
         },
         close() {
             this.computeVisible = false;
+        }
+    },
+    beforeUnmount() {
+        for (let key in this.window) {
+            window.removeEventListener(key, this.window);
+        }
+        try {
+            const body = document.querySelector('body');
+            body.removeChild(this.$el);
+        } catch (e) {
+            console.warn('Remove Failed', e);
         }
     }
 };

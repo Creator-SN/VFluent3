@@ -12,6 +12,7 @@
                 :class="[valueTrigger(item.type) == 'divider' ? 'hr' : 'normal', {not_disabled: !valueTrigger(item.disabled)}, {disabled: valueTrigger(item.disabled)}]"
                 :key="index"
                 :title="valueTrigger(item.name)"
+                :style="{background: valueTrigger(item.background), color: valueTrigger(item.foreground)}"
                 @click="itemClick($event, item)"
             >
                 <span
@@ -36,12 +37,14 @@
                     <p
                         v-show="!compact"
                         class="name"
+                        :style="{color: valueTrigger(item.foreground)}"
                     >
                         {{valueTrigger(item.name)}}
                     </p>
                     <i
                         v-show="item.secondary.length > 0"
                         class="ms-Icon ms-Icon--ChevronDown icon"
+                        :style="{color: valueTrigger(item.foreground)}"
                     ></i>
                 </span>
                 <span
