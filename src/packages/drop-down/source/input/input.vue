@@ -24,7 +24,7 @@ const {root,theme,backgroundLightColor,borderLightColor,inputValue} = useInput(p
             :disabled="disabled"
         ></fv-reveal-container>
         <slot name="input" :placeholder="placeholder" :value="inputValue">
-            <input class="fv-drop-down-input" :placeholder="placeholder" readonly :value="inputValue" :style="{color: inputForeground, 'border-radius': `${borderRadius}px`, borderWidth: `${borderWidth}px`, borderColor: inputBorderColor}"/>
+            <input class="fv-drop-down-input" :placeholder="placeholder" readonly :value="inputValue" :style="{color: inputForeground, 'border-radius': `${borderRadius}px`, borderWidth: `${borderWidth}px`, borderColor: inputBorderColor}"></input>
             <i class="right-icon ms-Icon" :class="[`ms-Icon--${dropDownIcon}`]" :style="{color: dropDownIconForeground}"></i>
         </slot>
     </div>

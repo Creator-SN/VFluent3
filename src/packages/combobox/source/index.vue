@@ -32,7 +32,7 @@ onBeforeMount(() => {
                 :borderGradientSize="80" :borderWidth="borderWidth" :borderRadius="borderRadius"
                 :disabled="props.disabled"></fv-reveal-container>
             <input class="input" :placeholder="placeholder" readonly :value="callFunction(thisValue.text)"
-                :style="{ color: inputForeground, 'border-radius': `${borderRadius}px` }" />
+                :style="{ color: inputForeground, 'border-radius': `${borderRadius}px` }" ></input>
             <i class="ms-Icon right-icon" :class="[`ms-Icon--${dropDownIcon}`]"
                 :style="{ color: dropDownIconForeground }"></i>
         </div>

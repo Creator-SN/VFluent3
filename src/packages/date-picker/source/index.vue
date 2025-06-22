@@ -114,7 +114,7 @@ defineExpose({
                 </div>
                 <div class="fv-DatePicker__input-options-bottom-bar">
                     <button class="fv-DatePicker__input-options-accept" v-hover="hover" @click="confirm">
-                        <i class="ms-Icon ms-Icon--Accept" />
+                        <i class="ms-Icon ms-Icon--Accept" > </i>
                     </button>
                     <button class="fv-DatePicker__input-options-cancel" v-hover="hover" @click="cancel">
                         <i class="ms-Icon ms-Icon--Cancel"></i>

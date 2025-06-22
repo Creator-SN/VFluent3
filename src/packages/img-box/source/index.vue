@@ -54,7 +54,7 @@ onBeforeUnmount(()=>{
                 draggable="false"
                 alt=""
                 :src="imgUri.data"
-            />
+            ></img>
         </transition>
     </div>
 </template>

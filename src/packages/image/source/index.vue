@@ -42,7 +42,7 @@ onBeforeUnmount(()=>{
                 alt=""
                 :src="thisSrc"
                 ref="img"
-            />
+            ></img>
         </transition>
     </div>
 </template>

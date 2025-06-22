@@ -59,8 +59,8 @@ onBeforeUnmount(() => {
                         :class="[`ms-Icon--${sort.desc ? 'Down' : 'Up'}`]"></i>
                 </span>
                 <spliter style="height: 100%;" @mousedown="resizeDown($event, index)"
-                    @mousemove="resizeMove($event, index)" @touchstart="resizeDown($event.targetTouches[0], index)"
-                    @touchmove="resizeMove($event.targetTouches[0], index)"></spliter>
+                    @mousemove="resizeMove($event, index)" @touchstart="resizeDown($event.targetTouches[0] as any, index)"
+                    @touchmove="resizeMove($event.targetTouches[0] as any, index)"></spliter>
             </span>
         </div>
         <div v-if="!showGroup" class="fv-details-list-content" ref="l1"

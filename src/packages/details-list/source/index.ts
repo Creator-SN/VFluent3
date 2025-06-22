@@ -580,12 +580,12 @@ export const useDetailsList = (props: DetailsListProps, emits: EmitFn<DetailsLis
             desc = reverse ? !sort.value.desc : sort.value.desc;
         sort.value.name = item.sortName;
         sort.value.desc = desc;
-        desc = desc ? -1 : 1;
+        const desc_forward = desc ? -1 : 1;
         if (isDefined(item.customSort))
             thisValue.value.sort((a, b) => { 
                 if (isDefined(item.customSort))
-                    return desc * item.customSort(a, b)
-                return desc
+                    return desc_forward * item.customSort(a, b)
+                return desc_forward
             });
         else
             inteliSort(item.sortName, desc);
