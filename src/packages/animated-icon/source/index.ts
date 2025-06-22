@@ -1,10 +1,10 @@
 import { commonProps } from '@/packages/common/props';
-import { computed, ExtractPropTypes, PropType, ref } from 'vue';
+import { computed, ExtractPropTypes, PropType, onMounted, ref } from 'vue';
 import { EmitFn } from '@/types/components';
 
 type animationsKey = 'scaleDown' | 'scaleXDown' | 'scaleYDown' | 'backScale' | 'bounceRotate'
 type animationsValueKey = 'enter' | 'move' | 'down' | 'up' | 'leave'
-const animations:Record<animationsKey,  Partial<Record<animationsValueKey, Record<string,string> | Array<Record<string,string>>>>> = {
+const animations: Record<animationsKey, Partial<Record<animationsValueKey, Record<string, string> | Array<Record<string, string>>>>> = {
     scaleDown: {
         down: {
             transform: 'scale(0.8)',
@@ -134,7 +134,7 @@ export const animatedIconProps = {
         default: 'Search'
     },
     customizeAnimation: {
-        type:  [Object, Boolean] as PropType<Record<animationsValueKey,string> | Boolean>,
+        type: [Object, Boolean] as PropType<Record<animationsValueKey, string> | Boolean>,
         default: false
     },
     background: {
@@ -142,7 +142,7 @@ export const animatedIconProps = {
         default: ''
     },
     fontSize: {
-        type: [Number,String],
+        type: [Number, String],
         default: 16
     },
     hideContent: {
@@ -154,10 +154,10 @@ export const animatedIconProps = {
 export type AnimatedIconProps = ExtractPropTypes<typeof animatedIconProps>;
 
 export const animatedIconEmits = {
-    'click':(evt:Event)=>{
+    'click': (evt: Event) => {
         return true;
     },
-    'update:modelValue':(val:string)=>{
+    'update:modelValue': (val: string) => {
         return true
     }
 }
@@ -167,58 +167,64 @@ export type AnimatedIconEmits = typeof animatedIconEmits
 export const useAnimatedIcon = (props: AnimatedIconProps, emits: EmitFn<AnimatedIconEmits>) => {
     const thisValue = ref<animationsKey>(props.modelValue);
     const modelValue = computed<animationsKey>({
-        get(){
-            if (props.modelValue!==null){
+        get() {
+            if (props.modelValue !== null) {
                 return props.modelValue;
             }
             return thisValue.value;
         },
-        set(val:animationsKey){
+        set(val: animationsKey) {
             thisValue.value = val;
-            emits("update:modelValue",val);
+            emits("update:modelValue", val);
         }
     })
-    const animatedStyle = ref<Record<string,any>>({})
+    const animatedStyle = ref<Record<string, any>>({})
     const animationsQueue = ref<Array<any>>([])
-    const onClick = (evt:Event)=>{
+    const onClick = (evt: Event) => {
         emits("click", evt);
     }
-    const popAnimation = ()=>{
+    const popAnimation = () => {
         if (animationsQueue.value.length === 0) return 0
         let first = animationsQueue.value[0]
         animatedStyle.value = first
-        animationsQueue.value.splice(0,1)
+        animationsQueue.value.splice(0, 1)
     }
-    const animationInit = (el:HTMLElement)=>{
-        el.addEventListener("transitionend", (evt:TransitionEvent)=>{
+    const animationInit = (el: HTMLElement) => {
+        el.addEventListener("transitionend", (evt: TransitionEvent) => {
+            console.log('transitionend')
             popAnimation()
         })
     }
-    const getAnimation= (name: animationsValueKey) =>{
-        if (props.customizeAnimation && typeof props.customizeAnimation!=='boolean') {
-            if (!(props.customizeAnimation as Record<animationsValueKey,string>)[name]) return false;
-            return (props.customizeAnimation as Record<animationsValueKey,string>)[name];
+    const root = ref<HTMLElement>()
+    onMounted(() => {
+        if (!root.value) return;
+        animationInit(root.value);
+    });
+    const getAnimation = (name: animationsValueKey) => {
+        if (props.customizeAnimation && typeof props.customizeAnimation !== 'boolean') {
+            if (!(props.customizeAnimation as Record<animationsValueKey, string>)[name]) return false;
+            return (props.customizeAnimation as Record<animationsValueKey, string>)[name];
         }
         if (!animations[modelValue.value]) return false;
         let animation = animations[modelValue.value];
         if (!animation[name]) return false;
         return animation[name];
     }
-    const enter = ()=>{
+    const enter = () => {
         let animation = getAnimation('enter');
         if (!animation) return false;
         animationsQueue.value = [];
         animationsQueue.value = animationsQueue.value.concat(animation);
         popAnimation();
     }
-    const move = ()=>{
+    const move = () => {
         const animation = getAnimation("move")
         if (!animation) return false;
         animationsQueue.value = [];
         animationsQueue.value = animationsQueue.value.concat(animation);
         popAnimation();
     }
-    const down = (evt:Event)=>{
+    const down = (evt: Event) => {
         evt.preventDefault();
         const animation = getAnimation('down');
         if (!animation) return false;
@@ -226,19 +232,25 @@ export const useAnimatedIcon = (props: AnimatedIconProps, emits: EmitFn<Animated
         animationsQueue.value = animationsQueue.value.concat(animation);
         popAnimation();
     }
-    const up = (evt:Event)=>{
+    const up = (evt: Event) => {
         evt.preventDefault()
         onClick(evt);
+        let animation = getAnimation('up');
+        if (!animation)
+            return false;
+        animationsQueue.value = [];
+        animationsQueue.value = animationsQueue.value.concat(animation);
+        popAnimation();
     }
-    const leave = (evt: Event)=>{
+    const leave = (evt: Event) => {
         const animation = getAnimation("leave")
         if (!animation) return false;
         animationsQueue.value = [];
         animationsQueue.value = animationsQueue.value.concat(animation);
         popAnimation();
     }
-    const computedFontSize = computed<number>(()=>{
-        if (typeof props.fontSize==='string'){
+    const computedFontSize = computed<number>(() => {
+        if (typeof props.fontSize === 'string') {
             return parseInt(props.fontSize)
         }
         return props.fontSize
