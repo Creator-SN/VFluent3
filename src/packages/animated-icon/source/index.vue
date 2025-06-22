@@ -53,7 +53,7 @@ const emits = defineEmits({
     }
 });
 
-export type AnimatedIconEmits = typeof emits;
+type AnimatedIconEmits = typeof emits;
 
 const props = defineProps({
     ...commonProps,
@@ -85,7 +85,7 @@ const props = defineProps({
     }
 });
 
-export type AnimatedIconProps = typeof props;
+type AnimatedIconProps = typeof props;
 
 const { theme } = useTheme(props);
 

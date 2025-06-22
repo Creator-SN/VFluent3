@@ -127,6 +127,7 @@ const isDisabled = computed(() => {
 });
 const onClick = (evt: Event) => {
     evt.preventDefault();
+    console.log(111)
     if (isDisabled.value) {
         return false;
     }

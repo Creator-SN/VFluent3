@@ -42,7 +42,7 @@ export const breadcrumbProps = {
     },
 }
 
-export type BreadcrumbProps = ExtractPropTypes<typeof breadcrumbProps>;
+type BreadcrumbProps = ExtractPropTypes<typeof breadcrumbProps>;
 
 export const breadcrumbEmits = {
     "update:modelValue":(val:string)=>{
@@ -56,7 +56,7 @@ export const breadcrumbEmits = {
     }
 }
 
-export type BreadcrumbEmits = typeof breadcrumbEmits
+type BreadcrumbEmits = typeof breadcrumbEmits
 
 export const useBreadcrumb = (props: BreadcrumbProps, emits: EmitFn<BreadcrumbEmits>) => {
     const thisValue = ref("")

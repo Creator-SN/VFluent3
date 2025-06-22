@@ -36,49 +36,62 @@
         </label>
     </div>
 </template>
-        
+
+<script setup>
+import {defineProps} from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        type: [String, Number, Boolean],
+        default: ''
+    },
+    label: {
+        type: [String, Number],
+        required: true
+    },
+    color: {
+        type: String,
+        default: ''
+    },
+    foreground: {
+        type: String,
+        default: 'rgba(0, 90, 158, 0.8)'
+    },
+    icon: {
+        type: String,
+        default: null
+    },
+    iconBlockBorderRadius: {
+        type: Number,
+        default: 6
+    },
+    iconBlockBorderWidth: {
+        type: Number,
+        default: 2
+    },
+    image: {
+        type: String,
+        default: null
+    },
+    activeImage: {
+        type: String,
+        default: null
+    },
+    disabled: {
+        type: Boolean,
+        default: false
+    }
+});
+</script>
+
 <script>
-import { radioProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvRadio',
     emits: ['update:modelValue', 'click', 'actived'],
-    props: {
-        ...radioProps,
-        modelValue: {},
-        label: {
-            required: true
-        },
-        color: {
-            default: ''
-        },
-        foreground: {
-            default: 'rgba(0, 90, 158, 0.8)'
-        },
-        icon: {
-            type: String,
-            default: null
-        },
-        iconBlockBorderRadius: {
-            default: 6
-        },
-        iconBlockBorderWidth: {
-            default: 2
-        },
-        image: {
-            type: String,
-            default: null
-        },
-        activeImage: {
-            type: String,
-            default: null
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        }
-    },
     computed: {
         $theme() {
             return useTheme(this.$props).theme.value;

@@ -22,7 +22,7 @@ export type OptionItem = {
 export const commandBarProps = {
     ...commonProps,
     modelValue: {
-        type: Object as PropType<OptionItem>,
+        type: Object,
         default: () => ({})
     },
     options: {
