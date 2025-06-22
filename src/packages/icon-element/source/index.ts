@@ -35,7 +35,7 @@ export const iconElementEmits = {
 
 export type IconElementEmits = typeof iconElementEmits
 
-type Item = {
+export type Item = {
     name?: string | Item
     color?: string
     position?: number

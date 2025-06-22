@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { callFunction } from '@/utils/common';
+import { callFunction, isArray, isDefined } from '@/utils/common';
 import { commandBarEmits, commandBarProps, useCommandBar } from '.';
 import { onBeforeUnmount, onMounted, onUnmounted } from 'vue';
 
@@ -61,7 +61,7 @@ onBeforeUnmount(() => {
                         {{callFunction(item.name)}}
                     </p>
                     <i
-                        v-show="item.secondary.length > 0"
+                        v-show="isArray(item.secondary) && item.secondary.length > 0"
                         class="ms-Icon ms-Icon--ChevronDown icon"
                         :style="{color: callFunction(item.foreground)}"
                     ></i>

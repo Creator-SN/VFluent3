@@ -61,7 +61,7 @@ const emits = defineEmits({
         return true;
     }
 });
-export type ButtonEmits = typeof emits;
+type ButtonEmits = typeof emits;
 
 const props = defineProps({
     ...commonProps,
@@ -114,7 +114,7 @@ const props = defineProps({
         default: 1
     }
 });
-export type ButtonProps = typeof props;
+type ButtonProps = typeof props;
 
 const { theme } = useTheme(props);
 const isDisabled = computed(() => {

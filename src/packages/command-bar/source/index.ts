@@ -3,9 +3,9 @@ import { computed, ExtractPropTypes, PropType, ref, watch } from 'vue';
 import { EmitFn } from '@/types/components';
 import { callFunction, clickOutside, useTheme } from '@/utils/common';
 
-type OptionType = 'divider' | 'normal' | 'more'
+export type OptionType = 'divider' | 'normal' | 'more'
 
-type OptionItem = {
+export type OptionItem = {
     name?: string | (()=>string)
     icon?: string | (()=>string)
     iconColor?: string | (()=>string)
@@ -14,7 +14,9 @@ type OptionItem = {
     func?: ((...args:any[])=>void),
     show?: boolean | (()=>boolean),
     secondary?: Array<OptionItem>,
-    choosen?: boolean
+    choosen?: boolean,
+    background?:string,
+    foreground?:string
 }
 
 export const commandBarProps = {

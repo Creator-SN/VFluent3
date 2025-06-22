@@ -188,7 +188,7 @@ export const useDatePicker = (props: DatePickerProps, emits: EmitFn<DatePickerEm
         return date.getDate();
     }
     const slideCol = async (origin: number, element: HTMLElement | undefined, nxtCallback:()=>void, preCallback:()=>void) => {
-        if (isDefined(element?.scrollTop)){
+        if (isDefined(element) && isDefined(element?.scrollTop)){
             if (Math.abs(element.scrollTop - origin) >= 20) {
                 if (element.scrollTop > origin) {
                     nxtCallback();
@@ -197,7 +197,8 @@ export const useDatePicker = (props: DatePickerProps, emits: EmitFn<DatePickerEm
                 }
                 return await new Promise((resolve) =>
                     nextTick(() => {
-                        element.scrollTop = origin;
+                        if (element!==undefined)
+                            element.scrollTop = origin;
                         resolve(0);
                     })
                 );

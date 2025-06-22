@@ -1,7 +1,7 @@
 import { commonProps } from "@/packages/common/props";
 import { useRevealCache } from "@/store/reveal";
 import { EmitFn } from "@/types/components";
-import { sleep, useTheme } from "@/utils/common";
+import { isDefined, sleep, useTheme } from "@/utils/common";
 import { SDate } from "@/utils/common/usual";
 import { ExtractPropTypes, PropType, computed, ref, watch } from "vue";
 
@@ -176,7 +176,7 @@ export const useCalendarViewYearBox = (props: CalendarViewYearBoxProps, emits: E
         let target = main.value;
         if (target !== undefined) {
             target.addEventListener("scroll", (event) => {
-                if (
+                if (isDefined(target) && isDefined(target.scrollTop) && isDefined(target.scrollHeight) && isDefined(target.clientHeight) && 
                     target.scrollTop + offset >=
                     target.scrollHeight - target.clientHeight
                 )
@@ -188,7 +188,7 @@ export const useCalendarViewYearBox = (props: CalendarViewYearBoxProps, emits: E
         let target = main.value
         if (target !== undefined) {
             target.addEventListener('scroll', (event) => {
-                if (target.scrollTop <= 80) loadPrev();
+                if (target!==undefined && target.scrollTop <= 80) loadPrev();
             });
         }
     }

@@ -1,7 +1,7 @@
 import { commonProps } from "@/packages/common/props";
 import { useRevealCache } from "@/store/reveal";
 import { EmitFn } from "@/types/components";
-import { sleep, useTheme } from "@/utils/common";
+import { isDefined, sleep, useTheme } from "@/utils/common";
 import { getLanguage } from "@/utils/common/browser";
 import { SDate } from "@/utils/common/usual";
 import { ExtractPropTypes, PropType, computed, ref, watch } from "vue";
@@ -226,6 +226,7 @@ export const useCalendarViewMonthBox = (props: CalendarViewMonthBoxProps, emits:
         let target = main.value;
         target?.addEventListener('scroll', (event) => {
             if (
+                isDefined(target) && isDefined(target.scrollTop) && isDefined(target.scrollHeight) && isDefined(target.clientHeight) && 
                 target.scrollTop + offset >=
                 target.scrollHeight - target.clientHeight
             )
@@ -235,7 +236,7 @@ export const useCalendarViewMonthBox = (props: CalendarViewMonthBoxProps, emits:
     const scrollTopToLoadInit = (offset = 0) => {
         let target = main.value;
         target?.addEventListener('scroll', (event) => {
-            if (target.scrollTop <= 80) loadPrev();
+            if (isDefined(target) && isDefined(target.scrollTop) && target.scrollTop <= 80) loadPrev();
         });
     }
     const rangeTimerInit = () => {
