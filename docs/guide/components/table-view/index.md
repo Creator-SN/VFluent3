@@ -108,7 +108,7 @@ export default {
 ### Propoties
 ---
 |     属性(attr)      | 类型(type) | 必填(required) |   默认值(default)   |                      说明(statement)                      |
-|:-------------------:|:----------:|:--------------:|:-------------------:|:---------------------------------------------------------:|
+| :-----------------: | :--------: | :------------: | :-----------------: | :-------------------------------------------------------: |
 |        value        |   Object   |      Yes       |         {}          |       绑定数据对象, 包含heads: []和rows: []两个对象       |
 |        i18n         |  Function  |       No       |                     |          语言本地化函数, 默认为直接返回传入文本           |
 |     foreground      |   String   |       No       | rgba(0, 90, 158, 1) |                          主题色                           |
@@ -124,7 +124,7 @@ export default {
 ### Events
 ---
 | 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
+| :----------: | :------------: | :-------------: |
 |              |                |                 |
 
 ### Extensions
@@ -280,10 +280,9 @@ export default {
                 visible: true
             };
             for (let key in defaultHead) {
-                if (!value[key]) this.$set(value, key, defaultHead[key]);
+                if (!value[key]) value[key] = defaultHead[key];
             }
-            if (!value.__guid)
-                this.$set(value, '__guid', this.GuidWithoutDash());
+            if (!value.__guid) value.__guid = this.GuidWithoutDash();
         },
         GuidWithoutDash() {
             function S4() {

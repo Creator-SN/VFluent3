@@ -27,7 +27,7 @@ export default defineConfig({
         sidebar: [
             {
                 text: 'Basic input',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'Button',
@@ -48,6 +48,10 @@ export default defineConfig({
                     {
                         text: 'DetailsList',
                         link: '/guide/components/details-list/'
+                    },
+                    {
+                        text: 'TableView',
+                        link: '/guide/components/table-view/'
                     },
                     {
                         text: 'DropDown',
@@ -81,7 +85,7 @@ export default defineConfig({
             },
             {
                 text: 'Collections',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'FlipView',
@@ -99,7 +103,7 @@ export default defineConfig({
             },
             {
                 text: 'Date & Time',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'CalendarDatePicker',
@@ -121,7 +125,7 @@ export default defineConfig({
             },
             {
                 text: 'Dialogs & flyouts',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'Callout',
@@ -135,8 +139,12 @@ export default defineConfig({
             },
             {
                 text: 'Layout',
-                collapsed: true,
+                collapsed: false,
                 items: [
+                    {
+                        text: 'Affix',
+                        link: '/guide/components/affix/'
+                    },
                     {
                         text: 'Collapse',
                         link: '/guide/components/collapse/'
@@ -157,7 +165,7 @@ export default defineConfig({
             },
             {
                 text: 'Media',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'Image',
@@ -179,7 +187,7 @@ export default defineConfig({
             },
             {
                 text: 'Menu & toolbars',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'CommandBar',
@@ -190,6 +198,10 @@ export default defineConfig({
                         link: '/guide/components/menu-flyout/'
                     },
                     {
+                        text: 'RightMenu',
+                        link: '/guide/components/right-menu/'
+                    },
+                    {
                         text: 'SwipeControl',
                         link: '/guide/components/swipe-control/'
                     },
@@ -197,7 +209,7 @@ export default defineConfig({
             },
             {
                 text: 'Navigation',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'Breadcrumb',
@@ -223,7 +235,7 @@ export default defineConfig({
             },
             {
                 text: 'Scrolling',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'InfiniteScrollView',
@@ -237,7 +249,7 @@ export default defineConfig({
             },
             {
                 text: 'Status & info',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'Badge',
@@ -259,7 +271,7 @@ export default defineConfig({
             },
             {
                 text: 'Styles',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'AnimatedIcon',
@@ -281,7 +293,7 @@ export default defineConfig({
             },
             {
                 text: 'Text',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'SearchBox',
@@ -303,7 +315,7 @@ export default defineConfig({
             },
             {
                 text: 'Windowing',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'WebWindow',
@@ -313,7 +325,7 @@ export default defineConfig({
             },
             {
                 text: 'Global',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'MessageBar',
@@ -327,7 +339,7 @@ export default defineConfig({
             },
             {
                 text: 'Advance',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'ColorPicker',

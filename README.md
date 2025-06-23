@@ -24,25 +24,25 @@ This repository provides a library of components based on [Microsoft's Fluent De
 #### How to use
 
 ``` sh
-pnpm i @creatorsn/vfluent3
+yarn add @creatorsn/vfluent3
 ```
 
 #### Dev
 
-1. download node and pnpm   
+1. download node and yarn   
     [node](https://nodejs.org/en/)
     [pnpm](https://pnpm.io/)
 2. install dependencies  
    ```sh
-    pnpm i
+    yarn
    ```
 3. create new component
    ``` sh
-    pnpm bin:new
+    yarn bin:new
    ```
 4. develop with vitepress
    ``` sh
-    pnpm docs:dev
+    yarn docs:dev
    ``` 
 
 #### How to commit 
@@ -54,7 +54,7 @@ echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
 
 2. run command
 ``` bash
-pnpm cz
+yarn cz
 ```
 
 #### About Fabric UI
@@ -83,7 +83,7 @@ If you have some other creative ideas, we're happy to hear them from you.
 
 MIT License
 
-Copyright (c) 2024 Creator SN®
+Copyright (c) 2025 Creator SN®
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

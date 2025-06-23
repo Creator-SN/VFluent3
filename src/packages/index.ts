@@ -49,6 +49,8 @@ export * from "./shimmer"
 export * from "./slider"
 export * from "./swipe-control"
 export * from "./table-view"
+export * from "./table-view-cell-base"
+export * from "./table-view-head-base"
 export * from "./tag"
 export * from "./text-box"
 export * from "./text-field"
@@ -112,6 +114,8 @@ import Shimmer from "./shimmer"
 import Slider from "./slider"
 import SwipeControl from "./swipe-control"
 import TableView from "./table-view"
+import TableViewCellBase from "./table-view-cell-base"
+import TableViewHeadBase from "./table-view-head-base"
 import Tag from "./tag"
 import TextBox from "./text-box"
 import TextField from "./text-field"
@@ -170,6 +174,8 @@ const components = [
     Slider,
     SwipeControl,
     TableView,
+    TableViewCellBase,
+    TableViewHeadBase,
     Tag,
     TextBox,
     TextField,
@@ -241,6 +247,8 @@ declare module 'vue' {
 		FvSlider: typeof Slider;
 		FvSwipeControl: typeof SwipeControl;
 		FvTableView: typeof TableView;
+		FvTableViewCellBase: typeof TableViewCellBase;
+		FvTableViewHeadBase: typeof TableViewHeadBase;
 		FvTag: typeof Tag;
 		FvTextBox: typeof TextBox;
 		FvTextField: typeof TextField;

@@ -576,6 +576,7 @@ export default {
         }
     },
     beforeUnmount() {
+        clearInterval(this.timer.slider);
         window.removeEventListener('click', this.outSideClickEvent);
     }
 };
