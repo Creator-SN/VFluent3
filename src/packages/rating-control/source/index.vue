@@ -154,10 +154,10 @@ export default {
                 index: index,
                 ratio: finalRatio
             });
-            this.$set(this.hover, index, {
+            this.hover[index] = {
                 status: true,
                 ratio: finalRatio
-            });
+            };
         },
         handlerLeave(index) {
             if (this.isReadOnly) return;

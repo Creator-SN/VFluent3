@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
 const emits = defineEmits(['update:modelValue', 'confirm']);

@@ -72,8 +72,7 @@ export const use${'Name'} = (props: ${'Name'}Props, emits: EmitFn<${'Name'}Emits
 </template>
         
 <script>
-import { ${'name'}Props } from "."
-import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
+import { useTheme } from "@/utils/common"
 
 export default {
     name: "${'Prefix'}${'Name'}",

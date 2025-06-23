@@ -1,9 +1,13 @@
 <template>
     <div class="fv-CalendarView" :class="[$theme]">
         <div class="fv-calendar-control-block">
-            <p class="calendar-switcher" @click="switchView">{{ statement }}</p>
-            <div class="slider-bar" @click="slideUp">
-                <span class="slider-btn">
+            <p class="calendar-switcher" @click="switchView">
+                <slot name="statement" :value="statement" :dayRange="dayRange">
+                    {{ statement }}
+                </slot>
+            </p>
+            <div class="slider-bar">
+                <span class="slider-btn" @click="slideUp">
                     <i class="ms-Icon ms-Icon--CaretSolidUp"></i>
                 </span>
                 <span class="slider-btn" @click="slideDown">
@@ -20,6 +24,7 @@
                     :lan="lan"
                     ref="year"
                     key="1"
+                    :background="background"
                     @range-change="yearRange = $event"
                     @choose="chooseYear"
                 ></year-box>
@@ -30,6 +35,7 @@
                     :lan="lan"
                     ref="month"
                     key="2"
+                    :background="background"
                     @range-change="monthRange = $event"
                     @choose="chooseMonth"
                 ></month-box>
@@ -39,19 +45,30 @@
                     :theme="$theme"
                     :lan="lan"
                     :multiple="multiple"
+                    :choosenDates="choosenDates"
                     ref="day"
                     key="3"
+                    :background="background"
+                    :selected-background="selectedBackground"
+                    :selectedBorderColor="selectedBorderColor"
                     @range-change="dayRange = $event"
                     @choosen-dates="$emit('choosen-dates', $event)"
+                    @choosen-dates-obj="$emit('choosen-dates-obj', $event)"
                     @choose="chooseDate"
-                ></date-box>
+                >
+                    <template v-slot:weekday_content="x">
+                        <slot name="weekday_content" :value="x.value">
+                            {{ x.value }}
+                        </slot>
+                    </template>
+                </date-box>
             </transition-group>
         </div>
     </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, ref } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
 const emits = defineEmits([
@@ -76,13 +93,35 @@ const props = defineProps({
     multiple: {
         default: 'single'
     },
+    choosenDates: {
+        default: () => []
+    },
     lan: {
         default: 'en'
+    },
+    foreground: {
+        default: ''
     }
+});
+
+const day = ref(null);
+const resetDate = () => {
+    day.value.daysInit();
+    let date = day.value.thisValue;
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let no = date.getDate();
+    day.value.slide({ year, month, no });
+};
+
+defineExpose({
+    resetDate
 });
 </script>
 
 <script>
+import one from 'onecolor';
+
 import yearBox from './sub/yearBox.vue';
 import monthBox from './sub/monthBox.vue';
 import dateBox from './sub/dateBox.vue';
@@ -96,7 +135,6 @@ export default {
         monthBox,
         dateBox
     },
-
     data() {
         return {
             status: 'date',
@@ -170,6 +208,62 @@ export default {
                 if (this.lan == 'en') return `${this.monthRange.year}`;
                 else return `${this.monthRange.year}年`;
             return `${this.yearRange} - ${this.yearRange + 9}`;
+        },
+        background() {
+            let foreground = this.foreground;
+            if (!this.foreground)
+                if (this.theme === 'dark')
+                    foreground = 'rgba(118, 185, 237, 1)';
+                else foreground = 'rgba(0, 120, 215, 1)';
+            try {
+                let color = one(foreground);
+                color = color.alpha(1);
+                let result = color.cssa();
+                return result;
+            } catch (e) {
+                return '';
+            }
+        },
+        selectedBackground() {
+            let foreground = this.foreground;
+            if (!this.foreground)
+                if (this.theme === 'dark')
+                    foreground = 'rgba(118, 185, 237, 1)';
+                else foreground = 'rgba(0, 120, 215, 1)';
+            try {
+                let color = one(foreground);
+                let hsl = color.hsl();
+                let h = Math.round(hsl.h() * 360);
+                let s = hsl.s();
+                let l = hsl.l();
+                s = (s - 0.3).toFixed(2);
+                if (this.theme === 'dark') l = (l - 0.5).toFixed(2);
+                else l = (l + 0.5).toFixed(2);
+                let result = `hsla(${h}, ${s * 100}%, ${l * 100}%, 1)`;
+                return result;
+            } catch (e) {
+                return '';
+            }
+        },
+        selectedBorderColor() {
+            let foreground = this.foreground;
+            if (!this.foreground)
+                if (this.theme === 'dark')
+                    foreground = 'rgba(118, 185, 237, 1)';
+                else foreground = 'rgba(0, 120, 215, 1)';
+            try {
+                let color = one(foreground);
+                let hsl = color.hsl();
+                let h = Math.round(hsl.h() * 360);
+                let s = hsl.s();
+                let l = hsl.l();
+                s = (s - 0.1).toFixed(2);
+                l = (l - 0.01).toFixed(2);
+                let result = `hsla(${h}, ${s * 100}%, ${l * 100}%, 1)`;
+                return result;
+            } catch (e) {
+                return '';
+            }
         }
     },
     methods: {

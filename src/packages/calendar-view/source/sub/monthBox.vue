@@ -1,20 +1,25 @@
 <template>
-    <div
-        class="picker-container"
-        ref="main"
-    >
+    <div class="picker-container" ref="main">
         <button
             v-for="(item, index) in months"
             :key="`year: ${index}`"
             class="picker-btn"
-            :class="{range: item.year === currentRange.year, current: item.year === nowYear && item.no === nowMonth}"
+            :class="{
+                range: item.year === currentRange.year,
+                current: item.year === nowYear && item.no === nowMonth
+            }"
+            :style="{
+                background: computedBackground(item)
+            }"
             @click="choose(item)"
-        >{{item.name}}</button>
+        >
+            {{ item.name }}
+        </button>
     </div>
 </template>
 
 <script>
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 import { useRevealCache } from '@/store/reveal';
 
 export default {
@@ -33,6 +38,9 @@ export default {
         },
         lan: {
             default: 'en'
+        },
+        background: {
+            default: ''
         },
         theme: {
             default: 'global'
@@ -122,6 +130,13 @@ export default {
                     return 'rgba(255, 255, 255, 0.1)';
                 }
                 return 'rgba(121, 119, 117, 0.1)';
+            };
+        },
+        computedBackground() {
+            return (item) => {
+                if (item.year == this.nowYear && item.no === this.nowMonth)
+                    return this.background;
+                return '';
             };
         }
     },

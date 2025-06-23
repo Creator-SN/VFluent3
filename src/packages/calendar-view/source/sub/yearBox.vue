@@ -1,20 +1,26 @@
 <template>
-    <div
-        class="picker-container"
-        ref="main"
-    >
+    <div class="picker-container" ref="main">
         <button
             v-for="(item, index) in years"
             :key="`year: ${index}`"
             class="picker-btn"
-            :class="{range: item >= currentRange && item - currentRange < 10, current: item == nowYear}"
+            :class="{
+                range: item >= currentRange && item - currentRange < 10,
+                current: item == nowYear
+            }"
+            :style="{
+                background: computedBackground(item)
+            }"
             @click="choose(item)"
-        >{{item}}</button>
+        >
+            {{ item }}
+        </button>
     </div>
 </template>
 
 <script>
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import gsap from 'gsap';
+import { useTheme } from '@/utils/common';
 import { useRevealCache } from '@/store/reveal';
 
 export default {
@@ -30,6 +36,9 @@ export default {
         },
         size: {
             default: 72.5
+        },
+        background: {
+            default: ''
         },
         theme: {
             default: 'global'
@@ -105,6 +114,12 @@ export default {
                     return 'rgba(255, 255, 255, 0.1)';
                 }
                 return 'rgba(121, 119, 117, 0.1)';
+            };
+        },
+        computedBackground() {
+            return (item) => {
+                if (item == this.nowYear) return this.background;
+                return '';
             };
         }
     },
@@ -192,27 +207,47 @@ export default {
             if (!this.lock.slide) return 0;
             this.lock.slide = false;
             clearInterval(this.timer.scroller);
-            return await new Promise((resolve) => {
-                this.timer.scroller = setInterval(() => {
+            // return await new Promise(resolve => {
+            //     this.timer.scroller = setInterval(() => {
+            //         let index = this.years.indexOf(val);
+            //         if(index == -1) {
+            //             if(val < this.currentRange) {
+            //                 this.loadPrev();
+            //             }
+            //             else
+            //                 this.loadNext();
+            //         }
+            //         let height = Math.floor(index / 4) * this.size;
+            //         console.log(index, height);
+            //         let speed = -Math.floor((this.$refs.main.scrollTop - height) / 7);
+            //         this.$refs.main.scrollTop = this.$refs.main.scrollTop + speed;
+            //         if(speed == 0) {
+            //             this.$refs.main.scrollTop = height;
+            //             this.lock.slide = true;
+            //             resolve(0);
+            //             clearInterval(this.timer.scroller);
+            //         }
+            //     }, 30);
+            // });
+            let index = this.years.indexOf(val);
+            if (index == -1) {
+                if (val < this.currentRange) {
+                    await this.loadPrev();
+                } else await this.loadNext();
+            }
+            await new Promise((resolve) => {
+                this.$nextTick(() => {
                     let index = this.years.indexOf(val);
-                    if (index == -1) {
-                        if (val < this.currentRange) {
-                            this.loadPrev();
-                        } else this.loadNext();
-                    }
                     let height = Math.floor(index / 4) * this.size;
-                    let speed = -Math.floor(
-                        (this.$refs.main.scrollTop - height) / 7
-                    );
-                    this.$refs.main.scrollTop =
-                        this.$refs.main.scrollTop + speed;
-                    if (speed == 0) {
-                        this.$refs.main.scrollTop = height;
-                        this.lock.slide = true;
-                        resolve(0);
-                        clearInterval(this.timer.scroller);
-                    }
-                }, 30);
+                    gsap.to(this.$refs.main, {
+                        scrollTop: height,
+                        duration: 0.3,
+                        onComplete: () => {
+                            this.lock.slide = true;
+                            resolve(0);
+                        }
+                    });
+                });
             });
         },
         async delay(millionseconds) {

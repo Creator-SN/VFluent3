@@ -75,6 +75,7 @@ const props = defineProps({
         default: false
     },
     destroy: {
+        type: [Boolean, Function],
         default: false
     }
 });

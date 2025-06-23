@@ -6,7 +6,7 @@ export class SDate {
     }
     static Parse(DateString: string) {
         let reg = /\d+/g;
-        let timeArray = [];
+        let timeArray : [any][] = [];
         let x;
         while ((x = reg.exec(DateString)) != null) {
             timeArray.push(x[0]);

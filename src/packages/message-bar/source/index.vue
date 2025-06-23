@@ -41,12 +41,15 @@ const emits = defineEmits(['close']);
 const props = defineProps({
     ...commonProps,
     status: {
+        type: [String, undefined],
         default: 'default'
     },
     showControl: {
+        type: [Boolean, undefined],
         default: false
     },
     showClose: {
+        type: [Boolean, undefined],
         default: true
     },
     mode: {
