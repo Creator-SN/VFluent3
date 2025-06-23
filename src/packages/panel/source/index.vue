@@ -10,11 +10,8 @@
                     v-show="thisValue"
                     class="fv-panel-container"
                     :class="[
-                        {
-                            'near-side': isNearSide,
-                            'central-side': isCentralSide,
-                            'acrylic-style': isAcrylic
-                        }
+                        `${sideName}-side`,
+                        { 'acrylic-style': isAcrylic }
                     ]"
                     :style="{
                         width: finalWidth,
@@ -22,7 +19,11 @@
                         background: background
                     }"
                 >
-                    <div v-show="showTitleBar" class="fv-panel-control-block">
+                    <div
+                        v-show="showTitleBar"
+                        class="fv-panel-control-block"
+                        :style="{ padding: controlPadding }"
+                    >
                         <slot name="header">
                             <p
                                 class="panel-title"
@@ -40,10 +41,17 @@
                             ></i>
                         </slot>
                     </div>
-                    <div class="fv-panel-main-container">
+                    <div
+                        class="fv-panel-main-container"
+                        :style="{ padding: contentPadding }"
+                    >
                         <slot name="container"> Content Here </slot>
                     </div>
-                    <div v-show="isFooter" class="fv-panel-footer">
+                    <div
+                        v-show="isFooter"
+                        class="fv-panel-footer"
+                        :style="{ padding: controlPadding }"
+                    >
                         <slot name="footer">
                             <fv-button
                                 theme="dark"
@@ -91,7 +99,19 @@ const props = defineProps({
     background: {
         default: ''
     },
+    controlPadding: {
+        default: '15px'
+    },
+    contentPadding: {
+        default: '0px'
+    },
     isNearSide: {
+        default: false
+    },
+    isBottomSide: {
+        default: false
+    },
+    isTopSide: {
         default: false
     },
     isCentralSide: {
@@ -107,6 +127,9 @@ const props = defineProps({
         default: false
     },
     isAcrylic: {
+        default: false
+    },
+    teleport: {
         default: false
     }
 });
@@ -154,13 +177,26 @@ export default {
                 return `${this.height}px`;
             }
         },
+        sideName() {
+            if (this.isCentralSide) return 'central';
+            if (this.isNearSide) return 'near';
+            if (this.isTopSide) return 'top';
+            if (this.isBottomSide) return 'bottom';
+            return 'default';
+        },
         transitionInName() {
-            if (this.isCentralSide)
+            if (this.sideName === 'central')
                 if (this.thisValue) return 'fv-panel-scale-up-to-up';
                 else return 'fv-panel-scale-down-to-down';
-            if (this.isNearSide)
+            if (this.sideName === 'near')
                 if (this.thisValue) return 'move-left-to-right';
                 else return 'move-right-to-left';
+            if (this.sideName === 'top')
+                if (this.thisValue) return 'move-top-to-bottom';
+                else return 'move-bottom-to-top';
+            if (this.sideName === 'bottom')
+                if (this.thisValue) return 'move-bottom-to-top';
+                else return 'move-top-to-bottom';
             if (this.thisValue) return 'move-right-to-left';
             return 'move-left-to-right';
         },
@@ -170,8 +206,19 @@ export default {
     },
     mounted() {
         this.screenWidthInit();
+        if (this.teleport) this.globalAppendInit();
     },
     methods: {
+        globalAppendInit() {
+            this.$nextTick(() => {
+                const body = document.querySelector('body');
+                if (body.append) {
+                    body.append(this.$el);
+                } else {
+                    body.appendChild(this.$el);
+                }
+            });
+        },
         screenWidthInit() {
             this.timer.widthTimer = setInterval(() => {
                 this.screenWidth = window.innerWidth;
@@ -180,6 +227,10 @@ export default {
     },
     beforeUnmount() {
         clearInterval(this.timer.widthTimer);
+        try {
+            const body = document.querySelector('body');
+            body.removeChild(this.$el);
+        } catch (e) {}
     }
 };
 </script>

@@ -74,26 +74,53 @@ export default {
 ### Propoties
 
 ---
-|   属性(attr)    |             类型(type)             | 必填(required) | 默认值(default) |            说明(statement)             |
-|:---------------:|:----------------------------------:|:--------------:|:---------------:|:--------------------------------------:|
-|  value/v-model  |               [date]               |       No       |   CurrentDate   |                                        |
-|      start      |              Number              |       No       |      1900       | 最小年份, 尽量不要设置过小防止性能消耗 |
-|       end       |              Number              |       No       |      3000       | 最大年份, 尽量不要设置过大防止性能消耗 |
-|   borderWidth   |              Number              |       No       |        2        |    CalendarDatePicker border width     |
-|  borderRadius   |              Number              |       No       |        3        |    CalendarDatePicker border radius    |
-|   placeholder   |              String              |       No       |   Pick a day    |     CalendarDatePicker placeholder     |
-| inputForeground |          [string(color)]           |       No       |       N/A       |            输入框文字前景色            |
-| inputBackground |          [string(color)]           |       No       |       N/A       |              输入框背景色              |
-|  dropDownIcon   |              String              |       No       |   CalendarDay   |         Icon with Fabric-Icon          |
-|    disabled     |             Boolean              |       No       |      false      |                                        |
-|    multiple     |   ['single', 'multiple', 'range']    |       No       |     single      |  多选模式, 有单选、多选和范围日期选择  |
-|       lan       |            ['en', 'zh']             |       No       |       en        |      CalendarDatePicker language.      |
-|     theme     | String |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式              |
+|   属性(attr)    |           类型(type)            | 必填(required) | 默认值(default) |                      说明(statement)                      |
+|:---------------:|:-------------------------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
+|  value/v-model  |             [date]              |       No       |   CurrentDate   |                                                           |
+|      start      |             Number              |       No       |      1900       |          最小年份, 尽量不要设置过小防止性能消耗           |
+|       end       |             Number              |       No       |      3000       |          最大年份, 尽量不要设置过大防止性能消耗           |
+|   borderWidth   |             Number              |       No       |        2        |              CalendarDatePicker border width              |
+|  borderRadius   |             Number              |       No       |        3        |             CalendarDatePicker border radius              |
+|   placeholder   |             String              |       No       |   Pick a day    |              CalendarDatePicker placeholder               |
+| inputForeground |         [string(color)]         |       No       |       N/A       |                     输入框文字前景色                      |
+| inputBackground |         [string(color)]         |       No       |       N/A       |                       输入框背景色                        |
+|  dropDownIcon   |             String              |       No       |   CalendarDay   |                   Icon with Fabric-Icon                   |
+|    disabled     |             Boolean             |       No       |      false      |                                                           |
+|    multiple     | ['single', 'multiple', 'range'] |       No       |     single      |           多选模式, 有单选、多选和范围日期选择            |
+|       lan       |          ['en', 'zh']           |       No       |       en        |               CalendarDatePicker language.                |
+|  choosenDates   |              Array              |       No       |       []        |                 CalendarView初始选中日期                  |
+|   foreground    |         [string(color)]         |       No       |       N/A       |                  CalendarView主题前景色                   |
+|      theme      |             String              |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
 
 ### Events
 
 ---
-| 事件名(Name)  | 参数类型(args) |         说明(statement)         |
-|:-------------:|:--------------:|:-------------------------------:|
-| choosen-dates |     array      | 返回[{year, month, no}]类型的数组 |
-  
+|   事件名(Name)    | 参数类型(args) |          说明(statement)          |
+|:-----------------:|:--------------:|:---------------------------------:|
+|   choosen-dates   |     array      | 返回[{year, month, no}]类型的数组 |
+| choosen-dates-obj |     array      |       返回[Date]类型的数组        |
+
+### Slot
+---
+1. Statement
+
+`CalendarView`的显式栏描述内容
+- value: 原文描述内容
+- dayRange: 当前日期数据对象
+
+```vue
+<template v-slot:statement="x">
+    <p></p>
+</template>
+```
+
+2. Weekday Content
+
+日期上方星期栏描述内容
+- value: 默认星期描述内容
+
+```vue
+<template v-slot:weekday_content>
+    <p></p>
+</template>
+```

@@ -40,12 +40,15 @@ export * from "./progress-ring"
 export * from "./radio"
 export * from "./radio-group"
 export * from "./rating-control"
+export * from "./resize-watcher"
 export * from "./reveal-container"
+export * from "./right-menu"
 export * from "./scroll-story"
 export * from "./search-box"
 export * from "./shimmer"
 export * from "./slider"
 export * from "./swipe-control"
+export * from "./table-view"
 export * from "./tag"
 export * from "./text-box"
 export * from "./text-field"
@@ -100,12 +103,15 @@ import ProgressRing from "./progress-ring"
 import Radio from "./radio"
 import RadioGroup from "./radio-group"
 import RatingControl from "./rating-control"
+import ResizeWatcher from "./resize-watcher"
 import RevealContainer from "./reveal-container"
+import RightMenu from "./right-menu"
 import ScrollStory from "./scroll-story"
 import SearchBox from "./search-box"
 import Shimmer from "./shimmer"
 import Slider from "./slider"
 import SwipeControl from "./swipe-control"
+import TableView from "./table-view"
 import Tag from "./tag"
 import TextBox from "./text-box"
 import TextField from "./text-field"
@@ -155,12 +161,15 @@ const components = [
     Radio,
     RadioGroup,
     RatingControl,
+    ResizeWatcher,
     RevealContainer,
+    RightMenu,
     ScrollStory,
     SearchBox,
     Shimmer,
     Slider,
     SwipeControl,
+    TableView,
     Tag,
     TextBox,
     TextField,
@@ -223,12 +232,15 @@ declare module 'vue' {
 		FvRadio: typeof Radio;
 		FvRadioGroup: typeof RadioGroup;
 		FvRatingControl: typeof RatingControl;
+		FvResizeWatcher: typeof ResizeWatcher;
 		FvRevealContainer: typeof RevealContainer;
+		FvRightMenu: typeof RightMenu;
 		FvScrollStory: typeof ScrollStory;
 		FvSearchBox: typeof SearchBox;
 		FvShimmer: typeof Shimmer;
 		FvSlider: typeof Slider;
 		FvSwipeControl: typeof SwipeControl;
+		FvTableView: typeof TableView;
 		FvTag: typeof Tag;
 		FvTextBox: typeof TextBox;
 		FvTextField: typeof TextField;

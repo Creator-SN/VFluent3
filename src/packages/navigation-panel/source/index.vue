@@ -277,20 +277,21 @@ export default {
             }, 30);
         },
         outSideClickInit() {
-            window.addEventListener('click', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$el) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
+            window.addEventListener('click', this.outSideClickEvent);
+        },
+        outSideClickEvent(event) {
+            let x = event.target;
+            let _self = false;
+            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
+                if (x == this.$el) {
+                    _self = true;
+                    break;
                 }
-                if (!_self) {
-                    if (this.isFlyout || this.isMobile) this.thisExpand = false;
-                }
-            });
+                x = x.parentNode;
+            }
+            if (!_self) {
+                if (this.isFlyout || this.isMobile) this.thisExpand = false;
+            }
         },
         expandClick() {
             this.thisExpandBackup = !this.thisExpand;
@@ -302,6 +303,7 @@ export default {
         clearInterval(this.timer.widthTimer);
 
         this.uR.revealDirectJs.destroy(this.FR);
+        window.removeEventListener('click', this.outSideClickEvent);
     }
 };
 </script>

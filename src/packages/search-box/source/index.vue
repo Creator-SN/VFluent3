@@ -328,18 +328,19 @@ export default {
             });
         },
         outSideClickInit() {
-            window.addEventListener('click', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$el) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
+            window.addEventListener('click', this.outSideClickEvent);
+        },
+        outSideClickEvent(event) {
+            let x = event.target;
+            let _self = false;
+            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
+                if (x == this.$el) {
+                    _self = true;
+                    break;
                 }
-                if (!_self) this.show.searchResult = false;
-            });
+                x = x.parentNode;
+            }
+            if (!_self) this.show.searchResult = false;
         },
         refreshFilter() {
             let result = [];
@@ -434,6 +435,9 @@ export default {
             this.$emit('update:resultPlaceholder', []);
             this.$emit('clear-click');
         }
+    },
+    beforeUnmount() {
+        window.removeEventListener('click', this.outSideClickEvent);
     }
 };
 </script>

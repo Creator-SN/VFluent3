@@ -217,30 +217,20 @@ export default {
     },
     methods: {
         outSideClickInit() {
-            window.addEventListener('click', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$el) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
+            window.addEventListener('click', this.outSideClickEvent);
+            window.addEventListener('touchend', this.outSideClickEvent);
+        },
+        outSideClickEvent(event) {
+            let x = event.target;
+            let _self = false;
+            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
+                if (x == this.$el) {
+                    _self = true;
+                    break;
                 }
-                if (!_self) this.status = false;
-            });
-            window.addEventListener('touchend', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$el) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
-                }
-                if (!_self) this.status = false;
-            });
+                x = x.parentNode;
+            }
+            if (!_self) this.status = false;
         },
         valueTrigger(val) {
             if (typeof val === 'function') return val();
@@ -265,6 +255,10 @@ export default {
             this.status = false;
             this.$emit('choose-item', this.thisValue);
         }
+    },
+    beforeMount() {
+        window.removeEventListener('click', this.outSideClickEvent);
+        window.removeEventListener('touchend', this.outSideClickEvent);
     }
 };
 </script>

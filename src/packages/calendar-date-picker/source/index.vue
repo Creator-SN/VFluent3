@@ -24,9 +24,27 @@
                     :start="start"
                     :end="end"
                     :lan="lan"
+                    :choosen-dates="dates"
+                    :foreground="foreground"
                     :theme="theme"
                     @choosen-dates="chooseDates"
-                ></fv-calendar-view>
+                    @choosen-dates-obj="$emit('choosen-dates-obj', $event)"
+                >
+                    <template v-slot:statement="x">
+                        <slot
+                            name="statement"
+                            :value="x.value"
+                            :dayRange="x.dayRange"
+                        >
+                            {{ x.value }}
+                        </slot>
+                    </template>
+                    <template v-slot:weekday_content="x">
+                        <slot name="weekday_content" :value="x.value">
+                            {{ x.value }}
+                        </slot>
+                    </template>
+                </fv-calendar-view>
             </div>
         </transition>
     </div>
@@ -36,7 +54,11 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits([
+    'update:modelValue',
+    'choosen-dates',
+    'choosen-dates-obj'
+]);
 
 const props = defineProps({
     ...commonProps,
@@ -75,6 +97,12 @@ const props = defineProps({
     },
     multiple: {
         default: 'single'
+    },
+    choosenDates: {
+        default: () => []
+    },
+    foreground: {
+        default: ''
     },
     disabled: {
         default: false
@@ -145,36 +173,30 @@ export default {
     },
     methods: {
         outSideClickInit() {
-            window.addEventListener('click', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$el) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
+            window.addEventListener('click', this.outSideClickEvent);
+            window.addEventListener('touchend', this.outSideClickEvent);
+        },
+        outSideClickEvent(event) {
+            let x = event.target;
+            let _self = false;
+            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
+                if (x == this.$el) {
+                    _self = true;
+                    break;
                 }
-                if (!_self) this.show.calendar = false;
-            });
-            window.addEventListener('touchend', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$el) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
-                }
-                if (!_self) this.show.calendar = false;
-            });
+                x = x.parentNode;
+            }
+            if (!_self) this.show.calendar = false;
         },
         chooseDates(val) {
             this.dates = val;
             this.$emit('choosen-dates', val);
             if (this.multiple == 'single') this.show.calendar = false;
         }
+    },
+    beforeUnmount() {
+        window.removeEventListener('click', this.outSideClickEvent);
+        window.removeEventListener('touchend', this.outSideClickEvent);
     }
 };
 </script>

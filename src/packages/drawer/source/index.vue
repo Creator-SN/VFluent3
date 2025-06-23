@@ -124,10 +124,18 @@ export default {
             }
             // For compatibility with IOS
             if (this.appendBody) {
-                // change position style: absolute
-                this.$refs.drawer.remove();
-                document.body.appendChild(this.$refs.drawer);
+                this.globalAppendInit();
             }
+        },
+        globalAppendInit() {
+            this.$nextTick(() => {
+                const body = document.querySelector('body');
+                if (body.append) {
+                    body.append(this.$el);
+                } else {
+                    body.appendChild(this.$el);
+                }
+            });
         },
         setStyle() {
             let length = this.length;
@@ -141,6 +149,8 @@ export default {
                     bottom: '0',
                     height: length,
                     width: '100%',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
                     zIndex: this.zIndex,
                     transform: ` ${
                         this.computeVisible
@@ -154,6 +164,8 @@ export default {
                     top: '0',
                     height: length,
                     width: '100%',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
                     zIndex: this.zIndex,
                     transform: `${
                         this.computeVisible
@@ -167,6 +179,8 @@ export default {
                     top: '0',
                     width: length,
                     height: '100%',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
                     zIndex: this.zIndex,
                     transform: `${
                         this.computeVisible
@@ -180,6 +194,8 @@ export default {
                     top: '0',
                     width: length,
                     height: '100%',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
                     zIndex: this.zIndex,
                     transform: `${
                         this.computeVisible
@@ -192,6 +208,15 @@ export default {
         close() {
             this.computeVisible = false;
         }
+    },
+    beforeUnmount() {
+        for (let key in this.window) {
+            window.removeEventListener(key, this.window);
+        }
+        try {
+            const body = document.querySelector('body');
+            body.removeChild(this.$el);
+        } catch (e) {}
     }
 };
 </script>

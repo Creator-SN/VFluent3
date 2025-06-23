@@ -166,18 +166,19 @@ export default {
     },
     methods: {
         outSideClickInit() {
-            window.addEventListener('click', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$el) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
+            window.addEventListener('click', this.outSideClickEvent);
+        },
+        outSideClickEvent(event) {
+            let x = event.target;
+            let _self = false;
+            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
+                if (x == this.$el) {
+                    _self = true;
+                    break;
                 }
-                if (!_self) this.mode = 'default';
-            });
+                x = x.parentNode;
+            }
+            if (!_self) this.mode = 'default';
         },
         editorMode(event) {
             if (this.isDisabled) return 0;
@@ -217,6 +218,9 @@ export default {
                 current: item
             });
         }
+    },
+    beforeUnmount() {
+        window.removeEventListener('click', this.outSideClickEvent);
     }
 };
 </script>

@@ -55,10 +55,6 @@ const props = defineProps({
     },
     zIndex: {
         default: ''
-    },
-    theme: {
-        type: String,
-        default: 'system'
     }
 });
 </script>

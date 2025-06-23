@@ -5,6 +5,7 @@
     width: 200px;
     height: auto;
     padding-left: 2px;
+    box-sizing: border-box;
     overflow-x: hidden;
 
     .fv-tree-view-item {
@@ -21,7 +22,6 @@
             margin-bottom: 3px;
             padding: 0px 10px;
             border-radius: 6px;
-            box-sizing: content-box;
             display: flex;
             align-items: center;
             transition:
@@ -107,8 +107,6 @@
                         height: 16px;
                         margin: 0px 1px;
                         object-fit: cover;
-                        display: flex;
-                        align-items: center;
                     }
 
                     .fv-tree-view-item-text {
@@ -126,14 +124,14 @@
         }
     }
 
-    .fv-tree-view-children-list-enter-from,
+    .fv-tree-view-children-list-enter,
     .fv-tree-view-children-list-leave-to {
         max-height: 0px;
         transform: scaleY(0);
     }
 
     .fv-tree-view-children-list-enter-to,
-    .fv-tree-view-children-list-leave-from {
+    .fv-tree-view-children-list-leave {
         max-height: 1000px;
         transform: scaleY(1);
     }

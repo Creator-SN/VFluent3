@@ -20,16 +20,20 @@
             }"
             @click="$emit('tag-click', item)"
         >
-            <span class="fv-tag-content">
+            <span
+                class="fv-tag-content"
+                :style="{ 'font-size': fontSize + 'px' }"
+            >
                 <slot>
-                    {{ item.text }}
+                    <p class="fv-tag-default-content">{{ item.text }}</p>
                 </slot>
             </span>
-            <i
-                v-show="isDel && !item.disabled"
-                class="ms-Icon ms-Icon--Cancel fv-tag-icon"
-                @click="delTag(item)"
-            ></i>
+            <div v-show="isDel && !item.disabled" class="fv-tag-icon">
+                <i
+                    class="ms-Icon ms-Icon--Cancel fv-tag-icon-btn"
+                    @click="delTag(item)"
+                ></i>
+            </div>
         </div>
         <div
             v-show="isNewTag"
@@ -49,14 +53,23 @@
             }"
             @click="editable"
         >
-            <i v-show="!edit" class="ms-Icon ms-Icon--Add fv-tag-icon"></i>
-            <span v-show="!edit" class="fv-tag-content">{{
-                newTagPlaceholder
-            }}</span>
+            <div v-show="!edit" class="fv-tag-icon">
+                <i class="ms-Icon ms-Icon--Add fv-tag-icon-btn"></i>
+            </div>
+            <span v-show="!edit" class="fv-tag-content">
+                <slot>
+                    <p class="fv-tag-default-content">
+                        {{ newTagPlaceholder }}
+                    </p>
+                </slot>
+            </span>
             <fv-text-box
                 v-show="edit"
                 v-model="inputValue"
                 ref="edit"
+                background="transparent"
+                border-color="transparent"
+                focus-border-color="transparent"
                 :placeholder="newTagPlaceholder"
                 style="width: auto"
                 @keydown.enter="addTag"
@@ -89,6 +102,9 @@ const props = defineProps({
     },
     newTagBackground: {
         default: null
+    },
+    fontSize: {
+        default: ''
     },
     isNewTag: {
         default: false
@@ -135,34 +151,22 @@ export default {
     },
     methods: {
         outSideClickInit() {
-            window.addEventListener('click', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$refs.add) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
+            window.addEventListener('click', this.outSideClickEvent);
+            window.addEventListener('touchend', this.outSideClickEvent);
+        },
+        outSideClickEvent(event) {
+            let x = event.target;
+            let _self = false;
+            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
+                if (x == this.$refs.add) {
+                    _self = true;
+                    break;
                 }
-                if (!_self) {
-                    this.edit = false;
-                }
-            });
-            window.addEventListener('touchend', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$refs.add) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
-                }
-                if (!_self) {
-                    this.edit = false;
-                }
-            });
+                x = x.parentNode;
+            }
+            if (!_self) {
+                this.edit = false;
+            }
         },
         editable() {
             this.edit = true;
@@ -198,6 +202,10 @@ export default {
                 color: color.alpha(1).cssa()
             };
         }
+    },
+    beforeUnmount() {
+        window.removeEventListener('click', this.outSideClickEvent);
+        window.removeEventListener('touchend', this.outSideClickEvent);
     }
 };
 </script>
