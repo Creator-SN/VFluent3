@@ -43,50 +43,54 @@ export default ${'Prefix'}${'Name'}
 import "@/styles/theme/light/${'-name'}/index.scss"
 import "@/styles/theme/dark/${'-name'}/index.scss"
 `,
-            // source/index.ts
-            'source/index.ts': template`import { commonProps } from '@/packages/common/props';
-import { computed, ExtractPropTypes, ref } from 'vue';
-import { EmitFn } from '@/types/components';
-
-export const ${'name'}Props = {
-    ...commonProps,
-}
-
-export type ${'Name'}Props = ExtractPropTypes<typeof ${'name'}Props>;
-
-export const ${'name'}Emits = {
-}
-
-export type ${'Name'}Emits = typeof ${'name'}Emits
-
-export const use${'Name'} = (props: ${'Name'}Props, emits: EmitFn<${'Name'}Emits>) => {
-    return {
-    }
-}
-`,
             // source/index.vue
-            'source/index.vue': template`<script lang="ts" setup>
-import { isNumber, isString } from "@/utils/common/types";
-import { ${'name'}Props, ${'name'}Emits, use${'Name'} } from "."
-import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
-
-defineOptions({
-    name: "${'Prefix'}${'Name'}"
-})
-
-const emits = defineEmits(${'name'}Emits)
-
-const props = defineProps(${'name'}Props)
-
-const { theme } = useTheme(props)
-
-const {  } = use${'Name'}(props, emits)
-</script>
-<template>
-    <div class="${'-prefix'}-${'Name'}" :class="[theme]">
+            'source/index.vue': template`<template>
+    <div class="${'-prefix'}-${'Name'}" :class="[$theme]">
         ${'Prefix'}${'Name'}
     </div>
 </template>
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits({
+    
+});
+
+const props = defineProps({
+    ...commonProps,
+
+});
+</script>
+
+<script>
+import { useTheme } from "@/utils/common";
+
+export default {
+    name: "${'Prefix'}${'Name'}",
+    data () {
+        return {
+            
+        }
+    },
+    watch: {
+    
+    },
+    computed: {
+        $theme() {
+            return useTheme(this.$props).theme.value;
+        }
+    },
+    mounted() {},
+    methods: {
+    
+    },
+    beforeUnmount () {
+    
+    }
+}
+</script>
 `,
         },
         // packages
@@ -119,6 +123,14 @@ export const ${'Prefix'}ComponentPlugins: Plugin = {
         }
     },
 };
+
+declare module 'vue' {
+    export interface GlobalComponents {
+        ${'declares'}
+    }
+}
+
+export default FvComponentPlugins;
 `,
         },
         styles: {
@@ -299,12 +311,22 @@ const {theme} = useTheme()
         const components = await this.getAllComponentsAsync();
         let exports: string[] = [];
         let imports: string[] = [];
+        let declares: string[] = [];
         for (const component of components) {
             exports.push(`export * from "./${component}"`);
             imports.push(
                 `import ${camelCase(component, {
                     pascalCase: true,
                 })} from "./${component}"`
+            );
+            declares.push(
+                `\t\t${camelCase(this._prefix, {
+                    pascalCase: true,
+                })}${camelCase(component, {
+                    pascalCase: true,
+                })}: typeof ${camelCase(component, {
+                    pascalCase: true,
+                })};`
             );
         }
         fs.writeFileSync(
@@ -322,6 +344,7 @@ const {theme} = useTheme()
                 Prefix: camelCase(this._prefix, {
                     pascalCase: true,
                 }),
+                declares: declares.join('\n'),
             }),
             {
                 encoding: 'utf-8',

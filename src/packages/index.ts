@@ -1,6 +1,7 @@
 import '@/libs/office-ui-fabric-core/css/fabric.min.css';
 import '@/libs/global-transition/global-transition.css';
 
+export * from "./affix"
 export * from "./animated-icon"
 export * from "./badge"
 export * from "./breadcrumb"
@@ -60,6 +61,7 @@ import { UtilsPlugin } from '@/utils/plugins/install-utils';
 import type { App, Plugin } from 'vue';
 import { createPinia } from 'pinia';
 
+import Affix from "./affix"
 import AnimatedIcon from "./animated-icon"
 import Badge from "./badge"
 import Breadcrumb from "./breadcrumb"
@@ -114,6 +116,7 @@ import VerifyBox from "./verify-box"
 import WebWindow from "./web-window"
 
 const components = [
+    Affix,
     AnimatedIcon,
     Badge,
     Breadcrumb,
@@ -181,57 +184,59 @@ export const FvComponentPlugins: Plugin = {
 
 declare module 'vue' {
     export interface GlobalComponents {
-        FvAnimatedIcon: typeof AnimatedIcon;
-        FvBadge: typeof Badge;
-        FvBreadcrumb: typeof Breadcrumb;
-        FvButton: typeof Button;
-        FvCalendarDatePicker: typeof CalendarDatePicker;
-        FvCalendarView: typeof CalendarView;
-        FvCallout: typeof Callout;
-        FvCheckBox: typeof CheckBox;
-        FvCollapse: typeof Collapse;
-        FvColorPicker: typeof ColorPicker;
-        FvCombobox: typeof Combobox;
-        FvCommandBar: typeof CommandBar;
-        FvDatePicker: typeof DatePicker;
-        FvDetailsList: typeof DetailsList;
-        FvDrawer: typeof Drawer;
-        FvDropDown: typeof DropDown;
-        FvExpander: typeof Expander;
-        FvFlipView: typeof FlipView;
-        FvIconElement: typeof IconElement;
-        FvImage: typeof Image;
-        FvImg: typeof Img;
-        FvImgBox: typeof ImgBox;
-        FvInfiniteScrollView: typeof InfiniteScrollView;
-        FvInfoBox: typeof InfoBox;
-        FvListView: typeof ListView;
-        FvMenuFlyout: typeof MenuFlyout;
-        FvMessageBar: typeof MessageBar;
-        FvNavigationPanel: typeof NavigationPanel;
-        FvNavigationView: typeof NavigationView;
-        FvPagination: typeof Pagination;
-        FvPanel: typeof Panel;
-        FvPersona: typeof Persona;
-        FvPivot: typeof Pivot;
-        FvProgressBar: typeof ProgressBar;
-        FvProgressRing: typeof ProgressRing;
-        FvRadio: typeof Radio;
-        FvRadioGroup: typeof RadioGroup;
-        FvRatingControl: typeof RatingControl;
-        FvRevealContainer: typeof RevealContainer;
-        FvScrollStory: typeof ScrollStory;
-        FvSearchBox: typeof SearchBox;
-        FvShimmer: typeof Shimmer;
-        FvSlider: typeof Slider;
-        FvSwipeControl: typeof SwipeControl;
-        FvTag: typeof Tag;
-        FvTextBox: typeof TextBox;
-        FvTextField: typeof TextField;
-        FvTimePicker: typeof TimePicker;
-        FvToggleSwitch: typeof ToggleSwitch;
-        FvTreeView: typeof TreeView;
-        FvVerifyBox: typeof VerifyBox,
+        		FvAffix: typeof Affix;
+		FvAnimatedIcon: typeof AnimatedIcon;
+		FvBadge: typeof Badge;
+		FvBreadcrumb: typeof Breadcrumb;
+		FvButton: typeof Button;
+		FvCalendarDatePicker: typeof CalendarDatePicker;
+		FvCalendarView: typeof CalendarView;
+		FvCallout: typeof Callout;
+		FvCheckBox: typeof CheckBox;
+		FvCollapse: typeof Collapse;
+		FvColorPicker: typeof ColorPicker;
+		FvCombobox: typeof Combobox;
+		FvCommandBar: typeof CommandBar;
+		FvDatePicker: typeof DatePicker;
+		FvDetailsList: typeof DetailsList;
+		FvDrawer: typeof Drawer;
+		FvDropDown: typeof DropDown;
+		FvExpander: typeof Expander;
+		FvFlipView: typeof FlipView;
+		FvIconElement: typeof IconElement;
+		FvImage: typeof Image;
+		FvImg: typeof Img;
+		FvImgBox: typeof ImgBox;
+		FvInfiniteScrollView: typeof InfiniteScrollView;
+		FvInfoBox: typeof InfoBox;
+		FvListView: typeof ListView;
+		FvMenuFlyout: typeof MenuFlyout;
+		FvMessageBar: typeof MessageBar;
+		FvNavigationPanel: typeof NavigationPanel;
+		FvNavigationView: typeof NavigationView;
+		FvPagination: typeof Pagination;
+		FvPanel: typeof Panel;
+		FvPersona: typeof Persona;
+		FvPivot: typeof Pivot;
+		FvProgressBar: typeof ProgressBar;
+		FvProgressRing: typeof ProgressRing;
+		FvRadio: typeof Radio;
+		FvRadioGroup: typeof RadioGroup;
+		FvRatingControl: typeof RatingControl;
+		FvRevealContainer: typeof RevealContainer;
+		FvScrollStory: typeof ScrollStory;
+		FvSearchBox: typeof SearchBox;
+		FvShimmer: typeof Shimmer;
+		FvSlider: typeof Slider;
+		FvSwipeControl: typeof SwipeControl;
+		FvTag: typeof Tag;
+		FvTextBox: typeof TextBox;
+		FvTextField: typeof TextField;
+		FvTimePicker: typeof TimePicker;
+		FvToggleSwitch: typeof ToggleSwitch;
+		FvTreeView: typeof TreeView;
+		FvVerifyBox: typeof VerifyBox;
+		FvWebWindow: typeof WebWindow;
     }
 }
 
