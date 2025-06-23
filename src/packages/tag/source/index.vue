@@ -1,19 +1,28 @@
 <template>
-    <div
-        class="fv-Tag"
-        :class="[$theme]"
-    >
+    <div class="fv-Tag" :class="[$theme]">
         <div
             v-for="(item, index) in thisValue"
             :key="index"
             class="fv-tag-item"
-            :class="[item.type ? item.type : '', size, {disabled: item.disabled}]"
-            :style="{background: item.background ? getColor(item.background)['background'] : '', borderColor: item.background ? getColor(item.background)['borderColor'] : '', color: item.background ? getColor(item.background)['color'] : ''}"
+            :class="[
+                item.type ? item.type : '',
+                size,
+                { disabled: item.disabled }
+            ]"
+            :style="{
+                background: item.background
+                    ? getColor(item.background)['background']
+                    : '',
+                borderColor: item.background
+                    ? getColor(item.background)['borderColor']
+                    : '',
+                color: item.background ? getColor(item.background)['color'] : ''
+            }"
             @click="$emit('tag-click', item)"
         >
             <span class="fv-tag-content">
                 <slot>
-                    {{item.text}}
+                    {{ item.text }}
                 </slot>
             </span>
             <i
@@ -27,58 +36,77 @@
             ref="add"
             class="fv-tag-item controller"
             :class="[size]"
-            :style="{background: newTagBackground ? getColor(newTagBackground)['background'] : '', borderColor: newTagBackground ? getColor(newTagBackground)['borderColor'] : '', color: newTagBackground ? getColor(newTagBackground)['color'] : ''}"
+            :style="{
+                background: newTagBackground
+                    ? getColor(newTagBackground)['background']
+                    : '',
+                borderColor: newTagBackground
+                    ? getColor(newTagBackground)['borderColor']
+                    : '',
+                color: newTagBackground
+                    ? getColor(newTagBackground)['color']
+                    : ''
+            }"
             @click="editable"
         >
-            <i
-                v-show="!edit"
-                class="ms-Icon ms-Icon--Add fv-tag-icon"
-            ></i>
-            <span
-                v-show="!edit"
-                class="fv-tag-content"
-            >{{newTagPlaceholder}}</span>
+            <i v-show="!edit" class="ms-Icon ms-Icon--Add fv-tag-icon"></i>
+            <span v-show="!edit" class="fv-tag-content">{{
+                newTagPlaceholder
+            }}</span>
             <fv-text-box
                 v-show="edit"
                 v-model="inputValue"
                 ref="edit"
                 :placeholder="newTagPlaceholder"
-                style="width: auto;"
+                style="width: auto"
                 @keydown.enter="addTag"
             ></fv-text-box>
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'update:modelValue',
+    'add-item',
+    'del-item',
+    'tag-click'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: () => []
+    },
+    newTagPlaceholder: {
+        default: 'New Tag'
+    },
+    size: {
+        default: ''
+    },
+    newTagBackground: {
+        default: null
+    },
+    isNewTag: {
+        default: false
+    },
+    isDel: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { tagProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import one from 'onecolor';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvTag',
-    emits: ['update:modelValue', 'add-item', 'del-item', 'tag-click'],
-    props: {
-        ...tagProps,
-        modelValue: {
-            default: () => []
-        },
-        newTagPlaceholder: {
-            default: 'New Tag'
-        },
-        size: {
-            default: ''
-        },
-        newTagBackground: {
-            default: null
-        },
-        isNewTag: {
-            default: false
-        },
-        isDel: {
-            default: false
-        }
-    },
+
     data() {
         return {
             thisValue: this.modelValue,
@@ -173,4 +201,3 @@ export default {
     }
 };
 </script>
-

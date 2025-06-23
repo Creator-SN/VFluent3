@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="fv-NavigationView"
-        :class="[$theme, {compact: !thisExpand}]"
-    >
+    <div class="fv-NavigationView" :class="[$theme, { compact: !thisExpand }]">
         <fv-NavigationPanel
             :title="title"
             v-model:expand="thisExpand"
@@ -36,7 +33,7 @@
                     :revealBorder="true"
                     borderRadius="3"
                     :isBoxShadow="true"
-                    style="width: 95%;"
+                    style="width: 95%"
                     @choose-result="onChooseSearch"
                 ></fv-search-box>
             </template>
@@ -61,14 +58,25 @@
                             :valueTrigger="x.valueTrigger"
                         >
                             <i
-                                v-show="x.valueTrigger(x.item.icon) !== undefined"
+                                v-show="
+                                    x.valueTrigger(x.item.icon) !== undefined
+                                "
                                 class="ms-Icon icon"
-                                :class="[`ms-Icon--${x.valueTrigger(x.item.icon)}`]"
+                                :class="[
+                                    `ms-Icon--${x.valueTrigger(x.item.icon)}`
+                                ]"
                             ></i>
                             <p
                                 class="name"
-                                :style="{ color: x.valueTrigger(x.item.type) == 'header' ? foreground : ''}"
-                            >{{x.valueTrigger(x.item.name)}}</p>
+                                :style="{
+                                    color:
+                                        x.valueTrigger(x.item.type) == 'header'
+                                            ? foreground
+                                            : ''
+                                }"
+                            >
+                                {{ x.valueTrigger(x.item.name) }}
+                            </p>
                         </slot>
                     </template>
                     <template v-slot:footer>
@@ -78,12 +86,12 @@
                             modelValue="bounceRotate"
                             class="fv-nav-default-item"
                             :hideContent="!thisExpand"
-                            style="width: calc(100% - 10px);"
-                            @click="settingClick({event: $event})"
+                            style="width: calc(100% - 10px)"
+                            @click="settingClick({ event: $event })"
                         >
                             <i class="ms-Icon ms-Icon--Settings icon"></i>
                             <template v-slot:content>
-                                <p class="name">{{settingTitle}}</p>
+                                <p class="name">{{ settingTitle }}</p>
                             </template>
                         </fv-animated-icon>
                     </template>
@@ -92,76 +100,99 @@
         </fv-NavigationPanel>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'update:modelValue',
+    'expand-change',
+    'setting-click',
+    'item-click',
+    'back',
+    'expand-click',
+    'update:expand'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    emits: [
+        'update:modelValue',
+        'expand-change',
+        'setting-click',
+        'item-click',
+        'back',
+        'expand-click',
+        'update:expand'
+    ],
+    modelValue: {
+        default: () => {
+            return {};
+        }
+    },
+    options: {
+        default: () => []
+    },
+    title: {
+        default: 'NavigationView'
+    },
+    expand: {
+        default: true
+    },
+    expandMode: {
+        default: 'relative'
+    },
+    expandWidth: {
+        default: 350
+    },
+    expandDisplay: {
+        default: 1024
+    },
+    compactWidth: {
+        default: 46
+    },
+    flyoutDisplay: {
+        default: 0
+    },
+    fullSizeDisplay: {
+        default: 800
+    },
+    mobileDisplay: {
+        default: 0
+    },
+    showBack: {
+        default: true
+    },
+    showNav: {
+        default: true
+    },
+    showSearch: {
+        default: true
+    },
+    settingTitle: {
+        default: 'Settings'
+    },
+    showSetting: {
+        default: true
+    },
+    searchPlaceholder: {
+        default: 'Search'
+    },
+    foreground: {
+        default: ''
+    },
+    background: {
+        default: ''
+    }
+});
+</script>
+
 <script>
-import { navigationViewProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvNavigationView',
-    props: {
-        ...navigationViewProps,
-        emits: ['update:modelValue', 'expand-change', 'setting-click', 'item-click', 'back', 'expand-click', 'update:expand'],
-        modelValue: {
-            default: () => {
-                return {};
-            }
-        },
-        options: {
-            default: () => []
-        },
-        title: {
-            default: 'NavigationView'
-        },
-        expand: {
-            default: true
-        },
-        expandMode: {
-            default: 'relative'
-        },
-        expandWidth: {
-            default: 350
-        },
-        expandDisplay: {
-            default: 1024
-        },
-        compactWidth: {
-            default: 46
-        },
-        flyoutDisplay: {
-            default: 0
-        },
-        fullSizeDisplay: {
-            default: 800
-        },
-        mobileDisplay: {
-            default: 0
-        },
-        showBack: {
-            default: true
-        },
-        showNav: {
-            default: true
-        },
-        showSearch: {
-            default: true
-        },
-        settingTitle: {
-            default: 'Settings'
-        },
-        showSetting: {
-            default: true
-        },
-        searchPlaceholder: {
-            default: 'Search'
-        },
-        foreground: {
-            default: ''
-        },
-        background: {
-            default: ''
-        }
-    },
     data() {
         return {
             thisValue: {},
@@ -258,4 +289,3 @@ export default {
     }
 };
 </script>
-

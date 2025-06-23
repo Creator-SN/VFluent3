@@ -1,28 +1,26 @@
 <template>
-    <div
-        class="fv-SwipeControl"
-        :class="[$theme]"
-    >
-        <div
-            class="fv-swiper-container swiper-container"
-            ref="container"
-        >
-            <div
-                class="swiper-wrapper"
-                ref="wrapper"
-            >
+    <div class="fv-SwipeControl" :class="[$theme]">
+        <div class="fv-swiper-container swiper-container" ref="container">
+            <div class="swiper-wrapper" ref="wrapper">
                 <div class="fv-SwipeControl-left swiper-slide">
                     <div
                         v-for="(item, index) in leftOptions"
                         class="fv-SwipeControl-btn"
                         :class="[valueTrigger(item.type)]"
                         :key="index"
-                        :style="{width: index === leftOptions.length - 1 ? '' : `${opWidth / leftOptions.length}px`}"
+                        :style="{
+                            width:
+                                index === leftOptions.length - 1
+                                    ? ''
+                                    : `${opWidth / leftOptions.length}px`
+                        }"
                         @click="callFunc(item)"
                     >
                         <div
                             class="fv-SwipeControl-btn-content-block"
-                            :style="{width: `${opWidth / leftOptions.length}px`}"
+                            :style="{
+                                width: `${opWidth / leftOptions.length}px`
+                            }"
                         >
                             <i
                                 v-show="valueTrigger(item.icon)"
@@ -31,18 +29,18 @@
                             ></i>
                             <p
                                 v-show="valueTrigger(item.text)"
-                                style="margin-left: 5px;"
-                            >{{valueTrigger(item.text)}}</p>
+                                style="margin-left: 5px"
+                            >
+                                {{ valueTrigger(item.text) }}
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div
                     class="fv-SwipeControl-main swiper-slide"
-                    :style="{padding: itemPadding}"
+                    :style="{ padding: itemPadding }"
                 >
-                    <slot>
-                        Swipe Control
-                    </slot>
+                    <slot> Swipe Control </slot>
                 </div>
                 <div class="fv-SwipeControl-right swiper-slide">
                     <div
@@ -50,12 +48,19 @@
                         class="fv-SwipeControl-btn"
                         :class="[valueTrigger(item.type)]"
                         :key="index"
-                        :style="{width: index === thisOptions.length - 1 ? '' : `${opWidth / thisOptions.length}px`}"
+                        :style="{
+                            width:
+                                index === thisOptions.length - 1
+                                    ? ''
+                                    : `${opWidth / thisOptions.length}px`
+                        }"
                         @click="callFunc(item)"
                     >
                         <div
                             class="fv-SwipeControl-btn-content-block"
-                            :style="{width: `${opWidth / thisOptions.length}px`}"
+                            :style="{
+                                width: `${opWidth / thisOptions.length}px`
+                            }"
                         >
                             <i
                                 v-show="valueTrigger(item.icon)"
@@ -64,8 +69,10 @@
                             ></i>
                             <p
                                 v-show="valueTrigger(item.text)"
-                                style="margin-left: 5px;"
-                            >{{valueTrigger(item.text)}}</p>
+                                style="margin-left: 5px"
+                            >
+                                {{ valueTrigger(item.text) }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -73,58 +80,66 @@
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['status-change']);
+
+const props = defineProps({
+    ...commonProps,
+    value: {
+        default: () => ({})
+    },
+    minOpWidth: {
+        default: 60
+    },
+    maxOpWidth: {
+        default: 300
+    },
+    leftOptions: {
+        default: () => []
+    },
+    options: {
+        default: () => [
+            {
+                icon: 'Delete',
+                func: () => {},
+                type: 'delete'
+            }
+        ]
+    },
+    itemPadding: {
+        default: '0 10px'
+    },
+    disabledLeft: {
+        default: true
+    },
+    disabledRight: {
+        default: false
+    },
+    disabledLeftFull: {
+        default: true
+    },
+    disabledRightFull: {
+        default: false
+    },
+    disabled: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { swipeControlProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import Swiper from 'swiper';
 import '@/libs/swiper/swiper.min.css';
 
+import { useTheme } from '@/utils/common';
+
 export default {
     name: 'FvSwipeControl',
-    emits: ['status-change'],
-    props: {
-        ...swipeControlProps,
-        value: {
-            default: () => ({})
-        },
-        minOpWidth: {
-            default: 60
-        },
-        maxOpWidth: {
-            default: 300
-        },
-        leftOptions: {
-            default: () => []
-        },
-        options: {
-            default: () => [
-                {
-                    icon: 'Delete',
-                    func: () => {},
-                    type: 'delete'
-                }
-            ]
-        },
-        itemPadding: {
-            default: '0 10px'
-        },
-        disabledLeft: {
-            default: true
-        },
-        disabledRight: {
-            default: false
-        },
-        disabledLeftFull: {
-            default: true
-        },
-        disabledRightFull: {
-            default: false
-        },
-        disabled: {
-            default: false
-        }
-    },
+
     data() {
         return {
             status: 'normal', // normal, left, right, leftFull, rightFull
@@ -283,4 +298,3 @@ export default {
     }
 };
 </script>
-

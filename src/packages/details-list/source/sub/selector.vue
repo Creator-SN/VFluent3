@@ -1,12 +1,3 @@
-<script lang="ts"setup>
-import { selectorEmits, selectorProps, useSelector } from './selector';
-
-const props = defineProps(selectorProps)
-const emits = defineEmits(selectorEmits)
-
-const {checked} = useSelector(props, emits)
-</script>
-
 <template>
     <div
         class="fv-details-list-selector"
@@ -20,3 +11,29 @@ const {checked} = useSelector(props, emits)
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        modelValue: {
+            default: false
+        },
+        color: {
+            default: ''
+        }
+    },
+    data() {
+        return {
+            checked: this.modelValue
+        };
+    },
+    watch: {
+        modelValue(val) {
+            this.checked = val;
+        },
+        checked(val) {
+            // this.$emit('input', val);
+        }
+    }
+};
+</script>

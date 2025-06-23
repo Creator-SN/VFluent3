@@ -11,7 +11,12 @@
             :disabled="isDisabled"
             :maxlength="maxlength"
             ref="input"
-            :style="{'font-size': `${fontSize}px`, 'font-weight': fontWeight, color: foreground, 'text-align': textAlign}"
+            :style="{
+                'font-size': `${fontSize}px`,
+                'font-weight': fontWeight,
+                color: foreground,
+                'text-align': textAlign
+            }"
             @keydown="keyDown"
             @keyup="$emit('keyup', $event)"
             @change="$emit('change', $event)"
@@ -46,7 +51,7 @@
 
 <script>
 import maskInput from './mask.vue';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     components: {

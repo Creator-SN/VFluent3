@@ -1,13 +1,7 @@
 <template>
-    <div
-        class="fv-ScrollStory"
-        :class="[$theme]"
-    >
+    <div class="fv-ScrollStory" :class="[$theme]">
         <transition :name="name">
-            <div
-                v-if="!trueRender || show"
-                v-show="show"
-            >
+            <div v-if="!trueRender || show" v-show="show">
                 <slot>
                     <p>Scroll Story</p>
                 </slot>
@@ -15,29 +9,36 @@
         </transition>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['show-changed']);
+
+const props = defineProps({
+    ...commonProps,
+    name: {
+        default: ''
+    },
+    overCollapse: {
+        default: false
+    },
+    infinite: {
+        default: false
+    },
+    trueRender: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { scrollStoryProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvScrollStory',
-    emits: ['show-changed'],
-    props: {
-        ...scrollStoryProps,
-        name: {
-            default: ''
-        },
-        overCollapse: {
-            default: false
-        },
-        infinite: {
-            default: false
-        },
-        trueRender: {
-            default: false
-        }
-    },
+
     data() {
         return {
             show: false,
@@ -82,4 +83,3 @@ export default {
     }
 };
 </script>
-

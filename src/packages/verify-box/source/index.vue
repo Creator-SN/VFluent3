@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="fv-VerifyBox"
-        :class="[$theme]"
-    >
+    <div class="fv-VerifyBox" :class="[$theme]">
         <div
             v-if="thisValue.length === length"
             class="fv-verify-container"
@@ -35,62 +32,68 @@
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits, ref } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['update:modelValue', 'confirm']);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: ''
+    },
+    length: {
+        default: 4
+    },
+    inputmode: {
+        default: 'numeric'
+    },
+    underline: {
+        default: false
+    },
+    background: {
+        default: ''
+    },
+    borderWidth: {
+        default: 1
+    },
+    borderColor: {
+        default: ''
+    },
+    focusBorderColor: {
+        default: ''
+    },
+    fontSize: {
+        default: 18
+    },
+    fontWeight: {
+        default: 'bold'
+    },
+    foreground: {
+        default: ''
+    },
+    borderRadius: {
+        default: 3
+    },
+    isBoxShadow: {
+        default: false
+    },
+    revealBorder: {
+        default: false
+    },
+    disabled: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { verifyBoxProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvVerifyBox',
-    emits: ['update:modelValue', 'confirm'],
-    props: {
-        ...verifyBoxProps,
-        modelValue: {
-            default: ''
-        },
-        length: {
-            default: 4
-        },
-        inputmode: {
-            default: 'numeric'
-        },
-        underline: {
-            default: false
-        },
-        background: {
-            default: ''
-        },
-        borderWidth: {
-            default: 1
-        },
-        borderColor: {
-            default: ''
-        },
-        focusBorderColor: {
-            default: ''
-        },
-        fontSize: {
-            default: 18
-        },
-        fontWeight: {
-            default: 'bold'
-        },
-        foreground: {
-            default: ''
-        },
-        borderRadius: {
-            default: 3
-        },
-        isBoxShadow: {
-            default: false
-        },
-        revealBorder: {
-            default: false
-        },
-        disabled: {
-            default: false
-        }
-    },
     data() {
         return {
             thisValue: []
@@ -185,4 +188,3 @@ export default {
     }
 };
 </script>
-

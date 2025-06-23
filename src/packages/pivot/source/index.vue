@@ -2,7 +2,7 @@
     <div
         class="fv-Pivot"
         :class="[$theme, tab ? 'tab' : '']"
-        :style="{background: background}"
+        :style="{ background: background }"
     >
         <div class="pivot-container">
             <span
@@ -12,18 +12,19 @@
                 :key="index"
                 :class="{
                     choose: eqal(item),
-                    disabled: valueTrigger(item.disabled),
+                    disabled: valueTrigger(item.disabled)
                 }"
                 :ref="`item_${index}`"
                 :style="{ width: itemWidth(item) }"
                 @click="itemClick(item)"
             >
-                <slot
-                    name="container"
-                    :item="item"
-                    :index="index"
-                >
-                    <p :style="{ fontSize: `${fontSize}px`, color: styles.container.color }">
+                <slot name="container" :item="item" :index="index">
+                    <p
+                        :style="{
+                            fontSize: `${fontSize}px`,
+                            color: styles.container.color
+                        }"
+                    >
                         {{ valueTrigger(item.name) }}
                     </p>
                 </slot>
@@ -37,47 +38,55 @@
         ></slider>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['update:modelValue', 'change']);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: () => {
+            return null;
+        }
+    },
+    items: {
+        default: () => [{ name: 'Pivot', width: 80 }]
+    },
+    tab: {
+        default: false
+    },
+    fontSize: {
+        default: ''
+    },
+    foreground: {
+        default: ''
+    },
+    sliderBackground: {
+        default: ''
+    },
+    sliderBoxshadow: {
+        default: false
+    },
+    background: {
+        default: ''
+    }
+});
+</script>
+
 <script>
-import { pivotProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import slider from './sub/slider.vue';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvPivot',
     components: {
         slider
     },
-    emits: ['update:modelValue', 'change'],
-    props: {
-        ...pivotProps,
-        modelValue: {
-            default: () => {
-                return null;
-            }
-        },
-        items: {
-            default: () => [{ name: 'Pivot', width: 80 }]
-        },
-        tab: {
-            default: false
-        },
-        fontSize: {
-            default: ''
-        },
-        foreground: {
-            default: ''
-        },
-        sliderBackground: {
-            default: ''
-        },
-        sliderBoxshadow: {
-            default: false
-        },
-        background: {
-            default: ''
-        }
-    },
+
     data() {
         return {
             thisItems: [],
@@ -238,4 +247,3 @@ export default {
     }
 };
 </script>
-

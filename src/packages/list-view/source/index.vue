@@ -4,22 +4,67 @@
             <slot name="header"></slot>
         </div>
         <div class="list-view-container" ref="container">
-            <span v-show="valueTrigger(item.show) !== false" v-for="(item, index) in thisValue"
-                :class="{ choose: valueTrigger(item.choosen), header: valueTrigger(item.type) == 'header', hr: valueTrigger(item.type) == 'divider', normal: valueTrigger(item.type) == 'default' || valueTrigger(item.type) == undefined, disabled: valueTrigger(item.disabled), selected: item.selected && showSelectedBorder }"
-                class="list-view-item" :key="index"
-                :style="{ height: _rowHeight, background: valueTrigger(item.choosen) ? choosenBackground : '', borderRadius: itemBorderRadius + 'px' }"
-                :ref="`list_item_${index}`" @click="handlerClick($event, item)" @touchend="handlerClick($event, item)"
-                @dragover="dragOver(event, item)" @dragleave="dragLeave(event, item)" @drop="dropItem(event, item)">
+            <span
+                v-show="valueTrigger(item.show) !== false"
+                v-for="(item, index) in thisValue"
+                :class="{
+                    choose: valueTrigger(item.choosen),
+                    header: valueTrigger(item.type) == 'header',
+                    hr: valueTrigger(item.type) == 'divider',
+                    normal:
+                        valueTrigger(item.type) == 'default' ||
+                        valueTrigger(item.type) == undefined,
+                    disabled: valueTrigger(item.disabled),
+                    selected: item.selected && showSelectedBorder
+                }"
+                class="list-view-item"
+                :key="index"
+                :style="{
+                    height: _rowHeight,
+                    background: valueTrigger(item.choosen)
+                        ? choosenBackground
+                        : '',
+                    borderRadius: itemBorderRadius + 'px'
+                }"
+                :ref="`list_item_${index}`"
+                @click="handlerClick($event, item)"
+                @touchend="handlerClick($event, item)"
+                @dragover="dragOver(event, item)"
+                @dragleave="dragLeave(event, item)"
+                @drop="dropItem(event, item)"
+            >
                 <fv-reveal-container
-                    v-if="(valueTrigger(item.type) == 'default' || valueTrigger(item.type) == undefined) && !valueTrigger(item.disabled)"
-                    :revealContainer="FR" :parent="() => $refs[`list_item_${index}`][0]"
-                    class="fv-listview-reveal-container" :backgroundColor="backgroundLightColor"
-                    :borderColor="borderLightColor" :borderGradientSize="35" :borderWidth="1"
-                    :borderRadius="itemBorderRadius"></fv-reveal-container>
+                    v-if="
+                        (valueTrigger(item.type) == 'default' ||
+                            valueTrigger(item.type) == undefined) &&
+                        !valueTrigger(item.disabled)
+                    "
+                    :revealContainer="FR"
+                    :parent="() => $refs[`list_item_${index}`][0]"
+                    class="fv-listview-reveal-container"
+                    :backgroundColor="backgroundLightColor"
+                    :borderColor="borderLightColor"
+                    :borderGradientSize="35"
+                    :borderWidth="1"
+                    :borderRadius="itemBorderRadius"
+                ></fv-reveal-container>
                 <div class="item-content" :style="{ padding: itemPadding }">
-                    <slot name="listItem" :item="item" :index="index" :valueTrigger="valueTrigger">
-                        <p :style="{ color: valueTrigger(item.type) == 'header' ? headerForeground : '' }">
-                            {{ valueTrigger(item.name) }}</p>
+                    <slot
+                        name="listItem"
+                        :item="item"
+                        :index="index"
+                        :valueTrigger="valueTrigger"
+                    >
+                        <p
+                            :style="{
+                                color:
+                                    valueTrigger(item.type) == 'header'
+                                        ? headerForeground
+                                        : ''
+                            }"
+                        >
+                            {{ valueTrigger(item.name) }}
+                        </p>
                     </slot>
                 </div>
             </span>
@@ -27,80 +72,87 @@
         <div class="list-view-footer">
             <slot name="footer"></slot>
         </div>
-        <vertical-slider v-if="showSlider" :top="currentTop" :height="currentHeight"
-            :background="headerForeground"></vertical-slider>
+        <vertical-slider
+            v-if="showSlider"
+            :top="currentTop"
+            :height="currentHeight"
+            :background="headerForeground"
+        ></vertical-slider>
     </div>
 </template>
 
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'update:modelValue',
+    'item-click',
+    'chooseItem',
+    'choosen-items',
+    'selection-change',
+    'item-drag-over',
+    'item-drag-leave',
+    'item-drop',
+    'update:sliderTarget',
+    'update:sliderIndex'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: () => []
+    },
+    choosen: {
+        default: () => []
+    },
+    multiple: {
+        default: false
+    },
+    rowHeight: {
+        default: ''
+    },
+    headerForeground: {
+        default: ''
+    },
+    choosenBackground: {
+        default: ''
+    },
+    itemPadding: {
+        default: ''
+    },
+    itemBorderRadius: {
+        default: 3
+    },
+    revealBorderColor: {
+        default: false
+    },
+    revealBackgroundColor: {
+        default: false
+    },
+    showSlider: {
+        default: false
+    },
+    sliderTarget: {
+        default: () => {}
+    },
+    sliderIndex: {
+        default: -1
+    }
+});
+</script>
+
 <script>
-import { listViewProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import verticalSlider from './sub/verticalSlider.vue';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvListView',
     components: {
         verticalSlider
     },
-    emits: [
-        'update:modelValue',
-        'item-click',
-        'chooseItem',
-        'choosen-items',
-        'selection-change',
-        'item-drag-over',
-        'item-drag-leave',
-        'item-drop',
-        'update:sliderTarget',
-        'update:sliderIndex'
-    ],
-    props: {
-        ...listViewProps,
-        modelValue: {
-            default: () => []
-        },
-        choosen: {
-            default: () => []
-        },
-        multiple: {
-            default: false
-        },
-        rowHeight: {
-            default: ''
-        },
-        headerForeground: {
-            default: ''
-        },
-        choosenBackground: {
-            default: ''
-        },
-        itemPadding: {
-            default: ''
-        },
-        itemBorderRadius: {
-            default: 3
-        },
-        revealBorderColor: {
-            default: false
-        },
-        revealBackgroundColor: {
-            default: false
-        },
-        showSlider: {
-            default: false
-        },
-        sliderTarget: {
-            default: () => { }
-        },
-        sliderIndex: {
-            default: -1
-        }
-    },
-    computed: {
-        $theme() {
-            return useTheme(this.$props).theme.value;
-        }
-    },
+
     data() {
         return {
             FR: {
@@ -191,8 +243,7 @@ export default {
             return this.rowHeight + 'px';
         },
         $theme() {
-            if (this.theme == 'system') return this.$fvGlobal.state.theme;
-            return this.theme;
+            return useTheme(this.$props).theme.value;
         }
     },
     mounted() {
@@ -370,7 +421,7 @@ export default {
                     if (this.valueTrigger(this.thisValue[i].disabled)) continue;
                     if (
                         this.valueTrigger(this.thisValue[i].type) ===
-                        'header' ||
+                            'header' ||
                         this.valueTrigger(this.thisValue[i].type) == 'divider'
                     )
                         continue;
@@ -383,7 +434,7 @@ export default {
                     if (this.valueTrigger(this.thisValue[i].disabled)) continue;
                     if (
                         this.valueTrigger(this.thisValue[i].type) ===
-                        'header' ||
+                            'header' ||
                         this.valueTrigger(this.thisValue[i].type) == 'divider'
                     )
                         continue;
@@ -510,9 +561,9 @@ export default {
             let c = this.thisValue.find((it) => {
                 return (
                     this.valueTrigger(it.name) ===
-                    this.valueTrigger(cur.name) &&
+                        this.valueTrigger(cur.name) &&
                     this.valueTrigger(it.type) ===
-                    this.valueTrigger(cur.type) &&
+                        this.valueTrigger(cur.type) &&
                     it.key === cur.key
                 );
             });
@@ -523,5 +574,6 @@ export default {
             this.onChoosen({ target: items[index] }, cur);
         }
     },
+    beforeUnmount() {}
 };
 </script>

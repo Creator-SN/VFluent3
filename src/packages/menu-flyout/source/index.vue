@@ -1,13 +1,22 @@
 <template>
     <div
         class="fv-MenuFlyout"
-        :class="[$theme, {disabled: isDisabled}]"
-        :style="{background: background, padding: borderWidth, 'border-radius': `${borderRadius}px`, 'z-index': status ? 3 : '', overflow: 'visible'}"
+        :class="[$theme, { disabled: isDisabled }]"
+        :style="{
+            background: background,
+            padding: borderWidth,
+            'border-radius': `${borderRadius}px`,
+            'z-index': status ? 3 : '',
+            overflow: 'visible'
+        }"
     >
         <div
             class="menu-flyout-container"
             @click="status = !isDisabled ? !status : false"
-            :style="{background: inputBackground, 'border-radius': `${borderRadius}px`}"
+            :style="{
+                background: inputBackground,
+                'border-radius': `${borderRadius}px`
+            }"
         >
             <fv-reveal-container
                 :parent="() => $el"
@@ -25,12 +34,15 @@
                 :placeholder="placeholder"
                 readonly
                 :value="computedValue"
-                :style="{color: inputForeground, 'border-radius': `${borderRadius}px`}"
+                :style="{
+                    color: inputForeground,
+                    'border-radius': `${borderRadius}px`
+                }"
             />
             <i
                 class="ms-Icon right-icon"
                 :class="[`ms-Icon--${dropDownIcon}`]"
-                :style="{color: dropDownIconForeground}"
+                :style="{ color: dropDownIconForeground }"
             ></i>
         </div>
         <menu-flyout-children-container
@@ -50,9 +62,13 @@
                 >
                     <i
                         class="before-choosen"
-                        :style="{background: x.choosenSliderBackground}"
+                        :style="{ background: x.choosenSliderBackground }"
                     ></i>
-                    {{valueTrigger(x.item.type) !== 'divider' ? valueTrigger(x.item.text) : ''}}
+                    {{
+                        valueTrigger(x.item.type) !== 'divider'
+                            ? valueTrigger(x.item.text)
+                            : ''
+                    }}
                     <i
                         v-show="x.item.children"
                         class="ms-Icon ms-Icon--ChevronRight after-expand"
@@ -62,74 +78,83 @@
         </menu-flyout-children-container>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['update:modelValue', 'choose-item']);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: () => {
+            return [];
+        }
+    },
+    options: {
+        default: () => []
+    },
+    borderWidth: {
+        default: 2
+    },
+    placeholder: {
+        default: 'menuFlyout'
+    },
+    borderRadius: {
+        default: '3'
+    },
+    background: {
+        default: ''
+    },
+    choosenBackground: {
+        default: ''
+    },
+    choosenSliderBackground: {
+        default: ''
+    },
+    inputForeground: {
+        default: ''
+    },
+    inputBackground: {
+        default: ''
+    },
+    titleForeground: {
+        default: ''
+    },
+    dropDownIcon: {
+        default: 'ChevronDown'
+    },
+    dropDownIconForeground: {
+        default: ''
+    },
+    pivotPlaceholder: {
+        default: 'Please Choose'
+    },
+    revealBorderColor: {
+        default: false
+    },
+    revealBackgroundColor: {
+        default: false
+    },
+    disabled: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { menuFlyoutProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import menuFlyoutChildrenContainer from './menuFlyoutChildrenContainer.vue';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvMenuFlyout',
-    emits: ['update:modelValue', 'choose-item'],
+
     components: {
         menuFlyoutChildrenContainer
     },
-    props: {
-        ...menuFlyoutProps,
-        modelValue: {
-            default: () => {
-                return [];
-            }
-        },
-        options: {
-            default: () => []
-        },
-        borderWidth: {
-            default: 2
-        },
-        placeholder: {
-            default: 'menuFlyout'
-        },
-        borderRadius: {
-            default: '3'
-        },
-        background: {
-            default: ''
-        },
-        choosenBackground: {
-            default: ''
-        },
-        choosenSliderBackground: {
-            default: ''
-        },
-        inputForeground: {
-            default: ''
-        },
-        inputBackground: {
-            default: ''
-        },
-        titleForeground: {
-            default: ''
-        },
-        dropDownIcon: {
-            default: 'ChevronDown'
-        },
-        dropDownIconForeground: {
-            default: ''
-        },
-        pivotPlaceholder: {
-            default: 'Please Choose'
-        },
-        revealBorderColor: {
-            default: false
-        },
-        revealBackgroundColor: {
-            default: false
-        },
-        disabled: {
-            default: false
-        }
-    },
+
     data() {
         return {
             thisValue: this.modelValue,
@@ -233,4 +258,3 @@ export default {
     }
 };
 </script>
-

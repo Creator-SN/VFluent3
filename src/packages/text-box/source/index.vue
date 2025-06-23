@@ -1,7 +1,14 @@
 <template>
     <div
         class="fv-TextBox"
-        :class="[$theme, status, isFocus ? 'focus' : '', isDisabled ? 'disabled' : '', isUnderline ? 'underline': '', { shadow: isBoxShadow }]"
+        :class="[
+            $theme,
+            status,
+            isFocus ? 'focus' : '',
+            isDisabled ? 'disabled' : '',
+            isUnderline ? 'underline' : '',
+            { shadow: isBoxShadow }
+        ]"
         :style="[{ background: background, borderRadius: `${borderRadius}px` }]"
         @click="isFocus = true"
     >
@@ -18,13 +25,14 @@
         ></fv-reveal-container>
         <div
             class="fv-text-box-wrapper-container"
-            :style="{borderWidth: `${borderWidth}px`, borderColor: isFocus ? focusBorderColor : borderColor, borderRadius: `${borderRadius}px`}"
+            :style="{
+                borderWidth: `${borderWidth}px`,
+                borderColor: isFocus ? focusBorderColor : borderColor,
+                borderRadius: `${borderRadius}px`
+            }"
         >
-            <div
-                v-show="prefix != ''"
-                class="fix-block"
-            >
-                <p>{{prefix}}</p>
+            <div v-show="prefix != ''" class="fix-block">
+                <p>{{ prefix }}</p>
             </div>
             <i
                 v-show="leftIcon != ''"
@@ -32,7 +40,7 @@
                 :class="[`ms-Icon--${leftIcon}`]"
                 @click="$emit('left-icon-click', $event)"
             ></i>
-            <core
+            <core-input
                 v-model="thisValue"
                 ref="core"
                 :mode="mode"
@@ -55,146 +63,159 @@
                 @keyup="$emit('keyup', $event)"
                 @change="$emit('change', $event)"
                 @paste="$emit('paste', $event)"
-            ></core>
+            ></core-input>
             <i
                 v-show="icon != ''"
                 class="ms-Icon icon-block"
                 :class="[`ms-Icon--${icon}`]"
                 @click="$emit('icon-click', $event)"
             ></i>
-            <div
-                v-show="suffix != ''"
-                class="fix-block"
-            >
-                <p>{{suffix}}</p>
+            <div v-show="suffix != ''" class="fix-block">
+                <p>{{ suffix }}</p>
             </div>
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits, ref } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'update:modelValue',
+    'debounce-input',
+    'keydown',
+    'keyup',
+    'change',
+    'paste',
+    'left-icon-click',
+    'icon-click',
+    'click'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: ''
+    },
+    mode: {
+        default: 'default'
+    },
+    inputmode: {
+        default: 'text'
+    },
+    placeholder: {
+        default: ''
+    },
+    type: {
+        default: 'text'
+    },
+    mask: {
+        type: String,
+        default: 'mask:___'
+    },
+    flag: {
+        type: String,
+        default: '_'
+    },
+    pattern: {
+        type: String,
+        default: '[Ss]*'
+    },
+    inputRules: {
+        type: String,
+        default: '[\S\s]*'
+    },
+    readonly: {
+        default: false
+    },
+    maxlength: {
+        default: ''
+    },
+    prefix: {
+        default: ''
+    },
+    suffix: {
+        default: ''
+    },
+    leftIcon: {
+        default: ''
+    },
+    icon: {
+        default: ''
+    },
+    underline: {
+        default: false
+    },
+    background: {
+        default: ''
+    },
+    borderWidth: {
+        default: 1
+    },
+    borderColor: {
+        default: ''
+    },
+    focusBorderColor: {
+        default: ''
+    },
+    fontSize: {
+        default: 13.3
+    },
+    fontWeight: {
+        default: 'normal'
+    },
+    foreground: {
+        default: ''
+    },
+    borderRadius: {
+        default: 3
+    },
+    textAlign: {
+        default: 'left'
+    },
+    isBoxShadow: {
+        default: false
+    },
+    revealBorder: {
+        default: false
+    },
+    revealBorderColor: {
+        default: false
+    },
+    revealBackgroundColor: {
+        default: false
+    },
+    status: {
+        default: ''
+    },
+    debounceDelay: {
+        default: 300
+    },
+    disabled: {
+        default: false
+    }
+});
+
+// If we use script setup, we must use defineExpose to expose methods.
+const core = ref(null);
+const focus = () => {
+    core.value.focusInspect();
+};
+
+defineExpose({
+    focus
+});
+</script>
+
 <script>
-import { textBoxProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
-import core from './sub/core.vue';
+import { useTheme } from '@/utils/common';
+import coreInput from './sub/core.vue';
 
 export default {
     name: 'FvTextBox',
     components: {
-        core
-    },
-    emits: [
-        'update:modelValue',
-        'debounce-input',
-        'keydown',
-        'keyup',
-        'change',
-        'paste',
-        'left-icon-click',
-        'icon-click',
-        'click'
-    ],
-    props: {
-        ...textBoxProps,
-        modelValue: {
-            default: ''
-        },
-        mode: {
-            default: 'default'
-        },
-        inputmode: {
-            default: 'text'
-        },
-        placeholder: {
-            default: ''
-        },
-        type: {
-            default: 'text'
-        },
-        mask: {
-            type: String,
-            default: 'mask:___'
-        },
-        flag: {
-            type: String,
-            default: '_'
-        },
-        pattern: {
-            type: String,
-            default: '[Ss]*'
-        },
-        inputRules: {
-            type: String,
-            default: '[\S\s]*'
-        },
-        readonly: {
-            default: false
-        },
-        maxlength: {
-            default: ''
-        },
-        prefix: {
-            default: ''
-        },
-        suffix: {
-            default: ''
-        },
-        leftIcon: {
-            default: ''
-        },
-        icon: {
-            default: ''
-        },
-        underline: {
-            default: false
-        },
-        background: {
-            default: ''
-        },
-        borderWidth: {
-            default: 1
-        },
-        borderColor: {
-            default: ''
-        },
-        focusBorderColor: {
-            default: ''
-        },
-        fontSize: {
-            default: 13.3
-        },
-        fontWeight: {
-            default: 'normal'
-        },
-        foreground: {
-            default: ''
-        },
-        borderRadius: {
-            default: 3
-        },
-        textAlign: {
-            default: 'left'
-        },
-        isBoxShadow: {
-            default: false
-        },
-        revealBorder: {
-            default: false
-        },
-        revealBorderColor: {
-            default: false
-        },
-        revealBackgroundColor: {
-            default: false
-        },
-        status: {
-            default: ''
-        },
-        debounceDelay: {
-            default: 300
-        },
-        disabled: {
-            default: false
-        }
+        coreInput
     },
     data() {
         return {
@@ -264,4 +285,3 @@ export default {
     }
 };
 </script>
-

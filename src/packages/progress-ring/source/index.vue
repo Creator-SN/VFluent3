@@ -1,9 +1,8 @@
-
 <template>
     <div
         class="fv-ProgressRing"
         :class="[$theme]"
-        :style="{width: `${r * 2}px`, height: `${r * 2}px`}"
+        :style="{ width: `${r * 2}px`, height: `${r * 2}px` }"
     >
         <svg
             v-show="!legacy"
@@ -31,57 +30,66 @@
                 stroke-linejoin="round"
                 stroke-linecap="round"
                 fill="none"
-                :stroke-dashoffset="`${loading ? l - Loading.ratio / 100 * l : l - valueCache / 100 * l}px`"
+                :stroke-dashoffset="`${
+                    loading
+                        ? l - (Loading.ratio / 100) * l
+                        : l - (valueCache / 100) * l
+                }px`"
                 :stroke-dasharray="`${l}px`"
-                :style="{transform: `rotate(${loading ? Loading.rotate : -90}deg)`}"
+                :style="{
+                    transform: `rotate(${loading ? Loading.rotate : -90}deg)`
+                }"
             />
         </svg>
-        <legacy
-            v-show="legacy"
-            :size="size"
-            :color="color"
-        ></legacy>
+        <legacy v-show="legacy" :size="size" :color="color"></legacy>
     </div>
 </template>
 
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['update:modelValue']);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: 0
+    },
+    size: {
+        default: 'xs'
+    },
+    r: {
+        default: 40
+    },
+    loading: {
+        default: false
+    },
+    color: {
+        default: 'rgba(0, 90, 158, 1)'
+    },
+    background: {
+        default: 'rgba(204, 204, 204, 1)'
+    },
+    borderWidth: {
+        default: 8
+    },
+    legacy: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { progressRingProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import gsap from 'gsap';
 import legacy from './legacy.vue';
 
+import { useTheme } from '@/utils/common';
+
 export default {
     name: 'FvProgressRing',
-    emits: ['update:modelValue'],
     components: {
         legacy
-    },
-    props: {
-        ...progressRingProps,
-        modelValue: {
-            default: 0
-        },
-        size: {
-            default: 'xs'
-        },
-        r: {
-            default: 40
-        },
-        loading: {
-            default: false
-        },
-        color: {
-            default: 'rgba(0, 90, 158, 1)'
-        },
-        background: {
-            default: 'rgba(204, 204, 204, 1)'
-        },
-        borderWidth: {
-            default: 8
-        },
-        legacy: {
-            default: false
-        }
     },
     data() {
         return {

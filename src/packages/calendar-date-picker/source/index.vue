@@ -1,7 +1,7 @@
 <template>
     <div
         class="fv-CalendarDatePicker"
-        :class="[$theme, {disabled: isDisabled}]"
+        :class="[$theme, { disabled: isDisabled }]"
     >
         <picker-input
             v-model="dates"
@@ -17,10 +17,7 @@
             @click.native="show.calendar = !isDisabled ? !show.calendar : false"
         ></picker-input>
         <transition name="fv-calendar-container">
-            <div
-                v-if="show.calendar"
-                class="calendar-container"
-            >
+            <div v-if="show.calendar" class="calendar-container">
                 <fv-calendar-view
                     v-model="thisValue"
                     :multiple="multiple"
@@ -34,64 +31,74 @@
         </transition>
     </div>
 </template>
-        
-<script>
-import { calendarDatePickerProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['update:modelValue']);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: () => new Date()
+    },
+    start: {
+        default: 1900
+    },
+    end: {
+        default: 3000
+    },
+    lan: {
+        default: 'en'
+    },
+    borderWidth: {
+        default: 2
+    },
+    placeholder: {
+        default: 'Pick a day'
+    },
+    borderRadius: {
+        default: '3'
+    },
+    inputForeground: {
+        default: ''
+    },
+    inputBackground: {
+        default: ''
+    },
+    dropDownIcon: {
+        default: 'CalendarDay'
+    },
+    dropDownIconForeground: {
+        default: ''
+    },
+    multiple: {
+        default: 'single'
+    },
+    disabled: {
+        default: false
+    }
+});
+</script>
+
+<script>
 import pickerInput from './input/input.vue';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvCalendarDatePicker',
-    emits: ['update:modelValue'],
+
     components: {
         pickerInput
     },
-    props: {
-        ...calendarDatePickerProps,
-        modelValue: {
-            default: () => new Date()
-        },
-        start: {
-            default: 1900
-        },
-        end: {
-            default: 3000
-        },
-        lan: {
-            default: 'en'
-        },
-        borderWidth: {
-            default: 2
-        },
-        placeholder: {
-            default: 'Pick a day'
-        },
-        borderRadius: {
-            default: '3'
-        },
-        inputForeground: {
-            default: ''
-        },
-        inputBackground: {
-            default: ''
-        },
-        dropDownIcon: {
-            default: 'CalendarDay'
-        },
-        dropDownIconForeground: {
-            default: ''
-        },
-        multiple: {
-            default: 'single'
-        },
-        disabled: {
-            default: false
-        }
-    },
+
     data() {
         return {
-            thisValue: this.$SDate.Parse(this.$SDate.DateToString(this.modelValue)),
+            thisValue: this.$SDate.Parse(
+                this.$SDate.DateToString(this.modelValue)
+            ),
             dates: [],
             show: {
                 calendar: false
@@ -171,4 +178,3 @@ export default {
     }
 };
 </script>
-

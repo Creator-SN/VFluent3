@@ -1,20 +1,22 @@
 <template>
     <div
         class="fv-MessageBar"
-        :class="[$theme, iconList[status].iconColor, {relative: mode == 'relative'}]"
+        :class="[
+            $theme,
+            iconList[status].iconColor,
+            { relative: mode == 'relative' }
+        ]"
     >
         <span class="msg-bar-block">
             <i
                 class="ms-Icon icon-block"
-                :class="[`ms-Icon--${iconList[status].icon}`, iconList[status].iconColor]"
+                :class="[
+                    `ms-Icon--${iconList[status].icon}`,
+                    iconList[status].iconColor
+                ]"
             ></i>
             <span class="msg-content-block">
-                <slot
-                    name="msg"
-                    :theme="$theme"
-                >
-                    Message Bar.
-                </slot>
+                <slot name="msg" :theme="$theme"> Message Bar. </slot>
             </span>
             <i
                 v-show="showClose"
@@ -22,50 +24,51 @@
                 @click="destroySelf"
             ></i>
         </span>
-        <span
-            v-show="showControl"
-            class="control-block"
-        >
-            <slot
-                name="control"
-                :theme="$theme"
-                :cancel="destroySelf"
-            >
+        <span v-show="showControl" class="control-block">
+            <slot name="control" :theme="$theme" :cancel="destroySelf">
                 <fv-button>Yes</fv-button>
             </slot>
         </span>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['close']);
+
+const props = defineProps({
+    ...commonProps,
+    status: {
+        default: 'default'
+    },
+    showControl: {
+        default: false
+    },
+    showClose: {
+        default: true
+    },
+    mode: {
+        default: 'relative'
+    },
+    destroy: {
+        default: () => {}
+    },
+    autoClose: {
+        default: 3000
+    }
+});
+</script>
+
 <script>
-import { messageBarProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import gsap from 'gsap';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvMessageBar',
-    emits: ['close'],
-    props: {
-        ...messageBarProps,
-        status: {
-            default: 'default'
-        },
-        showControl: {
-            default: false
-        },
-        showClose: {
-            default: true
-        },
-        mode: {
-            default: 'relative'
-        },
-        destroy: {
-            default: () => {}
-        },
-        autoClose: {
-            default: 3000
-        }
-    },
+
     data() {
         return {
             iconList: {
@@ -125,4 +128,3 @@ export default {
     }
 };
 </script>
-

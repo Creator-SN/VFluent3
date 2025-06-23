@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="fv-TreeView"
-        :class="[$theme]"
-    >
+    <div class="fv-TreeView" :class="[$theme]">
         <tree-view-item
             v-for="(item, index) in thisValue"
             :key="`parent: root, self: ${index}`"
@@ -27,82 +24,91 @@
             @require-render="pushRender"
             @selected-change="clearSelected"
             @set-drag-item="dragItem = $event"
-            @drop-item="$emit('drop-item', {root: thisValue, ...$event})"
+            @drop-item="$emit('drop-item', { root: thisValue, ...$event })"
             @handle-click="$emit('click', $event)"
-            @item-drag-over="$emit('item-drag-over', {root: thisValue, ...$event})"
-            @item-drag-leave="$emit('item-drag-leave', {root: thisValue, ...$event})"
-            @item-drop="$emit('item-drop', {root: thisValue, ...$event})"
+            @item-drag-over="
+                $emit('item-drag-over', { root: thisValue, ...$event })
+            "
+            @item-drag-leave="
+                $emit('item-drag-leave', { root: thisValue, ...$event })
+            "
+            @item-drop="$emit('item-drop', { root: thisValue, ...$event })"
         >
             <template v-slot:default="x">
-                <slot
-                    :item="x.item"
-                    :deep="x.deep"
-                ></slot>
+                <slot :item="x.item" :deep="x.deep"></slot>
             </template>
         </tree-view-item>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'click',
+    'drop-item',
+    'item-drag-over',
+    'item-drag-leave',
+    'item-drop'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        type: Array,
+        default: () => []
+    },
+    space: {
+        default: 20
+    },
+    draggable: {
+        default: false
+    },
+    checkable: {
+        default: false
+    },
+    expandedIcon: {
+        default: 'ChevronDownSmall'
+    },
+    unexpandedIcon: {
+        default: 'ChevronRightSmall'
+    },
+    foreground: {
+        default: 'rgba(0, 90, 158, 1)'
+    },
+    backgroundColorHover: {
+        default: ''
+    },
+    backgroundColorActive: {
+        default: ''
+    },
+    expandClickMode: {
+        default: 'normal'
+    },
+    expandedIconPosition: {
+        default: 'left'
+    },
+    itemHeight: {
+        default: 30
+    },
+    showLoading: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { treeViewProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import TreeViewItem from './sub/TreeViewItem.vue';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvTreeView',
     components: {
         TreeViewItem
     },
-    emits: [
-        'click',
-        'drop-item',
-        'item-drag-over',
-        'item-drag-leave',
-        'item-drop'
-    ],
-    props: {
-        ...treeViewProps,
-        modelValue: {
-            type: Array,
-            default: () => []
-        },
-        space: {
-            default: 20
-        },
-        draggable: {
-            default: false
-        },
-        checkable: {
-            default: false
-        },
-        expandedIcon: {
-            default: 'ChevronDownSmall'
-        },
-        unexpandedIcon: {
-            default: 'ChevronRightSmall'
-        },
-        foreground: {
-            default: 'rgba(0, 90, 158, 1)'
-        },
-        backgroundColorHover: {
-            default: ''
-        },
-        backgroundColorActive: {
-            default: ''
-        },
-        expandClickMode: {
-            default: 'normal'
-        },
-        expandedIconPosition: {
-            default: 'left'
-        },
-        itemHeight: {
-            default: 30
-        },
-        showLoading: {
-            default: false
-        }
-    },
+
     data() {
         return {
             thisValue: this.modelValue,
@@ -159,4 +165,3 @@ export default {
     }
 };
 </script>
-

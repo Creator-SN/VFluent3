@@ -1,24 +1,26 @@
-<script lang="ts" setup>
-import { useTheme } from '@/utils/common';
-import { collapseEmits, collapseProps, useCollapse } from '.';
-
-defineOptions({
-    name: "FvCollapse"
-})
-
-const props = defineProps(collapseProps)
-const emits = defineEmits(collapseEmits)
-
-const { theme } = useTheme(props)
-const { thisValue, hover, hoverBackground, itemClick } = useCollapse(props, emits)
-</script>
-
 <template>
-    <div class="fv-Collapse" :class="[theme, { visibleOverflow: disabledCollapse && visibleOverflow }]"
-        :style="{ height: !thisValue ? `${defaultHeight}px` : `${maxHeight}px`, 'max-height': `${maxHeight}px`, background: hover ? hoverBackground : background }"
-        @mouseenter="hover = true" @touchstart="hover = true" @mouseleave="hover = false" @touchend="hover = false">
-        <div class="collapse-description-container" :style="{ height: `${defaultHeight}px` }" @click="itemClick">
-            <div class="collapse-icon-box" @click="emits('left-icon-click', $event)">
+    <div
+        class="fv-Collapse"
+        :class="[
+            $theme,
+            { visibleOverflow: disabledCollapse && visibleOverflow }
+        ]"
+        :style="{
+            height: !thisValue ? `${defaultHeight}px` : `${maxHeight}px`,
+            'max-height': `${maxHeight}px`,
+            background: hover ? hoverBackground : background
+        }"
+        @mouseenter="hover = true"
+        @touchstart="hover = true"
+        @mouseleave="hover = false"
+        @touchend="hover = false"
+    >
+        <div
+            class="collapse-description-container"
+            :style="{ height: `${defaultHeight}px` }"
+            @click="itemClick"
+        >
+            <div class="collapse-icon-box" @click="$emit('left-icon-click')">
                 <slot name="icon">
                     <div class="collapse-icon-box-default">
                         <i class="ms-Icon" :class="[`ms-Icon--${icon}`]"></i>
@@ -26,9 +28,16 @@ const { thisValue, hover, hoverBackground, itemClick } = useCollapse(props, emit
                 </slot>
             </div>
             <div class="collapse-description-box">
-                <div class="collapse-description" @click="emits('description-click', $event)">
+                <div
+                    class="collapse-description"
+                    @click="$emit('description-click')"
+                >
                     <div class="collapse-text">
-                        <slot name="container" :title="title" :contnet="content">
+                        <slot
+                            name="container"
+                            :title="title"
+                            :contnet="content"
+                        >
                             <slot name="title" :title="title">
                                 <div class="collapse-title">{{ title }}</div>
                             </slot>
@@ -42,11 +51,27 @@ const { thisValue, hover, hoverBackground, itemClick } = useCollapse(props, emit
                     <slot name="extension"></slot>
                 </div>
             </div>
-            <div class="collapse-expand-icon-block" @click="emits('icon-click', $event)">
-                <slot name="expand-icon" :value="thisValue" :disabledCollaspe="disabledCollapse">
-                    <i v-show="thisValue" class="ms-Icon ms-Icon--ChevronUpMed"></i>
-                    <i v-show="!thisValue && !disabledCollapse" class="ms-Icon ms-Icon--ChevronDownMed"></i>
-                    <i v-show="!thisValue && disabledCollapse" class="ms-Icon ms-Icon--ChevronRightMed"></i>
+            <div
+                class="collapse-expand-icon-block"
+                @click="$emit('icon-click')"
+            >
+                <slot
+                    name="expand-icon"
+                    :value="thisValue"
+                    :disabledCollaspe="disabledCollapse"
+                >
+                    <i
+                        v-show="thisValue"
+                        class="ms-Icon ms-Icon--ChevronUpMed"
+                    ></i>
+                    <i
+                        v-show="!thisValue && !disabledCollapse"
+                        class="ms-Icon ms-Icon--ChevronDownMed"
+                    ></i>
+                    <i
+                        v-show="!thisValue && disabledCollapse"
+                        class="ms-Icon ms-Icon--ChevronRightMed"
+                    ></i>
                 </slot>
             </div>
         </div>
@@ -57,3 +82,95 @@ const { thisValue, hover, hoverBackground, itemClick } = useCollapse(props, emit
         </transition>
     </div>
 </template>
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'update:modelValue',
+    'item-click',
+    'left-icon-click',
+    'description-click',
+    'icon-click'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: false
+    },
+    icon: {
+        type: String,
+        default: 'Mail'
+    },
+    title: {
+        type: String,
+        default: 'Title of Collapse.'
+    },
+    content: {
+        type: String,
+        default: 'Content information of Collapse.'
+    },
+    background: {
+        default: ''
+    },
+    defaultHeight: {
+        default: 70
+    },
+    maxHeight: {
+        default: 300
+    },
+    disabledCollapse: {
+        default: false
+    },
+    visibleOverflow: {
+        default: true
+    }
+});
+</script>
+
+<script>
+import one from 'onecolor';
+
+import { useTheme } from '@/utils/common';
+
+export default {
+    name: 'FvCollapse',
+
+    data() {
+        return {
+            thisValue: this.modelValue,
+            hover: false
+        };
+    },
+    watch: {
+        modelValue(val) {
+            this.thisValue = val;
+        },
+        thisValue(val) {
+            this.$emit('update:modelValue', val);
+        }
+    },
+    computed: {
+        hoverBackground() {
+            try {
+                let color = one(this.background);
+                let hue = color.hue();
+                return color.hue(hue - 0.01).cssa();
+            } catch (e) {
+                return '';
+            }
+        },
+        $theme() {
+            return useTheme(this.$props).theme.value;
+        }
+    },
+    methods: {
+        itemClick() {
+            !this.disabledCollapse ? (this.thisValue ^= true) : '';
+            this.$emit('item-click', this.thisValue);
+        }
+    }
+};
+</script>

@@ -1,19 +1,28 @@
 <template>
     <div
         class="fv-NavigationPanel"
-        :class="[$theme, {compact: !thisExpand}, {flyout: isFlyout}, {mobile: isMobile}]"
-        :style="{position: (this.screenWidth <= this.fullSizeDisplay) && thisExpand ? 'static' : '', width: panelWidth}"
+        :class="[
+            $theme,
+            { compact: !thisExpand },
+            { flyout: isFlyout },
+            { mobile: isMobile }
+        ]"
+        :style="{
+            position:
+                screenWidth <= fullSizeDisplay && thisExpand ? 'static' : '',
+            width: panelWidth
+        }"
     >
         <div
             class="panel-container-mobile"
-            :style="{background: !thisExpand ? background : ''}"
+            :style="{ background: !thisExpand ? background : '' }"
         >
             <fv-animated-icon
                 v-show="showBack"
                 modelValue="backScale"
                 class="fv-nav-default-item"
                 :hideContent="true"
-                :style="{width: `${compactWidth}px`}"
+                :style="{ width: `${compactWidth}px` }"
                 @click="$emit('back', $event)"
             >
                 <i class="ms-Icon ms-Icon--Back icon"></i>
@@ -23,7 +32,7 @@
                 modelValue="scaleXDown"
                 class="fv-nav-default-item"
                 :hideContent="true"
-                :style="{width: `${compactWidth}px`}"
+                :style="{ width: `${compactWidth}px` }"
                 @click="expandClick"
             >
                 <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
@@ -31,19 +40,19 @@
         </div>
         <div
             class="panel-container"
-            :style="{width: navWidth, background: background}"
+            :style="{ width: navWidth, background: background }"
         >
             <fv-animated-icon
                 v-show="showBack"
                 modelValue="backScale"
                 class="fv-nav-default-item control"
                 :hideContent="!thisExpand"
-                style="width: calc(100% - 10px);"
+                style="width: calc(100% - 10px)"
                 @click="$emit('back', $event)"
             >
                 <i class="ms-Icon ms-Icon--Back icon"></i>
                 <template v-slot:content>
-                    <p class="name title">{{title}}</p>
+                    <p class="name title">{{ title }}</p>
                 </template>
             </fv-animated-icon>
             <fv-animated-icon
@@ -51,21 +60,15 @@
                 modelValue="scaleXDown"
                 class="fv-nav-default-item control"
                 :hideContent="!thisExpand"
-                style="width: calc(100% - 10px);"
+                style="width: calc(100% - 10px)"
                 @click="expandClick"
             >
                 <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
                 <template v-slot:content>
-                    <p
-                        v-show="!showBack"
-                        class="name title"
-                    >{{title}}</p>
+                    <p v-show="!showBack" class="name title">{{ title }}</p>
                 </template>
             </fv-animated-icon>
-            <span
-                v-show="showSearch && thisExpand"
-                class="search"
-            >
+            <span v-show="showSearch && thisExpand" class="search">
                 <slot name="searchBlock">
                     <fv-search-box
                         icon="Search"
@@ -76,7 +79,7 @@
                         borderWidth="2"
                         borderRadius="6"
                         :isBoxShadow="true"
-                        style="width: 95%;"
+                        style="width: 95%"
                     ></fv-search-box>
                 </slot>
             </span>
@@ -89,91 +92,97 @@
                 ref="setting"
                 class="fv-nav-default-item"
                 :hideContent="!thisExpand"
-                style="width: calc(100% - 10px);"
+                style="width: calc(100% - 10px)"
                 @click="$emit('setting-click', { event: $event })"
             >
                 <i class="ms-Icon ms-Icon--Settings icon"></i>
                 <template v-slot:content>
-                    <p class="name">{{settingTitle}}</p>
+                    <p class="name">{{ settingTitle }}</p>
                 </template>
             </fv-animated-icon>
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'back',
+    'setting-click',
+    'expand-change',
+    'expand-click',
+    'update:expand'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    title: {
+        default: 'NavigationPanel'
+    },
+    expand: {
+        default: true
+    },
+    expandMode: {
+        default: 'relative'
+    },
+    expandWidth: {
+        default: 350
+    },
+    expandDisplay: {
+        default: 1024
+    },
+    compactWidth: {
+        default: 50
+    },
+    flyoutDisplay: {
+        default: 0
+    },
+    fullSizeDisplay: {
+        default: 800
+    },
+    mobileDisplay: {
+        default: 0
+    },
+    showBack: {
+        default: true
+    },
+    showNav: {
+        default: true
+    },
+    showSearch: {
+        default: true
+    },
+    settingTitle: {
+        default: 'Settings'
+    },
+    showSetting: {
+        default: true
+    },
+    background: {
+        default: ''
+    }
+});
+</script>
+
 <script>
-import { navigationPanelProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import { useRevealCache } from '@/store/reveal';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvNavigationPanel',
-    emits: [
-        'back',
-        'setting-click',
-        'expand-change',
-        'expand-click',
-        'update:expand'
-    ],
-    setup() {
-        const uR = useRevealCache();
-        uR.initRevealInstances();
 
-        return {
-            uR
-        };
+    beforeMount() {
+        this.uR = useRevealCache();
+        this.uR.initRevealInstances();
     },
-    props: {
-        ...navigationPanelProps,
-        title: {
-            default: 'NavigationPanel'
-        },
-        expand: {
-            default: true
-        },
-        expandMode: {
-            default: 'relative'
-        },
-        expandWidth: {
-            default: 350
-        },
-        expandDisplay: {
-            default: 1024
-        },
-        compactWidth: {
-            default: 50
-        },
-        flyoutDisplay: {
-            default: 0
-        },
-        fullSizeDisplay: {
-            default: 800
-        },
-        mobileDisplay: {
-            default: 0
-        },
-        showBack: {
-            default: true
-        },
-        showNav: {
-            default: true
-        },
-        showSearch: {
-            default: true
-        },
-        settingTitle: {
-            default: 'Settings'
-        },
-        showSetting: {
-            default: true
-        },
-        background: {
-            default: ''
-        }
-    },
+
     data() {
         return {
             FR: null,
+            uR: null,
             thisExpand: this.expand,
             thisExpandBackup: this.expand,
             screenWidth: window.innerWidth,
@@ -296,4 +305,3 @@ export default {
     }
 };
 </script>
-

@@ -63,7 +63,7 @@ Primary
 ### Badge Customize Content
 ---
 <ClientOnly>
-<fv-Badge value="You">
+<fv-Badge modelValue="You">
 <fv-button>Badge</fv-button>
 </fv-Badge>
 </ClientOnly>
@@ -77,13 +77,13 @@ Primary
 ### Badge Max Value
 ---
 <ClientOnly>
-<fv-Badge value="100" max="99">
+<fv-Badge modelValue="100" max="99">
 <fv-button>Badge</fv-button>
 </fv-Badge>
 </ClientOnly>
 
 ```vue
-<fv-Badge value="100" max="99">
+<fv-Badge modelValue="100" max="99">
     <fv-button>Badge</fv-button>
 </fv-Badge>
 ```
@@ -107,11 +107,11 @@ Primary
 ### Propoties
 ---
 | 属性(attr) |                          类型(type)                           | 必填(required) | 默认值(default) |         说明(statement)         |
-|:----------:|:-------------------------------------------------------------:|:--------------:|:---------------:|:-------------------------------:|
-|   value    |                        [string,number]                        |      Yes       |       N/A       |                                 |
-|    max     |                           Number                            |       No       |    Infinity     |                                 |
-|   isDot    |                           Boolean                           |       No       |      false      |                                 |
-|   hidden   |                           Boolean                           |       No       |      false      |                                 |
+| :--------: | :-----------------------------------------------------------: | :------------: | :-------------: | :-----------------------------: |
+| modelValue |                        [string,number]                        |      Yes       |       N/A       |                                 |
+|    max     |                            Number                             |       No       |    Infinity     |                                 |
+|   isDot    |                            Boolean                            |       No       |      false      |                                 |
+|   hidden   |                            Boolean                            |       No       |      false      |                                 |
 |    type    | ['primary','success','warning','danger','info',string(color)] |       No       |     default     | `Badge`类型, 可以输入颜色字符串 |
 
 ### Slot

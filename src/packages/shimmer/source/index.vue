@@ -1,33 +1,40 @@
 <template>
-    <div
-        class="fv-Shimmer"
-        :class="[$theme]"
-    >
+    <div class="fv-Shimmer" :class="[$theme]">
         <div
             class="shimmer-container"
             ref="shimmer"
-            :style="{'background-image': `radial-gradient(circle ${gradientSize}px at ${x}px ${y}px, ${backgroundLightColor}, rgba(255,255,255,0))`}"
+            :style="{
+                'background-image': `radial-gradient(circle ${gradientSize}px at ${x}px ${y}px, ${backgroundLightColor}, rgba(255,255,255,0))`
+            }"
         >
             <slot>
                 <div
                     class="sample"
-                    :style="{'background-image': `inherit`}"
+                    :style="{ 'background-image': `inherit` }"
                 ></div>
             </slot>
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits();
+
+const props = defineProps({
+    ...commonProps
+});
+</script>
+
 <script>
-import { shimmerProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import gsap from 'gsap';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvShimmer',
-    props: {
-        ...shimmerProps
-    },
     data() {
         return {
             gradientSize: 80,
@@ -92,4 +99,3 @@ export default {
     }
 };
 </script>
-

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     emits: [

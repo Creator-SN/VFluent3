@@ -1,36 +1,37 @@
 <template>
-    <div
-        class="fv-TimePicker"
-        :class="[$theme, { disabled: disabled }]"
-    >
+    <div class="fv-TimePicker" :class="[$theme, { disabled: disabled }]">
         <div
             class="fv-TimePicker__input"
             :style="{ background: inputBackground }"
             @click="focus()"
         >
-            <button class="fv-TimePicker__input-item">{{ showTime(0, modelValue.getHours()) }}</button>
+            <button class="fv-TimePicker__input-item">
+                {{ showTime(0, modelValue.getHours()) }}
+            </button>
             <button
                 class="fv-TimePicker__input-item"
                 :style="{ borderColor: innerBorderColor }"
-            >{{ showTime(1,
-                    modelValue.getMinutes())
-            }}</button>
+            >
+                {{ showTime(1, modelValue.getMinutes()) }}
+            </button>
             <button
                 :style="{ borderColor: innerBorderColor }"
                 class="fv-TimePicker__input-item"
                 v-if="timeType == 12"
-            >{{ showTime(2, Math.floor(modelValue.getHours() / 11.9)) }}</button>
+            >
+                {{ showTime(2, Math.floor(modelValue.getHours() / 11.9)) }}
+            </button>
         </div>
         <transition name="fv-TimePicker__options">
             <div
                 v-show="show"
                 class="fv-TimePicker__options"
-                :style="{background: optionBackground}"
+                :style="{ background: optionBackground }"
             >
                 <div class="fv-TimePicker__options-body">
                     <div
                         class="fv-TimePicker__options-body-mask"
-                        :style="{background: selectedBackground}"
+                        :style="{ background: selectedBackground }"
                     ></div>
                     <div
                         v-for="(col, index1) in data"
@@ -86,14 +87,56 @@
         </transition>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['update:modelValue', 'change', 'focus']);
+
+const props = defineProps({
+    ...commonProps,
+    timeType: {
+        type: Number,
+        default: 12
+    },
+    modelValue: {
+        type: Date,
+        default: () => new Date()
+    },
+    period: {
+        type: Array,
+        default: () => ['A.M.', 'P.M.']
+    },
+    inputBackground: {
+        default: ''
+    },
+    innerBorderColor: {
+        type: String,
+        default: 'rgba(200, 200, 200, 0.3)'
+    },
+    selectedBackground: {
+        default: ''
+    },
+    optionBackground: {
+        default: ''
+    },
+    disabled: {
+        type: Boolean,
+        default: false
+    },
+    hoverColor: {
+        type: String,
+        default: undefined
+    }
+});
+</script>
+
 <script>
-import { timePickerProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvTimePicker',
-    emits: ['update:modelValue', 'change', 'focus'],
     directives: {
         hover: {
             /**
@@ -120,42 +163,6 @@ export default {
                     el.removeEventListener('mouseleave', el.leaveFunction);
                 }
             }
-        }
-    },
-    props: {
-        ...timePickerProps,
-        timeType: {
-            type: Number,
-            default: 12
-        },
-        modelValue: {
-            type: Date,
-            default: () => new Date()
-        },
-        period: {
-            type: Array,
-            default: () => ['A.M.', 'P.M.']
-        },
-        inputBackground: {
-            default: ''
-        },
-        innerBorderColor: {
-            type: String,
-            default: 'rgba(200, 200, 200, 0.3)'
-        },
-        selectedBackground: {
-            default: ''
-        },
-        optionBackground: {
-            default: ''
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        hoverColor: {
-            type: String,
-            default: undefined
         }
     },
     data() {
@@ -581,4 +588,3 @@ export default {
     }
 };
 </script>
-

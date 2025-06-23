@@ -3,11 +3,12 @@
         class="fv-RevealContainer"
         :class="[$theme]"
         :style="{ 'border-radius': `${computedBorderRadius}px` }"
-        @click="$event => {
-        $event.preventDefault();
-        if (!isDisabled)
-            $emit('click', $event);
-    }"
+        @click="
+            ($event) => {
+                $event.preventDefault();
+                if (!isDisabled) $emit('click', $event);
+            }
+        "
     >
         <svg
             v-show="offset.right - offset.left > 0"
@@ -39,7 +40,7 @@
                     />
                     <stop
                         v-for="(color, index) in backgroundGradientList"
-                        :offset="1 / backgroundGradientList.length * index"
+                        :offset="(1 / backgroundGradientList.length) * index"
                         :stop-color="color"
                         :key="`bg:${index}`"
                     />
@@ -65,7 +66,7 @@
                     />
                     <stop
                         v-for="(color, index) in borderGradientList"
-                        :offset="1 / borderGradientList.length * index"
+                        :offset="(1 / borderGradientList.length) * index"
                         :stop-color="color"
                         :key="`border:${index}`"
                     />
@@ -79,22 +80,10 @@
                     :id="`clickG_${id}`"
                     :gradientTransform="borderMatrix"
                 >
-                    <stop
-                        offset="0"
-                        stop-color="rgba(255, 255, 255, 0)"
-                    />
-                    <stop
-                        offset="0.33"
-                        :stop-color="backgroundColor"
-                    />
-                    <stop
-                        offset="0.66"
-                        stop-color="rgba(255, 255, 255, 0)"
-                    />
-                    <stop
-                        offset="1"
-                        stop-color="rgba(255, 255, 255, 0)"
-                    />
+                    <stop offset="0" stop-color="rgba(255, 255, 255, 0)" />
+                    <stop offset="0.33" :stop-color="backgroundColor" />
+                    <stop offset="0.66" stop-color="rgba(255, 255, 255, 0)" />
+                    <stop offset="1" stop-color="rgba(255, 255, 255, 0)" />
                 </radialGradient>
             </defs>
             <rect
@@ -102,8 +91,14 @@
                 :y="borderWidth / 2"
                 :rx="computedBorderRadius"
                 :ry="computedBorderRadius"
-                style="box-sizing: border-box;"
-                :style="{ width: `${offset.right - offset.left - borderWidth}px`, height: `${offset.bottom - offset.top - borderWidth}px`, stroke: `url(#borderG_${id})`, fill: inside ? `url(#backgroundG_${id})` : 'transparent', 'stroke-width': borderWidth }"
+                style="box-sizing: border-box"
+                :style="{
+                    width: `${offset.right - offset.left - borderWidth}px`,
+                    height: `${offset.bottom - offset.top - borderWidth}px`,
+                    stroke: `url(#borderG_${id})`,
+                    fill: inside ? `url(#backgroundG_${id})` : 'transparent',
+                    'stroke-width': borderWidth
+                }"
             />
             <rect
                 v-show="clickDown"
@@ -111,67 +106,74 @@
                 :y="borderWidth / 2"
                 :rx="computedBorderRadius"
                 :ry="computedBorderRadius"
-                style="stroke: transparent; box-sizing: border-box;"
-                :style="{ width: `${offset.right - offset.left - borderWidth}px`, height: `${offset.bottom - offset.top - borderWidth}px`, fill: inside ? `url(#clickG_${id})` : 'transparent', 'stroke-width': borderWidth }"
+                style="stroke: transparent; box-sizing: border-box"
+                :style="{
+                    width: `${offset.right - offset.left - borderWidth}px`,
+                    height: `${offset.bottom - offset.top - borderWidth}px`,
+                    fill: inside ? `url(#clickG_${id})` : 'transparent',
+                    'stroke-width': borderWidth
+                }"
             />
         </svg>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['click']);
+
+const props = defineProps({
+    ...commonProps,
+    revealContainer: {
+        default: false
+    },
+    parent: {
+        default: null
+    },
+    borderWidth: {
+        default: 1
+    },
+    borderRadius: {
+        default: 6
+    },
+    backgroundColor: {
+        default: 'rgba(121, 119, 117, 0.6)'
+    },
+    backgroundGradientList: {
+        default: () => []
+    },
+    backgroundGradientSize: {
+        default: 120
+    },
+    borderColor: {
+        default: 'rgba(121, 119, 117, 0.6)'
+    },
+    borderGradientList: {
+        default: () => []
+    },
+    borderGradientSize: {
+        default: 60
+    },
+    debounceDistance: {
+        default: 300
+    },
+    disabled: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { defineComponent } from "vue";
-import { revealContainerProps } from ".";
-import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common";
-import { useRevealCache } from "@/store/reveal";
+import { useRevealCache } from '@/store/reveal';
+
+import { useTheme } from '@/utils/common';
 
 export default {
-    name: "FvRevealContainer",
-    emits: ["click"],
-    props: {
-        ...revealContainerProps,
-        revealContainer: {
-            default: false,
-        },
-        parent: {
-            default: null,
-        },
-        borderWidth: {
-            default: 1,
-        },
-        borderRadius: {
-            default: 6,
-        },
-        backgroundColor: {
-            default: "rgba(121, 119, 117, 0.6)",
-        },
-        backgroundGradientList: {
-            default: () => [],
-        },
-        backgroundGradientSize: {
-            default: 120,
-        },
-        borderColor: {
-            default: "rgba(121, 119, 117, 0.6)",
-        },
-        borderGradientList: {
-            default: () => [],
-        },
-        borderGradientSize: {
-            default: 60,
-        },
-        debounceDistance: {
-            default: 300,
-        },
-        disabled: {
-            default: false,
-        },
-    },
-    setup() {
-        const revealCache = useRevealCache();
-
-        return {
-            revealCache,
-        };
+    name: 'FvRevealContainer',
+    beforeMount() {
+        this.revealCache = useRevealCache();
     },
     data() {
         return {
@@ -180,20 +182,21 @@ export default {
                 left: 0,
                 top: 0,
                 right: 0,
-                bottom: 0,
+                bottom: 0
             },
             disEl: {
                 // x: window.innerWidth,
                 // y: window.innerHeight,
                 x: 0,
-                y: 0,
+                y: 0
             },
             inside: false,
             wave: 0,
             clickDown: false,
+            revealCache: null,
             timer: {
-                wave: null,
-            },
+                wave: null
+            }
         };
     },
     watch: {
@@ -201,7 +204,7 @@ export default {
             if (!val) {
                 this.leaveEvent(null);
             }
-        },
+        }
     },
     computed: {
         $theme() {
@@ -217,9 +220,9 @@ export default {
                 0,
                 1,
                 (this.disEl.x - width / 2).toFixed(3),
-                (this.disEl.y - height / 2).toFixed(3),
+                (this.disEl.y - height / 2).toFixed(3)
             ];
-            return `matrix(${matrix.join(" ")})`;
+            return `matrix(${matrix.join(' ')})`;
         },
         computedBorderRadius() {
             let width = this.offset.right - this.offset.left;
@@ -230,11 +233,11 @@ export default {
         },
         isDisabled() {
             return (
-                this.disabled.toString() == "true" ||
-                this.disabled == "disabled" ||
-                this.disabled === ""
+                this.disabled.toString() == 'true' ||
+                this.disabled == 'disabled' ||
+                this.disabled === ''
             );
-        },
+        }
     },
     mounted() {
         // mount data
@@ -249,32 +252,32 @@ export default {
                 this.revealCache.setRevealHandler({
                     id: this.id,
                     moveHandler: this.moveEvent,
-                    leaveHandler: this.leaveEvent,
+                    leaveHandler: this.leaveEvent
                 });
                 if (window.$FvRevealContainer) return;
                 window.$FvRevealContainer = true;
                 window.removeEventListener(
-                    "mousemove",
+                    'mousemove',
                     this.globalMoveEventListener
                 );
                 window.addEventListener(
-                    "mousemove",
+                    'mousemove',
                     this.globalMoveEventListener
                 );
                 window.removeEventListener(
-                    "touchmove",
+                    'touchmove',
                     this.globalMoveEventListener
                 );
                 window.addEventListener(
-                    "touchmove",
+                    'touchmove',
                     this.globalMoveEventListener
                 );
                 window.removeEventListener(
-                    "mouseleave",
+                    'mouseleave',
                     this.globalLeaveEventListener
                 );
                 window.addEventListener(
-                    "mouseleave",
+                    'mouseleave',
                     this.globalLeaveEventListener
                 );
             } else {
@@ -283,67 +286,67 @@ export default {
                     moveHandler: this.moveEvent,
                     downHandler: this.downEvent,
                     upHandler: this.upEvent,
-                    leaveHandler: this.leaveEvent,
+                    leaveHandler: this.leaveEvent
                 });
                 if (this.revealContainer.init) return;
                 this.revealContainer.init = true;
                 this.revealContainer
                     .el()
                     .removeEventListener(
-                        "mousemove",
+                        'mousemove',
                         this.globalMoveEventListener
                     );
                 this.revealContainer
                     .el()
                     .addEventListener(
-                        "mousemove",
+                        'mousemove',
                         this.globalMoveEventListener
                     );
                 this.revealContainer
                     .el()
                     .removeEventListener(
-                        "touchmove",
+                        'touchmove',
                         this.globalMoveEventListener
                     );
                 this.revealContainer
                     .el()
                     .addEventListener(
-                        "touchmove",
+                        'touchmove',
                         this.globalMoveEventListener
                     );
                 this.revealContainer
                     .el()
                     .removeEventListener(
-                        "mouseleave",
+                        'mouseleave',
                         this.globalLeaveEventListener
                     );
                 this.revealContainer
                     .el()
                     .addEventListener(
-                        "mouseleave",
+                        'mouseleave',
                         this.globalLeaveEventListener
                     );
             }
         },
         mouseClickInit() {
             if (this.parent) {
-                this.parent().removeEventListener("mousedown", this.downEvent);
-                this.parent().addEventListener("mousedown", this.downEvent);
-                this.parent().removeEventListener("touchstart", this.downEvent);
-                this.parent().addEventListener("touchstart", this.downEvent);
-                this.parent().removeEventListener("mouseup", this.upEvent);
-                this.parent().addEventListener("mouseup", this.upEvent);
-                this.parent().removeEventListener("touchend", this.leaveEvent);
-                this.parent().addEventListener("touchend", this.leaveEvent);
+                this.parent().removeEventListener('mousedown', this.downEvent);
+                this.parent().addEventListener('mousedown', this.downEvent);
+                this.parent().removeEventListener('touchstart', this.downEvent);
+                this.parent().addEventListener('touchstart', this.downEvent);
+                this.parent().removeEventListener('mouseup', this.upEvent);
+                this.parent().addEventListener('mouseup', this.upEvent);
+                this.parent().removeEventListener('touchend', this.leaveEvent);
+                this.parent().addEventListener('touchend', this.leaveEvent);
             } else {
-                this.$el.removeEventListener("mousedown", this.downEvent);
-                this.$el.addEventListener("mousedown", this.downEvent);
-                this.$el.removeEventListener("touchstart", this.downEvent);
-                this.$el.addEventListener("touchstart", this.downEvent);
-                this.$el.removeEventListener("mouseup", this.upEvent);
-                this.$el.addEventListener("mouseup", this.upEvent);
-                this.$el.removeEventListener("touchend", this.leaveEvent);
-                this.$el.addEventListener("touchend", this.leaveEvent);
+                this.$el.removeEventListener('mousedown', this.downEvent);
+                this.$el.addEventListener('mousedown', this.downEvent);
+                this.$el.removeEventListener('touchstart', this.downEvent);
+                this.$el.addEventListener('touchstart', this.downEvent);
+                this.$el.removeEventListener('mouseup', this.upEvent);
+                this.$el.addEventListener('mouseup', this.upEvent);
+                this.$el.removeEventListener('touchend', this.leaveEvent);
+                this.$el.addEventListener('touchend', this.leaveEvent);
             }
         },
         globalMoveEventListener(e) {
@@ -371,7 +374,7 @@ export default {
         moveEvent(e) {
             if (this.isDisabled) return;
             if (!this.inVisual()) return;
-            if (e.type.indexOf("mouse") < 0) e = e.targetTouches[0];
+            if (e.type.indexOf('mouse') < 0) e = e.targetTouches[0];
 
             const { left, top } = this.getOffset(this.$el);
             let x = e.pageX - left - window.scrollX;
@@ -400,7 +403,7 @@ export default {
         downEvent(e) {
             if (this.isDisabled) return;
             if (!this.clickInsideElement(e)) return;
-            if (e.type.indexOf("mouse") < 0) e = e.targetTouches[0];
+            if (e.type.indexOf('mouse') < 0) e = e.targetTouches[0];
 
             const { left, top } = this.getOffset(this.$el);
             let x = e.pageX - left - window.scrollX;
@@ -459,13 +462,13 @@ export default {
                 left: left - cursorX,
                 right: cursorX - right,
                 top: top - cursorY,
-                bottom: cursorY - bottom,
+                bottom: cursorY - bottom
             };
         },
         clickInsideElement(event) {
             let x = event.target;
             let _self = false;
-            while (x && x.tagName && x.tagName.toLowerCase() != "body") {
+            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
                 if (x == this.$el) {
                     _self = true;
                     break;
@@ -502,9 +505,9 @@ export default {
             return S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4();
         },
         valueTrigger(val) {
-            if (typeof val === "function") return val();
+            if (typeof val === 'function') return val();
             return val;
-        },
+        }
     },
     beforeUnmount() {
         if (this.revealContainer === false) {
@@ -518,11 +521,10 @@ export default {
         }
 
         if (this.parent && this.parent()) {
-            this.parent().removeEventListener("mousedown", this.downEvent);
-            this.parent().removeEventListener("touchstart", this.downEvent);
-            this.parent().removeEventListener("mouseup", this.upEvent);
+            this.parent().removeEventListener('mousedown', this.downEvent);
+            this.parent().removeEventListener('touchstart', this.downEvent);
+            this.parent().removeEventListener('mouseup', this.upEvent);
         }
-    },
+    }
 };
 </script>
-

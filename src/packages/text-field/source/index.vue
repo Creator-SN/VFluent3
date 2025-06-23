@@ -1,7 +1,14 @@
 <template>
     <div
         class="fv-TextField"
-        :class="[$theme, status, {focus: isFocus}, {disabled: isDisabled}, {underline: isUnderline}, { shadow: isBoxShadow }]"
+        :class="[
+            $theme,
+            status,
+            { focus: isFocus },
+            { disabled: isDisabled },
+            { underline: isUnderline },
+            { shadow: isBoxShadow }
+        ]"
         :style="[{ background: background, borderRadius: `${borderRadius}px` }]"
     >
         <fv-reveal-container
@@ -17,7 +24,11 @@
         ></fv-reveal-container>
         <div
             class="text-field-wrapper-container"
-            :style="{borderWidth: `${borderWidth}px`, borderColor: isFocus ? focusBorderColor : borderColor, borderRadius: `${borderRadius}px`}"
+            :style="{
+                borderWidth: `${borderWidth}px`,
+                borderColor: isFocus ? focusBorderColor : borderColor,
+                borderRadius: `${borderRadius}px`
+            }"
         >
             <textarea
                 v-model="thisValue"
@@ -26,7 +37,12 @@
                 :readonly="isReadOnly"
                 :disabled="isDisabled"
                 :maxlength="maxlength"
-                :style="{'font-size': `${fontSize}px`, 'font-weight': fontWeight, color: foreground, 'text-align': textAlign}"
+                :style="{
+                    'font-size': `${fontSize}px`,
+                    'font-weight': fontWeight,
+                    color: foreground,
+                    'text-align': textAlign
+                }"
                 @keydown="$emit('keydown', $event)"
                 @keyup="$emit('keyup', $event)"
                 @change="$emit('change', $event)"
@@ -37,77 +53,92 @@
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'update:modelValue',
+    'focus',
+    'blur',
+    'keydown',
+    'keyup',
+    'change',
+    'paste'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: ''
+    },
+    readonly: {
+        default: false
+    },
+    placeholder: {
+        default: ''
+    },
+    maxlength: {
+        default: ''
+    },
+    disabled: {
+        default: false
+    },
+    underline: {
+        default: false
+    },
+    background: {
+        default: ''
+    },
+    borderWidth: {
+        default: 1
+    },
+    borderColor: {
+        default: ''
+    },
+    focusBorderColor: {
+        default: ''
+    },
+    fontSize: {
+        default: 13.8
+    },
+    fontWeight: {
+        default: 'normal'
+    },
+    foreground: {
+        default: ''
+    },
+    textAlign: {
+        default: 'left'
+    },
+    borderRadius: {
+        default: 3
+    },
+    isBoxShadow: {
+        default: false
+    },
+    revealBorder: {
+        default: false
+    },
+    revealBorderColor: {
+        default: false
+    },
+    revealBackgroundColor: {
+        default: false
+    },
+    status: {
+        default: ''
+    }
+});
+</script>
+
 <script>
-import { textFieldProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvTextField',
-    emits: ['update:modelValue', 'focus', 'blur', 'keydown', 'keyup', 'change', 'paste'],
-    props: {
-        ...textFieldProps,
-        modelValue: {
-            default: ''
-        },
-        readonly: {
-            default: false
-        },
-        placeholder: {
-            default: ''
-        },
-        maxlength: {
-            default: ''
-        },
-        disabled: {
-            default: false
-        },
-        underline: {
-            default: false
-        },
-        background: {
-            default: ''
-        },
-        borderWidth: {
-            default: 1
-        },
-        borderColor: {
-            default: ''
-        },
-        focusBorderColor: {
-            default: ''
-        },
-        fontSize: {
-            default: 13.8
-        },
-        fontWeight: {
-            default: 'normal'
-        },
-        foreground: {
-            default: ''
-        },
-        textAlign: {
-            default: 'left'
-        },
-        borderRadius: {
-            default: 3
-        },
-        isBoxShadow: {
-            default: false
-        },
-        revealBorder: {
-            default: false
-        },
-        revealBorderColor: {
-            default: false
-        },
-        revealBackgroundColor: {
-            default: false
-        },
-        status: {
-            default: ''
-        }
-    },
+
     data() {
         return {
             thisValue:
@@ -181,4 +212,3 @@ export default {
     }
 };
 </script>
-

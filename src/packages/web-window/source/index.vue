@@ -2,8 +2,21 @@
     <div
         v-show="thisValue"
         class="fv-WebWindow"
-        :class="[$theme, {'static-transition' : !freezeTransition, 'enabled-resize': isResize, dark : theme == 'dark', 'is-acrylic': isAcrylic}]"
-        :style="{left: currentLeft, top: currentTop, width: currentWidth == 0 ? '' : `${currentWidth}px`, height: currentHeight == 0 ? '' : `${currentHeight}px`}"
+        :class="[
+            $theme,
+            {
+                'static-transition': !freezeTransition,
+                'enabled-resize': isResize,
+                dark: theme == 'dark',
+                'is-acrylic': isAcrylic
+            }
+        ]"
+        :style="{
+            left: currentLeft,
+            top: currentTop,
+            width: currentWidth == 0 ? '' : `${currentWidth}px`,
+            height: currentHeight == 0 ? '' : `${currentHeight}px`
+        }"
         ref="block"
     >
         <div
@@ -14,7 +27,7 @@
             @touchstart="forward"
             @touchend="stop"
         >
-            <p style="margin-left: 10px; user-select: none;">{{title}}</p>
+            <p style="margin-left: 10px; user-select: none">{{ title }}</p>
             <button
                 class="control-btn shut-down"
                 @mousedown="stopPropagation"
@@ -49,42 +62,51 @@
         ></spliter>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits();
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: true
+    },
+    title: {
+        type: String,
+        default: 'WebWindow'
+    },
+    left: {
+        default: 0
+    },
+    top: {
+        default: 0
+    },
+    refreshPos: {
+        default: false
+    },
+    isResize: {
+        default: false
+    },
+    isAcrylic: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { webWindowProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import spliter from './sub/spliter.vue';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvWebWindow',
     components: {
         spliter
     },
-    props: {
-        ...webWindowProps,
-        modelValue: {
-            default: true
-        },
-        title: {
-            type: String,
-            default: 'WebWindow'
-        },
-        left: {
-            default: 0
-        },
-        top: {
-            default: 0
-        },
-        refreshPos: {
-            default: false
-        },
-        isResize: {
-            default: false
-        },
-        isAcrylic: {
-            default: false
-        }
-    },
+
     data() {
         return {
             thisValue: this.modelValue,
@@ -251,4 +273,3 @@ export default {
     }
 };
 </script>
-

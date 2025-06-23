@@ -1,49 +1,66 @@
-
 <template>
     <div
         class="fv-ProgressBar"
-        :class="[$theme, loading.toString() != 'true' ? 'normal' : '', isDisabled ? 'disabled' : '']"
-        :style="{background: background}"
+        :class="[
+            $theme,
+            loading.toString() != 'true' ? 'normal' : '',
+            isDisabled ? 'disabled' : ''
+        ]"
+        :style="{ background: background }"
     >
         <p
             v-show="loading.toString() == 'true'"
             v-for="i in 5"
             class="unit"
-            :style="{background: foreground}"
+            :style="{ background: foreground }"
             :key="i"
         ></p>
         <i
             v-show="loading.toString() != 'true'"
-            :style="{'width':(percent <= 100 ? percent : 100)+'%', background: foreground}"
+            :style="{
+                width: (percent <= 100 ? percent : 100) + '%',
+                background: foreground
+            }"
         ></i>
     </div>
 </template>
 
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'update:modelValue',
+    'progress-change',
+    'progress-finished'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: 0
+    },
+    foreground: {
+        default: ''
+    },
+    background: {
+        default: ''
+    },
+    loading: {
+        default: false
+    },
+    disabled: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { progressBarProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvProgressBar',
-    emits: ['update:modelValue', 'progress-change', 'progress-finished'],
-    props: {
-        ...progressBarProps,
-        modelValue: {
-            default: 0
-        },
-        foreground: {
-            default: ''
-        },
-        background: {
-            default: ''
-        },
-        loading: {
-            default: false
-        },
-        disabled: {
-            default: false
-        }
-    },
+
     data() {
         return {
             percent: this.modelValue

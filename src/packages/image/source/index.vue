@@ -1,40 +1,5 @@
-<script setup lang="ts">
-import { useTheme } from '@/utils/common';
-import { imageEmits, imageProps, useImage } from '.';
-import { onBeforeUnmount, onMounted } from 'vue';
-
-defineOptions({
-    name:"FvImage"
-})
-
-const props = defineProps(imageProps)
-const emits = defineEmits(imageEmits)
-
-const {theme} = useTheme(props)
-
-const {status,thisSrc,watchImgInit,lazy,lazyInit,lazyTimer,img,root} = useImage(props, emits)
-
-onMounted(()=>{
-    watchImgInit()
-    if (lazy.value){
-        lazyInit()
-    }else{
-        thisSrc.value = props.src
-    }
-})
-
-onBeforeUnmount(()=>{
-    clearInterval(lazyTimer.value)
-})
-
-</script>
-
 <template>
-    <div
-        ref="root"
-        class="fv-Image"
-        :class="[theme]"
-    >
+    <div class="fv-Image" :class="[$theme]">
         <transition name="fade-in">
             <img
                 v-show="status"
@@ -42,10 +7,90 @@ onBeforeUnmount(()=>{
                 alt=""
                 :src="thisSrc"
                 ref="img"
-            ></img>
+            />
         </transition>
     </div>
 </template>
-        
 
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
 
+const emits = defineEmits(['click']);
+
+const props = defineProps({
+    ...commonProps,
+    src: {
+        default: ''
+    },
+    onlazy: {
+        default: false
+    }
+});
+</script>
+
+<script>
+import { useTheme } from '@/utils/common';
+
+export default {
+    name: 'FvImage',
+    data() {
+        return {
+            thisSrc: '',
+            status: false,
+            lazy: this.onlazy,
+            lazyTimer: {}
+        };
+    },
+    watch: {
+        src(to, from) {
+            if (to !== from) {
+                this.status = false;
+            }
+            if (!this.lazy) {
+                this.thisSrc = this.src;
+            }
+        },
+        lazy(val) {
+            if (val === false) this.thisSrc = this.src;
+        },
+        onlazy(val) {
+            this.lazy = val;
+        }
+    },
+    computed: {
+        $theme() {
+            return useTheme(this.$props).theme.value;
+        }
+    },
+    mounted() {
+        this.watchImgInit();
+        if (this.lazy) this.lazyInit();
+        else this.thisSrc = this.src;
+    },
+    methods: {
+        watchImgInit() {
+            this.$refs.img.onload = (event) => {
+                this.status = true;
+            };
+        },
+        lazyInit() {
+            clearInterval(this.lazyTimer);
+            this.lazyTimer = setInterval(() => {
+                window.requestAnimationFrame(() => {
+                    if (
+                        this.$el.getBoundingClientRect().top <
+                        window.innerHeight
+                    ) {
+                        this.lazy = false;
+                        clearInterval(this.lazyTimer);
+                    }
+                });
+            }, 300);
+        }
+    },
+    beforeUnmount() {
+        clearInterval(this.lazyTimer);
+    }
+};
+</script>

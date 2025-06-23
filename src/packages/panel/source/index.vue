@@ -1,55 +1,55 @@
 <template>
     <transition name="fv-panel-show">
-        <div
-            v-show="thisValue"
-            class="fv-Panel"
-            :class="[$theme]"
-        >
+        <div v-show="thisValue" class="fv-Panel" :class="[$theme]">
             <div
                 class="fv-panel-back-board"
-                @click="isLightDismiss ? thisValue = false : 0"
+                @click="isLightDismiss ? (thisValue = false) : 0"
             ></div>
             <transition :name="transitionInName">
                 <div
                     v-show="thisValue"
                     class="fv-panel-container"
-                    :class="[`${sideName}-side`, {'acrylic-style': isAcrylic}]"
-                    :style="{width: finalWidth, height: finalHeight, background: background}"
+                    :class="[
+                        {
+                            'near-side': isNearSide,
+                            'central-side': isCentralSide,
+                            'acrylic-style': isAcrylic
+                        }
+                    ]"
+                    :style="{
+                        width: finalWidth,
+                        height: finalHeight,
+                        background: background
+                    }"
                 >
-                    <div
-                        v-show="showTitleBar"
-                        class="fv-panel-control-block"
-                        :style="{padding: controlPadding}"
-                    >
+                    <div v-show="showTitleBar" class="fv-panel-control-block">
                         <slot name="header">
                             <p
                                 class="panel-title"
-                                :style="{'font-size': `${titleSize}px`, 'font-weight': titleWeight, color: titleColor}"
-                            >{{title}}</p>
+                                :style="{
+                                    'font-size': `${titleSize}px`,
+                                    'font-weight': titleWeight,
+                                    color: titleColor
+                                }"
+                            >
+                                {{ title }}
+                            </p>
                             <i
                                 class="control-btn ms-Icon ms-Icon--Cancel"
                                 @click="thisValue = !thisValue"
                             ></i>
                         </slot>
                     </div>
-                    <div
-                        class="fv-panel-main-container"
-                        :style="{padding: contentPadding}"
-                    >
-                        <slot name="container">
-                            Content Here
-                        </slot>
+                    <div class="fv-panel-main-container">
+                        <slot name="container"> Content Here </slot>
                     </div>
-                    <div
-                        v-show="isFooter"
-                        class="fv-panel-footer"
-                        :style="{padding: controlPadding}"
-                    >
+                    <div v-show="isFooter" class="fv-panel-footer">
                         <slot name="footer">
                             <fv-button
                                 theme="dark"
                                 background="rgba(0, 90, 158, 1)"
-                            >OK</fv-button>
+                                >OK</fv-button
+                            >
                             <fv-button>Cancel</fv-button>
                         </slot>
                     </div>
@@ -59,73 +59,65 @@
     </transition>
 </template>
 
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['update:modelValue']);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: !false
+    },
+    title: {
+        default: 'Sample Panel'
+    },
+    titleSize: {
+        default: 20
+    },
+    titleWeight: {
+        default: 600
+    },
+    titleColor: {
+        default: ''
+    },
+    width: {
+        default: '340'
+    },
+    height: {
+        default: '100%'
+    },
+    background: {
+        default: ''
+    },
+    isNearSide: {
+        default: false
+    },
+    isCentralSide: {
+        default: false
+    },
+    isLightDismiss: {
+        default: false
+    },
+    showTitleBar: {
+        default: true
+    },
+    isFooter: {
+        default: false
+    },
+    isAcrylic: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { panelProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvPanel',
-    emits: ['update:modelValue'],
-    props: {
-        ...panelProps,
-        modelValue: {
-            default: !false
-        },
-        title: {
-            default: 'Sample Panel'
-        },
-        titleSize: {
-            default: 20
-        },
-        titleWeight: {
-            default: 600
-        },
-        titleColor: {
-            default: ''
-        },
-        width: {
-            default: '340'
-        },
-        height: {
-            default: '100%'
-        },
-        background: {
-            default: ''
-        },
-        controlPadding: {
-            default: '15px'
-        },
-        contentPadding: {
-            default: '0px'
-        },
-        isNearSide: {
-            default: false
-        },
-        isBottomSide: {
-            default: false
-        },
-        isTopSide: {
-            default: false
-        },
-        isCentralSide: {
-            default: false
-        },
-        isLightDismiss: {
-            default: false
-        },
-        showTitleBar: {
-            default: true
-        },
-        isFooter: {
-            default: false
-        },
-        isAcrylic: {
-            default: false
-        },
-        teleport: {
-            default: false
-        }
-    },
+
     data() {
         return {
             thisValue: this.modelValue,
@@ -162,26 +154,13 @@ export default {
                 return `${this.height}px`;
             }
         },
-        sideName() {
-            if (this.isCentralSide) return 'central';
-            if (this.isNearSide) return 'near';
-            if (this.isTopSide) return 'top';
-            if (this.isBottomSide) return 'bottom';
-            return 'default';
-        },
         transitionInName() {
-            if (this.sideName === 'central')
+            if (this.isCentralSide)
                 if (this.thisValue) return 'fv-panel-scale-up-to-up';
                 else return 'fv-panel-scale-down-to-down';
-            if (this.sideName === 'near')
+            if (this.isNearSide)
                 if (this.thisValue) return 'move-left-to-right';
                 else return 'move-right-to-left';
-            if (this.sideName === 'top')
-                if (this.thisValue) return 'move-top-to-bottom';
-                else return 'move-bottom-to-top';
-            if (this.sideName === 'bottom')
-                if (this.thisValue) return 'move-bottom-to-top';
-                else return 'move-top-to-bottom';
             if (this.thisValue) return 'move-right-to-left';
             return 'move-left-to-right';
         },
@@ -191,19 +170,8 @@ export default {
     },
     mounted() {
         this.screenWidthInit();
-        if (this.teleport) this.globalAppendInit();
     },
     methods: {
-        globalAppendInit() {
-            this.$nextTick(() => {
-                const body = document.querySelector('body');
-                if (body.append) {
-                    body.append(this.$el);
-                } else {
-                    body.appendChild(this.$el);
-                }
-            });
-        },
         screenWidthInit() {
             this.timer.widthTimer = setInterval(() => {
                 this.screenWidth = window.innerWidth;
@@ -212,12 +180,6 @@ export default {
     },
     beforeUnmount() {
         clearInterval(this.timer.widthTimer);
-        try {
-            const body = document.querySelector('body');
-            body.removeChild(this.$el);
-        } catch (e) {
-            console.warn('Remove Failed', e);
-        }
     }
 };
 </script>

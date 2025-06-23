@@ -1,12 +1,12 @@
 <template>
-    <div ref="root" class="fv-Button" :class="[theme]" @click="onClick">
+    <div class="fv-Button" :class="[$theme]" @click="onClick">
         <div
             class="fv-button-main-container"
             :class="[{ disabled: isDisabled }, { shadow: isBoxShadow }]"
             :style="{ borderRadius: `${borderRadius}px` }"
         >
             <fv-reveal-container
-                :parent="() => root"
+                :parent="() => $el"
                 class="fv-button-reveal-container"
                 :backgroundColor="backgroundLightColor"
                 :borderColor="borderLightColor"
@@ -47,110 +47,105 @@
     </div>
 </template>
 
-<script lang="ts" setup>
-import { computed, ref } from 'vue';
+<script setup>
+import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
-import { useTheme } from '@/utils/common';
 
-defineOptions({
-    name: 'FvButton'
-});
-
-const emits = defineEmits({
-    click: (evt: Event) => {
-        return true;
-    }
-});
-type ButtonEmits = typeof emits;
+const emits = defineEmits(['click']);
 
 const props = defineProps({
     ...commonProps,
     icon: {
-        type: [String],
-        default: ''
+        default: '',
+        type: String
     },
     foreground: {
-        type: [String],
-        default: ''
+        default: '',
+        type: String
     },
     background: {
-        type: [String],
-        default: ''
+        default: '',
+        type: String
     },
     borderRadius: {
-        type: [String, Number],
         default: 3
     },
     borderColor: {
-        type: [String],
         default: ''
     },
     fontSize: {
-        type: [Number],
         default: 13.3
     },
     fontWeight: {
-        type: [String],
-        default: 'normal'
+        default: 'normal',
+        type: String
     },
     revealBorderColor: {
-        type: [Boolean, String],
         default: false
     },
     revealBackgroundColor: {
-        type: [Boolean, String],
         default: false
     },
     isBoxShadow: {
-        type: [Boolean],
         default: false
     },
     disabled: {
-        type: [Boolean, String],
         default: false
     },
     borderWidth: {
-        type: [Number, String],
         default: 1
     }
 });
-type ButtonProps = typeof props;
+</script>
 
-const { theme } = useTheme(props);
-const isDisabled = computed(() => {
-    return (
-        props.disabled.toString() === 'true' ||
-        props.disabled === true ||
-        props.disabled === '' ||
-        props.disabled === 'disabled'
-    );
-});
-const onClick = (evt: Event) => {
-    evt.preventDefault();
-    console.log(111)
-    if (isDisabled.value) {
-        return false;
-    }
-    emits('click', evt);
+<script>
+import { useTheme } from '@/utils/common';
+
+export default {
+    name: 'FvButton',
+
+    data() {
+        return {};
+    },
+    watch: {},
+    computed: {
+        $theme() {
+            return useTheme(this.$props).theme.value;
+        },
+        borderLightColor() {
+            if (this.revealBorderColor) return this.revealBorderColor;
+            if (this.$theme == 'light') {
+                return 'rgba(121, 119, 117, 0.6)';
+            }
+            if (this.$theme == 'dark' || this.$theme == 'custom') {
+                return 'rgba(255, 255, 255, 0.6)';
+            }
+        },
+        backgroundLightColor() {
+            if (this.revealBackgroundColor) return this.revealBackgroundColor;
+            if (this.$theme == 'light') {
+                return 'rgba(121, 119, 117, 0.1)';
+            }
+            if (this.$theme == 'dark' || this.$theme == 'custom') {
+                return 'rgba(255, 255, 255, 0.1)';
+            }
+        },
+        isDisabled() {
+            return (
+                this.disabled.toString() == 'true' ||
+                this.disabled == 'disabled' ||
+                this.disabled === ''
+            );
+        }
+    },
+    mounted() {},
+    methods: {
+        onClick(event) {
+            event.preventDefault();
+            if (this.isDisabled) return 0;
+            this.$emit('click', event);
+        }
+    },
+    beforeUnmount() {}
 };
-const borderLightColor = computed(() => {
-    if (props.revealBorderColor) return props.revealBorderColor;
-    if (theme.value === 'light') {
-        return 'rgba(121, 119, 117, 0.6)';
-    }
-    if (theme.value === 'dark') {
-        return 'rgba(255,255,255,0.6)';
-    }
-});
-const backgroundLightColor = computed(() => {
-    if (props.revealBackgroundColor) return props.revealBackgroundColor;
-    if (theme.value === 'light') {
-        return 'rgba(121, 119, 117, 0.1)';
-    }
-    if (theme.value === 'dark') {
-        return 'rgba(255, 255, 255, 0.1)';
-    }
-});
-
-const root = ref<HTMLElement>();
 </script>

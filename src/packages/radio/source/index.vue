@@ -1,7 +1,12 @@
 <template>
     <div
         class="fv-Radio"
-        :class="[$theme, {'with-icon':icon || image},{actived:isActived},{disabled:isDisabled}]"
+        :class="[
+            $theme,
+            { 'with-icon': icon || image },
+            { actived: isActived },
+            { disabled: isDisabled }
+        ]"
         @click="click"
         :style="{
             'border-color': isActived ? foreground : '',
@@ -14,21 +19,22 @@
             ref="button"
             class="fv-radio-button"
             :style="{
-                'background': isActived ? foreground : ''
+                background: isActived ? foreground : ''
             }"
-            :class="[{actived:isActived},{disabled:isDisabled}]"
+            :class="[{ actived: isActived }, { disabled: isDisabled }]"
         />
-        <label
-            class="fv-radio-label"
-            :style="{color: color}"
-        >
+        <label class="fv-radio-label" :style="{ color: color }">
             <template v-if="image">
-                <img :src="isActived?activeImage?activeImage:image:image" />
+                <img
+                    :src="
+                        isActived ? (activeImage ? activeImage : image) : image
+                    "
+                />
             </template>
             <i
                 v-else-if="icon"
                 class="with-icon ms-Icon"
-                :class="'ms-Icon--'+icon"
+                :class="'ms-Icon--' + icon"
             ></i>
             <span>
                 <slot></slot>
@@ -38,8 +44,10 @@
 </template>
 
 <script setup>
-import {defineProps} from 'vue';
+import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits(['update:modelValue', 'click', 'actived']);
 
 const props = defineProps({
     ...commonProps,
@@ -91,7 +99,6 @@ import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvRadio',
-    emits: ['update:modelValue', 'click', 'actived'],
     computed: {
         $theme() {
             return useTheme(this.$props).theme.value;
@@ -152,4 +159,3 @@ export default {
     }
 };
 </script>
-

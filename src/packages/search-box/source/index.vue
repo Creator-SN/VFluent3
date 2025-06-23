@@ -1,7 +1,14 @@
 <template>
     <div
         class="fv-SearchBox"
-        :class="[$theme, status, isFocus ? 'focus' : '', isDisabled ? 'disabled' : '', isUnderline ? 'underline': '', { shadow: isBoxShadow }]"
+        :class="[
+            $theme,
+            status,
+            isFocus ? 'focus' : '',
+            isDisabled ? 'disabled' : '',
+            isUnderline ? 'underline' : '',
+            { shadow: isBoxShadow }
+        ]"
         :style="[{ background: background, borderRadius: `${borderRadius}px` }]"
         @keydown="show.searchResult = true"
         @keyup.delete="onBackspace"
@@ -20,7 +27,14 @@
         ></fv-reveal-container>
         <div
             class="search-box-wrapper-container"
-            :style="[thisBorderColor, { background: background, borderRadius: `${borderRadius}px`, borderWidth: `${borderWidth}px` }]"
+            :style="[
+                thisBorderColor,
+                {
+                    background: background,
+                    borderRadius: `${borderRadius}px`,
+                    borderWidth: `${borderWidth}px`
+                }
+            ]"
         >
             <i
                 v-show="leftIcon != ''"
@@ -49,7 +63,12 @@
                     :disabled="isDisabled"
                     :maxlength="maxlength"
                     ref="input"
-                    :style="{'font-size': `${fontSize}px`, 'font-weight': fontWeight, color: foreground, 'text-align': textAlign}"
+                    :style="{
+                        'font-size': `${fontSize}px`,
+                        'font-weight': fontWeight,
+                        color: foreground,
+                        'text-align': textAlign
+                    }"
                     @keydown="$emit('keydown', $event)"
                     @keyup="$emit('keyup', $event)"
                     @change="$emit('change', $event)"
@@ -84,7 +103,7 @@
                     <fv-list-view
                         v-model="filterOptions"
                         :theme="theme"
-                        style="width: 100%; height: auto;"
+                        style="width: 100%; height: auto"
                         @chooseItem="chooseResult"
                     ></fv-list-view>
                 </slot>
@@ -92,107 +111,114 @@
         </transition>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'update:modelValue',
+    'debounce-input',
+    'choose-result',
+    'lazyload',
+    'clear-click',
+    'left-icon-click',
+    'icon-click',
+    'keydown',
+    'keyup',
+    'change',
+    'paste'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: ''
+    },
+    options: {
+        default: () => []
+    },
+    placeholder: {
+        default: ''
+    },
+    type: {
+        default: 'text'
+    },
+    readonly: {
+        default: false
+    },
+    maxlength: {
+        default: ''
+    },
+    customFilter: {
+        default: false
+    },
+    resultPlaceholder: {
+        default: false
+    },
+    focusShow: {
+        default: false
+    },
+    leftIcon: {
+        default: ''
+    },
+    icon: {
+        default: ''
+    },
+    underline: {
+        default: false
+    },
+    background: {
+        default: ''
+    },
+    borderWidth: {
+        default: 1
+    },
+    borderColor: {
+        default: ''
+    },
+    focusBorderColor: {
+        default: ''
+    },
+    foreground: {
+        default: ''
+    },
+    fontSize: {
+        default: 13.3
+    },
+    fontWeight: {
+        default: 'normal'
+    },
+    textAlign: {
+        default: 'left'
+    },
+    borderRadius: {
+        default: 3
+    },
+    isBoxShadow: {
+        default: false
+    },
+    revealBorder: {
+        default: false
+    },
+    status: {
+        default: ''
+    },
+    debounceDelay: {
+        default: 300
+    },
+    disabled: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { searchBoxProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvSearchBox',
-    emits: [
-        'update:modelValue',
-        'debounce-input',
-        'choose-result',
-        'lazyload',
-        'clear-click',
-        'left-icon-click',
-        'icon-click',
-        'keydown',
-        'keyup',
-        'change',
-        'paste'
-    ],
-    props: {
-        ...searchBoxProps,
-        modelValue: {
-            default: ''
-        },
-        options: {
-            default: () => []
-        },
-        placeholder: {
-            default: ''
-        },
-        type: {
-            default: 'text'
-        },
-        readonly: {
-            default: false
-        },
-        maxlength: {
-            default: ''
-        },
-        customFilter: {
-            default: false
-        },
-        resultPlaceholder: {
-            default: false
-        },
-        focusShow: {
-            default: false
-        },
-        leftIcon: {
-            default: ''
-        },
-        icon: {
-            default: ''
-        },
-        underline: {
-            default: false
-        },
-        background: {
-            default: ''
-        },
-        borderWidth: {
-            default: 1
-        },
-        borderColor: {
-            default: ''
-        },
-        focusBorderColor: {
-            default: ''
-        },
-        foreground: {
-            default: ''
-        },
-        fontSize: {
-            default: 13.3
-        },
-        fontWeight: {
-            default: 'normal'
-        },
-        textAlign: {
-            default: 'left'
-        },
-        borderRadius: {
-            default: 3
-        },
-        isBoxShadow: {
-            default: false
-        },
-        revealBorder: {
-            default: false
-        },
-        status: {
-            default: ''
-        },
-        debounceDelay: {
-            default: 300
-        },
-        disabled: {
-            default: false
-        }
-    },
+
     data() {
         return {
             thisValue: this.modelValue,
@@ -411,4 +437,3 @@ export default {
     }
 };
 </script>
-

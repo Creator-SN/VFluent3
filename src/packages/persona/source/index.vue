@@ -1,83 +1,93 @@
 <template>
-    <div
-        class="fv-Persona"
-        :class="[$theme]"
-    >
+    <div class="fv-Persona" :class="[$theme]">
         <div
             class="persona-avatar"
-            :style="{width: `${size}px`, height: `${size}px`}"
+            :style="{ width: `${size}px`, height: `${size}px` }"
         >
             <div
                 class="persona-bg"
-                :style="{background: background ? background : nameCardBackground, 'font-size': `${size / 2.3}px`}"
-            >{{nameCard}}</div>
+                :style="{
+                    background: background ? background : nameCardBackground,
+                    'font-size': `${size / 2.3}px`
+                }"
+            >
+                {{ nameCard }}
+            </div>
             <fv-img
                 v-if="src !== ''"
                 :src="src"
-                style="width: 100%; height: 100%; border-radius: 50%;"
+                style="width: 100%; height: 100%; border-radius: 50%"
             ></fv-img>
             <i
                 v-show="showStatus"
                 class="ms-Icon status-icon"
                 :class="[`ms-Icon--${currentIcon}`]"
-                :style="{'font-size': `${iconFontSize}px`, color: currentIconColor}"
+                :style="{
+                    'font-size': `${iconFontSize}px`,
+                    color: currentIconColor
+                }"
             ></i>
         </div>
-        <div
-            v-show="showInfo"
-            class="persona-content-block"
-        >
+        <div v-show="showInfo" class="persona-content-block">
             <span
                 class="persona-title"
-                :style="{'font-size': `${titleFontSize}px`}"
+                :style="{ 'font-size': `${titleFontSize}px` }"
             >
                 <slot name="name">
-                    <p>{{name}}</p>
+                    <p>{{ name }}</p>
                 </slot>
             </span>
             <span
                 class="persona-secondary"
-                :style="{'font-size': `${secondaryFontSize}px`}"
+                :style="{ 'font-size': `${secondaryFontSize}px` }"
             >
                 <slot name="secondary"></slot>
             </span>
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits();
+
+const props = defineProps({
+    ...commonProps,
+    src: {
+        default: ''
+    },
+    name: {
+        default: ''
+    },
+    size: {
+        default: 40
+    },
+    status: {
+        default: ''
+    },
+    icon: {
+        default: ''
+    },
+    iconColor: {
+        default: ''
+    },
+    background: {
+        default: ''
+    },
+    showInfo: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { personaProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvPersona',
-    props: {
-        ...personaProps,
-        src: {
-            default: ''
-        },
-        name: {
-            default: ''
-        },
-        size: {
-            default: 40
-        },
-        status: {
-            default: ''
-        },
-        icon: {
-            default: ''
-        },
-        iconColor: {
-            default: ''
-        },
-        background: {
-            default: ''
-        },
-        showInfo: {
-            default: false
-        }
-    },
+
     data() {
         return {
             statusList: {
@@ -164,4 +174,3 @@ export default {
     }
 };
 </script>
-

@@ -13,6 +13,11 @@ export const useFvImageCache = defineStore('FvImageCache', {
     getters: {
         imgUri: (state) => (key: string) => {
             const img = state.imgUriList.find((i) => i.key === key);
+            if (!img) return {
+                data: '',
+                key,
+                state: 'none'
+            }
             return img;
         }
     },

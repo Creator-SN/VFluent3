@@ -6,9 +6,16 @@
     >
         <div
             class="fv-toggle-border"
-            :class="{'toggle-on': thisValue}"
+            :class="{ 'toggle-on': thisValue }"
             ref="border"
-            :style="[{width: finalWidth, height: finalHeight, background: thisValue ? switchOnBackground : '', borderColor: thisValue ? '' : borderColor}]"
+            :style="[
+                {
+                    width: finalWidth,
+                    height: finalHeight,
+                    background: thisValue ? switchOnBackground : '',
+                    borderColor: thisValue ? '' : borderColor
+                }
+            ]"
         >
             <toggle-ring
                 :value="thisValue"
@@ -26,66 +33,83 @@
             <p
                 v-show="insideContent"
                 class="fv-toggle-inside-content"
-                :style="{left: thisValue ? '10px' : '', right: !thisValue ? '10px' : '', color: thisValue ? 'white' : offForeground}"
-            >{{thisValue ? on: off}}</p>
+                :style="{
+                    left: thisValue ? '10px' : '',
+                    right: !thisValue ? '10px' : '',
+                    color: thisValue ? 'white' : offForeground
+                }"
+            >
+                {{ thisValue ? on : off }}
+            </p>
         </div>
         <p
             v-show="!insideContent"
             class="fv-toggle-content"
-            :style="{color: thisValue ? onForeground : offForeground}"
-        >{{thisValue ? on: off}}</p>
+            :style="{ color: thisValue ? onForeground : offForeground }"
+        >
+            {{ thisValue ? on : off }}
+        </p>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits();
+
+const props = defineProps({
+    ...commonProps,
+    modelValue: {
+        default: false
+    },
+    on: {
+        default: 'On'
+    },
+    off: {
+        default: 'Off'
+    },
+    onForeground: {
+        default: ''
+    },
+    offForeground: {
+        default: ''
+    },
+    width: {
+        default: 40
+    },
+    height: {
+        default: 20
+    },
+    borderColor: {
+        default: ''
+    },
+    ringBackground: {
+        default: ''
+    },
+    switchOnBackground: {
+        default: ''
+    },
+    insideContent: {
+        default: false
+    },
+    disabled: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { toggleSwitchProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 import toggleRing from './toggleRing.vue';
+
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvToggleSwitch',
     components: {
         toggleRing
     },
-    props: {
-        ...toggleSwitchProps,
-        modelValue: {
-            default: false
-        },
-        on: {
-            default: 'On'
-        },
-        off: {
-            default: 'Off'
-        },
-        onForeground: {
-            default: ''
-        },
-        offForeground: {
-            default: ''
-        },
-        width: {
-            default: 40
-        },
-        height: {
-            default: 20
-        },
-        borderColor: {
-            default: ''
-        },
-        ringBackground: {
-            default: ''
-        },
-        switchOnBackground: {
-            default: ''
-        },
-        insideContent: {
-            default: false
-        },
-        disabled: {
-            default: false
-        }
-    },
+
     data() {
         return {
             thisValue: this.modelValue,
@@ -172,4 +196,3 @@ export default {
     }
 };
 </script>
-

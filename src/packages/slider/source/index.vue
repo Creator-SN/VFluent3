@@ -1,8 +1,7 @@
 <template>
     <div
         class="fv-Slider"
-        :class="[$theme, { active: isActive },
-            { vertical: vertical }]"
+        :class="[$theme, { active: isActive }, { vertical: vertical }]"
         ref="slider"
     >
         <div
@@ -42,7 +41,7 @@
                 :class="[
                     `ms-Icon--${icon}`,
                     { disabled: disabled },
-                    { anime: rejust },
+                    { anime: rejust }
                 ]"
                 :style="buttonStyle"
                 ref="button"
@@ -58,56 +57,64 @@
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits();
+
+const props = defineProps({
+    ...commonProps,
+    disabled: {
+        type: Boolean,
+        default: false
+    },
+    modelValue: {
+        type: Number,
+        default: 0
+    },
+    unit: {
+        type: Number,
+        default: 1
+    },
+    maxinum: {
+        type: Number,
+        default: 100
+    },
+    mininum: {
+        type: Number,
+        default: 0
+    },
+    icon: {
+        type: String,
+        default: 'RadioBullet'
+        // default:"StatusCircleOuter"
+    },
+    vertical: {
+        type: Boolean,
+        default: false
+    },
+    showLabel: {
+        type: Boolean,
+        default: false
+    },
+    scale: {
+        type: [Boolean, Number],
+        default: false
+    },
+    color: {
+        type: String
+    }
+});
+</script>
+
 <script>
-import { sliderProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvSlider',
-    props: {
-        ...sliderProps,
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        modelValue: {
-            type: Number,
-            default: 0
-        },
-        unit: {
-            type: Number,
-            default: 1
-        },
-        maxinum: {
-            type: Number,
-            default: 100
-        },
-        mininum: {
-            type: Number,
-            default: 0
-        },
-        icon: {
-            type: String,
-            default: 'RadioBullet'
-            // default:"StatusCircleOuter"
-        },
-        vertical: {
-            type: Boolean,
-            default: false
-        },
-        showLabel: {
-            type: Boolean,
-            default: false
-        },
-        scale: {
-            type: [Boolean, Number],
-            default: false
-        },
-        color: {
-            type: String
-        }
-    },
+
     data() {
         return {
             progress: 0, //percent
@@ -128,13 +135,17 @@ export default {
             if (this.vertical) {
                 return {
                     top: this.progress + '%',
-                    transform: `translateX(-${this.buttonHeight / 2 - 1}px) translateY(-${this.buttonHeight / 2}px) rotate(90deg)`,
+                    transform: `translateX(-${
+                        this.buttonHeight / 2 - 1
+                    }px) translateY(-${this.buttonHeight / 2}px) rotate(90deg)`,
                     color
                 };
             } else {
                 return {
                     left: this.progress + '%',
-                    transform: `translateX(-${this.buttonHeight / 2}px) translateY(-${this.buttonHeight / 2 - 3}px)`,
+                    transform: `translateX(-${
+                        this.buttonHeight / 2
+                    }px) translateY(-${this.buttonHeight / 2 - 3}px)`,
                     color
                 };
             }
@@ -179,7 +190,9 @@ export default {
     methods: {
         widthObserverInit() {
             let observer = new ResizeObserver(() => {
-                this.buttonHeight = this.$refs.button ? this.$refs.button.clientHeight : 0;
+                this.buttonHeight = this.$refs.button
+                    ? this.$refs.button.clientHeight
+                    : 0;
             });
             observer.observe(this.$refs.button);
         },
@@ -298,4 +311,3 @@ export default {
     }
 };
 </script>
-

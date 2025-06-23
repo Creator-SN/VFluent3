@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="fv-Pagination"
-        :class="[$theme]"
-    >
+    <div class="fv-Pagination" :class="[$theme]">
         <div class="fv-pagination-container">
             <fv-button
                 :disabled="thisValue == 1 || isDisabled"
@@ -32,7 +29,7 @@
                     @click="handleClick(item)"
                 >
                     <p :class="[{ 'ms-Icon ms-Icon--More': item.num < 0 }]">
-                        {{ item.num >= 0 ? item.num : "" }}
+                        {{ item.num >= 0 ? item.num : '' }}
                     </p>
                 </fv-button>
             </template>
@@ -50,41 +47,53 @@
         </div>
     </div>
 </template>
-        
+
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+import { commonProps } from '@/packages/common/props';
+
+const emits = defineEmits([
+    'update:modelValue',
+    'next-click',
+    'prev-click',
+    'page-click'
+]);
+
+const props = defineProps({
+    ...commonProps,
+    emits: ['update:modelValue', 'next-click', 'prev-click', 'page-click'],
+    modelValue: {
+        default: 1
+    },
+    foreground: {
+        default: 'rgba(0, 90, 158, 1)'
+    },
+    background: {
+        default: 'transparent'
+    },
+    total: {
+        default: 10
+    },
+    maxVisual: {
+        default: 7
+    },
+    small: {
+        default: false
+    },
+    shadow: {
+        default: false
+    },
+    disabled: {
+        default: false
+    }
+});
+</script>
+
 <script>
-import { paginationProps } from '.';
-import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvPagination',
-    props: {
-        ...paginationProps,
-        emits: ['update:modelValue', 'next-click', 'prev-click', 'page-click'],
-        modelValue: {
-            default: 1
-        },
-        foreground: {
-            default: 'rgba(0, 90, 158, 1)'
-        },
-        background: {
-            default: 'transparent'
-        },
-        total: {
-            default: 10
-        },
-        maxVisual: {
-            default: 7
-        },
-        small: {
-            default: false
-        },
-        shadow: {
-            default: false
-        },
-        disabled: {
-            default: false
-        }
-    },
     data() {
         return {
             thisValue: this.modelValue,
@@ -196,4 +205,3 @@ export default {
     }
 };
 </script>
-
