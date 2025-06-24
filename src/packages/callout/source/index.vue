@@ -59,7 +59,7 @@ const props = defineProps({
     },
     effect: {
         type: String as () => 'hover' | 'click' | 'always',
-        default: 'hover'
+        default: 'click'
     },
     popperStyle: {
         type: Object as () => Record<string, string>,
@@ -132,7 +132,7 @@ const adjustPopperPosition = (position: Position) => {
     const rect = getBoundingClientRect(popper.value);
     const { width, height } = rect;
     let startIndex = positionName.indexOf(position);
-    let positionPriority : [number, Position][] = [];
+    let positionPriority: [number, Position][] = [];
     for (let index = 0; index < positionName.length; ++index) {
         let endIndex = (startIndex + index) % positionName.length;
         let cur_position = positionName[endIndex];

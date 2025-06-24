@@ -41,7 +41,7 @@ title: Callout
 ### Callout 
 
 <ClientOnly>
-<fv-callout :visible.sync="show" effect="hover" position="bottomLeft" :keepalive="false">
+<fv-callout v-model="show" effect="hover" position="bottomLeft" :keepalive="false">
   <fv-button icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Color</fv-button>
   <template v-slot:main>
     <fv-color-picker v-model="color" style="width:500px"></fv-color-picker>
@@ -50,7 +50,7 @@ title: Callout
 </ClientOnly>
 
 ```vue
-<fv-callout :visible.sync="show" effect="hover" position="bottomLeft">
+<fv-callout v-model="show" effect="hover" position="bottomLeft">
   <fv-button icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Callout</fv-button>
   <template v-slot:main>
     <fv-color-picker v-model="color" style="width:500px"></fv-color-picker>
@@ -64,7 +64,7 @@ beak:
 
 <fv-slider v-model="beak" :color="color" :mininum="9" :maxinum="30"  :showLabel="true">
 <template v-slot:default="x">
-  <span>{{x}} px</span>
+  <span>{{x.modelValue}} px</span>
 </template>
 </fv-slider>
 
@@ -72,7 +72,7 @@ space:
 
 <fv-slider v-model="space" :color="color" :scale="10" :maxinum="30" :showLabel="true">
 <template v-slot:default="x">
-  <span>{{x}} px</span>
+  <span>{{x.modelValue}} px</span>
 </template>
 </fv-slider>
 
@@ -129,7 +129,7 @@ position:
 |  lockScroll  |              Boolean               |       No       |      false      |      是否锁定滚动      |
 |  focusTrap   |              Boolean               |       No       |      false      |        是否聚焦        |
 |  delayClose  |               Number               |       No       |        0        | 显示时是否延时关闭(ms) |
-|    effect    |     [’click','hover','always']     |       No       |     'click'     |      显示触发方式      |
+|    effect    |     ['click','hover','always']     |       No       |     'click'     |      显示触发方式      |
 | popperStyle  |               Object               |       No       |       {}        |      悬浮窗的样式      |
 | popperClass  |               Array                |       No       |       []        |      悬浮窗的 css      |
 
