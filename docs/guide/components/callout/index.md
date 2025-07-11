@@ -49,7 +49,7 @@ title: Callout
 </fv-callout>
 </ClientOnly>
 
-```vue
+``` vue
 <fv-callout v-model="show" effect="hover" position="bottomLeft">
   <fv-button icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Callout</fv-button>
   <template v-slot:main>

@@ -1,3 +1,25 @@
+<template>
+    <Slot ref="slotRef"></Slot>
+    <Teleport to="body">
+        <transition name="fv-callout-fade">
+            <div ref="popper" :style="[callout as StyleValue, props.popperStyle]"
+                :class="[`fv-Callout`, theme, props.popperClass, calloutClass]" name="fv-callout" v-show="popperShow">
+                <div class="fv-callout-bg"></div>
+                <div class="beak" :style="(beak as StyleValue)"></div>
+                <div class="header">
+                    <slot name="header"></slot>
+                </div>
+                <div class="main">
+                    <slot name="main"></slot>
+                </div>
+                <div class="footer">
+                    <slot name="footer"></slot>
+                </div>
+            </div>
+        </transition>
+    </Teleport>
+</template>
+
 <script lang="ts" setup>
 import {
     ComponentInternalInstance,
@@ -51,7 +73,7 @@ const props = defineProps({
     },
     focusTrap: {
         type: Boolean,
-        default: true
+        default: false
     },
     delayClose: {
         type: Number,
@@ -142,8 +164,8 @@ const adjustPopperPosition = (position: Position) => {
                     ? 0
                     : props.space
                 : props.space === undefined
-                ? props.beak
-                : props.beak + props.space;
+                    ? props.beak
+                    : props.beak + props.space;
         let predictRect = locate(
             targetElement.value,
             offset,
@@ -274,8 +296,8 @@ const setPopperPosition = (position: Position) => {
                 ? 0
                 : props.space
             : props.space === undefined
-            ? props.beak
-            : props.beak + props.space;
+                ? props.beak
+                : props.beak + props.space;
     //clear
     delete callout.value['right'];
     delete callout.value['left'];
@@ -477,8 +499,13 @@ const initTargetEvents = (currentInstance: ComponentInternalInstance) => {
 onMounted(() => {
     const instance = getCurrentInstance();
     if (instance !== null) {
-        if (slotRef.value !== null)
+        if (slotRef.value !== null) {
             targetElement.value = (slotRef.value as any).$el;
+            // fix target Element, Vue3 slot logic change
+            if (targetElement.value?.nodeName == "#text") {
+                targetElement.value = targetElement.value.nextElementSibling as HTMLElement
+            }
+        }
         // targetElement.value = slotVnode.value?.root
         initTargetEvents(instance);
         for (const evt in windowEvents) {
@@ -515,30 +542,3 @@ onBeforeUnmount(() => {
 
 defineExpose({ popperShow, popperEvents });
 </script>
-
-<template>
-    <Slot ref="slotRef"></Slot>
-    <Teleport to="body">
-        <transition name="fv-callout-fade">
-            <div
-                ref="popper"
-                :style="[callout as StyleValue, props.popperStyle]"
-                :class="[`fv-Callout`, theme, props.popperClass, calloutClass]"
-                name="fv-callout"
-                v-show="popperShow"
-            >
-                <div class="fv-callout-bg"></div>
-                <div class="beak" :style="(beak as StyleValue)"></div>
-                <div class="header">
-                    <slot name="header"></slot>
-                </div>
-                <div class="main">
-                    <slot name="main"></slot>
-                </div>
-                <div class="footer">
-                    <slot name="footer"></slot>
-                </div>
-            </div>
-        </transition>
-    </Teleport>
-</template>
