@@ -41,7 +41,7 @@
                 }"
             />
         </svg>
-        <legacy v-show="legacy" :size="size" :color="color"></legacy>
+        <legacy-ring v-show="legacy" :size="size" :color="color"></legacy-ring>
     </div>
 </template>
 
@@ -82,14 +82,14 @@ const props = defineProps({
 
 <script>
 import gsap from 'gsap';
-import legacy from './legacy.vue';
+import legacyRing from './legacy.vue';
 
 import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvProgressRing',
     components: {
-        legacy
+        legacyRing
     },
     data() {
         return {
