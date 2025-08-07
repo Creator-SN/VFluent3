@@ -6,6 +6,7 @@ export type MessageOptions = {
     control?: string | VNode;
     status?: 'default' | 'warning' | 'correct' | 'blocked' | 'error';
     autoClose?: number;
+    showClose?: boolean;
     theme?: string;
     showControl?: boolean;
     once?: boolean;
@@ -22,7 +23,7 @@ export function createMessageBar(
             {
                 status: options.status,
                 showControl: options.showControl,
-                showClose: options.autoClose,
+                showClose: options.showClose,
                 mode: 'fixed',
                 autoClose: options.autoClose,
                 destroy: () => {
@@ -105,7 +106,7 @@ export const messageBarPlugin: Plugin = {
         ) => {
             createMessageBar(
                 msg,
-                { ...options, status: 'warning' },
+                { ...options },
                 app._context
             );
         };

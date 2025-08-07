@@ -26,6 +26,16 @@ export default defineConfig({
         ],
         sidebar: [
             {
+                text: 'Design',
+                collapsed: false,
+                items: [
+                    {
+                        text: 'Icons',
+                        link: '/guide/others/design/icons/index.md'
+                    }
+                ]
+            },
+            {
                 text: 'Basic input',
                 collapsed: false,
                 items: [
