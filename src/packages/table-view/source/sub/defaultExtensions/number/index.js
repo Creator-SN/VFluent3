@@ -1,3 +1,4 @@
+import { markRaw } from 'vue';
 import numberHead from './numberHead.vue';
 import numberCell from './numberCell.vue';
 
@@ -6,8 +7,8 @@ export default {
     type: 'number',
     icon: 'NumberField',
     emoji: '🔢',
-    headComponent: numberHead,
-    cellComponent: numberCell,
+    headComponent: markRaw(numberHead),
+    cellComponent: markRaw(numberCell),
     filter: ({ input, value }) => {
         if (!input) return true;
         return (

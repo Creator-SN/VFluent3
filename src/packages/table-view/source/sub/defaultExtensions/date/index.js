@@ -1,3 +1,4 @@
+import { markRaw } from 'vue';
 import dateHead from './dateHead.vue';
 import dateCell from './dateCell.vue';
 
@@ -6,8 +7,8 @@ export default {
     type: 'date',
     icon: 'Calendar',
     emoji: '📅',
-    headComponent: dateHead,
-    cellComponent: dateCell,
+    headComponent: markRaw(dateHead),
+    cellComponent: markRaw(dateCell),
     filter: ({ input, value }) => {
         if (!input) return true;
         return (

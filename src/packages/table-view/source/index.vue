@@ -128,7 +128,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, markRaw } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
 const emits = defineEmits([
@@ -350,8 +350,8 @@ export default {
                 type: 'text',
                 icon: 'List',
                 emoji: '📝',
-                headComponent: textHead,
-                cellComponent: textCell,
+                headComponent: markRaw(textHead),
+                cellComponent: markRaw(textCell),
                 filter: ({ input, value }) => {
                     if (!input) return true;
                     return (

@@ -1,3 +1,4 @@
+import { markRaw } from 'vue';
 import emailHead from './emailHead.vue';
 import emailCell from './emailCell.vue';
 
@@ -6,8 +7,8 @@ export default {
     type: 'email',
     icon: 'Accounts',
     emoji: '@',
-    headComponent: emailHead,
-    cellComponent: emailCell,
+    headComponent: markRaw(emailHead),
+    cellComponent: markRaw(emailCell),
     filter: ({ input, value }) => {
         if (!input) return true;
         return (
