@@ -32,14 +32,14 @@ export default {
 
 ---
 
-<div style="z-index: 3">
+<div style="z-index: 5">
 <ClientOnly>
-<fv-CalendarDatePicker v-model="value" multiple="range" style="z-index: 3"></fv-CalendarDatePicker>
+<fv-CalendarDatePicker v-model="value" multiple="range" style="z-index: 5"></fv-CalendarDatePicker>
 </ClientOnly>
 </div>
 
 ```vue
-<fv-CalendarDatePicker v-model="value" multiple="range" style="z-index: 3"></fv-CalendarDatePicker>
+<fv-CalendarDatePicker v-model="value" multiple="range" style="z-index: 5"></fv-CalendarDatePicker>
 ```
 
 ### CalendarDatePicker-Disabled

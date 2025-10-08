@@ -6,7 +6,7 @@
             background: background,
             padding: borderWidth,
             'border-radius': `${borderRadius}px`,
-            'z-index': status ? 3 : '',
+            'z-index': status ? 5 : '',
             overflow: 'visible'
         }"
     >
