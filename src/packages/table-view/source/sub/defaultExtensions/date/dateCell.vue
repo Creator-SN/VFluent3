@@ -85,6 +85,7 @@
                 ></fv-text-box>
             </div>
             <fv-calendar-view
+                v-if="x.show"
                 v-model="currentDate"
                 :theme="theme"
                 :multiple="head.showEndDate ? 'range' : 'single'"
@@ -243,53 +244,11 @@ export default {
         currentDatesRange() {
             let final = [];
             if (this.currentChoosenDates.length === 0) return final;
-            if (this.currentChoosenDates.length === 1) {
-                final.push({
-                    year: this.currentChoosenDates[0].getFullYear(),
-                    month: this.currentChoosenDates[0].getMonth(),
-                    no: this.currentChoosenDates[0].getDate()
-                });
-                return final;
-            }
-            let startDate = {
-                year: this.currentChoosenDates[0].getFullYear(),
-                month: this.currentChoosenDates[0].getMonth(),
-                no: this.currentChoosenDates[0].getDate()
-            };
-            let endDate = {
-                year: this.currentChoosenDates[1].getFullYear(),
-                month: this.currentChoosenDates[1].getMonth(),
-                no: this.currentChoosenDates[1].getDate()
-            };
-            for (let i = startDate.year; i <= endDate.year; i++) {
-                let start = 0;
-                let end = 11;
-                if (i == startDate.year) start = startDate.month;
-                if (i == endDate.year) end = endDate.month;
-                for (let j = start; j <= end; j++) {
-                    let days = this.getDaysInMonth(j + 1, i);
-                    for (let k = 1; k <= days; k++) {
-                        let target = {
-                            year: i,
-                            month: j,
-                            no: k
-                        };
-                        if (
-                            i === startDate.year &&
-                            start === startDate.month &&
-                            k < startDate.no
-                        )
-                            continue;
-                        if (
-                            i === endDate.year &&
-                            end === endDate.month &&
-                            k > endDate.no
-                        )
-                            continue;
-                        final.push(target);
-                    }
-                }
-            }
+            if (this.currentChoosenDates.length === 1)
+                return this.currentChoosenDates;
+            let startDate = this.currentChoosenDates[0];
+            let endDate = this.currentChoosenDates[1];
+            final = this.getDateRange(startDate, endDate);
             return final;
         }
     },
@@ -330,12 +289,9 @@ export default {
             if (this.modelValue[key] && this.modelValue[key].end) {
                 date.end = new Date(this.modelValue[key].end);
             }
-            this.currentDate = date.start;
+            this.currentDate = new Date(date.start);
             this.currentChoosenDates = [date.start, date.end];
             this.syncStrValue();
-            this.$nextTick(() => {
-                this.$refs.calendar.resetDate();
-            });
         },
         setStartDate() {
             if (
@@ -378,6 +334,24 @@ export default {
                 return 'Invalid Time';
             let val = this.modelValue[this.head.key].end;
             return this.timeFormat(val);
+        },
+        getDateRange(start, end) {
+            const startDate = new Date(start);
+            const endDate = new Date(end);
+            const result = [];
+
+            const step = startDate <= endDate ? 1 : -1;
+            let current = new Date(startDate);
+
+            while (
+                (step === 1 && current <= endDate) ||
+                (step === -1 && current >= endDate)
+            ) {
+                result.push(new Date(current));
+                current.setDate(current.getDate() + step);
+            }
+
+            return result;
         },
         syncStrValue() {
             this.startDateStr = this.setStartDate();

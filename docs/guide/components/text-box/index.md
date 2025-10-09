@@ -289,7 +289,7 @@ Customize background
 ### Propoties
 ---
 |      属性(attr)       |     类型(type)     | 必填(required) | 默认值(default) |                            说明(statement)                            |
-|:---------------------:|:------------------:|:--------------:|:---------------:|:---------------------------------------------------------------------:|
+| :-------------------: | :----------------: | :------------: | :-------------: | :-------------------------------------------------------------------: |
 |         value         |       String       |       No       |                 |                   Using v-model binding input value                   |
 |         mode          | ['default','mask'] |       No       |     default     |                          Choose TextBox mode                          |
 |       inputmode       |       String       |       No       |       N/A       | 输入模式, 可选值为`numeric`, `tel`, `text`, `decimal`, `email`, `url` |
@@ -305,6 +305,7 @@ Customize background
 |        suffix         |       String       |       No       |       N/A       |                                 后缀                                  |
 |       leftIcon        |       String       |       No       |       N/A       |                                左图标                                 |
 |         icon          |       String       |       No       |       N/A       |                                右图标                                 |
+|    iconForeground     |  [string(color)]   |       No       |       N/A       |                                                                       |
 |       underline       |      Boolean       |       No       |      false      |                    是否开启Underline风格的TextBox                     |
 |      background       |  [string(color)]   |       No       |       N/A       |                                                                       |
 |      borderWidth      |      Boolean       |       No       |       N/A       |                                                                       |
@@ -327,7 +328,7 @@ Customize background
 ### Events
 ---
 |  事件名(Name)   | 参数类型(args) | 说明(statement)  |
-|:---------------:|:--------------:|:----------------:|
+| :-------------: | :------------: | :--------------: |
 |     keydown     |     event      |                  |
 |      keyup      |     event      |                  |
 |     change      |     event      |                  |

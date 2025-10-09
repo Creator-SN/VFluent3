@@ -2,32 +2,52 @@
     <div
         class="fv-CalendarDatePicker"
         :class="[$theme, { disabled: isDisabled }]"
+        :style="{ zIndex: show.calendar ? 5 : '' }"
     >
-        <picker-input
-            v-model="dates"
-            :placeholder="placeholder"
-            :theme="$theme"
+        <slot
+            :displayContent="displayContent"
+            :showCalendar="showCalendar"
             :disabled="isDisabled"
-            :borderWidth="borderWidth"
-            :borderRadius="borderRadius"
-            :inputForeground="inputForeground"
-            :inputBackground="inputBackground"
-            :dropDownIcon="dropDownIcon"
-            :dropDownIconForeground="dropDownIconForeground"
-            @click.native="show.calendar = !isDisabled ? !show.calendar : false"
-        ></picker-input>
+        >
+            <fv-text-box
+                v-model="displayContent"
+                :placeholder="placeholder"
+                :theme="$theme"
+                :disabled="isDisabled"
+                :borderWidth="borderWidth"
+                :borderRadius="dropDownBorderRadius"
+                :foreground="inputForeground"
+                :background="inputBackground"
+                :readonly="!editable"
+                :icon="dropDownIcon"
+                :icon-foreground="dropDownIconForeground"
+                :reveal-border="dropDownRevealBorder"
+                :is-box-shadow="dropDownIsBoxShadow"
+                :title="displayContent"
+                style="width: 100%"
+                :style="{
+                    ...dropDownStyles,
+                    cursor: !editable ? 'default' : ''
+                }"
+                @keydown.enter="parseContent"
+                @click="showCalendar"
+            ></fv-text-box>
+        </slot>
         <transition name="fv-calendar-container">
             <div v-if="show.calendar" class="calendar-container">
                 <fv-calendar-view
-                    v-model="thisValue"
+                    :modelValue="computedDate"
                     :multiple="multiple"
-                    :start="start"
-                    :end="end"
-                    :lan="lan"
-                    :choosen-dates="dates"
+                    v-model:choosen-dates="thisValue"
                     :foreground="foreground"
+                    :background="background"
+                    :borderRadius="borderRadius"
+                    :nowDayColor="nowDayColor"
+                    :rangeChooseColorFE="rangeChooseColorFE"
+                    :rangeChooseColorMiddle="rangeChooseColorMiddle"
                     :theme="theme"
-                    @choosen-dates="chooseDates"
+                    ref="calendar"
+                    @choosen-dates="$emit('choosen-dates', $event)"
                     @choosen-dates-obj="$emit('choosen-dates-obj', $event)"
                 >
                     <template v-slot:statement="x">
@@ -63,25 +83,16 @@ const emits = defineEmits([
 const props = defineProps({
     ...commonProps,
     modelValue: {
-        default: () => new Date()
-    },
-    start: {
-        default: 1900
-    },
-    end: {
-        default: 3000
-    },
-    lan: {
-        default: 'en'
+        default: () => []
     },
     borderWidth: {
-        default: 2
+        default: 1
     },
     placeholder: {
         default: 'Pick a day'
     },
-    borderRadius: {
-        default: '3'
+    dropDownBorderRadius: {
+        default: 6
     },
     inputForeground: {
         default: ''
@@ -95,13 +106,40 @@ const props = defineProps({
     dropDownIconForeground: {
         default: ''
     },
+    dropDownRevealBorder: {
+        default: true
+    },
+    dropDownIsBoxShadow: {
+        default: true
+    },
+    dropDownStyles: {
+        default: () => ({})
+    },
+    editable: {
+        default: false
+    },
     multiple: {
         default: 'single'
     },
     choosenDates: {
         default: () => []
     },
+    background: {
+        default: ''
+    },
+    borderRadius: {
+        default: ''
+    },
     foreground: {
+        default: ''
+    },
+    nowDayColor: {
+        default: ''
+    },
+    rangeChooseColorFE: {
+        default: ''
+    },
+    rangeChooseColorMiddle: {
         default: ''
     },
     disabled: {
@@ -111,49 +149,36 @@ const props = defineProps({
 </script>
 
 <script>
-import pickerInput from './input/input.vue';
-
 import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvCalendarDatePicker',
 
-    components: {
-        pickerInput
-    },
-
     data() {
         return {
-            thisValue: this.$SDate.Parse(
-                this.$SDate.DateToString(this.modelValue)
-            ),
-            dates: [],
+            thisValue: this.modelValue,
+            displayContent: '',
             show: {
                 calendar: false
             }
         };
     },
     watch: {
-        value(val, from) {
-            if (!this.$SDate.IsSameDate(val, from)) {
-                this.thisValue = this.$SDate.Parse(
-                    this.$SDate.DateToString(val)
-                );
-                if (this.multiple == 'single')
-                    this.dates = [
-                        {
-                            year: val.getFullYear(),
-                            month: val.getMonth(),
-                            no: val.getDate()
-                        }
-                    ];
-            }
+        modelValue() {
+            this.thisValue = this.modelValue;
         },
-        thisValue(val, from) {
-            this.$emit(
-                'update:modelValue',
-                this.$SDate.Parse(this.$SDate.DateToString(this.thisValue))
-            );
+        thisValue: {
+            handler() {
+                if (this.multiple === 'single') this.show.calendar = false;
+                this.$emit('update:modelValue', this.thisValue);
+            },
+            deep: true
+        },
+        computedContent: {
+            handler() {
+                this.displayContent = this.computedContent;
+            },
+            immediate: true
         }
     },
     computed: {
@@ -163,6 +188,17 @@ export default {
                 this.disabled == 'disabled' ||
                 this.disabled === ''
             );
+        },
+        computedDate() {
+            if (this.thisValue.length === 0) return new Date();
+            return new Date(this.thisValue[0]);
+        },
+        computedContent() {
+            let result = [];
+            this.thisValue.forEach((el) => {
+                result.push(this.$SDate.Format('YYYY-mm-dd', el));
+            });
+            return result.join(',');
         },
         $theme() {
             return useTheme(this.$props).theme.value;
@@ -177,21 +213,33 @@ export default {
             window.addEventListener('touchend', this.outSideClickEvent);
         },
         outSideClickEvent(event) {
-            let x = event.target;
-            let _self = false;
-            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                if (x == this.$el) {
-                    _self = true;
-                    break;
-                }
-                x = x.parentNode;
-            }
-            if (!_self) this.show.calendar = false;
+            if (!event.composedPath().includes(this.$el))
+                this.show.calendar = false;
         },
-        chooseDates(val) {
-            this.dates = val;
-            this.$emit('choosen-dates', val);
-            if (this.multiple == 'single') this.show.calendar = false;
+        showCalendar() {
+            if (this.isDisabled) return;
+            if (this.editable) {
+                this.show.calendar = true;
+            } else {
+                this.show.calendar = !this.show.calendar;
+            }
+        },
+        parseContent() {
+            let resultDates = [];
+            let results = this.displayContent.split(/[,，;；\.]/);
+            for (let resultItem of results) {
+                resultItem = resultItem.split(/[-\/]/);
+                if (resultItem.length === 0 || resultItem.length > 3) return;
+                for (let i = 0; i < resultItem.length; i++) {
+                    let val = parseInt(resultItem[i]);
+                    if (val.toString() === 'NaN' || val < 0 || val > 9999)
+                        return;
+                    if (i == 1) resultItem[i] = val - 1;
+                    else resultItem[i] = val;
+                }
+                resultDates.push(new Date(...resultItem));
+            }
+            this.thisValue = resultDates;
         }
     },
     beforeUnmount() {

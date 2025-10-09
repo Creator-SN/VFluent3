@@ -1,8 +1,27 @@
 <template>
-    <div class="fv-CalendarView" :class="[$theme]">
+    <div
+        class="fv-CalendarView"
+        :class="[$theme]"
+        :style="{
+            background: background,
+            '--btn-border-radius': computedBorderRadius,
+            '--highlight-background': nowDayColor ? nowDayColor : foreground,
+            '--choosen-background': foreground,
+            '--range-choose-background-fe': rangeChooseColorFE
+                ? rangeChooseColorFE
+                : foreground,
+            '--range-choose-background-middle': rangeChooseColorMiddle
+                ? rangeChooseColorMiddle
+                : foreground
+        }"
+    >
         <div class="fv-calendar-control-block">
-            <p class="calendar-switcher" @click="switchView">
-                <slot name="statement" :value="statement" :dayRange="dayRange">
+            <p class="calendar-switcher" @click="switchBack">
+                <slot
+                    name="statement"
+                    :value="statement"
+                    :dayRange="currentRange"
+                >
                     {{ statement }}
                 </slot>
             </p>
@@ -16,67 +35,71 @@
             </div>
         </div>
         <div class="container-block">
-            <transition-group :name="transitionName">
-                <year-box
+            <transition-group :name="transitionList[transitionStatus]">
+                <year-selector
                     v-if="status == 'year'"
                     v-model="thisValue"
                     :theme="$theme"
-                    :lan="lan"
-                    ref="year"
+                    ref="yearRef"
                     key="1"
                     :background="background"
-                    @range-change="yearRange = $event"
-                    @choose="chooseYear"
-                ></year-box>
-                <month-box
+                    @range-change="updateRange"
+                    @chooseItem="chooseItem"
+                ></year-selector>
+                <month-selector
                     v-if="status == 'month'"
                     v-model="thisValue"
                     :theme="$theme"
-                    :lan="lan"
-                    ref="month"
+                    ref="monthRef"
                     key="2"
+                    :monthList="monthList"
                     :background="background"
-                    @range-change="monthRange = $event"
-                    @choose="chooseMonth"
-                ></month-box>
-                <date-box
+                    @range-change="updateRange"
+                    @chooseItem="chooseItem"
+                ></month-selector>
+                <date-selector
                     v-if="status == 'date'"
                     v-model="thisValue"
                     :theme="$theme"
-                    :lan="lan"
                     :multiple="multiple"
-                    :choosenDates="choosenDates"
-                    ref="day"
+                    :choosenDates="thisChoosenDates"
+                    ref="dayRef"
                     key="3"
-                    :background="background"
-                    :selected-background="selectedBackground"
-                    :selectedBorderColor="selectedBorderColor"
-                    @range-change="dayRange = $event"
-                    @choosen-dates="$emit('choosen-dates', $event)"
-                    @choosen-dates-obj="$emit('choosen-dates-obj', $event)"
-                    @choose="chooseDate"
+                    :weekdays="weekdays"
+                    @range-change="updateRange"
+                    @chooseItem="chooseItem"
                 >
                     <template v-slot:weekday_content="x">
                         <slot name="weekday_content" :value="x.value">
-                            {{ x.value }}
+                            {{ x.value.slice(0, 3) }}
                         </slot>
                     </template>
-                </date-box>
+                </date-selector>
             </transition-group>
         </div>
     </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue';
+import { defineProps, defineEmits, ref, computed, watch } from 'vue';
 import { commonProps } from '@/packages/common/props';
+import { useTheme } from '@/utils/common';
+import yearSelector from './sub/yearSelector/index.vue';
+import monthSelector from './sub/monthSelector/index.vue';
+import dateSelector from './sub/dateSelector/index.vue';
+
+defineOptions({
+    name: 'FvCalendarView'
+});
 
 const emits = defineEmits([
     'update:modelValue',
-    'choosen-dates',
+    'update:choosenDates',
     'choose-year',
     'choose-month',
-    'choose-date'
+    'choose-date',
+    'choosen-dates',
+    'choosen-dates-obj'
 ]);
 
 const props = defineProps({
@@ -87,8 +110,24 @@ const props = defineProps({
     start: {
         default: 1900
     },
-    end: {
-        default: 3000
+    weekdays: {
+        default: () => ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+    },
+    monthList: {
+        default: () => [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ]
     },
     multiple: {
         default: 'single'
@@ -96,239 +135,203 @@ const props = defineProps({
     choosenDates: {
         default: () => []
     },
-    lan: {
-        default: 'en'
+    background: {
+        default: ''
+    },
+    borderRadius: {
+        default: ''
     },
     foreground: {
+        default: ''
+    },
+    nowDayColor: {
+        default: ''
+    },
+    rangeChooseColorFE: {
+        default: ''
+    },
+    rangeChooseColorMiddle: {
         default: ''
     }
 });
 
-const day = ref(null);
-const resetDate = () => {
-    day.value.daysInit();
-    let date = day.value.thisValue;
-    let year = date.getFullYear();
-    let month = date.getMonth();
-    let no = date.getDate();
-    day.value.slide({ year, month, no });
+const $theme = computed(() => {
+    return useTheme(props).theme.value;
+});
+const computedBorderRadius = computed(() => {
+    if (props.borderRadius.includes('px', '%', 'rem'))
+        return props.borderRadius;
+    let val = parseFloat(props.borderRadius);
+    if (val.toString() !== 'NaN') return `${val}px`;
+    return '';
+});
+const status = ref('date');
+const thisValue = ref(new Date(props.modelValue));
+watch(
+    () => props.modelValue,
+    () => {
+        thisValue.value = props.modelValue;
+    }
+);
+const thisChoosenDates = ref(props.choosenDates);
+watch(
+    () => props.choosenDates,
+    () => {
+        thisChoosenDates.value = props.choosenDates;
+    }
+);
+watch(
+    thisChoosenDates,
+    () => {
+        emits('update:choosenDates', thisChoosenDates.value);
+        emits('choosen-dates-obj', thisChoosenDates.value);
+        let simpleObjs = [];
+        for (let item of thisChoosenDates.value) {
+            simpleObjs.push({
+                year: item.getFullYear(),
+                month: item.getMonth(),
+                no: item.getDate()
+            });
+        }
+        emits('choosen-dates', simpleObjs);
+    },
+    { deep: true }
+);
+const transitionList = ref({
+    out: 'fv-calendar-scale-down',
+    in: 'fv-calendar-scale-up'
+});
+const transitionStatus = ref('out');
+const currentRange = ref({
+    year: thisValue.value.getFullYear(),
+    month: thisValue.value.getMonth()
+});
+const yearRef = ref(null);
+const monthRef = ref(null);
+const dayRef = ref(null);
+const statement = computed(() => {
+    if (status.value == 'date') {
+        return `${props.monthList[currentRange.value.month]} ${
+            currentRange.value.year
+        }`;
+    } else if (status.value == 'month') return `${currentRange.value.year}`;
+    return `${parseInt(currentRange.value.year / 10) * 10} - ${
+        parseInt(currentRange.value.year / 10) * 10 + 9
+    }`;
+});
+
+const switchBack = () => {
+    transitionStatus.value = 'out';
+    if (status.value == 'date') status.value = 'month';
+    else if (status.value == 'month') status.value = 'year';
+};
+const switchIn = () => {
+    transitionStatus.value = 'in';
+    if (status.value == 'year') status.value = 'month';
+    else if (status.value == 'month') status.value = 'date';
 };
 
-defineExpose({
-    resetDate
-});
-</script>
+const updateRange = (date) => {
+    currentRange.value = {
+        year: date.getFullYear(),
+        month: date.getMonth()
+    };
+};
 
-<script>
-import one from 'onecolor';
+const getDateRange = (start, end) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const result = [];
 
-import yearBox from './sub/yearBox.vue';
-import monthBox from './sub/monthBox.vue';
-import dateBox from './sub/dateBox.vue';
+    const step = startDate <= endDate ? 1 : -1;
+    let current = new Date(startDate);
 
-import { useTheme } from '@/utils/common';
+    while (
+        (step === 1 && current <= endDate) ||
+        (step === -1 && current >= endDate)
+    ) {
+        result.push(new Date(current));
+        current.setDate(current.getDate() + step);
+    }
 
-export default {
-    name: 'FvCalendarView',
-    components: {
-        yearBox,
-        monthBox,
-        dateBox
-    },
-    data() {
-        return {
-            status: 'date',
-            thisValue: this.modelValue,
-            yearRange: new Date().getFullYear(),
-            monthRange: {
-                year: new Date().getFullYear(),
-                no: new Date().getMonth()
-            },
-            dayRange: {
-                year: new Date().getFullYear(),
-                month: new Date().getMonth(),
-                no: 1
-            },
-            transitionName: 'fv-calendar-scale-down',
-            monthList: {
-                en: [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                    'August',
-                    'September',
-                    'October',
-                    'November',
-                    'December'
-                ],
-                zh: [
-                    '一月',
-                    '二月',
-                    '三月',
-                    '四月',
-                    '五月',
-                    '六月',
-                    '七月',
-                    '八月',
-                    '九月',
-                    '十月',
-                    '十一月',
-                    '十二月'
-                ]
-            }
-        };
-    },
-    watch: {
-        modelValue(val, from) {
-            if (!this.$SDate.IsSameDate(val, from))
-                this.thisValue = this.$SDate.Parse(
-                    this.$SDate.DateToString(val)
-                );
-        }
-    },
-    computed: {
-        $theme() {
-            return useTheme(this.$props).theme.value;
-        },
-        statement() {
-            if (this.status == 'date') {
-                if (this.lan == 'en')
-                    return `${this.monthList['en'][this.dayRange.month]} ${
-                        this.dayRange.year
-                    }`;
-                else
-                    return `${this.dayRange.year}年${
-                        this.dayRange.month + 1
-                    }日`;
-            } else if (this.status == 'month')
-                if (this.lan == 'en') return `${this.monthRange.year}`;
-                else return `${this.monthRange.year}年`;
-            return `${this.yearRange} - ${this.yearRange + 9}`;
-        },
-        background() {
-            let foreground = this.foreground;
-            if (!this.foreground)
-                if (this.theme === 'dark')
-                    foreground = 'rgba(118, 185, 237, 1)';
-                else foreground = 'rgba(0, 120, 215, 1)';
-            try {
-                let color = one(foreground);
-                color = color.alpha(1);
-                let result = color.cssa();
-                return result;
-            } catch (e) {
-                return '';
-            }
-        },
-        selectedBackground() {
-            let foreground = this.foreground;
-            if (!this.foreground)
-                if (this.theme === 'dark')
-                    foreground = 'rgba(118, 185, 237, 1)';
-                else foreground = 'rgba(0, 120, 215, 1)';
-            try {
-                let color = one(foreground);
-                let hsl = color.hsl();
-                let h = Math.round(hsl.h() * 360);
-                let s = hsl.s();
-                let l = hsl.l();
-                s = (s - 0.3).toFixed(2);
-                if (this.theme === 'dark') l = (l - 0.5).toFixed(2);
-                else l = (l + 0.5).toFixed(2);
-                let result = `hsla(${h}, ${s * 100}%, ${l * 100}%, 1)`;
-                return result;
-            } catch (e) {
-                return '';
-            }
-        },
-        selectedBorderColor() {
-            let foreground = this.foreground;
-            if (!this.foreground)
-                if (this.theme === 'dark')
-                    foreground = 'rgba(118, 185, 237, 1)';
-                else foreground = 'rgba(0, 120, 215, 1)';
-            try {
-                let color = one(foreground);
-                let hsl = color.hsl();
-                let h = Math.round(hsl.h() * 360);
-                let s = hsl.s();
-                let l = hsl.l();
-                s = (s - 0.1).toFixed(2);
-                l = (l - 0.01).toFixed(2);
-                let result = `hsla(${h}, ${s * 100}%, ${l * 100}%, 1)`;
-                return result;
-            } catch (e) {
-                return '';
-            }
-        }
-    },
-    methods: {
-        slideUp() {
-            if (this.status == 'year')
-                this.$refs.year.slide(this.yearRange - 10);
-            else if (this.status == 'month') {
-                this.monthRange.year -= 1;
-                this.$refs.month.slide(this.monthRange);
-            } else this.daySlide(-1);
-        },
-        slideDown() {
-            if (this.status == 'year')
-                this.$refs.year.slide(this.yearRange + 10);
-            else if (this.status == 'month') {
-                this.monthRange.year += 1;
-                this.$refs.month.slide(this.monthRange);
-            } else this.daySlide();
-        },
-        daySlide(a = 1) {
-            let d = this.$SDate.Parse(
-                `${this.dayRange.year}-${this.dayRange.month + 1}-${
-                    this.dayRange.no
-                } 0:0:0`
+    return result;
+};
+
+const chooseItem = (cell) => {
+    if (status.value === 'date') {
+        emits('choose-date', cell.date);
+        if (props.multiple == 'single')
+            thisChoosenDates.value.splice(
+                0,
+                thisChoosenDates.value.length,
+                cell.date
             );
-            d.setDate(1);
-            d.setMonth(d.getMonth() + a);
-            this.$refs.day.slide({
-                year: d.getFullYear(),
-                month: d.getMonth(),
-                no: d.getDate()
-            });
-        },
-        switchView() {
-            this.transitionName = 'fv-calendar-scale-down';
-            if (this.status == 'date') {
-                this.status = 'month';
-            } else if (this.status == 'month') {
-                this.status = 'year';
-            }
-        },
-        chooseYear(item) {
-            this.transitionName = 'fv-calendar-scale-up';
-            this.thisValue.setFullYear(item);
-            this.status = 'month';
-            this.$emit('choose-year', item);
-        },
-        chooseMonth(item) {
-            this.transitionName = 'fv-calendar-scale-up';
-            this.thisValue.setDate(1);
-            this.thisValue.setMonth(item.no);
-            this.thisValue.setFullYear(item.year);
-            this.status = 'date';
-            this.$emit('choose-month', this.thisValue);
-        },
-        chooseDate(item) {
-            this.thisValue.setDate(item.no);
-            this.thisValue.setMonth(item.month);
-            this.thisValue.setFullYear(item.year);
-            this.$emit('choose-date', this.thisValue);
-            this.$emit(
-                'update:modelValue',
-                this.$SDate.Parse(this.$SDate.DateToString(this.thisValue))
+        else if (props.multiple == 'multiple') {
+            let exists = thisChoosenDates.value.findIndex(
+                (it) =>
+                    it.getFullYear() === cell.date.getFullYear() &&
+                    it.getMonth() === cell.date.getMonth() &&
+                    it.getDate() === cell.date.getDate()
             );
+            if (exists > -1) thisChoosenDates.value.splice(exists, exists + 1);
+            else thisChoosenDates.value.push(cell.date);
+        } else if (props.multiple == 'range') {
+            if (thisChoosenDates.value.length < 1)
+                thisChoosenDates.value.push(cell.date);
+            else {
+                thisChoosenDates.value.sort((a, b) => {
+                    return a.getTime() - b.getTime();
+                });
+
+                if (
+                    cell.date <=
+                    thisChoosenDates.value[thisChoosenDates.value.length - 1]
+                )
+                    thisChoosenDates.value.splice(
+                        0,
+                        thisChoosenDates.value.length,
+                        cell.date
+                    );
+                else {
+                    const range = getDateRange(
+                        thisChoosenDates.value[0],
+                        cell.date
+                    );
+                    thisChoosenDates.value.splice(
+                        0,
+                        thisChoosenDates.value.length,
+                        ...range
+                    );
+                }
+            }
         }
+        emits('update:modelValue', thisValue.value);
+    } else {
+        thisValue.value = cell.date;
+        if (status.value == 'year') {
+            emits('choose-year', cell.date.getFullYear());
+        } else emits('choose-month', cell.date.getMonth());
+    }
+    switchIn();
+};
+
+const slideUp = () => {
+    if (status.value === 'date') {
+        dayRef.value.slideUp();
+    } else if (status.value === 'month') {
+        monthRef.value.slideUp();
+    } else if (status.value === 'year') {
+        yearRef.value.slideUp();
+    }
+};
+
+const slideDown = () => {
+    if (status.value === 'date') {
+        dayRef.value.slideDown();
+    } else if (status.value === 'month') {
+        monthRef.value.slideDown();
+    } else if (status.value === 'year') {
+        yearRef.value.slideDown();
     }
 };
 </script>

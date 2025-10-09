@@ -1,7 +1,12 @@
 .fv-CalendarView {
     &.dark {
+        --highlight-background: rgba(118, 185, 237, 0.8);
+        --choosen-background: rgba(118, 185, 237, 1);
+        --range-choose-background-fe: rgba(0, 176, 215, 0.9);
+        --range-choose-background-middle: rgba(0, 176, 215, 0.6);
+
         background: rgba(0, 0, 0, 0.9);
-        border: rgba(255, 255, 255, 0.1) solid 2px;
+        border: rgba(255, 255, 255, 0.2) solid 1px;
         color: rgba(245, 245, 245, 0.9);
 
         .fv-calendar-control-block {
@@ -38,10 +43,8 @@
             }
 
             .picker-container {
-                background: rgba(32, 32, 32, 1);
 
                 button.picker-btn {
-                    background: rgba(32, 32, 32, 1);
                     color: rgba(245, 245, 245, 0.6);
 
                     &:hover {
@@ -49,12 +52,11 @@
                     }
 
                     &.range {
-                        background: rgba(32, 32, 32, 1);
                         color: whitesmoke;
                     }
 
                     &.current {
-                        background: rgba(118, 185, 237, 0.8);
+                        background: var(--highlight-background);
                         color: whitesmoke;
 
                         &:hover {
@@ -67,7 +69,18 @@
                     }
 
                     &.choose {
-                        border: rgba(118, 185, 237, 1) solid 2px;
+                        border: var(--choosen-background) solid 2px;
+
+                        &.range-choose-fe {
+                            background: var(--range-choose-background-fe);
+                            color: whitesmoke;
+                        }
+
+                        &.range-choose-middle {
+                            background: var(--range-choose-background-middle);
+                            color: whitesmoke;
+                            border-color: transparent;
+                        }
                     }
                 }
             }

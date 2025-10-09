@@ -11,6 +11,7 @@ export default {
     data () {
         return {
             value: new Date(),
+            resetValue: new Date(),
             currentChoosen: []
         }
     },
@@ -20,16 +21,16 @@ export default {
         let month = new Date().getMonth();
         let day = new Date().getDate();
         for (let i = 0; i < 10; i++) {
-            this.currentChoosen.push({
-                year: year,
-                month: month,
-                no: day + i
-            });
+            this.currentChoosen.push(new Date(
+                year,
+                month,
+                day + i
+            ));
         }
     },
     methods: {
         reset () {
-            this.$refs.c1.resetDate();
+            this.resetValue = new Date(this.resetValue);
         }
     }
 }
@@ -49,24 +50,30 @@ export default {
 ---
 
 <ClientOnly>
-<fv-CalendarView multiple="multiple" lang="global" ref="c1"></fv-CalendarView>
-<fv-button @click="reset">Reset</fv-button>
+<fv-CalendarView :modelValue="resetValue" multiple="multiple" ref="c1"></fv-CalendarView>
+<fv-button style="margin-top: 10px;" @click="reset">Reset</fv-button>
 </ClientOnly>
 
 ```vue
-<fv-CalendarView multiple="multiple" lang="global"></fv-CalendarView>
+<fv-CalendarView :modelValue="resetValue" multiple="multiple"></fv-CalendarView>
 ```
 
-### CalendarView Init Day
+```javascript
+reset () {
+    this.resetValue = new Date(this.resetValue);
+}
+```
+
+### CalendarView Specific Day
 
 ---
 
 <ClientOnly>
-<fv-CalendarView :value="value" multiple="multiple" lang="global"></fv-CalendarView>
+<fv-CalendarView :modelValue="value" multiple="multiple"></fv-CalendarView>
 </ClientOnly>
 
 ```vue
-<fv-CalendarView :value="value" multiple="multiple" lang="global"></fv-CalendarView>
+<fv-CalendarView :modelValue="value" multiple="multiple"></fv-CalendarView>
 ```
 
 ### CalendarView Range Choose
@@ -93,11 +100,11 @@ export default {
         let month = new Date().getMonth();
         let day = new Date().getDate();
         for (let i = 0; i < 10; i++) {
-            this.currentChoosen.push({
-                year: year,
-                month: month,
-                no: day + i
-            });
+            this.currentChoosen.push(new Date(
+                year,
+                month,
+                day + i
+            ));
         }
     }
 }
@@ -122,39 +129,41 @@ export default {
 Custom Selected Color
 
 <ClientOnly>
-<fv-CalendarView theme="dark" foreground="rgba(0, 204, 153, 1)"></fv-CalendarView>
+<fv-CalendarView theme="dark" background="rgba(30, 19, 57, 1)" foreground="rgba(0, 204, 153, 1)" nowDayColor="rgba(0, 180, 153, 1)" rangeChooseColorFE="rgba(0, 220, 153, 0.9)" rangeChooseColorMiddle="rgba(0, 220, 153, 0.6)" borderRadius="50" multiple="range"></fv-CalendarView>
 </ClientOnly>
 
 ```vue
-<fv-CalendarView theme="dark" foreground="rgba(0, 204, 153, 1)"></fv-CalendarView>
+<fv-CalendarView theme="dark" background="rgba(30, 19, 57, 1)" foreground="rgba(0, 204, 153, 1)" nowDayColor="rgba(0, 180, 153, 1)" rangeChooseColorFE="rgba(0, 220, 153, 0.9)" rangeChooseColorMiddle="rgba(0, 220, 153, 0.6)" borderRadius="50" multiple="range"></fv-CalendarView>
 ```
 
 ### Propoties
 
 ---
 
-|  属性(attr)  |          类型(type)           | 必填(required) | 默认值(default) |                      说明(statement)                      |
-| :----------: | :---------------------------: | :------------: | :-------------: | :-------------------------------------------------------: |
-|    value     |            [date]             |       No       |   CurrentDate   |                                                           |
-|    start     |            Number             |       No       |      1900       |                       Minium Year.                        |
-|     end      |            Number             |       No       |      3000       |                       Maxium Year.                        |
-|   multiple   | ['single','multiple','range'] |       No       |     single      |                                                           |
-|     lan      |          ['en','zh']          |       No       |       en        |                  CalendarView language.                   |
-| choosenDates |             Array             |       No       |       []        |                 CalendarView初始选中日期                  |
-|  foreground  |        [string(color)]        |       No       |       N/A       |                  CalendarView主题前景色                   |
-|    theme     |            String             |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+|       属性(attr)       |          类型(type)           | 必填(required) | 默认值(default) |                      说明(statement)                      |
+| :--------------------: | :---------------------------: | :------------: | :-------------: | :-------------------------------------------------------: |
+|         value          |            [date]             |       No       |   CurrentDate   |                                                           |
+|        multiple        | ['single','multiple','range'] |       No       |     single      |                                                           |
+|      choosenDates      |             Array             |       No       |       []        |                 CalendarView初始选中日期                  |
+|       foreground       |        [string(color)]        |       No       |       N/A       |                  CalendarView主题前景色                   |
+|       background       |        [string(color)]        |       No       |       N/A       |                    CalendarView 背景色                    |
+|      nowDayColor       |        [string(color)]        |       No       |       N/A       |                         今日颜色                          |
+|   rangeChooseColorFE   |        [string(color)]        |       No       |       N/A       |                 起始日开头结尾按钮背景色                  |
+| rangeChooseColorMiddle |        [string(color)]        |       No       |       N/A       |                 起始日中间日期按钮背景色                  |
+|         theme          |            String             |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
 
 ### Events
 
 ---
 
-|   事件名(Name)    | 参数类型(args) |                   说明(statement)                   |
-| :---------------: | :------------: | :-------------------------------------------------: |
-|    choose-year    |     string     |                 选择年份后返回年份                  |
-|   choose-month    |     string     |                 选择月份后返回月份                  |
-|    choose-date    |      date      |                 选择日期后返回日期                  |
-|   choosen-dates   |     array      | 选择多个日期后返回日期数组, 类型为[{year,month,no}] |
-| choosen-dates-obj |     array      |                返回[Date]类型的数组                 |
+|    事件名(Name)     | 参数类型(args) |                   说明(statement)                   |
+| :-----------------: | :------------: | :-------------------------------------------------: |
+|     choose-year     |     string     |                 选择年份后返回年份                  |
+|    choose-month     |     string     |                 选择月份后返回月份                  |
+| update:choosenDates |     array      |                双向绑定choosenDates                 |
+|     choose-date     |      date      |                 选择日期后返回日期                  |
+|    choosen-dates    |     array      | 选择多个日期后返回日期数组, 类型为[{year,month,no}] |
+|  choosen-dates-obj  |     array      |                返回[Date]类型的数组                 |
 
 ### Slot
 ---
@@ -179,14 +188,4 @@ Custom Selected Color
 <template v-slot:weekday_content>
     <p></p>
 </template>
-```
-
-### Appendix
-
----
-
-1. 重置日期视图
-
-```javascript
-this.$refs.calendarView.resetDate();
 ```

@@ -10,7 +10,12 @@
             { shadow: isBoxShadow }
         ]"
         :style="[{ background: background, borderRadius: `${borderRadius}px` }]"
-        @click="isFocus = true"
+        @click="
+            ($event) => {
+                isFocus = true;
+                $emit('click', $event);
+            }
+        "
     >
         <fv-reveal-container
             :parent="() => $el"
@@ -38,6 +43,7 @@
                 v-show="leftIcon != ''"
                 class="ms-Icon icon-block"
                 :class="[`ms-Icon--${leftIcon}`]"
+                :style="{ color: iconForeground }"
                 @click="$emit('left-icon-click', $event)"
             ></i>
             <core-input
@@ -68,6 +74,7 @@
                 v-show="icon != ''"
                 class="ms-Icon icon-block"
                 :class="[`ms-Icon--${icon}`]"
+                :style="{ color: iconForeground }"
                 @click="$emit('icon-click', $event)"
             ></i>
             <div v-show="suffix != ''" class="fix-block">
@@ -142,6 +149,9 @@ const props = defineProps({
         default: ''
     },
     icon: {
+        default: ''
+    },
+    iconForeground: {
         default: ''
     },
     underline: {
