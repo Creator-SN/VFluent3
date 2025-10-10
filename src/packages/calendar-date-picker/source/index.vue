@@ -24,10 +24,10 @@
                 :reveal-border="dropDownRevealBorder"
                 :is-box-shadow="dropDownIsBoxShadow"
                 :title="displayContent"
+                :cursor="!editable ? 'default' : ''"
                 style="width: 100%"
                 :style="{
-                    ...dropDownStyles,
-                    cursor: !editable ? 'default' : ''
+                    ...dropDownStyles
                 }"
                 @keydown.enter="parseContent"
                 @click="showCalendar"

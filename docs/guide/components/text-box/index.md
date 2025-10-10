@@ -323,6 +323,7 @@ Customize background
 |        status         | ['warn','correct'] |       No       |       N/A       |                  状态边框预设, 默认有警告和正确两种                   |
 |     debounceDelay     |       Number       |       No       |       300       |                           搜索节流延迟时间                            |
 |       disabled        |      Boolean       |       No       |      false      |                                                                       |
+|        cursor         |       string       |       No       |       N/A       |                                                                       |
 |         theme         |       String       |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式       |
 
 ### Events

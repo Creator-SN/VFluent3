@@ -15,7 +15,8 @@
                 'font-size': `${fontSize}px`,
                 'font-weight': fontWeight,
                 color: foreground,
-                'text-align': textAlign
+                'text-align': textAlign,
+                cursor: cursor
             }"
             @keydown="keyDown"
             @keyup="$emit('keyup', $event)"
@@ -39,6 +40,7 @@
             :fontSize="fontSize"
             :fontWeight="fontWeight"
             :textAlign="textAlign"
+            :cursor="cursor"
             @keydown="$emit('keydown', $event)"
             @keyup="$emit('keyup', $event)"
             @change="$emit('change', $event)"
@@ -122,6 +124,9 @@ export default {
         },
         textAlign: {
             default: 'left'
+        },
+        cursor: {
+            default: ''
         },
         theme: {
             type: String,

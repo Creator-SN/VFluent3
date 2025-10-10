@@ -7,7 +7,13 @@
             :readonly="isReadOnly"
             :disabled="isDisabled"
             ref="input"
-            :style="{'font-size': `${fontSize}px`, 'font-weight': fontWeight, color: foreground, 'text-align': textAlign}"
+            :style="{
+                'font-size': `${fontSize}px`,
+                'font-weight': fontWeight,
+                color: foreground,
+                'text-align': textAlign,
+                cursor: cursor
+            }"
             @input="input"
             @keydown="keyDown"
             @keyup="$emit('keyup', $event)"
@@ -73,9 +79,12 @@ export default {
         textAlign: {
             default: 'left'
         },
+        cursor: {
+            default: ''
+        },
         theme: {
             type: String,
-            default: "global"
+            default: 'global'
         }
     },
     data() {

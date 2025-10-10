@@ -64,6 +64,7 @@
                 :fontWeight="fontWeight"
                 :foreground="foreground"
                 :textAlign="textAlign"
+                :cursor="cursor"
                 v-model:focus="isFocus"
                 @keydown="$emit('keydown', $event)"
                 @keyup="$emit('keyup', $event)"
@@ -201,6 +202,9 @@ const props = defineProps({
     },
     debounceDelay: {
         default: 300
+    },
+    cursor: {
+        default: ''
     },
     disabled: {
         default: false
