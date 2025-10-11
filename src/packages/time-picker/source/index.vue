@@ -1,84 +1,145 @@
 <template>
-    <div class="fv-TimePicker" :class="[$theme, { disabled: disabled }]">
+    <div
+        class="fv-TimePicker"
+        :class="[$theme, { disabled: disabled }]"
+        :style="{ '--hover-color': hoverColor }"
+    >
         <div
-            class="fv-TimePicker__input"
+            class="fv-time-picker-input"
             :style="{ background: inputBackground }"
             @click="focus()"
         >
-            <button class="fv-TimePicker__input-item">
-                {{ showTime(0, modelValue.getHours()) }}
-            </button>
-            <button
-                class="fv-TimePicker__input-item"
+            <input
+                :value="showTime(0)"
+                readonly
+                class="fv-time-picker-input-item"
+            />
+            <input
+                :value="showTime(1)"
+                readonly
+                class="fv-time-picker-input-item"
                 :style="{ borderColor: innerBorderColor }"
-            >
-                {{ showTime(1, modelValue.getMinutes()) }}
-            </button>
-            <button
+            />
+            <input
+                v-show="timeType == 12"
+                :value="period[decodeTime(2)]"
+                readonly
                 :style="{ borderColor: innerBorderColor }"
-                class="fv-TimePicker__input-item"
-                v-if="timeType == 12"
-            >
-                {{ showTime(2, Math.floor(modelValue.getHours() / 11.9)) }}
-            </button>
+                class="fv-time-picker-input-item"
+            />
         </div>
-        <transition name="fv-TimePicker__options">
+        <transition name="fv-time-picker-options">
             <div
                 v-show="show"
-                class="fv-TimePicker__options"
+                class="fv-time-picker-options"
                 :style="{ background: optionBackground }"
             >
-                <div class="fv-TimePicker__options-body">
+                <div class="fv-time-picker-options-body">
                     <div
-                        class="fv-TimePicker__options-body-mask"
+                        class="fv-time-picker-options-body-mask"
                         :style="{ background: selectedBackground }"
                     ></div>
+
                     <div
-                        v-for="(col, index1) in data"
-                        :key="`options-col${index1}`"
-                        class="fv-TimePicker__options-body-col"
-                        v-hover="hoverUpAndDown"
+                        class="fv-time-picker-options-body-col"
+                        :style="{ borderColor: innerBorderColor }"
                     >
                         <div
-                            class="fv-TimePicker__options-body-col-up"
-                            @click="clickItem(`col${index1}`, 4)"
+                            class="fv-time-picker-options-body-col-up"
+                            :style="{ background: slideBtnBackground }"
+                            @click="hourSwiper.slidePrev()"
                         >
                             <i class="ms-Icon ms-Icon--CaretUpSolid8"></i>
                         </div>
                         <div
-                            class="fv-TimePicker__options-body-items"
-                            :ref="`col${index1}`"
+                            class="fv-time-picker-options-body-items swiper"
+                            ref="hour"
                         >
-                            <div
-                                class="fv-TimePicker__options-body-item"
-                                v-hover="hover"
-                                v-for="(item, index) in col"
-                                :key="`options-col-item${index1}-${item}-${index}`"
-                                @click="clickItem(`col${index1}`, index)"
-                            >
-                                {{ showTime(index1, item) }}
+                            <div class="swiper-wrapper"></div>
+                        </div>
+                        <div
+                            class="fv-time-picker-options-body-col-down"
+                            :style="{ background: slideBtnBackground }"
+                            @click="hourSwiper.slideNext()"
+                        >
+                            <i class="ms-Icon ms-Icon--CaretDownSolid8"></i>
+                        </div>
+                    </div>
+                    <div
+                        class="fv-time-picker-options-body-col"
+                        :style="{ borderColor: innerBorderColor }"
+                    >
+                        <div
+                            class="fv-time-picker-options-body-col-up"
+                            :style="{ background: slideBtnBackground }"
+                            @click="minuteSwiper.slidePrev()"
+                        >
+                            <i class="ms-Icon ms-Icon--CaretUpSolid8"></i>
+                        </div>
+                        <div
+                            class="fv-time-picker-options-body-items swiper"
+                            ref="minute"
+                        >
+                            <div class="swiper-wrapper">
+                                <div
+                                    v-for="(item, index) in minuteList"
+                                    class="fv-time-picker-options-body-item swiper-slide"
+                                >
+                                    {{ showItem(item) }}
+                                </div>
                             </div>
                         </div>
                         <div
-                            class="fv-TimePicker__options-body-col-down"
-                            @click="clickItem(`col${index1}`, 6)"
+                            class="fv-time-picker-options-body-col-down"
+                            :style="{ background: slideBtnBackground }"
+                            @click="minuteSwiper.slideNext()"
+                        >
+                            <i class="ms-Icon ms-Icon--CaretDownSolid8"></i>
+                        </div>
+                    </div>
+                    <div
+                        v-show="timeType == 12"
+                        class="fv-time-picker-options-body-col"
+                    >
+                        <div
+                            class="fv-time-picker-options-body-col-up"
+                            :style="{ background: slideBtnBackground }"
+                            @click="periodSwiper.slidePrev()"
+                        >
+                            <i class="ms-Icon ms-Icon--CaretUpSolid8"></i>
+                        </div>
+                        <div
+                            class="fv-time-picker-options-body-items swiper"
+                            ref="period"
+                        >
+                            <div class="swiper-wrapper">
+                                <div
+                                    v-for="(item, index) in period"
+                                    class="fv-time-picker-options-body-item swiper-slide"
+                                >
+                                    {{ item }}
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="fv-time-picker-options-body-col-down"
+                            :style="{ background: slideBtnBackground }"
+                            @click="periodSwiper.slideNext()"
                         >
                             <i class="ms-Icon ms-Icon--CaretDownSolid8"></i>
                         </div>
                     </div>
                 </div>
-                <div class="fv-TimePicker__options-bar">
+                <div class="fv-time-picker-options-bar">
                     <button
-                        class="fv-TimePicker__options-bar-accept"
-                        v-hover="hover"
+                        class="fv-time-picker-options-bar-accept"
                         @click="accept"
                     >
                         <i class="ms-Icon ms-Icon--Accept"></i>
                     </button>
                     <button
-                        class="fv-TimePicker__options-bar-cancel"
-                        v-hover="hover"
-                        @click="cancel"
+                        class="fv-time-picker-options-bar-cancel"
+                        @click="show = false"
                     >
                         <i class="ms-Icon ms-Icon--Cancel"></i>
                     </button>
@@ -92,7 +153,7 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
-const emits = defineEmits(['update:modelValue', 'change', 'focus']);
+const emits = defineEmits(['update:modelValue', 'change']);
 
 const props = defineProps({
     ...commonProps,
@@ -121,6 +182,12 @@ const props = defineProps({
     optionBackground: {
         default: ''
     },
+    slideBtnBackground: {
+        default: ''
+    },
+    secondType: {
+        default: 'same'
+    },
     disabled: {
         type: Boolean,
         default: false
@@ -133,458 +200,240 @@ const props = defineProps({
 </script>
 
 <script>
+import Swiper, { Mousewheel } from 'swiper';
+import '@/libs/swiper/swiper.min.css';
+
+Swiper.use([Mousewheel]);
+
 import { useTheme } from '@/utils/common';
 
 export default {
     name: 'FvTimePicker',
-    directives: {
-        hover: {
-            /**
-             * @param {HTMLElement} el
-             */
-            bind(el, { value }) {
-                if (value !== undefined && typeof value == 'function') {
-                    el.enterFunction = () => {
-                        value(true, el);
-                    };
-                    el.leaveFunction = () => {
-                        value(false, el);
-                    };
-                    el.addEventListener('mouseover', el.enterFunction);
-                    el.addEventListener('mouseleave', el.leaveFunction);
-                }
-            },
-            unbind(el) {
-                if (
-                    el.enterFunction !== undefined &&
-                    typeof el.enterFunction == 'function'
-                ) {
-                    el.removeEventListener('mouseover', el.hoverFunction);
-                    el.removeEventListener('mouseleave', el.leaveFunction);
-                }
-            }
-        }
-    },
     data() {
         return {
             show: false,
-            data: [
-                // data 1st=>hours,2nd=>minutes,3rd=>period
-                [],
-                []
-            ],
-            window: {
-                event: {
-                    click: (evt) => {
-                        let dom = evt.target;
-                        let inside = false;
-                        while (dom) {
-                            if (dom == this.$el) {
-                                inside = true;
-                                break;
-                            }
-                            dom = dom.parentNode;
-                        }
-                        if (!inside) {
-                            this.show = false;
-                        }
-                    }
-                }
+            thisValue: new Date(this.modelValue),
+            hourSwiper: null,
+            minuteSwiper: null,
+            periodSwiper: null,
+            timer: {
+                debounce: null
             },
-            config: {
-                optionCount: 9,
-                buffer: 1
-            },
-            selected: {
-                date: this.modelValue
-            },
-            options: {}
+            scrollCount: {
+                hour: 0,
+                minute: 0
+            }
         };
     },
     watch: {
         show(val) {
             if (val) {
-                this.selected.date = this.modelValue;
-                this.init();
-            } else {
-                this.config.clickLock = false;
+                this.$nextTick(() => {
+                    this.syncTime();
+                });
             }
+        },
+        modelValue() {
+            this.thisValue = this.modelValue;
+        },
+        thisValue() {
+            this.$emit('update:modelValue', this.thisValue);
+            this.$emit('change', new Date(this.thisValue));
+        },
+        timeType() {
+            this.hourSwiper.virtual.cache = [];
+            this.hourSwiper.virtual.slides = this.virtualHourList;
+            this.hourSwiper.virtual.update();
+            this.syncTime();
         }
     },
     computed: {
         $theme() {
             return useTheme(this.$props).theme.value;
+        },
+        hourList() {
+            let result = [];
+            if (this.timeType == 12) {
+                for (let i = 0; i < 12; i++) result.push(i + 1);
+                return result;
+            }
+            for (let i = 0; i < 24; i++) result.push(i);
+            return result;
+        },
+        virtualHourList() {
+            let result = [];
+            for (let i = 0; i < 30; i++) {
+                result = result.concat(this.hourList);
+            }
+            return result;
+        },
+        minuteList() {
+            let result = [];
+            for (let i = 0; i < 60; i++) result.push(i);
+            return result;
         }
     },
     mounted() {
         this.init();
-        this.loadEvent();
-    },
-    beforeUnmount() {
-        this.removeEvent();
+        this.outSideClickInit();
     },
     methods: {
+        outSideClickInit() {
+            window.addEventListener('click', this.outSideClickEvent);
+            window.addEventListener('touchend', this.outSideClickEvent);
+        },
+        outSideClickEvent(event) {
+            if (!event.composedPath().includes(this.$el)) this.show = false;
+        },
+        init() {
+            const defaultConfig = {
+                direction: 'vertical',
+                slidesPerView: 9,
+                centeredSlides: true,
+                speed: 100,
+                on: {
+                    click(swiper, e) {
+                        const index = swiper.clickedIndex;
+                        const slide = swiper.clickedSlide;
+
+                        if (index != null && slide) {
+                            swiper.slideTo(index);
+                        }
+                    }
+                }
+            };
+            this.hourSwiper = new Swiper(this.$refs.hour, {
+                ...defaultConfig,
+                initialSlide:
+                    this.timeType == 12
+                        ? this.decodeTime(0) - 1
+                        : this.decodeTime(0),
+                freeMode: {
+                    momentum: true,
+                    sticky: true
+                },
+                virtual: {
+                    slides: this.virtualHourList,
+                    renderSlide: (item, index) => {
+                        return `<div class="fv-time-picker-options-body-item swiper-slide">
+                ${this.showItem(item)}
+              </div>`;
+                    }
+                }
+            });
+            this.minuteSwiper = new Swiper(this.$refs.minute, {
+                ...defaultConfig,
+                initialSlide: this.decodeTime(1),
+                loop: true,
+                loopAdditionalSlides: this.minuteList.length
+            });
+            this.periodSwiper = new Swiper(this.$refs.period, {
+                ...defaultConfig,
+                initialSlide: this.decodeTime(2),
+                mousewheel: {
+                    sensitivity: 0.4
+                },
+                resistanceRatio: 0
+            });
+            this.$refs.hour.addEventListener('wheel', (event) => {
+                event.preventDefault();
+                let deltaY = event.deltaY;
+                deltaY = parseInt(deltaY / 100);
+                this.scrollCount.hour += deltaY;
+                this.scrollDispatch(this.hourSwiper, 'hour');
+            });
+            this.$refs.minute.addEventListener('wheel', (event) => {
+                event.preventDefault();
+                let deltaY = event.deltaY;
+                deltaY = parseInt(deltaY / 100);
+                this.scrollCount.minute += deltaY;
+                this.scrollDispatch(this.minuteSwiper, 'minute');
+            });
+        },
         focus() {
             if (this.disabled) return;
             this.show = true;
         },
+        decodeTime(pos) {
+            if (pos === 0) {
+                let mod = this.timeType == 12 ? 12 : 24;
+                let hour = this.thisValue.getHours() % mod;
+                if (this.timeType == 12 && hour === 0) return 12;
+                return hour;
+            } else if (pos === 1) {
+                return this.thisValue.getMinutes();
+            } else {
+                if (this.thisValue.getHours() > 11) return 1;
+                return 0;
+            }
+        },
+        showTime(pos) {
+            let val = this.decodeTime(pos);
+            if (val < 10) return `0${val}`;
+            return val;
+        },
+        showItem(val) {
+            if (parseFloat(val).toString() === 'NaN') return val;
+            if (val < 10) return `0${val}`;
+            return val;
+        },
+        syncTime() {
+            this.minuteSwiper.slideToLoop(this.decodeTime(1), 0);
+            if (this.timeType == 12) {
+                this.hourSwiper.slideToLoop(
+                    15 * this.hourList.length + this.decodeTime(0) - 1,
+                    0
+                );
+                this.periodSwiper.slideTo(this.decodeTime(2), 0);
+            } else
+                this.hourSwiper.slideToLoop(
+                    15 * this.hourList.length + this.decodeTime(0),
+                    0
+                );
+        },
         accept() {
-            this.$emit('update:modelValue', new Date(this.selected.date));
-            this.$emit('change', new Date(this.selected.date));
+            let hourVal = this.hourSwiper.realIndex % this.hourList.length;
+            let minute = this.minuteSwiper.realIndex % this.minuteList.length;
+            if (this.timeType === 12) {
+                hourVal = hourVal + 1;
+                let ispm = this.periodSwiper.realIndex == 1;
+                if (ispm) {
+                    if (hourVal !== 12) hourVal = (hourVal + 12) % 24;
+                } else {
+                    if (hourVal === 12) hourVal = 0;
+                }
+            }
+            let sec =
+                this.secondType == 'same'
+                    ? this.thisValue.getSeconds()
+                    : this.secondType == 'zero'
+                    ? 0
+                    : 59;
+            let date = new Date(this.thisValue);
+            date.setHours(hourVal);
+            date.setMinutes(minute);
+            date.setSeconds(sec);
+            this.thisValue = new Date(date);
             this.show = false;
         },
-        cancel() {
-            this.show = false;
+        scrollDispatch(swiper, key) {
+            clearTimeout(this.timer.debounce);
+            this.timer.debounce = setTimeout(() => {
+                this.scrollExec(swiper, key);
+                this.scrollCount[key] = 0;
+            }, 20);
         },
-        init() {
-            this.data = [[], []];
-            if (this.timeType == '12') {
-                this.data.push([]);
-            }
-            this.size = [this.timeType == 12 ? 12 : 24, 60, 2];
-            for (let i = 0; i < this.data.length; ++i) {
-                let col = this.data[i];
-                this.setOptions(col, this.size[i], i);
-            }
-        },
-        nPrev(num, size, next = 1, offset = 1) {
-            num = Math.round(num);
-            let offsetSize = next * size;
-            return ((num + offsetSize - offset - next) % size) + offset;
-        },
-        nNext(num, size, next = 1, offset = 1) {
-            num = Math.round(num);
-            let offsetSize = offset * size;
-            return ((num + offsetSize + next - offset) % size) + offset;
-        },
-        loadEvent() {
-            for (let key in this.window.event) {
-                let event = this.window.event[key];
-                window.addEventListener(key, event);
-            }
-        },
-        setOptions(data, size, index) {
-            let count = this.config.optionCount + this.config.buffer * 2;
-            let num;
-            let date = this.selected.date;
-            switch (index) {
-                case 0:
-                    num = this.nPrev(
-                        date.getHours(),
-                        size,
-                        Math.floor(count / 2),
-                        0
-                    );
-                    break;
-                case 1:
-                    num = this.nPrev(
-                        date.getMinutes(),
-                        size,
-                        Math.floor(count / 2),
-                        0,
-                        0
-                    );
-                    break;
-                case 2:
-                    num = this.nPrev(
-                        Math.floor(date.getHours() / 11.9),
-                        size,
-                        Math.floor(count / 2),
-                        0
-                    );
-                    break;
-            }
-            for (let i = 0; i < count; ++i) {
-                if (index == 2) {
-                    if (i != 5 && i - num != 5 && i - num != 4) {
-                        data.push(num - 3);
-                    } else {
-                        data.push(num);
-                    }
-                } else {
-                    data.push(num);
-                }
-                num = this.nNext(num, size, 1, index == 0 ? 1 : 0);
-            }
-            this.$nextTick(() => {
-                this.loadSlide(size, index);
-            });
-        },
-        loadSlide(size, index) {
-            let refName = `col${index}`;
-            let origin = (this.$refs[refName][0].scrollTop =
-                40 * this.config.buffer);
-            this.options[refName] = {};
-            if (this.options[refName].scroll) {
-                this.$refs[refName][0].removeEventListener(
-                    'scroll',
-                    this.options[refName].scroll
-                );
-            }
-            this.options[refName].scroll = () => {
-                if (index == 2) {
-                    if (this.$refs[refName][0].scrollTop > origin) {
-                        if (this.selected.date.getHours() > 11) {
-                            this.$refs[refName][0].scrollTop = origin;
-                            return;
-                        }
-                    } else {
-                        if (this.selected.date.getHours() <= 11) {
-                            this.$refs[refName][0].scrollTop = origin;
-                            return;
-                        }
-                    }
-                }
-                this.slideCol(
-                    origin,
-                    refName,
-                    () => {
-                        this.data[index].shift();
-                        let num;
-                        let temp;
-                        switch (index) {
-                            case 0:
-                                temp =
-                                    this.timeType == 12
-                                        ? this.selected.date.getHours() >= 12
-                                            ? 12
-                                            : 0
-                                        : 1;
-                                num = this.nNext(
-                                    this.selected.date.getHours(),
-                                    size,
-                                    0
-                                );
-                                this.selected.date.setHours(
-                                    this.nNext(num, size, 1, temp)
-                                );
-                                break;
-                            case 1:
-                                num = this.nNext(
-                                    this.selected.date.getMinutes(),
-                                    size,
-                                    0,
-                                    0
-                                );
-                                this.selected.date.setMinutes(
-                                    this.nNext(num, size, 1, 0)
-                                );
-                                break;
-                            case 2:
-                                num = Math.floor(
-                                    this.selected.date.getHours() / 11.9
-                                );
-                                if (num == 0)
-                                    this.selected.date.setHours(
-                                        this.selected.date.getHours() + 12
-                                    );
-                                break;
-                        }
-                        let next = this.nNext(
-                            num,
-                            size,
-                            (this.config.optionCount - 1) / 2 +
-                                this.config.buffer +
-                                1,
-                            0
-                        );
-                        if (index == 2) {
-                            next = -1;
-                        }
-                        this.data[index].push(next);
-                    },
-                    () => {
-                        this.data[index].pop();
-                        let num, temp;
-                        switch (index) {
-                            case 0:
-                                temp =
-                                    this.timeType == 12
-                                        ? this.selected.date.getHours() >= 12
-                                            ? 12
-                                            : 0
-                                        : 1;
-                                num = this.nNext(
-                                    this.selected.date.getHours(),
-                                    size,
-                                    0
-                                );
-                                this.selected.date.setHours(
-                                    this.nPrev(num, size, 1, temp)
-                                );
-                                break;
-                            case 1:
-                                num = this.nNext(
-                                    this.selected.date.getMinutes(),
-                                    size,
-                                    0,
-                                    0
-                                );
-                                this.selected.date.setMinutes(
-                                    this.nPrev(num, size, 1, 0)
-                                );
-                                break;
-                            case 2:
-                                num = Math.floor(
-                                    this.selected.date.getHours() / 12
-                                );
-                                if (num == 1)
-                                    this.selected.date.setHours(
-                                        this.selected.date.getHours() - 12
-                                    );
-                                break;
-                        }
-                        let next = this.nPrev(
-                            num,
-                            size,
-                            (this.config.optionCount - 1) / 2 +
-                                this.config.buffer +
-                                1,
-                            0
-                        );
-                        if (index == 2) {
-                            next = -1;
-                        }
-                        this.data[index].unshift(next);
-                    }
-                );
-            };
-            this.$refs[refName][0].addEventListener(
-                'scroll',
-                this.options[refName].scroll
-            );
-        },
-        removeEvent() {
-            for (let key in this.window.event) {
-                let event = this.window.event[key];
-                window.removeEventListener(key, event);
-            }
-            for (let key in this.options) {
-                this.$refs[key][0].removeEventListener(
-                    'scroll',
-                    this.options[key].scroll
-                );
-            }
-        },
-        slideCol(origin, refName, nxtCallback, preCallback) {
-            if (Math.abs(this.$refs[refName][0].scrollTop - origin) >= 20) {
-                if (this.$refs[refName][0].scrollTop > origin) {
-                    nxtCallback();
-                } else {
-                    preCallback();
-                }
-                this.$nextTick(() => {
-                    this.$refs[refName][0].scrollTop = origin;
-                });
-            }
-        },
-        async clickItem(colName, index) {
-            if (this.config.clickLock) return;
-            this.config.clickLock = true;
-            // imitation scroll
-            this.$refs[colName][0].scrollTop = this.config.buffer * 40;
-            let origin = this.$refs[colName][0].scrollTop;
-            this.$refs[colName][0].scrollTop += index - 5; // init important
-            let count = Math.abs(index - 5);
-            if (count > 0) {
-                let timeout = setInterval(() => {
-                    if (this.$refs[colName][0].scrollTop == origin) {
-                        --count;
-                        if (!count) {
-                            clearInterval(timeout);
-                            this.config.clickLock = false;
-                            return;
-                        }
-                    }
-                    this.config.scrollLock = true;
-                    this.$refs[colName][0].scrollTop += (index - 5) * 3;
-                }, 20);
-            } else {
-                this.config.clickLock = false;
-            }
-        },
-        numberFixTwo(num) {
-            if (num < 10) {
-                return '0' + num;
-            } else {
-                return num;
-            }
-        },
-        showTime(col, item) {
-            if (col == 0) {
-                return this.nNext(
-                    item,
-                    this.timeType == 12 ? 12 : 24,
-                    0,
-                    this.timeType == 12 ? 1 : 0
-                );
-            } else if (col == 1) {
-                return this.numberFixTwo(this.nNext(item, 60, 0, 0));
-            } else {
-                return item >= 0 ? this.period[item] : '';
-            }
-        },
-        hover(isHover, element) {
-            if (this.hoverColor !== undefined) {
-                if (isHover) {
-                    if (
-                        element.hoverStatus === false ||
-                        element.hoverStatus === undefined
-                    ) {
-                        // store if inner style background is set
-                        if (element.style.backgroundColor)
-                            element.backgroundColor =
-                                element.style.backgroundColor;
-                        element.style.backgroundColor = this.hoverColor;
-                    }
-                } else {
-                    // restore inner style background
-                    if (element.backgroundColor !== undefined)
-                        element.style.backgroundColor = element.backgroundColor;
-                    // restore if inner style is not set, set null to use external css
-                    else element.style.backgroundColor = null;
-                }
-                element.hoverStatus = isHover;
-            }
-        },
-        hoverUpAndDown(isHover, element) {
-            // find btn.fv-TimePicker__options-body-col-down or btn.fv-TimePicker__options-body-col-up
-            let up = element.querySelector(
-                '.fv-TimePicker__options-body-col-down'
-            );
-            let down = element.querySelector(
-                '.fv-TimePicker__options-body-col-up'
-            );
-            if (isHover) {
-                if (up.hoverStatus === false || up.hoverStatus === undefined) {
-                    // store if inner style background is set
-                    if (up.style.backgroundColor)
-                        up.backgroundColor = up.style.backgroundColor;
-                    up.style.backgroundColor = this.hoverColor;
-                }
-                if (
-                    down.hoverStatus === false ||
-                    down.hoverStatus === undefined
-                ) {
-                    // store if inner style background is set
-                    if (down.style.backgroundColor)
-                        down.backgroundColor = down.style.backgroundColor;
-                    down.style.backgroundColor = this.hoverColor;
-                }
-            } else {
-                // restore inner style background
-                if (up.backgroundColor !== undefined)
-                    up.style.backgroundColor = up.backgroundColor;
-                // restore if inner style is not set, set null to use external css
-                else up.style.backgroundColor = null;
-                if (down.backgroundColor !== undefined)
-                    down.style.backgroundColor = down.backgroundColor;
-                // restore if inner style is not set, set null to use external css
-                else down.style.backgroundColor = null;
-            }
-            up.hoverStatus = isHover;
-            down.hoverStatus = isHover;
+        scrollExec(swiper, key) {
+            let offset = this.scrollCount[key];
+            offset = offset > 3 ? 3 : offset;
+            let current = swiper.realIndex;
+            current = current + offset;
+            swiper.slideToLoop(current);
         }
+    },
+    beforeUnmount() {
+        window.removeEventListener('click', this.outSideClickEvent);
+        window.removeEventListener('touchend', this.outSideClickEvent);
     }
 };
 </script>

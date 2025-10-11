@@ -1,30 +1,21 @@
-@import '@/styles/theme/index.scss';
+@import "@/styles/theme/index.scss";
 
-.fv-TimePicker {    position: relative;
-    display: inline-block;
+.fv-TimePicker {
+    position: relative;
+    min-width: 200px;
+    margin: 0;
     width: 250px;
     height: 30px;
     color: #000;
     padding: 0;
-    margin: 0;
-    min-width: 200px;
+    display: inline-block;
     line-height: 0px;
     user-select: none;
     cursor: pointer;
 
-    button {
-        //default clear
-        background: none;
-        border: none;
-        color: inherit;
-        cursor: inherit;
-        box-sizing: border-box;
-        padding: 0 20px;
-        height: inherit;
-        margin: 0;
-        outline: none;
-    }
-    .fv-TimePicker__input {
+    --hover-color: rgba(220, 220, 220, 0.1);
+
+    .fv-time-picker-input {
         width: 100%;
         height: 100%;
         padding: 0;
@@ -36,7 +27,7 @@
         border-color: rgba(200, 200, 200, 0.6);
         box-sizing: border-box;
         opacity: 0.6;
-        display: inline-flex;
+        display: flex;
         box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.3);
         cursor: default;
 
@@ -49,19 +40,23 @@
             box-shadow: none;
         }
 
-        .fv-TimePicker__input-item {
+        .fv-time-picker-input-item {
+            position: relative;
+            width: 10px;
             flex: 1;
             text-align: center;
+            font-size: 13.8px;
             white-space: nowrap;
+            user-select: none;
             cursor: inherit;
         }
-        .fv-TimePicker__input-item:nth-child(n + 2) {
+        .fv-time-picker-input-item:nth-child(n + 2) {
             border-left-style: solid;
             border-left-width: 1.5px;
         }
     }
-    .fv-TimePicker__options {
-        background-color: white;
+
+    .fv-time-picker-options {
         position: absolute;
         top: 0;
         left: 0;
@@ -69,7 +64,7 @@
         height: 400px;
         background-color: rgba(255, 255, 255, 0.9);
         color: #000;
-        border-color: rgba(200, 200, 200, 0.5);
+        border: rgba(120, 120, 120, 0.2) solid thin;
         border-radius: 6px;
         z-index: 2000;
         transform: translateY(-50%) translateY(35px);
@@ -78,17 +73,18 @@
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         display: flex;
         flex-direction: column;
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
 
-        .fv-TimePicker__options-body {
+        .fv-time-picker-options-body {
             position: relative;
-            height: calc(100% - 40px);
-            width: inherit;
-            display: inline-flex;
+            width: 100%;
+            height: 10px;
+            flex: 1;
+            display: flex;
             border-left-color: inherit;
 
-            .fv-TimePicker__options-body-mask {
+            .fv-time-picker-options-body-mask {
                 position: absolute;
                 height: 40px;
                 width: calc(100% - 6px);
@@ -99,46 +95,84 @@
                 // opacity: 0.8;
                 transform: translate(0, -50%);
             }
-            .fv-TimePicker__options-body-col {
+
+            .fv-time-picker-options-body-col {
+                position: relative;
                 flex: 1;
                 text-align: center;
                 z-index: 1;
-                position: relative;
 
-                &:hover {
-                    .fv-TimePicker__options-body-col-up,
-                    .fv-TimePicker__options-body-col-down {
-                        background-color: rgba(250, 250, 250, 1);
-                        display: block;
-                        opacity: 0.8;
-                        &:hover {
-                            opacity: 1;
-                        }
+                &:not(:last-child) {
+                    border-color: rgba(120, 120, 120, 0.2);
+                    border-right-style: solid;
+                    border-right-width: 1px;
+                }
+
+                .fv-time-picker-options-body-col-up,
+                .fv-time-picker-options-body-col-down {
+                    position: absolute;
+                    left: 0;
+                    width: 100%;
+                    height: 40px;
+                    font-size: 12px;
+                    background-color: rgba(255, 255, 255, 1);
+                    display: none;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 2;
+
+                    i {
+                        transform: scale(0.6);
+                        transform-origin: 50%;
                     }
 
-                    .fv-TimePicker__options-body-item {
-                        &:hover {
-                            background-color: rgba(200, 200, 200, 0.1);
+                    &:active {
+                        i {
+                            transform: scale(0.5);
                         }
                     }
                 }
 
-                .fv-TimePicker__options-body-items {
-                    height: 100%;
-                    overflow-x: hidden;
-                    overflow-y: auto;
-                    -ms-overflow-style: -ms-autohiding-scrollbar;
-                    &::-webkit-scrollbar {
-                        display: none;
+                .fv-time-picker-options-body-col-up {
+                    top: 0;
+                }
+
+                .fv-time-picker-options-body-col-down {
+                    bottom: 0;
+                }
+
+                &:hover {
+                    .fv-time-picker-options-body-col-up,
+                    .fv-time-picker-options-body-col-down {
+                        display: flex;
+                        &:hover {
+                            opacity: 1;
+                        }
                     }
-                    .fv-TimePicker__options-body-item {
+                }
+
+                .fv-time-picker-options-body-items {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+
+                    .fv-time-picker-options-body-item {
+                        width: calc(100% - 6px);
                         height: 40px;
+                        flex-shrink: 0;
+                        margin-left: 3px;
+                        padding: 0px 3px;
                         font-size: 14px;
+                        border-radius: 6px;
                         box-sizing: border-box;
-                        padding: 10px 20px;
-                        line-height: 100%;
-                        border-color: inherit;
                         white-space: nowrap;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
                         -moz-user-select: -moz-none;
                         -o-user-select: none;
                         -khtml-user-select: none;
@@ -146,44 +180,31 @@
                         -ms-user-select: none;
                         user-select: none;
                         z-index: 100;
+
+                        &.swiper-slide-active {
+                            width: calc(100% - 10px);
+                            margin-left: 5px;
+                            color: whitesmoke;
+                            background-color: var(--hover-color);
+
+                            &:hover {
+                                background-color: var(--hover-color);
+                            }
+                        }
+
+                        &:hover {
+                            background-color: var(--hover-color);
+                        }
+
+                        &:active {
+                            opacity: 0.6;
+                        }
                     }
-                }
-            }
-            .fv-TimePicker__options-body-col:nth-child(n + 3) {
-                border-color: inherit;
-                .fv-TimePicker__options-body-items {
-                    border-color: inherit;
-                    .fv-TimePicker__options-body-item {
-                        border-left-style: solid;
-                        border-left-width: 1px;
-                    }
-                }
-                .fv-TimePicker__options-body-col-up,
-                .fv-TimePicker__options-body-col-down {
-                    border-left-style: solid;
-                    border-left-width: 1px;
-                    border-color: inherit;
-                    cursor: pointer;
-                }
-            }
-            .fv-TimePicker__options-body-col {
-                .fv-TimePicker__options-body-col-up,
-                .fv-TimePicker__options-body-col-down {
-                    display: none;
-                    position: absolute;
-                    height: 20px;
-                    width: 100%;
-                    text-align: center;
-                    line-height: 20px;
-                    font-size: 8px;
-                    cursor: pointer;
-                }
-                .fv-TimePicker__options-body-col-down {
-                    transform: translate(0, -100%);
                 }
             }
         }
-        .fv-TimePicker__options-bar {
+
+        .fv-time-picker-options-bar {
             height: 40px;
             width: inherit;
             padding: 3px 0px;
@@ -195,10 +216,9 @@
             border-top-width: 1px;
             border-color: inherit;
             z-index: 1;
-            
 
-            .fv-TimePicker__options-bar-accept,
-            .fv-TimePicker__options-bar-cancel {
+            .fv-time-picker-options-bar-accept,
+            .fv-time-picker-options-bar-cancel {
                 width: 100%;
                 height: 100%;
                 margin: 0px 1px;
@@ -220,24 +240,24 @@
 
     &.disabled {
         filter: grayscale(100%);
-        opacity: 0.6;        
+        opacity: 0.6;
 
-        .fv-TimePicker__input {
+        .fv-time-picker-input {
             opacity: 0.8;
             box-shadow: none;
             cursor: not-allowed;
         }
     }
 
-    .fv-TimePicker__options-enter-from {
+    .fv-time-picker-options-enter-from {
         height: 0;
     }
 
-    .fv-TimePicker__options-enter-to {
+    .fv-time-picker-options-enter-to {
         height: 400px;
     }
 
-    .fv-TimePicker__options-enter-active {
+    .fv-time-picker-options-enter-active {
         transition: height 0.1s ease-out;
     }
 }
