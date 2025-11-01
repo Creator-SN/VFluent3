@@ -179,6 +179,15 @@ title: NavigationPanel
 <template v-slot:panel></template>
 ```
 
+5. Banner
+
+自定义`NavigationPanel`顶部banner区域内容, 可用于自定义logo等
+
+```javascript
+<template v-slot:banner></template>
+```
+
+
 ### Appendix
 
 ---

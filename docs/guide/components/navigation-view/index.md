@@ -228,6 +228,17 @@ export default {
 </template>
 ```
 
+5. Banner
+
+自定义`NavigationView`顶部banner区域内容, 可用于自定义logo等
+
+```vue
+<template v-slot:banner>
+    <div class="banner">
+        <img src="https://picsum.photos/200/300" alt="logo" />
+    </div>
+</template>
+```
 
 
 ### Data

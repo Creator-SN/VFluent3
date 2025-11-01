@@ -38,6 +38,7 @@
                 <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
             </fv-animated-icon>
         </div>
+        <slot name="banner"></slot>
         <div
             class="panel-container"
             :style="{ width: navWidth, background: background }"

@@ -23,6 +23,9 @@
             @expand-change="expandChange"
             @setting-click="settingClick"
         >
+            <template v-slot:banner>
+                <slot name="banner"></slot>
+            </template>
             <template v-slot:title="{ show }">
                 <slot name="title" :show="show">
                     <p v-show="show" class="name title">{{ title }}</p>
