@@ -107,6 +107,9 @@
                         height: 16px;
                         margin: 0px 1px;
                         object-fit: cover;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
                     }
 
                     .fv-tree-view-item-text {

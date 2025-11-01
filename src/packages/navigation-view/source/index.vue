@@ -23,19 +23,36 @@
             @expand-change="expandChange"
             @setting-click="settingClick"
         >
+            <template v-slot:title="{ show }">
+                <slot name="title" :show="show">
+                    <p v-show="show" class="name title">{{ title }}</p>
+                </slot>
+            </template>
+            <template v-slot:navIcon>
+                <slot name="navIcon">
+                    <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
+                </slot>
+            </template>
+            <template v-slot:backIcon>
+                <slot name="backIcon">
+                    <i class="ms-Icon ms-Icon--Back icon"></i>
+                </slot>
+            </template>
             <template v-slot:searchBlock>
-                <fv-search-box
-                    :options="options"
-                    icon="Search"
-                    :placeholder="searchPlaceholder"
-                    :theme="theme"
-                    class="nav-search"
-                    :revealBorder="true"
-                    borderRadius="3"
-                    :isBoxShadow="true"
-                    style="width: 95%"
-                    @choose-result="onChooseSearch"
-                ></fv-search-box>
+                <slot name="searchBlock" :options="options">
+                    <fv-search-box
+                        :options="options"
+                        icon="Search"
+                        :placeholder="searchPlaceholder"
+                        :theme="theme"
+                        class="nav-search"
+                        :revealBorder="true"
+                        borderRadius="3"
+                        :isBoxShadow="true"
+                        style="width: 95%"
+                        @choose-result="onChooseSearch"
+                    ></fv-search-box>
+                </slot>
             </template>
             <template v-slot:panel>
                 <fv-list-view
@@ -190,6 +207,7 @@ const props = defineProps({
 
 <script>
 import { useTheme } from '@/utils/common';
+import { title } from 'process';
 
 export default {
     name: 'FvNavigationView',

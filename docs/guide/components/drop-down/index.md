@@ -28,7 +28,7 @@ export default {
 </script>
 
 <ClientOnly>
-<fv-DropDown v-model="value" :options="options" placeholder="Select an option" style="z-index: 3;"></fv-DropDown>
+<fv-DropDown v-model="value" :options="options" placeholder="Select an option"></fv-DropDown>
 </ClientOnly>
 
 ```vue
@@ -41,18 +41,18 @@ export default {
 
 
 <ClientOnly>
-<fv-DropDown v-model="value" :options="options" placeholder="Select an option" disabled style="z-index: 2;"></fv-DropDown>
+<fv-DropDown v-model="value" :options="options" placeholder="Select an option" disabled></fv-DropDown>
 </ClientOnly>
 
 ```vue
 <fv-DropDown v-model="value" :options="options" placeholder="Select an option" disabled></fv-DropDown>
 ```
 
-2. DropDown without options
+1. DropDown without options
 
 
 <ClientOnly>
-<fv-DropDown placeholder="Select an option" style="z-index: 1;"></fv-DropDown>
+<fv-DropDown placeholder="Select an option"></fv-DropDown>
 </ClientOnly>
 
 ```vue
@@ -63,7 +63,7 @@ export default {
 ---
 
 <ClientOnly>
-<fv-DropDown :options="options" placeholder="Select options" :multiple="true" style="z-index: 5;"></fv-DropDown>
+<fv-DropDown :options="options" placeholder="Select options" :multiple="true"></fv-DropDown>
 </ClientOnly>
 
 ```vue
@@ -76,7 +76,7 @@ export default {
 
 
 <ClientOnly>
-<fv-DropDown :options="options" placeholder="Select an option" style="z-index: 4;"><template v-slot:options="item"><p>{{item.index}}</p></template></fv-DropDown>
+<fv-DropDown :options="options" placeholder="Select an option"><template v-slot:options="item"><p>{{item.index}}</p></template></fv-DropDown>
 </ClientOnly>
 
 ```vue
@@ -87,11 +87,11 @@ export default {
 </fv-DropDown>
 ```
 
-2. Custom Style
+1. Custom Style
 
 
 <ClientOnly>
-<fv-DropDown :options="options" placeholder="Select options" :multiple="true" :borderWidth="1" borderRadius="5" inputBackground="rgba(0,204,153,0.9)" checkBoxBackground="rgba(0, 204, 153, 0.9)" inputForeground="whitesmoke" dropDownIcon="AddTo" dropDownIconForeground="whitesmoke" dropDownListForeground="rgba(0,204,153,1)" dropDownListBackground="rgba(239,239,239,0.6)" style="z-index: 13;"></fv-DropDown>
+<fv-DropDown :options="options" placeholder="Select options" :multiple="true" :borderWidth="1" borderRadius="5" inputBackground="rgba(0,204,153,0.9)" checkBoxBackground="rgba(0, 204, 153, 0.9)" inputForeground="whitesmoke" dropDownIcon="AddTo" dropDownIconForeground="whitesmoke" dropDownListForeground="rgba(0,204,153,1)" dropDownListBackground="rgba(239,239,239,0.6)"></fv-DropDown>
 </ClientOnly>
  
 ```vue
@@ -102,7 +102,7 @@ export default {
 
 
 <ClientOnly>
-<fv-DropDown :options="options" placeholder="Select options" :multiple="true" style="z-index: 12;"><template v-slot:input="x"><i class="ms-Icon ms-Icon--Dynamics365Logo left-icon"></i><input :placeholder="x.placeholder" :value="x.value" style="padding-left: 36px; border: none;"/><i class="ms-Icon ms-Icon--DelveAnalyticsLogo right-icon"></i></template></fv-DropDown>
+<fv-DropDown :options="options" placeholder="Select options" :multiple="true"><template v-slot:input="x"><i class="ms-Icon ms-Icon--Dynamics365Logo left-icon"></i><input :placeholder="x.placeholder" :value="x.value" style="padding-left: 36px; border: none;"/><i class="ms-Icon ms-Icon--DelveAnalyticsLogo right-icon"></i></template></fv-DropDown>
 </ClientOnly>
 
 ```vue
@@ -118,11 +118,11 @@ export default {
 3. Custom Drop Down Carrier
 
 <ClientOnly>
-<fv-DropDown :options="options" placeholder="Select options" :multiple="true" style="z-index: 12;"><template v-slot:drop-carrier="x"><fv-button :theme="x.theme" :isBoxShadow="true" style="width: 150px;"><p>DropDown</p><i class="ms-Icon ms-Icon--ChevronDown" style="margin-left: 8px;"></i></fv-button></template></fv-DropDown>
+<fv-DropDown :options="options" placeholder="Select options" :multiple="true"><template v-slot:drop-carrier="x"><fv-button :theme="x.theme" :isBoxShadow="true" style="width: 150px;"><p>DropDown</p><i class="ms-Icon ms-Icon--ChevronDown" style="margin-left: 8px;"></i></fv-button></template></fv-DropDown>
 </ClientOnly>
 
 ```vue
-<fv-DropDown :options="options" placeholder="Select options" :multiple="true" style="z-index: 12;">
+<fv-DropDown :options="options" placeholder="Select options" :multiple="true">
     <template v-slot:drop-carrier="x">
         <fv-button :theme="x.theme" :isBoxShadow="true" style="width: 150px;">
             <p>DropDown</p>
@@ -136,7 +136,7 @@ export default {
 ---
 
 <ClientOnly>
-<fv-DropDown :options="options" placeholder="Select an option" :showError="true" style="z-index: 11;"></fv-DropDown>
+<fv-DropDown :options="options" placeholder="Select an option" :showError="true"></fv-DropDown>
 </ClientOnly>
 
 ```vue
@@ -149,7 +149,7 @@ export default {
 
 
 <ClientOnly>
-<fv-DropDown :options="options" placeholder="Select an option" theme="dark" style="z-index: 6;"></fv-DropDown>
+<fv-DropDown :options="options" placeholder="Select an option" theme="dark"></fv-DropDown>
 </ClientOnly>
 
 ```vue
@@ -160,7 +160,7 @@ export default {
 
 
 <ClientOnly>
-<fv-DropDown :options="options" placeholder="Select an option" theme="dark" :multiple="true" style="z-index: 5;"></fv-DropDown>
+<fv-DropDown :options="options" placeholder="Select an option" theme="dark" :multiple="true"></fv-DropDown>
 </ClientOnly>
 
 ```vue

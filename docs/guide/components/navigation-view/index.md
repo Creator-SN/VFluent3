@@ -198,6 +198,38 @@ export default {
 
 注意在收缩时要隐藏`<p>`标签的话一定要将其类型加上`name`.
 
+2. NavIcon
+
+默认的导航按钮为`GlobalNavButton`图标
+
+```vue
+<template v-slot:navIcon>
+    <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
+</template>
+```
+
+3. BackIcon
+
+默认的后退按钮为`Back`图标
+
+```vue
+<template v-slot:backIcon>
+    <i class="ms-Icon ms-Icon--Back icon"></i>
+</template>
+```
+
+4. Title
+
+默认的标题为`title`属性值
+
+```vue
+<template v-slot:title="{ show }">
+    <p v-show="show" class="name title">{{ title }}</p>
+</template>
+```
+
+
+
 ### Data
 
 ---

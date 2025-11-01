@@ -50,9 +50,13 @@
                 style="width: calc(100% - 10px)"
                 @click="$emit('back', $event)"
             >
-                <i class="ms-Icon ms-Icon--Back icon"></i>
+                <slot name="backIcon">
+                    <i class="ms-Icon ms-Icon--Back icon"></i>
+                </slot>
                 <template v-slot:content>
-                    <p class="name title">{{ title }}</p>
+                    <slot name="title" :show="showBack">
+                        <p class="name title">{{ title }}</p>
+                    </slot>
                 </template>
             </fv-animated-icon>
             <fv-animated-icon
@@ -63,9 +67,13 @@
                 style="width: calc(100% - 10px)"
                 @click="expandClick"
             >
-                <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
+                <slot name="navIcon">
+                    <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
+                </slot>
                 <template v-slot:content>
-                    <p v-show="!showBack" class="name title">{{ title }}</p>
+                    <slot name="title" :show="!showBack">
+                        <p v-show="!showBack" class="name title">{{ title }}</p>
+                    </slot>
                 </template>
             </fv-animated-icon>
             <span v-show="showSearch && thisExpand" class="search">

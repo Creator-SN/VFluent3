@@ -2,7 +2,7 @@
     <div
         class="fv-DropDown"
         :class="[$theme, isDisabled ? 'disabled' : '']"
-        :style="styles.dropDown"
+        :style="[styles.dropDown, {zIndex: show.listContainer ? 5 : ''}]"
     >
         <div
             class="fv-drop-down-input-container"
