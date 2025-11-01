@@ -38,11 +38,11 @@
                 <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
             </fv-animated-icon>
         </div>
-        <slot name="banner"></slot>
         <div
             class="panel-container"
             :style="{ width: navWidth, background: background }"
         >
+            <slot name="banner"></slot>
             <fv-animated-icon
                 v-show="showBack"
                 modelValue="backScale"
