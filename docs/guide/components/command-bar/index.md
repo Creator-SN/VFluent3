@@ -233,6 +233,8 @@ Compact Mode
 
 `options`中包含像`ListView`中的`items`一样的数据引用方式, 此外用户还可以指定:
 
+- 前景色`foreground`
+- 背景色`background`
 - 图标`icon`
 - 图标颜色`iconColor`
 - 触发函数`func`
@@ -269,7 +271,7 @@ options: [
   },
   { name: "Edit", func: this.customFunc, icon: "SingleColumnEdit", disabled: true },
   { type: "divider" },
-  { name: "Share", func: this.customFunc, icon: "Share" },
+  { name: "Share", func: this.customFunc, icon: "Share", foreground: "white", background: "rgba(0, 90, 158, 1)" },
   {
     type: "more",
     secondary: [
@@ -281,4 +283,4 @@ options: [
 ];
 ```
 
-**特别地** 支持采用函数式字段, 其中支持的字段包括`name`, `disabled`, `icon`, `iconColor`, `type`
+**特别地** 支持采用函数式字段, 其中支持的字段包括`name`, `disabled`, `foreground`, `background`, `icon`, `iconColor`, `type`

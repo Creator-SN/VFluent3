@@ -15,7 +15,9 @@
                     { disabled: valueTrigger(item.disabled) }
                 ]"
                 :style="{
-                    borderRadius: itemBorderRadius + 'px',
+                    background: valueTrigger(item.background),
+                    color: valueTrigger(item.foreground),
+                    borderRadius: itemBorderRadius + 'px'
                 }"
                 :key="index"
                 :title="valueTrigger(item.name)"
@@ -46,14 +48,23 @@
                         <i
                             class="ms-Icon icon"
                             :class="[`ms-Icon--${valueTrigger(item.icon)}`]"
-                            :style="{ color: valueTrigger(item.iconColor) }"
+                            :style="{
+                                color: item.iconColor
+                                    ? valueTrigger(item.iconColor)
+                                    : valueTrigger(item.foreground)
+                            }"
                         ></i>
-                        <p v-show="!compact" class="name">
+                        <p
+                            v-show="!compact"
+                            class="name"
+                            :style="{ color: valueTrigger(item.foreground) }"
+                        >
                             {{ valueTrigger(item.name) }}
                         </p>
                         <i
                             v-show="item.secondary.length > 0"
                             class="ms-Icon ms-Icon--ChevronDown icon"
+                            :style="{ color: valueTrigger(item.foreground) }"
                         ></i>
                     </slot>
                 </span>
