@@ -14,6 +14,9 @@
                     { not_disabled: !valueTrigger(item.disabled) },
                     { disabled: valueTrigger(item.disabled) }
                 ]"
+                :style="{
+                    borderRadius: itemBorderRadius + 'px',
+                }"
                 :key="index"
                 :title="valueTrigger(item.name)"
                 @click="itemClick($event, item)"
