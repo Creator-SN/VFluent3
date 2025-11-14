@@ -39,7 +39,7 @@ export default {
 <div style="width: 100%;">
     
 <ClientOnly>
-<fv-CommandBar v-model="value" :options="options" style="z-index: 2;"></fv-CommandBar>
+<fv-CommandBar v-model="value" :options="options"></fv-CommandBar>
 </ClientOnly>
 </div>
 
@@ -53,7 +53,7 @@ Compact Mode
 <div style="width: 100%;">
     
 <ClientOnly>
-<fv-CommandBar v-model="value" :options="options" :compact="true" style="z-index: 2;"></fv-CommandBar>
+<fv-CommandBar v-model="value" :options="options" :compact="true"></fv-CommandBar>
 </ClientOnly>
 </div>
 
@@ -71,7 +71,7 @@ Compact Mode
 <div style="width: 100%;">
     
 <ClientOnly>
-<fv-CommandBar :options="options" toward="up" style="z-index: 2;"></fv-CommandBar>
+<fv-CommandBar :options="options" toward="up"></fv-CommandBar>
 </ClientOnly>
 </div>
 
@@ -88,7 +88,7 @@ Compact Mode
 <div style="width: 100%;">
     
 <ClientOnly>
-<fv-CommandBar v-model="value" :options="options" style="z-index: 2;">
+<fv-CommandBar v-model="value" :options="options">
     <template v-slot:right-space>
         <span style="width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;">
             <i class="ms-Icon ms-Icon--Error icon"></i>
@@ -117,7 +117,7 @@ Compact Mode
 <div style="width: 100%;">
     
 <ClientOnly>
-<fv-CommandBar :options="options" theme="dark" style="z-index: 2;"></fv-CommandBar>
+<fv-CommandBar :options="options" theme="dark"></fv-CommandBar>
 </ClientOnly>
 </div>
 
@@ -134,7 +134,7 @@ Compact Mode
 <div style="width: 100%;">
     
 <ClientOnly>
-<fv-CommandBar :options="options" theme="dark" background="rgba(0, 98, 158, 1)" style="z-index: 2;"></fv-CommandBar>
+<fv-CommandBar :options="options" theme="dark" background="rgba(0, 98, 158, 1)"></fv-CommandBar>
 </ClientOnly>
 </div>
 
@@ -149,14 +149,16 @@ Compact Mode
 ---
 
 |      属性(attr)       |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:---------------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
+| :-------------------: | :-------------: | :------------: | :-------------: | :-------------------------------------------------------: |
 |         value         |     Object      |       No       |       N/A       |                    绑定当前选中的对象                     |
 |        options        |      Array      |      Yes       |       N/A       |                     CommandBar 数据源                     |
 |        toward         |  ['down','up']  |       No       |      down       |                      下拉菜单的朝向                       |
 |      background       | [string(color)] |       No       |       N/A       |                      CommandBar 背景                      |
+|  dropDownBackground   | [string(color)] |       No       |       N/A       |                       下拉菜单背景                        |
 |        compact        |     Boolean     |       No       |      false      |                         紧凑样式                          |
 |   revealBorderColor   | [string(color)] |       No       |       N/A       |                                                           |
 | revealBackgroundColor | [string(color)] |       No       |       N/A       |                                                           |
+|   itemBorderRadius    |     Number      |       No       |        6        |                       项目圆角半径                        |
 |         theme         |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
 
 ### Events
@@ -164,14 +166,14 @@ Compact Mode
 ---
 
 | 事件名(Name) | 参数类型(args) |     说明(statement)      |
-|:------------:|:--------------:|:------------------------:|
+| :----------: | :------------: | :----------------------: |
 |  item-click  |     object     | 选中项目时返回当前数据项 |
 
 ### Slot
 
 ---
 
-1. Right Space
+1. Right Space (right-space)
 
 用户可自定义 CommandBar 右侧内容
 
@@ -180,6 +182,48 @@ Compact Mode
   <i></i>
 </template>
 ```
+
+2. Option Item (optionItem)
+
+用户可自定义 CommandBar 选项项内容, 包含以下可选属性
+
+- item: 当前项
+- valueTrigger: 计算函数式定义的字段, 例如`item.name: () => '@' + item.name`
+
+```vue
+<template v-slot:optionItem="{ item, valueTrigger }">
+  <span>{{ valueTrigger(item.name) }}</span>
+</template>
+```
+
+3. List Item (listItem)
+
+用户可自定义 CommandBar 下拉选项项内容, 包含以下可选属性
+
+- item: 当前项
+- index: 当前项索引
+- valueTrigger: 计算函数式定义的字段, 例如`item.name: () => '@' + item.name`
+
+```vue
+<template v-slot:listItem="x">
+    <i
+        v-show="valueTrigger(x.item.icon) !== undefined"
+        class="ms-Icon icon"
+        :class="[
+            `ms-Icon--${valueTrigger(x.item.icon)}`
+        ]"
+        :style="{
+            color: valueTrigger(x.item.iconColor)
+        }"
+        style="font-size: 12px"
+    ></i>
+    <p class="name" style="font-size: 12px">
+        {{ valueTrigger(x.item.name) }}
+    </p>
+</template>
+```
+
+
 
 ### Data
 

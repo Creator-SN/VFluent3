@@ -134,10 +134,11 @@ export default {
 默认以value中每一项的属性name作为默认显示, 包含以下可选属性
 - item: 当前项
 - index: 当前项索引
+- valueTrigger: 计算函数式定义的字段, 例如`item.name: () => '@' + item.name`
 
 ```vue
 <template v-slot:listItem="x">
-    <p></p>
+    <p>{{ valueTrigger(item.name) }}</p>
 </template>
 ```
 

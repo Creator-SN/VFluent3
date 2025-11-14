@@ -2,7 +2,7 @@
     <div
         class="fv-CommandBar"
         :class="[$theme]"
-        :style="{ background: background }"
+        :style="{ background: background, zIndex: showDropDown ? 5 : 1 }"
     >
         <div class="left-command-bar-container">
             <span
@@ -33,20 +33,26 @@
                         :borderColor="borderLightColor"
                         :borderGradientSize="80"
                         :borderWidth="1"
-                        :borderRadius="6"
+                        :borderRadius="itemBorderRadius"
                     ></fv-reveal-container>
-                    <i
-                        class="ms-Icon icon"
-                        :class="[`ms-Icon--${valueTrigger(item.icon)}`]"
-                        :style="{ color: valueTrigger(item.iconColor) }"
-                    ></i>
-                    <p v-show="!compact" class="name">
-                        {{ valueTrigger(item.name) }}
-                    </p>
-                    <i
-                        v-show="item.secondary.length > 0"
-                        class="ms-Icon ms-Icon--ChevronDown icon"
-                    ></i>
+                    <slot
+                        name="optionItem"
+                        :item="item"
+                        :valueTrigger="valueTrigger"
+                    >
+                        <i
+                            class="ms-Icon icon"
+                            :class="[`ms-Icon--${valueTrigger(item.icon)}`]"
+                            :style="{ color: valueTrigger(item.iconColor) }"
+                        ></i>
+                        <p v-show="!compact" class="name">
+                            {{ valueTrigger(item.name) }}
+                        </p>
+                        <i
+                            v-show="item.secondary.length > 0"
+                            class="ms-Icon ms-Icon--ChevronDown icon"
+                        ></i>
+                    </slot>
                 </span>
                 <span
                     v-show="valueTrigger(item.type) === 'more'"
@@ -64,24 +70,41 @@
                 v-show="showDropDown"
                 class="command-bar-list-view-container"
                 :class="{ 'toward-up': toward == 'up' }"
-                :style="{ left: `${currentLeft}px`, background: background }"
+                :style="{
+                    left: `${currentLeft}px`,
+                    background: dropDownBackground
+                        ? dropDownBackground
+                        : background
+                }"
             >
                 <fv-list-view
                     v-model="thisValue.secondary"
+                    :itemBorderRadius="itemBorderRadius"
                     style="height: auto"
                     @chooseItem="chooseItem"
                 >
                     <template v-slot:listItem="x">
-                        <i
-                            v-show="valueTrigger(x.item.icon) !== undefined"
-                            class="ms-Icon icon"
-                            :class="[`ms-Icon--${valueTrigger(x.item.icon)}`]"
-                            :style="{ color: valueTrigger(x.item.iconColor) }"
-                            style="font-size: 12px"
-                        ></i>
-                        <p class="name" style="font-size: 12px">
-                            {{ valueTrigger(x.item.name) }}
-                        </p>
+                        <slot
+                            name="listItem"
+                            :item="x.item"
+                            :index="x.index"
+                            :valueTrigger="valueTrigger"
+                        >
+                            <i
+                                v-show="valueTrigger(x.item.icon) !== undefined"
+                                class="ms-Icon icon"
+                                :class="[
+                                    `ms-Icon--${valueTrigger(x.item.icon)}`
+                                ]"
+                                :style="{
+                                    color: valueTrigger(x.item.iconColor)
+                                }"
+                                style="font-size: 12px"
+                            ></i>
+                            <p class="name" style="font-size: 12px">
+                                {{ valueTrigger(x.item.name) }}
+                            </p>
+                        </slot>
                     </template>
                 </fv-list-view>
             </div>
@@ -111,6 +134,9 @@ const props = defineProps({
     background: {
         default: ''
     },
+    dropDownBackground: {
+        default: ''
+    },
     compact: {
         default: false
     },
@@ -119,6 +145,9 @@ const props = defineProps({
     },
     revealBackgroundColor: {
         default: false
+    },
+    itemBorderRadius: {
+        default: 6
     }
 });
 </script>
