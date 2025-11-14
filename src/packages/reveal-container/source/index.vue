@@ -441,8 +441,9 @@ export default {
             const { left, top, right, bottom } = el.getBoundingClientRect();
             this.offset.left = left;
             this.offset.top = top;
-            this.offset.right = right;
-            this.offset.bottom = bottom;
+            // Resist the influence of `transform: scale`
+            this.offset.right = left + el.offsetWidth;
+            this.offset.bottom = top + el.offsetHeight;
             return { left, top, right, bottom };
         },
         moveInsideElement(el, cursorX, cursorY) {

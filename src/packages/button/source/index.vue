@@ -22,8 +22,6 @@
                     background: background,
                     'background-repeat': 'no-repeat',
                     'background-clip': 'content-box',
-                    borderColor: borderColor,
-                    borderWidth: `${borderWidth}px`,
                     borderRadius: `${borderRadius}px`
                 }"
             >
@@ -43,6 +41,14 @@
                     <slot>Button</slot>
                 </span>
             </div>
+            <div
+                class="fv-button-regular-border"
+                :style="{
+                    borderColor: borderColor,
+                    borderWidth: `${borderWidth}px`,
+                    borderRadius: `${borderRadius}px`
+                }"
+            ></div>
         </div>
     </div>
 </template>

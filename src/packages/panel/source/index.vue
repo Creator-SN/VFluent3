@@ -1,6 +1,11 @@
 <template>
     <transition name="fv-panel-show">
-        <div v-show="thisValue" class="fv-Panel" :class="[$theme]">
+        <div
+            v-show="thisValue"
+            class="fv-Panel"
+            :class="[$theme]"
+            :style="{ zIndex: thisValue ? 30 : '' }"
+        >
             <div
                 class="fv-panel-back-board"
                 @click="isLightDismiss ? (thisValue = false) : 0"
