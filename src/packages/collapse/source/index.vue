@@ -6,9 +6,7 @@
             { visibleOverflow: disabledCollapse && visibleOverflow }
         ]"
         :style="{
-            height: !thisValue ? `${defaultHeight}px` : `${maxHeight}px`,
-            'max-height': `${maxHeight}px`,
-            background: hover ? hoverBackground : background
+            height: !thisValue ? `${defaultHeight}px` : computedMaxHeight
         }"
         @mouseenter="hover = true"
         @touchstart="hover = true"
@@ -161,6 +159,20 @@ export default {
             } catch (e) {
                 return '';
             }
+        },
+        computedMaxHeight() {
+            if (parseFloat(this.maxHeight).toString() === 'NaN') {
+                return this.maxHeight;
+            }
+            let hintUnits = ['px', '%', 'vw', 'vh', 'rem', 'em'];
+            let maxHeight = this.maxHeight;
+            for (let unit of hintUnits) {
+                if (maxHeight.toString().includes(unit)) {
+                    return maxHeight;
+                }
+            }
+
+            return `${maxHeight}px`;
         },
         $theme() {
             return useTheme(this.$props).theme.value;

@@ -2,40 +2,56 @@
     <div
         class="fv-Pivot"
         :class="[$theme, tab ? 'tab' : '']"
-        :style="{ background: background }"
+        :style="{
+            padding: padding,
+            background: background,
+            borderRadius: borderRadius
+        }"
     >
-        <div class="pivot-container">
-            <span
-                v-show="valueTrigger(item.show)"
-                class="pivot-item"
-                v-for="(item, index) in thisItems"
-                :key="index"
-                :class="{
-                    choose: eqal(item),
-                    disabled: valueTrigger(item.disabled)
-                }"
-                :ref="`item_${index}`"
-                :style="{ width: itemWidth(item) }"
-                @click="itemClick(item)"
-            >
-                <slot name="container" :item="item" :index="index">
-                    <p
-                        :style="{
-                            fontSize: `${fontSize}px`,
-                            color: styles.container.color
-                        }"
+        <div class="pivot-wrapper">
+            <div class="pivot-container">
+                <span
+                    v-show="valueTrigger(item.show)"
+                    class="pivot-item"
+                    v-for="(item, index) in thisItems"
+                    :key="index"
+                    :class="{
+                        choose: eqal(item),
+                        disabled: valueTrigger(item.disabled)
+                    }"
+                    :ref="`item_${index}`"
+                    :style="{ width: itemWidth(item), padding: itemPadding }"
+                    @click="itemClick(item)"
+                >
+                    <slot
+                        name="container"
+                        :item="item"
+                        :index="index"
+                        :eqal="eqal"
+                        :valueTrigger="valueTrigger"
                     >
-                        {{ valueTrigger(item.name) }}
-                    </p>
-                </slot>
-            </span>
+                        <p
+                            :style="{
+                                fontSize: `${fontSize}px`,
+                                color: eqal(item)
+                                    ? choosenForeground
+                                    : foreground
+                            }"
+                        >
+                            {{ valueTrigger(item.name) }}
+                        </p>
+                    </slot>
+                </span>
+            </div>
+            <slider
+                v-if="thisItems.length > 0"
+                :idx="currentIdx"
+                :els="currentEls"
+                :sliderBoxshadow="sliderBoxshadow"
+                :background="sliderBackground"
+                :sliderBorderRadius="sliderBorderRadius"
+            ></slider>
         </div>
-        <slider
-            v-if="thisItems.length > 0"
-            :els="currentEls"
-            :sliderBoxshadow="sliderBoxshadow"
-            :background="styles.slider.background"
-        ></slider>
     </div>
 </template>
 
@@ -58,10 +74,19 @@ const props = defineProps({
     tab: {
         default: false
     },
+    padding: {
+        default: ''
+    },
+    itemPadding: {
+        default: ''
+    },
     fontSize: {
         default: ''
     },
     foreground: {
+        default: ''
+    },
+    choosenForeground: {
         default: ''
     },
     sliderBackground: {
@@ -70,7 +95,13 @@ const props = defineProps({
     sliderBoxshadow: {
         default: false
     },
+    sliderBorderRadius: {
+        default: '3px'
+    },
     background: {
+        default: ''
+    },
+    borderRadius: {
         default: ''
     }
 });
@@ -91,6 +122,8 @@ export default {
         return {
             thisItems: [],
             thisValue: null,
+            currentIdx: 0,
+            currentEls: [],
             styles: {
                 slider: {
                     background: ''
@@ -111,6 +144,7 @@ export default {
         thisValue(val) {
             this.$emit('update:modelValue', val);
             this.$emit('change', val);
+            this.refreshIdx();
         },
         foreground(val) {
             this.stylesInit();
@@ -122,64 +156,29 @@ export default {
     computed: {
         itemWidth() {
             return (item) => {
-                if (!item.width) return 0;
-                if (isNaN(item.width)) {
-                    return this.valueTrigger(item.width);
+                if (!item.width) return 'auto';
+                let val = this.valueTrigger(item.width);
+                if (parseFloat(val).toString() === 'NaN') {
+                    return val;
                 }
-                return `${item.width}px`;
-            };
-        },
-        currentEls() {
-            return () => {
-                let index = -1;
-                if (!this.thisValue) index = 0;
-                else if (this.thisValue.key)
-                    index = this.thisItems.findIndex(
-                        (item) => item.key === this.thisValue.key
-                    );
-                else
-                    index = this.thisItems.findIndex(
-                        (item) =>
-                            this.valueTrigger(item.name) ===
-                            this.valueTrigger(this.thisValue.name)
-                    );
-                if (index < 0) index = 0;
-                let result = [];
-                for (let i = 0; i < this.thisItems.length; i++) {
-                    result.push({
-                        el: this.$refs[`item_${i}`]
-                            ? this.$refs[`item_${i}`][0]
-                            : null,
-                        show: this.valueTrigger(this.thisItems[i].show)
-                    });
+                if (isNaN(val)) {
+                    return val;
                 }
-                return {
-                    index: index,
-                    els: result
-                };
+                return `${val}px`;
             };
         },
         $theme() {
             return useTheme(this.$props).theme.value;
         }
     },
-    updated() {
-        if (!this.thisValue || !this.valueTrigger(this.thisValue.show))
-            this.thisValue = this.thisItems.find(
-                (it) =>
-                    this.valueTrigger(it.show) &&
-                    !this.valueTrigger(it.disabled)
-            );
-    },
     mounted() {
-        this.stylesInit();
         this.itemsInit();
+        this.defaultItemInit();
     },
     methods: {
         itemsInit() {
             let model = {
                 name: 'Pivot',
-                width: 60,
                 show: true,
                 disabled: false
             };
@@ -191,6 +190,9 @@ export default {
             }
             this.thisItems = items;
             this.findCurrentValue();
+            this.$nextTick(() => {
+                this.refreshCurrentEls();
+            });
         },
         findCurrentValue() {
             if (!this.modelValue) {
@@ -221,9 +223,37 @@ export default {
                 if (match) this.thisValue = match;
             }
         },
-        stylesInit() {
-            this.styles.slider.background = this.sliderBackground;
-            this.styles.container.color = this.foreground;
+        defaultItemInit() {
+            if (!this.thisValue || !this.valueTrigger(this.thisValue.show)) {
+                this.thisValue = this.thisItems.find(
+                    (it) =>
+                        this.valueTrigger(it.show) &&
+                        !this.valueTrigger(it.disabled)
+                );
+            }
+        },
+        refreshIdx() {
+            if (!this.thisValue || !this.thisValue.key) {
+                this.currentIdx = 0;
+                return;
+            }
+            let index = this.thisItems.findIndex(
+                (item) => item.key === this.thisValue.key
+            );
+            if (index < 0) index = 0;
+            this.currentIdx = index;
+        },
+        refreshCurrentEls() {
+            let result = [];
+            for (let i = 0; i < this.thisItems.length; i++) {
+                result.push({
+                    el: this.$refs[`item_${i}`]
+                        ? this.$refs[`item_${i}`][0]
+                        : null,
+                    show: this.valueTrigger(this.thisItems[i].show)
+                });
+            }
+            this.currentEls = result;
         },
         itemClick(item) {
             if (item.disabled) return 0;

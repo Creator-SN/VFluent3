@@ -6,8 +6,7 @@
             { visibleOverflow: disabledExpander && visibleOverflow }
         ]"
         :style="{
-            height: !thisValue ? `${defaultHeight}px` : `${maxHeight}px`,
-            'max-height': `${maxHeight}px`
+            height: !thisValue ? `${defaultHeight}px` : computedMaxHeight
         }"
         @mouseenter="hover = true"
         @touchstart="hover = true"
@@ -65,6 +64,7 @@
             <div
                 v-show="thisValue"
                 class="expander-detail"
+                ref="detail"
                 :style="{ background: expandBackground }"
             >
                 <slot></slot>
@@ -77,7 +77,12 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
-const emits = defineEmits(['update:modelValue', 'item-click']);
+const emits = defineEmits([
+    'update:modelValue',
+    'item-click',
+    'description-click',
+    'icon-click'
+]);
 
 const props = defineProps({
     ...commonProps,
@@ -148,6 +153,20 @@ export default {
             } catch (e) {
                 return '';
             }
+        },
+        computedMaxHeight() {
+            if (parseFloat(this.maxHeight).toString() === 'NaN') {
+                return this.maxHeight;
+            }
+            let hintUnits = ['px', '%', 'vw', 'vh', 'rem', 'em'];
+            let maxHeight = this.maxHeight;
+            for (let unit of hintUnits) {
+                if (maxHeight.toString().includes(unit)) {
+                    return maxHeight;
+                }
+            }
+
+            return `${maxHeight}px`;
         },
         $theme() {
             return useTheme(this.$props).theme.value;

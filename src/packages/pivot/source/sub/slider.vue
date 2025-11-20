@@ -2,10 +2,16 @@
     <div class="slider">
         <span
             class="fv-pivot-s"
-            :class="[{'is-boxshadow': sliderBoxshadow}]"
-            :style="{'margin-left': `${domLeft}px`, width: `${domWidth}px`}"
+            :style="{ 'margin-left': `${domLeft}px`, width: `${domWidth}px` }"
         >
-            <p :style="{background: background}"></p>
+            <p
+                class="fv-pivot-s-item"
+                :class="[{ 'is-boxshadow': sliderBoxshadow }]"
+                :style="{
+                    background: background,
+                    borderRadius: sliderBorderRadius
+                }"
+            ></p>
         </span>
     </div>
 </template>
@@ -17,8 +23,11 @@ import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 export default {
     emits: ['update:modelValue'],
     props: {
+        idx: {
+            default: 0
+        },
         els: {
-            default: () => null
+            default: () => []
         },
         sliderBoxshadow: {
             default: false
@@ -26,9 +35,12 @@ export default {
         background: {
             default: ''
         },
+        sliderBorderRadius: {
+            default: '3px'
+        },
         theme: {
             type: String,
-            default: "global"
+            default: 'global'
         }
     },
     data() {
@@ -43,6 +55,9 @@ export default {
         };
     },
     watch: {
+        idx(val) {
+            this.moveInit();
+        },
         left(val) {
             this.moveInit();
         },
@@ -52,11 +67,12 @@ export default {
     },
     computed: {
         left() {
-            let { els, index } = this.els();
+            let els = this.els;
             let left = 0;
-            for (let i = 0; i < index; i++) {
+            if (els.length === 0) return 0;
+            for (let i = 0; i < this.idx; i++) {
                 let elItem = els[i];
-                if (!elItem.el || !elItem.show) left += 0;
+                if (!elItem.show) left += 0;
                 else {
                     let elWidth = elItem.el.clientWidth;
                     left += elWidth;
@@ -65,8 +81,9 @@ export default {
             return left;
         },
         width() {
-            let { els, index } = this.els();
-            let elItem = els[index];
+            let els = this.els;
+            let elItem = els[this.idx];
+            if (!elItem) return 0;
             if (elItem.el) return elItem.el.clientWidth;
             return 60;
         },
@@ -75,7 +92,9 @@ export default {
         }
     },
     mounted() {
-        this.moveInit();
+        this.$nextTick(() => {
+            this.moveInit();
+        });
     },
     methods: {
         moveInit() {

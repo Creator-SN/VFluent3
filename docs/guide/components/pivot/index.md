@@ -11,7 +11,7 @@ export default {
         return {
             value: null,
             items: [
-                { key: 0, name: "All"},
+                { key: 0, name: "All", width: 60},
                 { key: 1, name: "Unread", width: 80},
                 { key: 2, name: "Flagged", width: 80, disabled: true },
                 { key: 3, name: "Urgent", width: 80}
@@ -41,7 +41,7 @@ export default {
 ### Pivot-Tab Customize
 ---
 
-<fv-Pivot v-model="value" :items="items" :tab="true" :sliderBoxshadow="true" :background="'rgba(238, 238, 239, 1)'"></fv-Pivot>
+<fv-Pivot v-model="value" :items="items" :tab="true" :sliderBoxshadow="true" style="height: 35px;" :background="'rgba(238, 238, 239, 1)'"></fv-Pivot>
 
 ```vue
 <fv-Pivot v-model="value" :items="items" :tab="true" :sliderBoxshadow="true" :background="'rgba(238, 238, 239, 1)'"></fv-Pivot>
@@ -80,22 +80,27 @@ export default {
 
 ### Propoties
 ---
-|    属性(attr)    |   类型(type)    | 必填(required) |        默认值(default)         |                      说明(statement)                      |
-|:----------------:|:---------------:|:--------------:|:------------------------------:|:---------------------------------------------------------:|
-|      value       |     Object      |       No       |              N/A               |                       当前选中项值                        |
-|      items       |      Array      |       No       | [{ name: "Pivot", width: 80 }] |                        选项卡数据                         |
-|       tab        |     Boolean     |       No       |             false              |                      是否开启tab样式                      |
-|     fontSize     |     Number      |       No       |              N/A               |                       默认字体大小                        |
-|    foreground    | [string(color)] |       No       |              N/A               |                          前景色                           |
-| sliderBackground | [string(color)] |       No       |              N/A               |                        滑块背景色                         |
-| sliderBoxshadow  |     Boolean     |       No       |             false              |                     是否开启滑块阴影                      |
-|    background    | [string(color)] |       No       |              N/A               |                          背景色                           |
-|      theme       |     String      |       No       |             system             | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+|     属性(attr)     |   类型(type)    | 必填(required) |        默认值(default)         |                      说明(statement)                      |
+| :----------------: | :-------------: | :------------: | :----------------------------: | :-------------------------------------------------------: |
+|       value        |     Object      |       No       |              N/A               |                       当前选中项值                        |
+|       items        |      Array      |       No       | [{ name: "Pivot", width: 80 }] |                        选项卡数据                         |
+|        tab         |     Boolean     |       No       |             false              |                      是否开启tab样式                      |
+|      padding       |     String      |       No       |              N/A               |                          内边距                           |
+|    itemPadding     |     String      |       No       |              N/A               |                       选项卡内边距                        |
+|      fontSize      |     Number      |       No       |              N/A               |                       默认字体大小                        |
+|     foreground     | [string(color)] |       No       |              N/A               |                          前景色                           |
+| choosenForeground  | [string(color)] |       No       |              N/A               |                       选中项前景色                        |
+|  sliderBackground  | [string(color)] |       No       |              N/A               |                        滑块背景色                         |
+|  sliderBoxshadow   |     Boolean     |       No       |             false              |                     是否开启滑块阴影                      |
+| sliderBorderRadius |     String      |       No       |             '3px'              |                         滑块圆角                          |
+|     background     | [string(color)] |       No       |              N/A               |                          背景色                           |
+|    borderRadius    |     String      |       No       |              N/A               |                         边框圆角                          |
+|       theme        |     String      |       No       |             system             | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
 
 ### Events
 ---
 | 事件名(Name) | 参数类型(args) |        说明(statement)        |
-|:------------:|:--------------:|:-----------------------------:|
+| :----------: | :------------: | :---------------------------: |
 |    input     |     value      | 当选中项发生改变时, 返回value |
 |    change    |     object     | 当选中项发生改变时, 返回value |
 
@@ -106,6 +111,8 @@ export default {
 自定义项目内的内容, 包含以下属性:
 - item: 当前项目数据
 - index: 当前项目索引
+- equal: 当前项目是否为选中项, 是一个`function`, 参数为当前项目数据, 返回值为`boolean`
+- valueTrigger: 选中项触发函数, 是一个`function`
 
 ```javascript
 <template v-slot:container="x">
