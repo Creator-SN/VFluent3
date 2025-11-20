@@ -3,5 +3,24 @@
 .fv-Drawer {
     &.dark {
         background-color: rgba(50, 50, 50, 0.99);
+
+        .fv-drawer-control-block {
+            .drawer-title {
+                color: rgba(243, 242, 241, 1);
+            }
+
+            .control-btn {
+                color: rgba(167, 167, 167, 1);
+
+                &:hover {
+                    background: rgba(120, 120, 120, 0.3);
+                    color: whitesmoke;
+                }
+            }
+        }
+
+        .fv-drawer-footer {
+            background: rgba(56, 56, 56, 0.6);
+        }
     }
 }

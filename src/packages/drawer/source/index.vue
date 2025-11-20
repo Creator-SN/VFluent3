@@ -1,12 +1,57 @@
 <template>
     <div
-        v-show="initShow"
+        v-show="thisValue"
         ref="drawer"
         class="fv-Drawer"
         :class="[$theme]"
-        :style="[style.drawer, { background: background }]"
+        :style="[
+            style.drawer,
+            {
+                background: background,
+                'backdrop-filter': isAcrylic ? 'blur(10px)' : 'none'
+            }
+        ]"
     >
-        <slot></slot>
+        <div
+            v-show="showTitleBar"
+            class="fv-drawer-control-block"
+            :style="{ padding: controlPadding }"
+        >
+            <slot name="header">
+                <p
+                    class="drawer-title"
+                    :style="{
+                        'font-size': `${titleSize}px`,
+                        'font-weight': titleWeight,
+                        color: titleColor
+                    }"
+                >
+                    {{ title }}
+                </p>
+                <i
+                    class="control-btn ms-Icon ms-Icon--Cancel"
+                    @click="close"
+                ></i>
+            </slot>
+        </div>
+        <div
+            class="fv-drawer-main-container"
+            :style="{ padding: contentPadding }"
+        >
+            <slot>Content Here</slot>
+        </div>
+        <div
+            v-show="isFooter"
+            class="fv-drawer-footer"
+            :style="{ padding: controlPadding }"
+        >
+            <slot name="footer">
+                <fv-button theme="dark" background="rgba(0, 90, 158, 1)"
+                    >OK</fv-button
+                >
+                <fv-button>Cancel</fv-button>
+            </slot>
+        </div>
     </div>
 </template>
 
@@ -22,26 +67,59 @@ const props = defineProps({
         type: String,
         default: 'bottom'
     },
-    length: {
-        default: 300
-    },
-    background: {
-        default: undefined
-    },
     modelValue: {
         default: undefined
     },
-    zIndex: {
-        type: Number,
-        default: 10
+    length: {
+        default: 800
     },
-    focusTrap: {
+    title: {
+        default: 'Drawer'
+    },
+    titleSize: {
+        default: 20
+    },
+    titleWeight: {
+        default: 'bold'
+    },
+    titleColor: {
+        default: ''
+    },
+    background: {
+        default: ''
+    },
+    borderRadius: {
+        default: ''
+    },
+    controlPadding: {
+        default: '12px 24px'
+    },
+    contentPadding: {
+        default: '24px'
+    },
+    showTitleBar: {
+        type: Boolean,
+        default: true
+    },
+    isFooter: {
         type: Boolean,
         default: false
+    },
+    zIndex: {
+        type: Number,
+        default: 30
+    },
+    isLightDismiss: {
+        type: Boolean,
+        default: true
+    },
+    isAcrylic: {
+        type: Boolean,
+        default: true
     },
     appendBody: {
         type: Boolean,
-        default: false
+        default: true
     }
 });
 </script>
@@ -59,24 +137,13 @@ export default {
                     zIndex: this.zIndex
                 }
             },
-            show: {
-                drawer: this.modelValue == undefined ? false : this.modelValue
-            },
-            initShow: this.computeVisible,
+            thisValue: this.modelValue,
             window: {
                 click: (evt) => {
-                    if (!this.computeVisible || this.lock) return;
-                    if (this.focusTrap) return;
-                    let el = evt.target;
-                    let _self = false;
-                    while (el) {
-                        if (el == this.$el) {
-                            _self = true;
-                        }
-                        if (el.parentNode) el = el.parentNode;
-                        else break;
-                    }
-                    if (!_self) this.computeVisible = false;
+                    if (!this.thisValue || this.lock) return;
+                    if (!this.isLightDismiss) return;
+                    if (!evt.composedPath().includes(this.$el))
+                        this.thisValue = false;
                 }
             }
         };
@@ -85,32 +152,29 @@ export default {
         $theme() {
             return useTheme(this.$props).theme.value;
         },
-        computeVisible: {
-            get() {
-                return this.modelValue == undefined
-                    ? this.show.drawer
-                    : this.modelValue;
-            },
-            set(val) {
-                this.show.drawer = val;
-                this.$emit('update:modelValue', val);
+        thisBorderRadius() {
+            if (typeof this.borderRadius == 'number') {
+                return this.borderRadius + 'px';
             }
+            return this.borderRadius;
         }
     },
     watch: {
-        computeVisible() {
+        modelValue(val) {
+            this.thisValue = val;
+        },
+        thisValue(val) {
             this.lock = true;
-            this.setStyle();
+            this.$emit('update:modelValue', val);
             // Avoid Dumplite Touch
             setTimeout(() => {
-                this.lock = false;
+                this.setStyle();
             }, 50);
         }
     },
     mounted() {
         this.init();
         this.setStyle();
-        this.initShow = true;
     },
     beforeUnmount() {
         for (let key in this.window) {
@@ -122,6 +186,11 @@ export default {
             for (let key in this.window) {
                 window.addEventListener(key, this.window[key]);
             }
+
+            this.$el.addEventListener('transitionend', () => {
+                this.lock = false;
+            });
+
             // For compatibility with IOS
             if (this.appendBody) {
                 this.globalAppendInit();
@@ -151,11 +220,12 @@ export default {
                     width: '100%',
                     maxWidth: '100%',
                     maxHeight: '100%',
+                    borderTop: '1px solid rgba(120, 120, 120, 0.1)',
+                    borderTopLeftRadius: this.thisBorderRadius,
+                    borderTopRightRadius: this.thisBorderRadius,
                     zIndex: this.zIndex,
                     transform: ` ${
-                        this.computeVisible
-                            ? 'translateY(0%)'
-                            : 'translateY(110%)'
+                        this.thisValue ? 'translateY(0%)' : 'translateY(110%)'
                     }`
                 };
             } else if (this.position == 'top') {
@@ -166,11 +236,12 @@ export default {
                     width: '100%',
                     maxWidth: '100%',
                     maxHeight: '100%',
+                    borderBottom: '1px solid rgba(120, 120, 120, 0.1)',
+                    borderBottomLeftRadius: this.thisBorderRadius,
+                    borderBottomRightRadius: this.thisBorderRadius,
                     zIndex: this.zIndex,
                     transform: `${
-                        this.computeVisible
-                            ? 'translateY(0%)'
-                            : 'translateY(-110%)'
+                        this.thisValue ? 'translateY(0%)' : 'translateY(-110%)'
                     }`
                 };
             } else if (this.position == 'left') {
@@ -181,11 +252,12 @@ export default {
                     height: '100%',
                     maxWidth: '100%',
                     maxHeight: '100%',
+                    borderRight: '1px solid rgba(120, 120, 120, 0.1)',
+                    borderTopRightRadius: this.thisBorderRadius,
+                    borderBottomRightRadius: this.thisBorderRadius,
                     zIndex: this.zIndex,
                     transform: `${
-                        this.computeVisible
-                            ? 'translateX(0%)'
-                            : 'translateX(-110%)'
+                        this.thisValue ? 'translateX(0%)' : 'translateX(-110%)'
                     }`
                 };
             } else {
@@ -196,17 +268,20 @@ export default {
                     height: '100%',
                     maxWidth: '100%',
                     maxHeight: '100%',
+                    borderLeft: '1px solid rgba(120, 120, 120, 0.1)',
+                    borderTopLeftRadius: this.thisBorderRadius,
+                    borderBottomLeftRadius: this.thisBorderRadius,
                     zIndex: this.zIndex,
                     transform: `${
-                        this.computeVisible
-                            ? 'translateX(0%)'
-                            : 'translateX(110%)'
+                        this.thisValue ? 'translateX(0%)' : 'translateX(110%)'
                     }`
                 };
             }
         },
         close() {
-            this.computeVisible = false;
+            if (!this.lock) {
+                this.thisValue = false;
+            }
         }
     },
     beforeUnmount() {
