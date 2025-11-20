@@ -98,11 +98,9 @@ const props = defineProps({
         default: '24px'
     },
     showTitleBar: {
-        type: Boolean,
         default: true
     },
     isFooter: {
-        type: Boolean,
         default: false
     },
     zIndex: {
@@ -110,15 +108,12 @@ const props = defineProps({
         default: 30
     },
     isLightDismiss: {
-        type: Boolean,
         default: true
     },
     isAcrylic: {
-        type: Boolean,
         default: true
     },
     appendBody: {
-        type: Boolean,
         default: true
     }
 });
