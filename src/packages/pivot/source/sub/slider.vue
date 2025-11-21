@@ -9,7 +9,7 @@
                 :class="[{ 'is-boxshadow': sliderBoxshadow }]"
                 :style="{
                     background: background,
-                    borderRadius: sliderBorderRadius
+                    borderRadius: sliderBorderRadius + 'px'
                 }"
             ></p>
         </span>
@@ -36,7 +36,7 @@ export default {
             default: ''
         },
         sliderBorderRadius: {
-            default: '3px'
+            default: '3'
         },
         theme: {
             type: String,

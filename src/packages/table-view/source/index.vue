@@ -27,8 +27,10 @@
                     :theme="$theme"
                     :dragItem="drag.columnItem"
                     draggable="true"
+                    @sort-asc="handleSort(index, false)"
+                    @sort-desc="handleSort(index, true)"
                     @duplicate-column="duplicateColumn"
-                    @dragstart.native="handleColumnDrag($event, item)"
+                    @dragstart="handleColumnDrag($event, item)"
                     @dragend="drag.columnItem = null"
                     @drop-item="swapColumn($event.drag, item)"
                     @delete-column="thisDeleteColumn($event, index)"
@@ -510,12 +512,18 @@ export default {
             this.show.addMenu = mode;
             this.show.editMenu = !mode;
         },
-        handleSort(type, desc = false) {
+        handleSort(index, desc = false) {
+            const { type, key } = this.modelValue.heads[index];
             let extension = this.thisExtensions.find((it) => it.type === type);
             if (!extension) return;
             if (!desc) {
-                this.modelValue.sort(this.extension.sortAsc);
-            } else this.modelValue.sort(this.extension.sortDesc);
+                this.modelValue.rows.sort((a, b) => {
+                    return extension.sortAsc(a[key], b[key]);
+                });
+            } else
+                this.modelValue.rows.sort((a, b) => {
+                    return extension.sortDesc(a[key], b[key]);
+                });
         },
         GuidWithoutDash() {
             function S4() {

@@ -16,9 +16,11 @@ export default {
         );
     },
     sortAsc: (a, b) => {
-        return a.localeCompare(b);
+        if (a.start === b.start) return a.end - b.end;
+        return a.start - b.start;
     },
     sortDesc: (a, b) => {
-        return b.localeCompare(a);
+        if (a.start === b.start) return b.end - a.end;
+        return b.start - a.start;
     }
 }

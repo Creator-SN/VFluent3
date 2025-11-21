@@ -103,46 +103,6 @@
                     }
                 }
 
-                .fv-tableview-number-edittool-inside-block {
-                    .number-edittool-title {
-                        color: rgba(120, 120, 120, 1);
-                    }
-
-                    .hor-block {
-                        .hor-item {
-                            border: rgba(90, 90, 90, 1) solid thin;
-
-                            &:hover {
-                                background: rgba(50, 50, 50, 1);
-                            }
-
-                            &:active {
-                                background: rgba(36, 36, 36, 1);
-                            }
-                        }
-                    }
-
-                    .show-as-config-block {
-                        background: rgba(20, 20, 20, 1);
-
-                        .show-as-config-item {
-                            .show-as-config-custom-drop-down {
-                                &:hover {
-                                    background: rgba(200, 200, 200, 0.1);
-                                }
-
-                                &:active {
-                                    background: rgba(200, 200, 200, 0.2);
-                                }
-                            }
-
-                            .color-block {
-                                border: rgba(120, 120, 120, 0.1) solid thin;
-                            }
-                        }
-                    }
-                }
-
                 hr {
                     border-bottom: rgba(90, 90, 90, 0.1) solid thin;
                 }

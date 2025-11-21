@@ -6,7 +6,7 @@
             loading.toString() != 'true' ? 'normal' : '',
             isDisabled ? 'disabled' : ''
         ]"
-        :style="{ background: background }"
+        :style="{ background: background, borderRadius: borderRadius + 'px' }"
     >
         <p
             v-show="loading.toString() == 'true'"
@@ -19,7 +19,8 @@
             v-show="loading.toString() != 'true'"
             :style="{
                 width: (percent <= 100 ? percent : 100) + '%',
-                background: foreground
+                background: foreground,
+                borderRadius: borderRadius + 'px'
             }"
         ></i>
     </div>
@@ -45,6 +46,9 @@ const props = defineProps({
     },
     background: {
         default: ''
+    },
+    borderRadius: {
+        default: 2
     },
     loading: {
         default: false

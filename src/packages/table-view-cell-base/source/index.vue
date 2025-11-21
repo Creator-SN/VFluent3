@@ -42,6 +42,7 @@
             :el="() => $el"
             :wrapperWidth="wrapperWidth"
             :isUnder="isUnder"
+            ref="edit_wrapper"
         >
             <slot name="entire" :modelValue="modelValue" :show="show.edit">
                 <fv-text-box

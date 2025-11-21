@@ -3,9 +3,6 @@
         v-bind="props"
         :wrapperWidth="'260px'"
         :formatFunction="formatNumberHead"
-        @duplicate-column="$emit('duplicate-column', $event)"
-        @drop-item="$emit('drop-item', $event)"
-        @delete-column="$emit('delete-column', $event)"
     >
         <template v-slot:menu>
             <div class="fv-tableview-default-edittool-row between">
@@ -27,7 +24,10 @@
                 </fv-drop-down>
             </div>
             <hr />
-            <div class="fv-tableview-number-edittool-inside-block">
+            <div
+                class="fv-tableview-number-edittool-inside-block"
+                :class="[{ dark: theme === 'dark' }]"
+            >
                 <span class="number-edittool-title">{{ i18n('Show as') }}</span>
                 <div class="hor-block">
                     <div
@@ -44,7 +44,7 @@
                                     ? foreground
                                     : '',
                             'border-width':
-                                modelValue.showAs === item.key ? '2px' : ''
+                                modelValue.showAs === item.key ? '1px' : ''
                         }"
                         @click="modelValue.showAs = item.key"
                     >
@@ -144,7 +144,10 @@ const props = defineProps(FvTableViewHeadProps);
 </script>
 
 <script>
+import { colorList, numberFormatList } from './utils/optionList.js';
+
 export default {
+    name: 'numberHead',
     data() {
         return {
             showAsList: [
@@ -166,184 +169,8 @@ export default {
             ],
             currentColors: [],
             currentFormats: [],
-            colorList: [
-                { name: 'gray', color: '#787774' },
-                { name: 'purple', color: '#958DF1' },
-                { name: 'pink', color: '#f58eda' },
-                { name: 'red', color: '#F98181' },
-                { name: 'orange', color: '#FBBC88' },
-                { name: 'yellow', color: '#FAF594' },
-                { name: 'blue', color: '#4086cb' },
-                { name: 'teal', color: '#94FADB' },
-                { name: 'green', color: '#B9F18D' },
-                { name: 'rose', color: '#ee7686' }
-            ],
-            numberFormatList: [
-                {
-                    key: 'Number',
-                    text: 'Number'
-                },
-                {
-                    key: 'Number with commas',
-                    text: 'Number with commas'
-                },
-                {
-                    key: 'Percent',
-                    text: 'Percent'
-                },
-                {
-                    key: 'US Dollar',
-                    text: 'US Dollar'
-                },
-                {
-                    key: 'Australian dollar',
-                    text: 'Australian dollar'
-                },
-                {
-                    key: 'Canadian dollar',
-                    text: 'Canadian dollar'
-                },
-                {
-                    key: 'Singapore dollar',
-                    text: 'Singapore dollar'
-                },
-                {
-                    key: 'Euro',
-                    text: 'Euro'
-                },
-                {
-                    key: 'Pound',
-                    text: 'Pound'
-                },
-                {
-                    key: 'Yen',
-                    text: 'Yen'
-                },
-                {
-                    key: 'Ruble',
-                    text: 'Ruble'
-                },
-                {
-                    key: 'Rupee',
-                    text: 'Rupee'
-                },
-                {
-                    key: 'Won',
-                    text: 'Won'
-                },
-                {
-                    key: 'Yuan',
-                    text: 'Yuan'
-                },
-                {
-                    key: 'Real',
-                    text: 'Real'
-                },
-                {
-                    key: 'Lira',
-                    text: 'Lira'
-                },
-                {
-                    key: 'Rupiah',
-                    text: 'Rupiah'
-                },
-                {
-                    key: 'Franc',
-                    text: 'Franc'
-                },
-                {
-                    key: 'Hong Kong dollar',
-                    text: 'Hong Kong dollar'
-                },
-                {
-                    key: 'New Zealand dollar',
-                    text: 'New Zealand dollar'
-                },
-                {
-                    key: 'Krona',
-                    text: 'Krona'
-                },
-                {
-                    key: 'Norwegian krone',
-                    text: 'Norwegian krone'
-                },
-                {
-                    key: 'Mexican peso',
-                    text: 'Mexican peso'
-                },
-                {
-                    key: 'Rand',
-                    text: 'Rand'
-                },
-                {
-                    key: 'New Taiwan dollar',
-                    text: 'New Taiwan dollar'
-                },
-                {
-                    key: 'Danish krone',
-                    text: 'Danish krone'
-                },
-                {
-                    key: 'Złoty',
-                    text: 'Złoty'
-                },
-                {
-                    key: 'Baht',
-                    text: 'Baht'
-                },
-                {
-                    key: 'Forint',
-                    text: 'Forint'
-                },
-                {
-                    key: 'Koruna',
-                    text: 'Koruna'
-                },
-                {
-                    key: 'Shekel',
-                    text: 'Shekel'
-                },
-                {
-                    key: 'Chilean peso',
-                    text: 'Chilean peso'
-                },
-                {
-                    key: 'Philippine peso',
-                    text: 'Philippine peso'
-                },
-                {
-                    key: 'Dirham',
-                    text: 'Dirham'
-                },
-                {
-                    key: 'Colombian peso',
-                    text: 'Colombian peso'
-                },
-                {
-                    key: 'Riyal',
-                    text: 'Riyal'
-                },
-                {
-                    key: 'Ringgit',
-                    text: 'Ringgit'
-                },
-                {
-                    key: 'Leu',
-                    text: 'Leu'
-                },
-                {
-                    key: 'Argentine peso',
-                    text: 'Argentine peso'
-                },
-                {
-                    key: 'Uruguayan peso',
-                    text: 'Uruguayan peso'
-                },
-                {
-                    key: 'Peruvian sol',
-                    text: 'Peruvian sol'
-                }
-            ]
+            colorList: colorList,
+            numberFormatList: numberFormatList
         };
     },
     watch: {
@@ -422,3 +249,163 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+.fv-tableview-number-edittool-inside-block {
+    position: relative;
+    width: calc(100% - 20px);
+    height: auto;
+    margin: 2px 0px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+
+    .number-edittool-title {
+        font-size: 12px;
+        color: rgba(120, 120, 120, 1);
+    }
+
+    .hor-block {
+        position: relative;
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .hor-item {
+            position: relative;
+            width: 75px;
+            height: 55px;
+            border: rgba(200, 200, 200, 1) solid thin;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                background: rgba(200, 200, 200, 1);
+            }
+
+            &:active {
+                background: rgba(180, 180, 180, 1);
+            }
+
+            .icon-block {
+                height: 20px;
+                margin: 0px;
+                flex: 1;
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+            }
+
+            .title-block {
+                height: 20px;
+                margin: 0px;
+                margin-top: 1.5px;
+                font-size: 10px;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    .show-as-config-block {
+        position: relative;
+        width: 100%;
+        margin-top: 10px;
+        padding: 0px 10px;
+        background: rgba(249, 249, 248, 1);
+        border-radius: 12px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        .show-as-config-item {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            font-size: 13.8px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .show-as-config-custom-drop-down {
+                position: relative;
+                width: 100%;
+                height: 35px;
+                padding: 0px 5px;
+                box-sizing: border-box;
+                border-radius: 6px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                &:hover {
+                    background: rgba(200, 200, 200, 0.1);
+                }
+
+                &:active {
+                    background: rgba(200, 200, 200, 0.2);
+                }
+            }
+
+            .color-block {
+                position: relative;
+                width: 15px;
+                height: 15px;
+                border: rgba(120, 120, 120, 0.1) solid thin;
+                border-radius: 6px;
+            }
+        }
+    }
+
+    &.dark {
+        .number-edittool-title {
+            color: rgba(120, 120, 120, 1);
+        }
+
+        .hor-block {
+            .hor-item {
+                border: rgba(90, 90, 90, 1) solid thin;
+
+                &:hover {
+                    background: rgba(50, 50, 50, 1);
+                }
+
+                &:active {
+                    background: rgba(36, 36, 36, 1);
+                }
+            }
+        }
+
+        .show-as-config-block {
+            background: rgba(20, 20, 20, 1);
+
+            .show-as-config-item {
+                .show-as-config-custom-drop-down {
+                    &:hover {
+                        background: rgba(200, 200, 200, 0.1);
+                    }
+
+                    &:active {
+                        background: rgba(200, 200, 200, 0.2);
+                    }
+                }
+
+                .color-block {
+                    border: rgba(120, 120, 120, 0.1) solid thin;
+                }
+            }
+        }
+    }
+}
+</style>

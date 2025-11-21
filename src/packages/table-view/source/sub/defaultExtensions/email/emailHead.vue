@@ -1,11 +1,5 @@
 <template>
-    <fv-table-view-head-base
-        v-bind="props"
-        :formatFunction="formatEmailHead"
-        @duplicate-column="$emit('duplicate-column', $event)"
-        @drop-item="$emit('drop-item', $event)"
-        @delete-column="$emit('delete-column', $event)"
-    >
+    <fv-table-view-head-base v-bind="props" :formatFunction="formatEmailHead">
     </fv-table-view-head-base>
 </template>
 
@@ -17,6 +11,7 @@ const props = defineProps(FvTableViewHeadProps);
 
 <script>
 export default {
+    name: 'emailHead',
     data() {
         return {};
     },
@@ -40,8 +35,7 @@ export default {
             for (let key in defaultHead) {
                 if (!modelValue[key]) modelValue[key] = defaultHead[key];
             }
-            if (!modelValue.__guid)
-                modelValue.__guid = this.GuidWithoutDash();
+            if (!modelValue.__guid) modelValue.__guid = this.GuidWithoutDash();
         },
         GuidWithoutDash() {
             function S4() {

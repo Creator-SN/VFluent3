@@ -26,7 +26,7 @@
                     {{ computedContent }}
                 </p>
                 <fv-progress-bar
-                    :value="computedPercent"
+                    :model-value="computedPercent"
                     :foreground="head.showColor"
                     style="width: 10px; flex: 1; margin-left: 5px"
                 ></fv-progress-bar>
@@ -44,7 +44,7 @@
                     {{ computedContent }}
                 </p>
                 <fv-progress-ring
-                    :value="computedPercent"
+                    :model-value="computedPercent"
                     :color="head.showColor"
                     r="12"
                     borderWidth="3"
@@ -62,6 +62,7 @@ const props = defineProps(FvTableViewCellProps);
 
 <script>
 export default {
+    name: 'numberCell',
     data() {
         return {
             numberFormatList: [

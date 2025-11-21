@@ -159,6 +159,7 @@ const props = defineProps(FvTableViewCellProps);
 
 <script>
 export default {
+    name: 'dateCell',
     data() {
         return {
             currentChoosenDates: [],

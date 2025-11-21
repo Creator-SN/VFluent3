@@ -21,6 +21,7 @@
                     draggable="false"
                     class="fv-tableview-edit-wrapper-container"
                     :style="{ width: wrapperWidth }"
+                    @dragstart="stopDragWrapper"
                     @click="$event.stopPropagation()"
                 >
                     <slot></slot>
@@ -60,6 +61,11 @@ export default {
             this.$emit('update:modelValue', this.thisValue);
         }
     },
-    methods: {}
+    methods: {
+        stopDragWrapper($event) {
+            console.log(1)
+            $event.stopPropagation();
+        }
+    }
 };
 </script>

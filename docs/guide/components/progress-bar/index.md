@@ -116,17 +116,18 @@ export default {
 
 ### Propoties
 ---
-| 属性(attr) |   类型(type)    | 必填(required) | 默认值(default) |       说明(statement)        |
-|:----------:|:---------------:|:--------------:|:---------------:|:----------------------------:|
-|   value    |    Number     |       No       |        0        |      Progressbar value       |
-|  loading   |    Boolean    |       No       |      false      | Is progressbar indeterminate |
-| foreground | [string(color)] |       No       |       N/A       |                              |
-| background | [string(color)] |       No       |       N/A       |                              |
-|  disabled  |    Boolean    |       No       |      false      |                              |
+|  属性(attr)  |   类型(type)    | 必填(required) | 默认值(default) |       说明(statement)        |
+| :----------: | :-------------: | :------------: | :-------------: | :--------------------------: |
+|    value     |     Number      |       No       |        0        |      Progressbar value       |
+|   loading    |     Boolean     |       No       |      false      | Is progressbar indeterminate |
+|  foreground  | [string(color)] |       No       |       N/A       |                              |
+|  background  | [string(color)] |       No       |       N/A       |                              |
+| borderRadius |     Number      |       No       |        2        |                              |
+|   disabled   |     Boolean     |       No       |      false      |                              |
 
 ### Events
 ---
 |   事件名(Name)    | 参数类型(args) | 说明(statement) |
-|:-----------------:|:--------------:|:---------------:|
+| :---------------: | :------------: | :-------------: |
 |  progress-change  |    percent     |                 |
 | progress-finished |    percent     |                 |

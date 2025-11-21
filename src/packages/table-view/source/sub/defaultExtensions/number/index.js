@@ -16,9 +16,9 @@ export default {
         );
     },
     sortAsc: (a, b) => {
-        return a.localeCompare(b);
+        return a - b;
     },
     sortDesc: (a, b) => {
-        return b.localeCompare(a);
+        return b - a;
     }
 }

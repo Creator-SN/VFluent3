@@ -4,9 +4,6 @@
         :wrapperWidth="'260px'"
         :dragItem="dragItem"
         :formatFunction="formatDateHead"
-        @duplicate-column="$emit('duplicate-column', $event)"
-        @drop-item="$emit('drop-item', $event)"
-        @delete-column="$emit('delete-column', $event)"
     >
         <template v-slot:menu>
             <div class="fv-tableview-default-edittool-row between">
@@ -56,6 +53,7 @@ const props = defineProps(FvTableViewHeadProps);
 
 <script>
 export default {
+    name: 'dateHead',
     data() {
         return {
             currentDateFormats: [],

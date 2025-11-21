@@ -3,6 +3,7 @@
         v-if="modelValue.__guid"
         class="fv-tableview-head-item"
         :class="[{ onDrop: dropMode, fixed: modelValue.fixed }]"
+        @dragstart="stopWrapper"
         @dragover="dragOver"
         @dragleave="dragLeave"
         @drop="dropItem"
@@ -45,6 +46,7 @@
             :el="() => $el"
             :wrapperWidth="wrapperWidth"
             :isUnder="isUnder"
+            ref="edit_wrapper"
         >
             <slot name="entire" :modelValue="modelValue" :show="show.edit">
                 <div
@@ -115,15 +117,33 @@
                 </div>
                 <slot name="menu"></slot>
                 <hr />
-                <div class="fv-tableview-default-edittool-row lighter">
+                <div
+                    class="fv-tableview-default-edittool-row lighter"
+                    @click="
+                        $emit('sort-asc', modelValue);
+                        show.edit = false;
+                    "
+                >
                     <i class="row-icon ms-Icon ms-Icon--Ascending"></i>
                     <p class="row-title">{{ i18n('Sort Ascending') }}</p>
                 </div>
-                <div class="fv-tableview-default-edittool-row lighter">
+                <div
+                    class="fv-tableview-default-edittool-row lighter"
+                    @click="
+                        $emit('sort-desc', modelValue);
+                        show.edit = false;
+                    "
+                >
                     <i class="row-icon ms-Icon ms-Icon--Descending"></i>
                     <p class="row-title">{{ i18n('Sort Descending') }}</p>
                 </div>
-                <div class="fv-tableview-default-edittool-row lighter">
+                <div
+                    class="fv-tableview-default-edittool-row lighter"
+                    @click="
+                        $emit('filter', modelValue);
+                        show.edit = false;
+                    "
+                >
                     <i class="row-icon ms-Icon ms-Icon--Filter"></i>
                     <p class="row-title">{{ i18n('Filter') }}</p>
                 </div>
@@ -215,7 +235,10 @@ const emits = defineEmits([
     'show-edit',
     'delete-column',
     'duplicate-column',
-    'drop-item'
+    'drop-item',
+    'sort-asc',
+    'sort-desc',
+    'filter'
 ]);
 
 const props = defineProps(tableViewHeadProps);
@@ -310,6 +333,9 @@ export default {
             let t = this.modelValue.width + dis;
             t = t < this.modelValue.minWidth ? this.modelValue.minWidth : t;
             this.modelValue.width = t;
+        },
+        stopWrapper(event) {
+            if (this.show.edit) event.preventDefault();
         },
         dragOver(event) {
             event.preventDefault();

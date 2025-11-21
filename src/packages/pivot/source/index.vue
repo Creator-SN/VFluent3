@@ -5,7 +5,7 @@
         :style="{
             padding: padding,
             background: background,
-            borderRadius: borderRadius
+            borderRadius: borderRadius + 'px'
         }"
     >
         <div class="pivot-wrapper">
@@ -96,7 +96,7 @@ const props = defineProps({
         default: false
     },
     sliderBorderRadius: {
-        default: '3px'
+        default: '3'
     },
     background: {
         default: ''

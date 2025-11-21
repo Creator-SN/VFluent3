@@ -24,6 +24,7 @@ const props = defineProps(FvTableViewCellProps);
 
 <script>
 export default {
+    name: 'emailCell',
     data() {
         return {};
     },
