@@ -1,15 +1,6 @@
 <template>
     <fv-table-view-cell-base
-        :modelValue="modelValue"
-        :head="head"
-        :i18n="i18n"
-        :selectPos="selectPos"
-        :foreground="foreground"
-        :row_index="row_index"
-        :col_index="col_index"
-        :fixedLeftWidth="fixedLeftWidth"
-        :fixedRightWidth="fixedRightWidth"
-        :theme="theme"
+        v-bind="props"
         :formatFunction="formatDate"
         :wrapperWidth="'300px'"
         :isUnder="true"
@@ -160,47 +151,14 @@
     </fv-table-view-cell-base>
 </template>
 
+<script setup>
+import { FvTableViewCellProps } from '@/packages/table-view-cell-base';
+
+const props = defineProps(FvTableViewCellProps);
+</script>
+
 <script>
 export default {
-    props: {
-        modelValue: {
-            type: Object,
-            default: () => ({})
-        },
-        head: {
-            type: Object,
-            default: () => ({})
-        },
-        i18n: {
-            type: Function,
-            default: (key) => key
-        },
-        selectPos: {
-            type: Object,
-            default: () => ({})
-        },
-        foreground: {
-            default: ''
-        },
-        fixedLeftWidth: {
-            default: 0
-        },
-        fixedRightWidth: {
-            default: 0
-        },
-        row_index: {
-            type: Number,
-            default: 0
-        },
-        col_index: {
-            type: Number,
-            default: 0
-        },
-        theme: {
-            type: String,
-            default: 'system'
-        }
-    },
     data() {
         return {
             currentChoosenDates: [],

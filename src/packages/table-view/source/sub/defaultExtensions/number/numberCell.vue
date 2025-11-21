@@ -1,15 +1,6 @@
 <template>
     <fv-table-view-cell-base
-        :value="value"
-        :head="head"
-        :i18n="i18n"
-        :selectPos="selectPos"
-        :foreground="foreground"
-        :row_index="row_index"
-        :col_index="col_index"
-        :fixedLeftWidth="fixedLeftWidth"
-        :fixedRightWidth="fixedRightWidth"
-        :theme="theme"
+        v-bind="props"
         @drop-item="$emit('drop-item', $event)"
         @set-select="$emit('set-select', $event)"
     >
@@ -63,47 +54,14 @@
     </fv-table-view-cell-base>
 </template>
 
+<script setup>
+import { FvTableViewCellProps } from '@/packages/table-view-cell-base';
+
+const props = defineProps(FvTableViewCellProps);
+</script>
+
 <script>
 export default {
-    props: {
-        value: {
-            type: Object,
-            default: () => ({})
-        },
-        head: {
-            type: Object,
-            default: () => ({})
-        },
-        i18n: {
-            type: Function,
-            default: (key) => key
-        },
-        selectPos: {
-            type: Object,
-            default: () => ({})
-        },
-        foreground: {
-            default: ''
-        },
-        fixedLeftWidth: {
-            default: 0
-        },
-        fixedRightWidth: {
-            default: 0
-        },
-        row_index: {
-            type: Number,
-            default: 0
-        },
-        col_index: {
-            type: Number,
-            default: 0
-        },
-        theme: {
-            type: String,
-            default: 'system'
-        }
-    },
     data() {
         return {
             numberFormatList: [
@@ -510,7 +468,7 @@ export default {
     },
     computed: {
         computedPercent() {
-            let val = parseFloat(this.value[this.head.key]);
+            let val = parseFloat(this.modelValue[this.head.key]);
             if (val.toString() !== 'NaN') {
                 if (!this.head.divideBy) return 0;
                 let percent = (val / this.head.divideBy) * 100;
@@ -525,8 +483,8 @@ export default {
         },
         computedContent() {
             if (this.computedFormatItem)
-                return this.computedFormatItem.func(this.value[this.head.key]);
-            return this.value[this.head.key];
+                return this.computedFormatItem.func(this.modelValue[this.head.key]);
+            return this.modelValue[this.head.key];
         }
     }
 };

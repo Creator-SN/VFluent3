@@ -1,14 +1,7 @@
 <template>
     <fv-table-view-head-base
-        :modelValue="modelValue"
-        :index="index"
-        :i18n="i18n"
-        :foreground="foreground"
-        :fixedLeftWidth="fixedLeftWidth"
-        :fixedRightWidth="fixedRightWidth"
-        :theme="theme"
+        v-bind="props"
         :wrapperWidth="'260px'"
-        :dragItem="dragItem"
         :formatFunction="formatNumberHead"
         @duplicate-column="$emit('duplicate-column', $event)"
         @drop-item="$emit('drop-item', $event)"
@@ -144,39 +137,14 @@
     </fv-table-view-head-base>
 </template>
 
+<script setup>
+import { FvTableViewHeadProps } from '@/packages/table-view-head-base';
+
+const props = defineProps(FvTableViewHeadProps);
+</script>
+
 <script>
 export default {
-    props: {
-        modelValue: {
-            type: Object,
-            default: () => ({})
-        },
-        index: {
-            type: Number,
-            default: 0
-        },
-        i18n: {
-            type: Function,
-            default: (key) => key
-        },
-        foreground: {
-            default: ''
-        },
-        dragItem: {
-            type: Object,
-            default: null
-        },
-        fixedLeftWidth: {
-            default: 0
-        },
-        fixedRightWidth: {
-            default: 0
-        },
-        theme: {
-            type: String,
-            default: 'system'
-        }
-    },
     data() {
         return {
             showAsList: [
