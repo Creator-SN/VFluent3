@@ -209,7 +209,7 @@
 
 <script setup>
 import { defineProps, defineEmits } from 'vue';
-import { commonProps } from '@/packages/common/props';
+import { tableViewHeadProps } from './index.ts';
 
 const emits = defineEmits([
     'show-edit',
@@ -218,44 +218,7 @@ const emits = defineEmits([
     'drop-item'
 ]);
 
-const props = defineProps({
-    ...commonProps,
-    modelValue: {
-        type: Object,
-        default: () => ({})
-    },
-    index: {
-        type: Number,
-        default: 0
-    },
-    i18n: {
-        type: Function,
-        default: (key) => key
-    },
-    foreground: {
-        default: ''
-    },
-    dragItem: {
-        type: Object,
-        default: null
-    },
-    fixedLeftWidth: {
-        default: 0
-    },
-    fixedRightWidth: {
-        default: 0
-    },
-    wrapperWidth: {
-        default: '220px'
-    },
-    formatFunction: {
-        default: null
-    },
-    isUnder: {
-        type: Boolean,
-        default: false
-    }
-});
+const props = defineProps(tableViewHeadProps);
 </script>
 
 <script>

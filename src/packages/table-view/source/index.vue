@@ -292,16 +292,7 @@ export default {
             window.addEventListener('keydown', this.cellPasteEvent);
         },
         outSideClickEvent(event) {
-            let x = event.target;
-            let _self = false;
-            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                if (x == this.$el) {
-                    _self = true;
-                    break;
-                }
-                x = x.parentNode;
-            }
-            if (!_self) {
+            if (!event.composedPath().includes(this.$el)) {
                 this.selectPos.start_row = -1;
                 this.selectPos.start_col = -1;
                 this.selectPos.end_row = -1;

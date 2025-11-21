@@ -63,57 +63,11 @@
 
 <script setup>
 import { defineProps, defineEmits } from 'vue';
-import { commonProps } from '@/packages/common/props';
+import { tableViewCellProps } from './index.ts';
 
 const emits = defineEmits(['show-edit', 'set-select', 'drop-item']);
 
-const props = defineProps({
-    ...commonProps,
-    modelValue: {
-        type: Object,
-        default: () => ({})
-    },
-    head: {
-        type: Object,
-        default: () => ({})
-    },
-    i18n: {
-        type: Function,
-        default: (key) => key
-    },
-    selectPos: {
-        type: Object,
-        default: () => ({})
-    },
-    foreground: {
-        default: ''
-    },
-    fixedLeftWidth: {
-        default: 0
-    },
-    fixedRightWidth: {
-        default: 0
-    },
-    wrapperWidth: {
-        default: '220px'
-    },
-    formatFunction: {
-        type: Function,
-        default: null
-    },
-    row_index: {
-        type: Number,
-        default: 0
-    },
-    col_index: {
-        type: Number,
-        default: 0
-    },
-    isUnder: {
-        type: Boolean,
-        default: false
-    }
-});
+const props = defineProps(tableViewCellProps);
 </script>
 
 <script>
