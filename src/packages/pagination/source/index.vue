@@ -35,10 +35,11 @@
             </template>
             <fv-button
                 :disabled="thisValue == total || isDisabled"
-                :class="{ small: small, shadow: shadow }"
+                :class="{ small: small }"
                 class="page-btn"
                 :theme="theme"
                 :background="background"
+                :is-box-shadow="shadow"
                 borderRadius="3"
                 @click="next"
             >
