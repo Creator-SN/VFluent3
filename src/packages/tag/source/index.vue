@@ -16,7 +16,10 @@
                 borderColor: item.background
                     ? getColor(item.background)['borderColor']
                     : '',
-                color: item.background ? getColor(item.background)['color'] : ''
+                color: item.background
+                    ? getColor(item.background)['color']
+                    : '',
+                borderRadius: borderRadius + 'px'
             }"
             @click="$emit('tag-click', item)"
         >
@@ -49,14 +52,19 @@
                     : '',
                 color: newTagBackground
                     ? getColor(newTagBackground)['color']
-                    : ''
+                    : '',
+                borderRadius: borderRadius + 'px'
             }"
             @click="editable"
         >
             <div v-show="!edit" class="fv-tag-icon">
                 <i class="ms-Icon ms-Icon--Add fv-tag-icon-btn"></i>
             </div>
-            <span v-show="!edit" class="fv-tag-content">
+            <span
+                v-show="!edit"
+                class="fv-tag-content"
+                :style="{ 'font-size': fontSize + 'px' }"
+            >
                 <slot>
                     <p class="fv-tag-default-content">
                         {{ newTagPlaceholder }}
@@ -104,7 +112,10 @@ const props = defineProps({
         default: null
     },
     fontSize: {
-        default: ''
+        default: 12
+    },
+    borderRadius: {
+        default: 6
     },
     isNewTag: {
         default: false

@@ -45,8 +45,10 @@ export default {
     },
     data() {
         return {
+            width: 0,
             domLeft: 0,
             domWidth: 60,
+            observer: null,
             styles: {
                 slider: {
                     background: ''
@@ -63,6 +65,9 @@ export default {
         },
         width(val) {
             this.moveInit();
+        },
+        currnetEl() {
+            this.watchSizeInit();
         }
     },
     computed: {
@@ -80,12 +85,9 @@ export default {
             }
             return left;
         },
-        width() {
-            let els = this.els;
-            let elItem = els[this.idx];
-            if (!elItem) return 0;
-            if (elItem.el) return elItem.el.clientWidth;
-            return 60;
+        currnetEl() {
+            if (this.els && this.els[this.idx]) return this.els[this.idx];
+            return null;
         },
         $theme() {
             return useTheme(this.$props).theme.value;
@@ -94,6 +96,7 @@ export default {
     mounted() {
         this.$nextTick(() => {
             this.moveInit();
+            this.watchSizeInit();
         });
     },
     methods: {
@@ -101,6 +104,19 @@ export default {
             let disLeft = this.left - this.domLeft;
             if (disLeft > 0) this.widthExpandToRight(disLeft);
             else this.widthExpandToLeft(disLeft);
+        },
+        watchSizeInit() {
+            if (this.observer) {
+                this.observer.disconnect();
+            }
+            if (!this.currnetEl || !this.currnetEl.el) return;
+            this.observer = new ResizeObserver((entries) => {
+                for (let entry of entries) {
+                    this.width = this.currnetEl.el.clientWidth;
+                    this.moveInit();
+                }
+            });
+            this.observer.observe(this.currnetEl.el);
         },
         widthExpandToRight(disLeft) {
             let addWidth = Math.abs(disLeft) + this.width;
@@ -137,6 +153,11 @@ export default {
                 duration: 0.2,
                 ease: 'power3.out'
             });
+        }
+    },
+    beforeUnmount() {
+        if (this.observer) {
+            this.observer.disconnect();
         }
     }
 };

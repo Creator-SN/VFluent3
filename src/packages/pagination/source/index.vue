@@ -7,8 +7,10 @@
                 class="page-btn"
                 :theme="theme"
                 :background="background"
+                :reveal-background-color="revealBackgroundColor"
+                :reveal-border-color="revealBorderColor"
                 :is-box-shadow="shadow"
-                borderRadius="3"
+                :borderRadius="borderRadius"
                 @click="prev"
             >
                 <i class="ms-Icon ms-Icon--ChevronLeft"></i>
@@ -22,9 +24,11 @@
                     :theme="theme"
                     :disabled="isDisabled"
                     :background="background"
+                    :reveal-background-color="revealBackgroundColor"
+                    :reveal-border-color="revealBorderColor"
                     :foreground="thisValue == item.num ? foreground : ''"
                     :is-box-shadow="shadow"
-                    borderRadius="3"
+                    :borderRadius="borderRadius"
                     fontWeight="bold"
                     @click="handleClick(item)"
                 >
@@ -39,8 +43,10 @@
                 class="page-btn"
                 :theme="theme"
                 :background="background"
+                :reveal-background-color="revealBackgroundColor"
+                :reveal-border-color="revealBorderColor"
                 :is-box-shadow="shadow"
-                borderRadius="3"
+                :borderRadius="borderRadius"
                 @click="next"
             >
                 <i class="ms-Icon ms-Icon--ChevronRight"></i>
@@ -71,6 +77,15 @@ const props = defineProps({
     },
     background: {
         default: 'transparent'
+    },
+    borderRadius: {
+        default: 3
+    },
+    revealBackgroundColor: {
+        default: ''
+    },
+    revealBorderColor: {
+        default: ''
     },
     total: {
         default: 10

@@ -93,22 +93,25 @@ title: Pagination
 
 ### Propoties
 ---
-| 属性(attr) |             类型(type)             | 必填(required) |   默认值(default)    | 说明(statement) |
-|:----------:|:----------------------------------:|:--------------:|:--------------------:|:---------------:|
-|   value    |              Number              |       No       |          1           |   当前页码数    |
-| foreground |          [string(color)]           |       No       | rgba(0, 90, 158, 1) |                 |
-| background |          [string(color)]           |       No       |     transparent      |                 |
-|   total    |              Number              |       No       |          10          |    总页码数     |
-| maxVisual  |              Number              |       No       |          7           |  最大可视按钮   |
-|   small    |             Boolean              |       No       |        false         |  小型分页按钮   |
-|   shadow   |             Boolean              |       No       |        false         |                 |
-|  disabled  |             Boolean              |       No       |        false         |                 |
-|     theme     | String |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式              |
+|      属性(attr)       |   类型(type)    | 必填(required) |   默认值(default)   |                      说明(statement)                      |
+| :-------------------: | :-------------: | :------------: | :-----------------: | :-------------------------------------------------------: |
+|         value         |     Number      |       No       |          1          |                        当前页码数                         |
+|      foreground       | [string(color)] |       No       | rgba(0, 90, 158, 1) |                                                           |
+|      background       | [string(color)] |       No       |     transparent     |                                                           |
+|     borderRadius      |     Number      |       No       |          3          |                     页码按钮圆角半径                      |
+| revealBackgroundColor | [string(color)] |       No       |         ''          |                 页码按钮`Reveal`背景颜色                  |
+|   revealBorderColor   | [string(color)] |       No       |         ''          |                 页码按钮`Reveal`边框颜色                  |
+|         total         |     Number      |       No       |         10          |                         总页码数                          |
+|       maxVisual       |     Number      |       No       |          7          |                       最大可视按钮                        |
+|         small         |     Boolean     |       No       |        false        |                       小型分页按钮                        |
+|        shadow         |     Boolean     |       No       |        false        |                                                           |
+|       disabled        |     Boolean     |       No       |        false        |                                                           |
+|         theme         |     String      |       No       |       system        | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
 
 ### Events
 ---
 | 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
+| :----------: | :------------: | :-------------: |
 |  next-click  |     number     | 下一页按钮点击  |
 |  prev-click  |     number     | 上一页按钮点击  |
 |  page-click  |     number     |  翻页按钮点击   |
