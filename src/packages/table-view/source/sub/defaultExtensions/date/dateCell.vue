@@ -25,7 +25,11 @@
                     :modelValue="startDateStr"
                     :theme="theme"
                     underline
-                    :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : ''"
+                    :background="
+                        theme === 'dark'
+                            ? 'rgba(0, 0, 0, 0.3)'
+                            : 'rgba(247, 247, 245, 1)'
+                    "
                     :border-color="'rgba(120, 120, 120, 0.1)'"
                     :focus-border-color="foreground"
                     :border-width="2"
@@ -37,7 +41,11 @@
                     :modelValue="startTimeStr"
                     :theme="theme"
                     underline
-                    :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : ''"
+                    :background="
+                        theme === 'dark'
+                            ? 'rgba(0, 0, 0, 0.3)'
+                            : 'rgba(247, 247, 245, 1)'
+                    "
                     :border-color="'rgba(120, 120, 120, 0.1)'"
                     :focus-border-color="foreground"
                     :border-width="2"
@@ -55,7 +63,11 @@
                     :modelValue="endDateStr"
                     :theme="theme"
                     underline
-                    :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : ''"
+                    :background="
+                        theme === 'dark'
+                            ? 'rgba(0, 0, 0, 0.3)'
+                            : 'rgba(247, 247, 245, 1)'
+                    "
                     :border-color="'rgba(120, 120, 120, 0.1)'"
                     :focus-border-color="foreground"
                     :border-width="2"
@@ -67,7 +79,11 @@
                     :modelValue="endTimeStr"
                     :theme="theme"
                     underline
-                    :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : ''"
+                    :background="
+                        theme === 'dark'
+                            ? 'rgba(0, 0, 0, 0.3)'
+                            : 'rgba(247, 247, 245, 1)'
+                    "
                     :border-color="'rgba(120, 120, 120, 0.1)'"
                     :focus-border-color="foreground"
                     :border-width="2"

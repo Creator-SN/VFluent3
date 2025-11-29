@@ -6,7 +6,7 @@
     >
         <template v-slot:menu>
             <div class="fv-tableview-default-edittool-row between">
-                <span style="margin-left: 10px">{{
+                <span class="row-small-title" style="margin-left: 10px">{{
                     i18n('Number Format')
                 }}</span>
                 <fv-drop-down
@@ -16,7 +16,7 @@
                     :placeholder="i18n('Select Number Format')"
                     :input-height="'30px'"
                     :input-font-size="12"
-                    style="width: 120px"
+                    style="width: 120px; flex: 1; margin-left: 5px"
                 >
                     <template v-slot:options="x">
                         <p :title="i18n(x.option.text)" style="font-size: 12px">
@@ -41,12 +41,10 @@
                                 modelValue.showAs === item.key
                                     ? foreground
                                     : '',
-                            'border-color':
+                            outline:
                                 modelValue.showAs === item.key
-                                    ? foreground
-                                    : '',
-                            'border-width':
-                                modelValue.showAs === item.key ? '1px' : ''
+                                    ? `2px solid ${foreground}`
+                                    : ''
                         }"
                         @click="modelValue.showAs = item.key"
                     >

@@ -63,7 +63,9 @@
                         underline
                         ref="text"
                         :background="
-                            theme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : ''
+                            theme === 'dark'
+                                ? 'rgba(0, 0, 0, 0.3)'
+                                : 'rgba(247, 247, 245, 1)'
                         "
                         border-color="rgba(120, 120, 120, 0.1)"
                         :focus-border-color="foreground"
@@ -101,6 +103,11 @@
                         ref="keyName"
                         left-icon="Link"
                         underline
+                        :background="
+                            theme === 'dark'
+                                ? 'rgba(0, 0, 0, 0.3)'
+                                : 'rgba(247, 247, 245, 1)'
+                        "
                         :border-color="
                             !thisKeyValue
                                 ? 'rgba(200, 38, 45, 1)'
