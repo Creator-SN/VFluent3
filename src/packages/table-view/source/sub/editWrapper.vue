@@ -61,11 +61,15 @@ export default {
             this.$emit('update:modelValue', this.thisValue);
         }
     },
+    mounted() {
+        this.eventInit();
+    },
     methods: {
+        eventInit() {},
         stopDragWrapper($event) {
-            console.log(1)
             $event.stopPropagation();
         }
-    }
+    },
+    beforeUnmount() {}
 };
 </script>

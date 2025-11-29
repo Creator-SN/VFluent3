@@ -36,6 +36,7 @@
                 :value="valueTrigger(thisValue.text)"
                 :style="{
                     color: inputForeground,
+                    borderColor: borderColor,
                     'border-radius': `${borderRadius}px`
                 }"
             />
@@ -117,8 +118,11 @@ const props = defineProps({
     placeholder: {
         default: 'Combobox'
     },
+    borderColor: {
+        default: ''
+    },
     borderRadius: {
-        default: '3'
+        default: 6
     },
     background: {
         default: ''

@@ -2,7 +2,7 @@
     <div
         class="fv-DropDown"
         :class="[$theme, isDisabled ? 'disabled' : '']"
-        :style="[styles.dropDown, {zIndex: show.listContainer ? 5 : ''}]"
+        :style="[styles.dropDown, { zIndex: show.listContainer ? 5 : '' }]"
     >
         <div
             class="fv-drop-down-input-container"
@@ -27,6 +27,8 @@
                     :inputForeground="inputForeground"
                     :inputBackground="inputBackground"
                     :inputBorderColor="inputBorderColor"
+                    :inputHeight="inputHeight"
+                    :inputFontSize="inputFontSize"
                     :dropDownIcon="dropDownIcon"
                     :dropDownIconForeground="dropDownIconForeground"
                     :class="{ error: showError }"
@@ -102,6 +104,12 @@ const props = defineProps({
         default: ''
     },
     inputBorderColor: {
+        default: ''
+    },
+    inputHeight: {
+        default: ''
+    },
+    inputFontSize: {
         default: ''
     },
     checkBoxBackground: {

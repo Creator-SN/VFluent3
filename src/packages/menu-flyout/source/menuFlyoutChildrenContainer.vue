@@ -6,6 +6,8 @@
                 :theme="$theme"
                 :items="pivotItems"
                 :fontSize="12"
+                padding="0px 8px"
+                itemPadding="0px 12px"
                 :sliderBackground="choosenSliderBackground"
                 style="width: 100%; height: 50px; overflow-x: auto;"
             ></fv-pivot>
@@ -97,7 +99,7 @@ export default {
                     key: item.key,
                     name: item.text,
                     ori: item,
-                    width: this.pivotTextWidth(item.text),
+                    width: 'auto',
                 });
             }
             if (result.length == 0 || result[result.length - 1].ori.children)
@@ -105,16 +107,9 @@ export default {
                     key: '$fv-menu-flyout-pivot-placeholder',
                     name: this.pivotPlaceholder,
                     ori: {},
-                    width: this.pivotTextWidth(this.pivotPlaceholder),
+                    width: 'auto',
                 });
             return result;
-        },
-        pivotTextWidth() {
-            return (text) => {
-                if (text.length < 5) return 60;
-                if (text.length > 20) return 200;
-                return 10 * text.length;
-            };
         },
         computedOptions() {
             if (!this.pivotValue) return this.options;

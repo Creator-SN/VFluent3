@@ -305,18 +305,28 @@ export default {
             if (this.selectPos.syncActive) {
                 if (this.syncRowsFunc) this.syncRowsFunc(this.selectPos);
                 else {
-                    let start = this.selectPos.start_row;
-                    let end = this.selectPos.end_row;
-                    let col = this.selectPos.start_col;
-                    let key = this.modelValue.heads[col].key;
-                    let startValue = this.modelValue.rows[start][key];
-                    if (start > end) {
-                        let temp = start;
-                        start = end;
-                        end = temp;
+                    const { start_row, end_row, start_col, end_col } =
+                        this.selectPos;
+                    let b_row = start_row;
+                    let e_row = end_row;
+                    let b_col = start_col;
+                    let e_col = end_col;
+                    if (b_row > e_row) {
+                        let temp = b_row;
+                        b_row = e_row;
+                        e_row = temp;
                     }
-                    for (let i = start; i <= end; i++) {
-                        this.modelValue.rows[i][key] = startValue;
+                    if (b_col > e_col) {
+                        let temp = b_col;
+                        b_col = e_col;
+                        e_col = temp;
+                    }
+                    for (let i = b_col; i <= e_col; i++) {
+                        let key = this.modelValue.heads[i].key;
+                        let startValue = this.modelValue.rows[start_row][key];
+                        for (let j = b_row; j <= e_row; j++) {
+                            this.modelValue.rows[j][key] = startValue;
+                        }
                     }
                 }
             }
@@ -464,8 +474,7 @@ export default {
             } else if (event_type === 'enter') {
                 if (this.selectPos.active) {
                     this.selectPos.end_row = row_index;
-                    if (!this.selectPos.syncActive)
-                        this.selectPos.end_col = col_index;
+                    this.selectPos.end_col = col_index;
                 }
             } else if (event_type === 'sync-down') {
                 this.selectPos.start_row = row_index;

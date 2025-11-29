@@ -1,7 +1,7 @@
 <template>
     <div
         class="drop-down-box"
-        :style="{ 'border-radius': `${borderRadius}px` }"
+        :style="{ 'border-radius': `${borderRadius}px`, height: inputHeight }"
     >
         <div
             class="drop-down-container"
@@ -28,6 +28,7 @@
                     readonly
                     :value="inputValue"
                     :style="{
+                        fontSize: inputFontSize + 'px',
                         color: inputForeground,
                         'border-radius': `${borderRadius}px`,
                         borderWidth: `${borderWidth}px`,
@@ -60,6 +61,12 @@ export default {
         },
         borderRadius: {
             default: '3'
+        },
+        inputHeight: {
+            default: ''
+        },
+        inputFontSize: {
+            default: ''
         },
         inputForeground: {
             default: ''

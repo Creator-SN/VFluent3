@@ -13,6 +13,8 @@
                     :options="dateFormatList"
                     :theme="theme"
                     :placeholder="i18n('Select Date Format')"
+                    :input-height="'30px'"
+                    :input-font-size="12"
                     style="width: 120px"
                 >
                     <template v-slot:options="x">
@@ -32,6 +34,8 @@
                     :options="timeFormatList"
                     :theme="theme"
                     :placeholder="i18n('Select Time Format')"
+                    :input-height="'30px'"
+                    :input-font-size="12"
                     style="width: 120px"
                 >
                     <template v-slot:options="x">

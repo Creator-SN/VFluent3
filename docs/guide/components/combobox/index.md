@@ -90,11 +90,12 @@ Default Styles
 ### Propoties
 ---
 |       属性(attr)        |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:-----------------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
+| :---------------------: | :-------------: | :------------: | :-------------: | :-------------------------------------------------------: |
 |      value/v-model      |     Object      |       No       |       N/A       |                    Combobox当前项绑定                     |
 |         options         |      Array      |      Yes       |       N/A       |                       Combobox数据                        |
 |       borderWidth       |     Number      |       No       |        1        |                                                           |
 |       placeholder       |     String      |       No       |    Combobox     |                                                           |
+|       borderColor       | [string(color)] |       No       |       N/A       |                                                           |
 |      borderRadius       |     Number      |       No       |        3        |                                                           |
 |       background        | [string(color)] |       No       |       N/A       |                                                           |
 |    choosenBackground    | [string(color)] |       No       |       N/A       |                                                           |
@@ -113,7 +114,7 @@ Default Styles
 ### Events
 ---
 | 事件名(Name) | 参数类型(args) |   说明(statement)    |
-|:------------:|:--------------:|:--------------------:|
+| :----------: | :------------: | :------------------: |
 | choose-item  |  value/object  | Combobox choose item |
 
 ### Slot

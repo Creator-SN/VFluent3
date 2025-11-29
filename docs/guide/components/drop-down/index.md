@@ -170,7 +170,7 @@ export default {
 ### Propoties
 ---
 |       属性(attr)       |   类型(type)    | 必填(required) |      默认值(default)       |                      说明(statement)                      |
-|:----------------------:|:---------------:|:--------------:|:--------------------------:|:---------------------------------------------------------:|
+| :--------------------: | :-------------: | :------------: | :------------------------: | :-------------------------------------------------------: |
 |         value          |      Array      |       No       |            N/A             |                       Choosen Value                       |
 |        options         |      Array      |       No       |            N/A             |                  Dropdown options array                   |
 |        multiple        |     Boolean     |       No       |            N/A             |                 Is enable multiple select                 |
@@ -181,6 +181,8 @@ export default {
 |   checkBoxBackground   | [string(color)] |       No       |            N/A             |             CheckBox Background when Multiple             |
 |    inputForeground     | [string(color)] |       No       |            N/A             |                                                           |
 |    inputBorderColor    | [string(color)] |       No       |            N/A             |                                                           |
+|      inputHeight       |     String      |       No       |            N/A             |                                                           |
+|     inputFontSize      |     Number      |       No       |            N/A             |                                                           |
 | dropDownListForeground | [string(color)] |       No       |    rgba(0,120,215,0.9)     |                                                           |
 |    inputBackground     | [string(color)] |       No       |            N/A             |                                                           |
 | dropDownListBackground | [string(color)] |       No       |            N/A             |                                                           |
@@ -197,7 +199,7 @@ export default {
 ### Events
 ---
 |  事件名(Name)  | 参数类型(args) |       说明(statement)        |
-|:--------------:|:--------------:|:----------------------------:|
+| :------------: | :------------: | :--------------------------: |
 |     change     |     value      |     Dropdown choose item     |
 | visible-change |    visible     | Dropdown list show or hidden |
 

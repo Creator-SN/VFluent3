@@ -14,6 +14,8 @@
                     :options="numberFormatList"
                     :theme="theme"
                     :placeholder="i18n('Select Number Format')"
+                    :input-height="'30px'"
+                    :input-font-size="12"
                     style="width: 120px"
                 >
                     <template v-slot:options="x">

@@ -96,7 +96,7 @@ const props = defineProps({
         default: () => []
     },
     borderWidth: {
-        default: 2
+        default: 1
     },
     placeholder: {
         default: 'menuFlyout'
