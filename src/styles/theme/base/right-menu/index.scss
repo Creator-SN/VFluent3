@@ -21,6 +21,12 @@
     .right-menu-list {
         padding: 1px 0px;
 
+        .no-margin {
+            span {
+                margin: 0px;
+            }
+        }
+
         span {
             width: calc(100% - 10px);
             margin-left: 5px;

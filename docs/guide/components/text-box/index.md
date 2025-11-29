@@ -337,3 +337,26 @@ Customize background
 | left-icon-click |     event      |                  |
 |   icon-click    |     event      |                  |
 | debounce-input  |     string     | 搜索节流内容反馈 |
+
+### Slot
+---
+
+1. left-icon
+
+用户可以自定义左图标插槽, 插槽名称为`left-icon`
+
+```html
+<template #left-icon>
+   <i class="ms-Icon ms-Icon--Search"></i>
+</template>
+```
+
+2. icon
+
+用户可以自定义右图标插槽, 插槽名称为`icon`
+
+```html
+<template #icon>
+   <i class="ms-Icon ms-Icon--Cancel"></i>
+</template>
+```

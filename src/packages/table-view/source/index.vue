@@ -1,6 +1,24 @@
 <template>
     <div class="fv-TableView" :class="[$theme]">
         <div class="fv-tableview-main-wrapper">
+            <div class="fv-tableview-data-row banner-row">
+                <fv-button
+                    :font-size="12"
+                    border-radius="50"
+                    style="width: 25px; height: 25px"
+                    @click="syncFilter"
+                >
+                    <i class="ms-Icon ms-Icon--Sync"></i>
+                </fv-button>
+                <fv-button
+                    :icon="computedSortIcon"
+                    :font-size="12"
+                    border-radius="50"
+                    style="width: 80px; height: 25px"
+                    @click="sortMenuClick"
+                    >{{ i18n('Sort') }}</fv-button
+                >
+            </div>
             <div
                 class="fv-tableview-head-row"
                 :style="{ width: sumWidth + 'px' }"
@@ -47,7 +65,7 @@
                 </div>
             </div>
             <table-row
-                v-for="(row, i) in modelValue.rows"
+                v-for="(row, i) in filteredRows"
                 :key="i"
                 :modelValue="modelValue"
                 :row="row"
@@ -113,7 +131,6 @@
                 ></new-property>
                 <current-property
                     v-show="show.editMenu"
-                    :modelValue="modelValue"
                     :heads="modelValue.heads"
                     :extensions="thisExtensions"
                     :i18n="i18n"
@@ -125,6 +142,24 @@
                     "
                 ></current-property>
             </slot>
+        </fv-right-menu>
+        <fv-right-menu
+            ref="sortMenu"
+            :theme="$theme"
+            :rightMenuWidth="280"
+            :background="rightMenuBackground"
+            :fullExpandAnimation="true"
+            style="z-index: 5"
+        >
+            <sort-property-list
+                v-model="sortHeads"
+                :sourceData="modelValue"
+                :extensions="thisExtensions"
+                :i18n="i18n"
+                :foreground="foreground"
+                :rightMenuBackground="rightMenuBackground"
+                :theme="$theme"
+            ></sort-property-list>
         </fv-right-menu>
     </div>
 </template>
@@ -189,6 +224,7 @@ import { useTheme } from '@/utils/common';
 import tableRow from './sub/tableRow.vue';
 import newProperty from './sub/addMenu/newProperty.vue';
 import currentProperty from './sub/addMenu/currentProperty.vue';
+import sortPropertyList from './sub/addMenu/sortPropertyList.vue';
 import textHead from '../../table-view-head-base/source/index.vue';
 import textCell from '../../table-view-cell-base/source/index.vue';
 import numberExtension from './sub/defaultExtensions/number';
@@ -200,7 +236,8 @@ export default {
     components: {
         tableRow,
         newProperty,
-        currentProperty
+        currentProperty,
+        sortPropertyList
     },
     data() {
         return {
@@ -217,11 +254,21 @@ export default {
                 columnItem: null,
                 rowItem: null
             },
+            filteredRows: [...this.modelValue.rows],
+            sortHeads: [],
             show: {
                 addMenu: false,
                 editMenu: true
             }
         };
+    },
+    watch: {
+        sortHeads: {
+            handler(newVal, oldVal) {
+                this.syncFilter();
+            },
+            deep: true
+        }
     },
     computed: {
         sumWidth() {
@@ -276,6 +323,12 @@ export default {
                 if (current) return current.headComponent;
                 return null;
             };
+        },
+        computedSortIcon() {
+            if (this.sortHeads.length === 0) return 'Up';
+            if (this.sortHeads.length > 1) return 'Sort';
+            if (this.sortHeads[0].desc.key) return 'Down';
+            return 'Up';
         },
         $theme() {
             return useTheme(this.$props).theme.value;
@@ -408,7 +461,7 @@ export default {
             let lastIndex = this.currentChoosen[this.currentChoosen.length - 1];
             let result = [];
             choosen.forEach((row) => {
-                let newRow = JSON.parse(JSON.stringify(row));
+                let newRow = Object.assign({}, row);
                 newRow.__guid = this.GuidWithoutDash();
                 result.push(newRow);
             });
@@ -438,6 +491,7 @@ export default {
             } else {
                 this.modelValue.rows.splice(index + 1, 0, row);
             }
+            this.syncFilter();
         },
         swapRow(from, to) {
             let fromIndex = this.modelValue.rows.findIndex(
@@ -460,7 +514,7 @@ export default {
         clearChooseAll(excpet = null) {
             this.modelValue.rows.forEach((row) => {
                 if (excpet && row === excpet) return;
-                this.row.choosen = false;
+                row.choosen = false;
             });
         },
         setSelectPos(pos) {
@@ -521,18 +575,47 @@ export default {
             this.show.addMenu = mode;
             this.show.editMenu = !mode;
         },
+        sortMenuClick(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.$refs.sortMenu.rightClick(event, document.body);
+        },
         handleSort(index, desc = false) {
-            const { type, key } = this.modelValue.heads[index];
-            let extension = this.thisExtensions.find((it) => it.type === type);
-            if (!extension) return;
-            if (!desc) {
-                this.modelValue.rows.sort((a, b) => {
-                    return extension.sortAsc(a[key], b[key]);
-                });
-            } else
-                this.modelValue.rows.sort((a, b) => {
-                    return extension.sortDesc(a[key], b[key]);
-                });
+            let findIndex = this.sortHeads.findIndex(
+                (it) => it.head === this.modelValue.heads[index]
+            );
+            if (findIndex !== -1) {
+                this.sortHeads.splice(findIndex, 1);
+            }
+            let insertIndex =
+                findIndex === -1 ? this.sortHeads.length : findIndex;
+            this.sortHeads.splice(insertIndex, 0, {
+                head: this.modelValue.heads[index],
+                desc: {
+                    key: desc,
+                    text: desc ? this.i18n('Desc') : this.i18n('Asc')
+                }
+            });
+        },
+        syncFilter() {
+            let results = [...this.modelValue.rows];
+            results.sort((a, b) => {
+                for (let sortHead of this.sortHeads) {
+                    let { head, desc } = sortHead;
+                    let isDesc = desc.key;
+                    let { type, key } = head;
+                    let extension = this.thisExtensions.find(
+                        (it) => it.type === type
+                    );
+                    if (!extension) continue;
+                    if (!isDesc) {
+                        if (extension.sortAsc(a[key], b[key]) !== 0)
+                            return extension.sortAsc(a[key], b[key]);
+                    } else if (extension.sortDesc(a[key], b[key]) !== 0)
+                        return extension.sortDesc(a[key], b[key]);
+                }
+            });
+            this.filteredRows = results;
         },
         GuidWithoutDash() {
             function S4() {

@@ -1,11 +1,30 @@
 <template>
     <div class="fv-tableview-addmenu">
         <div class="addmenu-title-block">{{ i18n('Properties') }}</div>
+        <div
+            style="position: relative; padding: 0px 10px"
+            @click="$event.stopPropagation()"
+        >
+            <fv-text-box
+                v-model="filterValue"
+                :placeholder="i18n('Search Property')"
+                :theme="theme"
+                underline
+                icon="Filter"
+                :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : ''"
+                border-color="rgba(120, 120, 120, 0.1)"
+                :focus-border-color="foreground"
+                :border-width="2"
+                :is-box-shadow="true"
+                style="width: 100%; height: 35px; margin-bottom: 5px"
+            ></fv-text-box>
+        </div>
         <span
+            v-show="isShow(item)"
             v-for="(item, index) in heads"
             :key="index"
             :ref="`item-${index}`"
-            @click="$event.stopPropagation()"
+            @click="handleItemClick($event, item)"
             :draggable="dragDown"
             @dragover="dragOver($event, index)"
             @dragleave="dragLeave"
@@ -19,17 +38,20 @@
             ></i>
             <div class="addmenu-left-block">
                 <i
+                    v-show="!filterValue && showDrag"
                     class="ms-Icon ms-Icon--GripperDotsVertical"
                     @mousedown="dragDown = true"
                 ></i>
-                <i
-                    class="ms-Icon"
-                    :class="[`ms-Icon--${computedIcon(item)}`]"
-                    style="margin-left: 5px"
-                ></i>
+                <slot name="icon" :item="item">
+                    <i
+                        class="ms-Icon"
+                        :class="[`ms-Icon--${computedIcon(item)}`]"
+                        style="margin-left: 5px"
+                    ></i>
+                </slot>
                 <p>{{ item.name }}</p>
             </div>
-            <div class="addmenu-right-block">
+            <div v-if="showVisible" class="addmenu-right-block">
                 <i
                     class="ms-Icon icon-block"
                     :class="[`ms-Icon--${item.visible ? 'View' : 'Hide'}`]"
@@ -38,8 +60,9 @@
                 <i class="ms-Icon ms-Icon--ChevronRight"></i>
             </div>
         </span>
-        <hr />
+        <hr v-show="showAdd" />
         <span
+            v-show="showAdd"
             @click="
                 $emit('add-click');
                 $event.stopPropagation();
@@ -56,10 +79,6 @@ import one from 'onecolor';
 
 export default {
     props: {
-        modelValue: {
-            type: Object,
-            default: () => ({})
-        },
         heads: {
             type: Array,
             default: () => []
@@ -74,12 +93,22 @@ export default {
         foreground: {
             default: 'rgba(0, 90, 158, 1)'
         },
+        showAdd: {
+            default: true
+        },
+        showDrag: {
+            default: true
+        },
+        showVisible: {
+            default: true
+        },
         theme: {
             default: 'light'
         }
     },
     data() {
         return {
+            filterValue: '',
             dropHead: null,
             dragDown: false,
             dragItem: null
@@ -112,6 +141,14 @@ export default {
             } catch (e) {
                 return '';
             }
+        },
+        isShow() {
+            return (item) => {
+                if (!this.filterValue) return true;
+                return item.name
+                    .toLowerCase()
+                    .includes(this.filterValue.toLowerCase());
+            };
         }
     },
     methods: {
@@ -157,6 +194,10 @@ export default {
         switchVisible(item) {
             let visible = !item.visible;
             item.visible = visible;
+        },
+        handleItemClick($event, item) {
+            $event.stopPropagation();
+            this.$emit('item-click', item);
         }
     }
 };

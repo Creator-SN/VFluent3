@@ -39,13 +39,15 @@
             <div v-show="prefix != ''" class="fix-block">
                 <p>{{ prefix }}</p>
             </div>
-            <i
-                v-show="leftIcon != ''"
-                class="ms-Icon icon-block"
-                :class="[`ms-Icon--${leftIcon}`]"
-                :style="{ color: iconForeground }"
-                @click="$emit('left-icon-click', $event)"
-            ></i>
+            <slot name="left-icon">
+                <i
+                    v-show="leftIcon != ''"
+                    class="ms-Icon icon-block"
+                    :class="[`ms-Icon--${leftIcon}`]"
+                    :style="{ color: iconForeground }"
+                    @click="$emit('left-icon-click', $event)"
+                ></i>
+            </slot>
             <core-input
                 v-model="thisValue"
                 ref="core"
@@ -71,13 +73,15 @@
                 @change="$emit('change', $event)"
                 @paste="$emit('paste', $event)"
             ></core-input>
-            <i
-                v-show="icon != ''"
-                class="ms-Icon icon-block"
-                :class="[`ms-Icon--${icon}`]"
-                :style="{ color: iconForeground }"
-                @click="$emit('icon-click', $event)"
-            ></i>
+            <slot name="icon">
+                <i
+                    v-show="icon != ''"
+                    class="ms-Icon icon-block"
+                    :class="[`ms-Icon--${icon}`]"
+                    :style="{ color: iconForeground }"
+                    @click="$emit('icon-click', $event)"
+                ></i>
+            </slot>
             <div v-show="suffix != ''" class="fix-block">
                 <p>{{ suffix }}</p>
             </div>

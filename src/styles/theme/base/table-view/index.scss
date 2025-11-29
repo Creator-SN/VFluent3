@@ -114,6 +114,15 @@
             height: auto;
             display: flex;
 
+            &.banner-row {
+                position: sticky;
+                left: 0px;
+                width: auto;
+                max-width: 100%;
+                height: 35px;
+                gap: 5px;
+            }
+
             &.newline {
                 position: sticky;
                 left: 0px;
@@ -484,6 +493,7 @@
         position: relative;
         width: 10px;
         flex: 1;
+        gap: 5px;
         display: flex;
         align-items: center;
     }
