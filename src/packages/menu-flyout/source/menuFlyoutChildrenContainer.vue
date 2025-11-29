@@ -1,156 +1,279 @@
 <template>
     <transition name="fv-menu-flyout">
-        <div class="menu-flyout-list-container">
-            <fv-pivot
-                v-model="pivotValue"
-                :theme="$theme"
-                :items="pivotItems"
-                :fontSize="12"
-                padding="0px 8px"
-                itemPadding="0px 12px"
-                :sliderBackground="choosenSliderBackground"
-                style="width: 100%; height: 50px; overflow-x: auto;"
-            ></fv-pivot>
-            <transition-group
-                name="fv-menu-flyout-item"
-                tag="div"
+        <div
+            class="menu-flyout-list-container"
+            :class="[{ 'mobile-mode': mobileMode }]"
+            :style="{
+                left: computedLeft,
+                right: computedRight,
+                top: computedTop
+            }"
+        >
+            <div
                 class="menu-flyout-item-container"
-                :style="{background: background, 'overflow-y': 'auto', 'overflow-x': 'visible'}"
-                ref="co_items"
+                :style="{
+                    width: computedWidth,
+                    'max-height': computedMaxHeight,
+                    background: background,
+                    'overflow-y': 'auto',
+                    'overflow-x': 'visible'
+                }"
+                ref="container"
             >
+                <div v-if="mobileMode" class="fv-menu-flyout-mobile-control">
+                    <fv-button
+                        :theme="$theme"
+                        :borderRadius="50"
+                        background="transparent"
+                        style="width: 30px; height: 30px"
+                        @click="destroyMe"
+                    >
+                        <i class="ms-Icon ms-Icon--Back"></i>
+                    </fv-button>
+                </div>
                 <div
-                    v-for="(item, index) in computedOptions"
+                    v-for="(item, index) in thisValue"
                     class="fv-menu-flyout-item"
-                    :class="{hr:valueTrigger(item.type) == 'divider', normal: (valueTrigger(item.type) == 'default' || valueTrigger(item.type) == undefined) && !valueTrigger(item.disabled), disabled: valueTrigger(item.disabled), choose: isChoosen(item), title: valueTrigger(item.type) == 'header'}"
-                    :style="{background: isChoosen(item) ? choosenBackground : '', color: valueTrigger(item.type) === 'header' ? titleForeground : ''}"
+                    :class="{
+                        hr: valueTrigger(item.type) == 'divider',
+                        normal:
+                            (valueTrigger(item.type) == 'default' ||
+                                valueTrigger(item.type) == undefined) &&
+                            !valueTrigger(item.disabled),
+                        disabled: valueTrigger(item.disabled),
+                        choose: isSelected(item),
+                        title: valueTrigger(item.type) == 'header'
+                    }"
+                    :style="{
+                        background: isSelected(item) ? choosenBackground : '',
+                        color:
+                            valueTrigger(item.type) === 'header'
+                                ? titleForeground
+                                : ''
+                    }"
+                    @mouseenter="Expand($event, item)"
                     @click="Choose($event, item)"
                     :key="`options: ${item.key ? item.key : index}`"
                     :title="valueTrigger(item.text)"
                 >
-                    <slot :item="item" :choosenSliderBackground="choosenSliderBackground">
+                    <slot
+                        :item="item"
+                        :choosenSliderBackground="choosenSliderBackground"
+                    >
                         <i
                             class="before-choosen"
-                            :style="{background: choosenSliderBackground}"
+                            :style="{ background: choosenSliderBackground }"
                         ></i>
-                        {{valueTrigger(item.type) !== 'divider' ? valueTrigger(item.text) : ''}}
+                        {{
+                            valueTrigger(item.type) !== 'divider'
+                                ? valueTrigger(item.text)
+                                : ''
+                        }}
                         <i
                             v-show="item.children"
                             class="ms-Icon ms-Icon--ChevronRight after-expand"
                         ></i>
                     </slot>
                 </div>
-            </transition-group>
+            </div>
+            <fv-menu-flyout-children-container
+                v-if="currentItem && currentItem.children"
+                :model-value="currentItem.children"
+                :background="background"
+                :parent-node="thisParentNode"
+                :parent-wrapper="thisParentWrapper"
+                :menu-width="menuWidth"
+                :menu-max-height="menuMaxHeight"
+                :choosen-background="choosenBackground"
+                :choosen-slider-background="choosenSliderBackground"
+                :title-foreground="titleForeground"
+                :trigger-mode="triggerMode"
+                :mobile-mode="mobileMode"
+                :zIndex="zIndex * 1 + 1"
+                :theme="theme"
+                @choose-item="addChooseItem"
+                @destroy-me="currentItem = null"
+            >
+                <template v-slot:item="x">
+                    <slot
+                        :item="x"
+                        :choosenSliderBackground="choosenSliderBackground"
+                    >
+                        <i
+                            class="before-choosen"
+                            :style="{ background: choosenSliderBackground }"
+                        ></i>
+                        {{
+                            valueTrigger(x.type) !== 'divider'
+                                ? valueTrigger(x.text)
+                                : ''
+                        }}
+                        <i
+                            v-show="x.children"
+                            class="ms-Icon ms-Icon--ChevronRight after-expand"
+                        ></i>
+                    </slot>
+                </template>
+            </fv-menu-flyout-children-container>
         </div>
     </transition>
 </template>
 
 <script>
-import { ClassBuilder, StyleBuilder, useTheme } from "@/utils/common"
+import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
 
 export default {
     name: 'FvMenuFlyoutChildrenContainer',
     emits: ['choose-item'],
     props: {
         modelValue: {
-            default: () => [],
-        },
-        options: {
-            default: () => [],
+            default: () => []
         },
         background: {
-            default: '',
+            default: ''
         },
         choosenBackground: {
-            default: '',
+            default: ''
         },
         choosenSliderBackground: {
-            default: '',
+            default: ''
         },
         titleForeground: {
-            default: '',
+            default: ''
         },
-        pivotPlaceholder: {
-            default: 'Please Choose',
+        parentNode: {
+            default: null
+        },
+        parentWrapper: {
+            default: null
+        },
+        triggerMode: {
+            default: 'click'
+        },
+        mobileMode: {
+            default: false
+        },
+        menuWidth: {
+            default: 200
+        },
+        menuMaxHeight: {
+            default: 350
+        },
+        zIndex: {
+            default: 2
         },
         theme: {
             type: String,
-            default: "global",
+            default: 'global'
         }
     },
     data() {
         return {
             thisValue: this.modelValue,
-            pivotValue: null,
+            currentItem: null,
+            top: 0,
+            showMode: 'right',
+            thisParentNode: null,
+            thisParentWrapper: null
         };
     },
     watch: {
         modelValue(val) {
             this.thisValue = val;
+            this.currentItem = null;
+            this.posInit();
         },
-        pivotItems(val) {
-            if (val.length > 0) this.pivotValue = val[val.length - 1];
-        },
+        parentWrapper(newVal, oldVal) {
+            if (newVal) newVal.addEventListener('scroll', this.posInit);
+            if (oldVal) oldVal.removeEventListener('scroll', this.posInit);
+        }
     },
     computed: {
-        pivotItems() {
-            let result = [];
-            for (let item of this.thisValue) {
-                result.push({
-                    key: item.key,
-                    name: item.text,
-                    ori: item,
-                    width: 'auto',
-                });
-            }
-            if (result.length == 0 || result[result.length - 1].ori.children)
-                result.push({
-                    key: '$fv-menu-flyout-pivot-placeholder',
-                    name: this.pivotPlaceholder,
-                    ori: {},
-                    width: 'auto',
-                });
-            return result;
+        computedLeft() {
+            if (this.mobileMode) return 0;
+            if (this.showMode == 'right') return '100%';
+            return '';
         },
-        computedOptions() {
-            if (!this.pivotValue) return this.options;
-            let index = this.pivotItems.findIndex((item) => item.key == this.pivotValue.key);
-            if (index > 0) {
-                if (this.pivotItems[index - 1].ori.children) return this.pivotItems[index - 1].ori.children;
-                return [];
-            }
-            return this.options;
+        computedRight() {
+            if (this.mobileMode) return '';
+            if (this.showMode == 'left') return '100%';
+            return '';
         },
-        isChoosen () {
-            return item => {
-                if(!this.pivotValue) return false;
-                return item.key === this.pivotValue.key && item.text === this.pivotValue.name
-            }
+        computedTop() {
+            if (this.mobileMode) return '';
+            return `${this.top}px`;
         },
-        $theme () {
+        computedWidth() {
+            if (this.mobileMode) return '100%';
+            return `${this.menuWidth}px`;
+        },
+        computedMaxHeight() {
+            if (this.mobileMode) return '100%';
+            return `${this.menuMaxHeight}px`;
+        },
+        $theme() {
             return useTheme(this.$props).theme.value;
         }
     },
-    mounted() {},
+    mounted() {
+        this.eventInit();
+        this.posInit();
+    },
     methods: {
+        eventInit() {
+            if (this.parentWrapper)
+                this.parentWrapper.addEventListener('scroll', this.posInit);
+        },
+        posInit() {
+            if (this.parentNode) {
+                let scrollTop = this.parentWrapper
+                    ? this.parentWrapper.scrollTop
+                    : 0;
+                let top = this.parentNode.offsetTop;
+                this.top = top - scrollTop;
+
+                const right = this.parentNode.getBoundingClientRect().right;
+                if (right + this.menuWidth > window.innerWidth)
+                    this.showMode = 'left';
+                else this.showMode = 'right';
+            }
+        },
         valueTrigger(val) {
             if (typeof val === 'function') return val();
             return val;
         },
-        Choose(event, item) {
+        Expand(event, item) {
+            if (this.triggerMode == 'click' && event.type !== 'click') return;
             if (this.valueTrigger(item.disabled)) return 0;
-            if (this.valueTrigger(item.type) == 'header' || this.valueTrigger(item.type) == 'divider') return 0;
-            let target = event.target;
-            while (target.getAttribute('class').indexOf('fv-menu-flyout-item') < 0) {
-                target = target.parentNode;
-            }
-            this.$refs.co_items.scrollTop = target.offsetTop;
-            this.$emit('choose-item', {
-                item: item,
-                index: this.thisValue.findIndex((it) => {
-                    return it.key == this.pivotValue.key && it.text == this.pivotValue.name;
-                }),
-            });
+            if (
+                this.valueTrigger(item.type) == 'header' ||
+                this.valueTrigger(item.type) == 'divider'
+            )
+                return 0;
+            this.currentItem = item;
+            this.thisParentNode = event.target;
+            this.thisParentWrapper = this.$refs.container;
         },
+        Choose(event, item) {
+            this.Expand(event, item);
+            if (item.children) return;
+            this.$emit('choose-item', [item]);
+        },
+        addChooseItem(event) {
+            if (!this.currentItem) return;
+            this.$emit('choose-item', [this.currentItem, ...event]);
+            this.currentItem = null;
+        },
+        destroyMe() {
+            this.$emit('destroy-me', this.thisValue);
+        },
+        isSelected(item) {
+            return item == this.currentItem;
+        }
     },
+    beforeUnmount() {
+        if (this.parentWrapper)
+            this.parentWrapper.removeEventListener('scroll', this.posInit);
+    }
 };
 </script>

@@ -333,7 +333,7 @@ export default {
                 this.parent().removeEventListener('mousedown', this.downEvent);
                 this.parent().addEventListener('mousedown', this.downEvent);
                 this.parent().removeEventListener('touchstart', this.downEvent);
-                this.parent().addEventListener('touchstart', this.downEvent);
+                this.parent().addEventListener('touchstart', this.downEvent, { passive: true });
                 this.parent().removeEventListener('mouseup', this.upEvent);
                 this.parent().addEventListener('mouseup', this.upEvent);
                 this.parent().removeEventListener('touchend', this.leaveEvent);

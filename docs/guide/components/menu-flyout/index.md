@@ -42,6 +42,7 @@ export default {
 </script>
 
 ### MenuFlyout
+---
 
 <ClientOnly>
 <fv-menuFlyout v-model="value" :options="options" placeholder="Pick a option">
@@ -83,31 +84,37 @@ export default {
 
 ### Propoties
 ---
-|       属性(attr)        |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:-----------------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|      value/v-model      |     Object      |       No       |       N/A       |                    Combobox当前项绑定                     |
-|         options         |      Array      |      Yes       |       N/A       |                       Combobox数据                        |
-|       borderWidth       |     Number      |       No       |        2        |                                                           |
-|       placeholder       |     String      |       No       |    Combobox     |                                                           |
-|      borderRadius       |     Number      |       No       |        3        |                                                           |
-|       background        | [string(color)] |       No       |       N/A       |                                                           |
-|    choosenBackground    | [string(color)] |       No       |       N/A       |                                                           |
-| choosenSliderBackground | [string(color)] |       No       |       N/A       |                                                           |
-|     inputForeground     | [string(color)] |       No       |       N/A       |                                                           |
-|     inputBackground     | [string(color)] |       No       |       N/A       |                                                           |
-|     titleForeground     | [string(color)] |       No       |   ChevronDown   |                                                           |
-|      dropDownIcon       |     String      |       No       |       N/A       |                                                           |
-| dropDownIconForeground  | [string(color)] |       No       |       N/A       |                                                           |
-|    revealBorderColor    | [string(color)] |       No       |       N/A       |                                                           |
-|  revealBackgroundColor  | [string(color)] |       No       |       N/A       |                                                           |
-|    pivotPlaceholder     |     String      |       No       |  Please Choose  |                                                           |
-|        disabled         |     Boolean     |       No       |       N/A       |                                                           |
-|          theme          |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+|       属性(attr)        |   类型(type)    | 必填(required) | 默认值(default) |                       说明(statement)                        |
+| :---------------------: | :-------------: | :------------: | :-------------: | :----------------------------------------------------------: |
+|      value/v-model      |     Object      |       No       |       N/A       |                      Combobox当前项绑定                      |
+|         options         |      Array      |      Yes       |       N/A       |                         Combobox数据                         |
+|       borderWidth       |     Number      |       No       |        2        |                                                              |
+|       placeholder       |     String      |       No       |    Combobox     |                                                              |
+|      borderRadius       |     Number      |       No       |        3        |                                                              |
+|       background        | [string(color)] |       No       |       N/A       |                                                              |
+|    choosenBackground    | [string(color)] |       No       |       N/A       |                                                              |
+| choosenSliderBackground | [string(color)] |       No       |       N/A       |                                                              |
+|     inputForeground     | [string(color)] |       No       |       N/A       |                                                              |
+|     inputBackground     | [string(color)] |       No       |       N/A       |                                                              |
+|     titleForeground     | [string(color)] |       No       |   ChevronDown   |                                                              |
+|      dropDownIcon       |     String      |       No       |       N/A       |                                                              |
+| dropDownIconForeground  | [string(color)] |       No       |       N/A       |                                                              |
+|        menuWidth        |     Number      |       No       |       200       |                                                              |
+|      menuMaxHeight      |     Number      |       No       |       350       |                                                              |
+|     rootTriggerMode     |     String      |       No       |      click      |         外层触发方式, click 点击触发, enter 移动触发         |
+|       triggerMode       |     String      |       No       |      enter      |         内层触发方式, click 点击触发, enter 移动触发         |
+|       wrapperNode       |  HTML Element   |       No       |       N/A       | 外层元素包括的滚动容器, 如果要考虑滚动同步, 则需要设置该属性 |
+|    revealBorderColor    | [string(color)] |       No       |       N/A       |                                                              |
+|  revealBackgroundColor  | [string(color)] |       No       |       N/A       |                                                              |
+|       mobileMode        |     Boolean     |       No       |      false      |                      是否开启移动端显示                      |
+|       isBoxShadow       |     Boolean     |       No       |      true       |                                                              |
+|        disabled         |     Boolean     |       No       |       N/A       |                                                              |
+|          theme          |     String      |       No       |     system      |  主题样式, 包含`light`, `dark`, `system`, `custom`几种样式   |
 
 ### Events
 ---
 | 事件名(Name) | 参数类型(args) |   说明(statement)    |
-|:------------:|:--------------:|:--------------------:|
+| :----------: | :------------: | :------------------: |
 | choose-item  |  value/object  | Combobox choose item |
 
 ### Slot
@@ -132,6 +139,37 @@ export default {
 <template v-slot:default="x">
   <i>{{x.item.text}}</i>
 </template>
+```
+
+2. Input
+
+用户可自定义 MenuFlyout Input 内容
+
+- switchStatus: 切换状态函数
+
+```vue
+<slot name="input" :switch="switchStatus">
+    <fv-text-box
+        :model-value="computedValue"
+        :placeholder="placeholder"
+        :theme="$theme"
+        readonly
+        :background="inputBackground"
+        :foreground="inputForeground"
+        :border-radius="borderRadius"
+        :icon="dropDownIcon"
+        :icon-foreground="dropDownIconForeground"
+        :reveal-background-color="revealBorderColor"
+        :reveal-border-color="revealBackgroundColor"
+        :reveal-border-width="borderWidth"
+        :reveal-border="revealBorder"
+        :is-box-shadow="isBoxShadow"
+        :disabled="isDisabled"
+        :cursor="'default'"
+        @click="switchStatus"
+        @mouseenter="switchStatus"
+    ></fv-text-box>
+</slot>
 ```
 
 ### Data

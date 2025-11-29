@@ -2,16 +2,6 @@
 
 .fv-MenuFlyout {
     &.dark {
-
-        .menu-flyout-container {
-            color: whitesmoke;
-            background: rgba(36, 36, 36, 1);
-
-            .input {
-                color: whitesmoke;
-            }
-        }
-
         &:hover {
             border-color: rgba(250, 250, 250, 0.6);
         }
@@ -22,9 +12,9 @@
         }
 
         .menu-flyout-list-container {
-            background: rgba(36, 36, 36, 0.9);
-
             .menu-flyout-item-container {
+                background: rgba(36, 36, 36, 0.9);
+
                 .fv-menu-flyout-item {
                     color: whitesmoke;
 
@@ -34,24 +24,6 @@
 
                     .before-choosen {
                         background: rgba(118, 185, 237, 1);
-                    }
-                }
-            }
-        }
-
-        &.disabled {
-            .menu-flyout-container {
-                background: rgba(36, 36, 36, 0.8);
-
-                .input {
-                    background: rgba(36, 36, 36, 0);
-                }
-
-                &:hover {
-                    background: rgba(36, 36, 36, 0.8);
-
-                    .input {
-                        background: rgba(36, 36, 36, 0);
                     }
                 }
             }

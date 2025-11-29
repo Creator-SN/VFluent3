@@ -3,57 +3,48 @@
         class="fv-MenuFlyout"
         :class="[$theme, { disabled: isDisabled }]"
         :style="{
-            background: background,
-            padding: borderWidth,
-            'border-radius': `${borderRadius}px`,
-            'z-index': status ? 5 : '',
+            'z-index': status ? 30 : '',
             overflow: 'visible'
         }"
     >
-        <div
-            class="menu-flyout-container"
-            @click="status = !isDisabled ? !status : false"
-            :style="{
-                background: inputBackground,
-                'border-radius': `${borderRadius}px`
-            }"
-        >
-            <fv-reveal-container
-                :parent="() => $el"
-                class="fv-menu-flyout-reveal-container"
-                :backgroundColor="backgroundLightColor"
-                :borderColor="borderLightColor"
-                :backgroundGradientSize="120"
-                :borderGradientSize="80"
-                :borderWidth="borderWidth"
-                :borderRadius="borderRadius"
-                :disabled="isDisabled"
-            ></fv-reveal-container>
-            <input
-                class="input"
+        <slot name="input" :switch="switchStatus">
+            <fv-text-box
+                :model-value="computedValue"
                 :placeholder="placeholder"
+                :theme="$theme"
                 readonly
-                :value="computedValue"
-                :style="{
-                    color: inputForeground,
-                    'border-radius': `${borderRadius}px`
-                }"
-            />
-            <i
-                class="ms-Icon right-icon"
-                :class="[`ms-Icon--${dropDownIcon}`]"
-                :style="{ color: dropDownIconForeground }"
-            ></i>
-        </div>
+                :background="inputBackground"
+                :foreground="inputForeground"
+                :border-radius="borderRadius"
+                :icon="dropDownIcon"
+                :icon-foreground="dropDownIconForeground"
+                :reveal-background-color="revealBorderColor"
+                :reveal-border-color="revealBackgroundColor"
+                :reveal-border-width="borderWidth"
+                :reveal-border="revealBorder"
+                :is-box-shadow="isBoxShadow"
+                :disabled="isDisabled"
+                :cursor="'default'"
+                @click="switchStatus"
+                @mouseenter="switchStatus"
+            ></fv-text-box>
+        </slot>
         <menu-flyout-children-container
             v-show="status"
-            :modelValue="thisValue"
-            :options="options"
+            :modelValue="options"
             :background="background"
             :choosenBackground="choosenBackground"
             :titleForeground="titleForeground"
+            :triggerMode="triggerMode"
+            :mobileMode="mobileMode"
+            :menuWidth="menuWidth"
+            :menuMaxHeight="menuMaxHeight"
+            :parent-node="$el"
+            :parent-wrapper="wrapperNode"
             :theme="$theme"
+            :zIndex="2"
             @choose-item="Choose"
+            @destroy-me="status = false"
         >
             <template v-slot:item="x">
                 <slot
@@ -83,7 +74,11 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
-const emits = defineEmits(['update:modelValue', 'choose-item']);
+const emits = defineEmits([
+    'update:modelValue',
+    'choose-item',
+    'choose-item-path'
+]);
 
 const props = defineProps({
     ...commonProps,
@@ -128,14 +123,35 @@ const props = defineProps({
     dropDownIconForeground: {
         default: ''
     },
-    pivotPlaceholder: {
-        default: 'Please Choose'
+    menuWidth: {
+        default: 200
+    },
+    menuMaxHeight: {
+        default: 350
+    },
+    rootTriggerMode: {
+        default: 'click'
+    },
+    triggerMode: {
+        default: 'enter'
+    },
+    wrapperNode: {
+        default: null
+    },
+    revealBorder: {
+        default: true
     },
     revealBorderColor: {
         default: false
     },
     revealBackgroundColor: {
         default: false
+    },
+    mobileMode: {
+        default: false
+    },
+    isBoxShadow: {
+        default: true
     },
     disabled: {
         default: false
@@ -178,26 +194,6 @@ export default {
                 this.disabled === ''
             );
         },
-        borderLightColor() {
-            if (this.revealBorderColor) return this.revealBorderColor;
-            if (this.$theme == 'light') {
-                return 'rgba(121, 119, 117, 0.6)';
-            }
-            if (this.$theme == 'dark' || this.$theme == 'custom') {
-                return 'rgba(255, 255, 255, 0.6)';
-            }
-            return 'rgba(121, 119, 117, 0.6)';
-        },
-        backgroundLightColor() {
-            if (this.revealBackgroundColor) return this.revealBackgroundColor;
-            if (this.$theme == 'light') {
-                return 'rgba(121, 119, 117, 0.3)';
-            }
-            if (this.$theme == 'dark' || this.$theme == 'custom') {
-                return 'rgba(255, 255, 255, 0.3)';
-            }
-            return 'rgba(121, 119, 117, 0.3)';
-        },
         computedValue() {
             let finalText = [];
             for (let item of this.thisValue) {
@@ -218,32 +214,28 @@ export default {
             window.addEventListener('touchend', this.outSideClickEvent);
         },
         outSideClickEvent(event) {
-            let x = event.target;
-            let _self = false;
-            while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                if (x == this.$el) {
-                    _self = true;
-                    break;
-                }
-                x = x.parentNode;
+            if (!event.composedPath().includes(this.$el)) {
+                this.status = false;
             }
-            if (!_self) this.status = false;
         },
         valueTrigger(val) {
             if (typeof val === 'function') return val();
             return val;
         },
         Choose(event) {
-            let { item, index } = event;
-            if (index == -1) this.thisValue.push(item);
-            else {
-                this.thisValue.splice(index + 1);
-                this.thisValue[index] = item;
-            }
-            if (!item.children) {
-                this.status = false;
-            }
-            this.$emit('choose-item', this.thisValue);
+            this.thisValue = event;
+            this.$emit(
+                'choose-item',
+                this.thisValue[this.thisValue.length - 1]
+            );
+            this.$emit('choose-item-path', this.thisValue);
+            this.status = false;
+        },
+        switchStatus(event) {
+            if (this.rootTriggerMode === 'click' && event.type !== 'click')
+                return;
+            if (this.isDisabled) return;
+            this.status = !this.status;
         }
     },
     beforeUnmount() {
