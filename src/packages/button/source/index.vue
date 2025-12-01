@@ -11,6 +11,8 @@
                 :backgroundColor="backgroundLightColor"
                 :borderColor="borderLightColor"
                 :borderGradientSize="80"
+                :borderGradientList="revealBorderGradientList"
+                :backgroundGradientList="revealBackgroundGradientList"
                 :borderWidth="borderWidth"
                 :borderRadius="borderRadius"
                 :disabled="isDisabled"
@@ -91,6 +93,12 @@ const props = defineProps({
     },
     revealBackgroundColor: {
         default: false
+    },
+    revealBorderGradientList: {
+        default: () => []
+    },
+    revealBackgroundGradientList: {
+        default: () => []
     },
     isBoxShadow: {
         default: false
