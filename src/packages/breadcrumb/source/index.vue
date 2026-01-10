@@ -145,11 +145,11 @@ export default {
     watch: {
         modelValue(val) {
             this.thisValue = val;
+            this.tempValue = val;
         },
         mode(val) {
             if (val == 'editor') {
-                let route = this.thisValue;
-                this.tempValue = route;
+                this.tempValue = this.thisValue;
             } else {
                 this.thisValue = this.tempValue;
             }
