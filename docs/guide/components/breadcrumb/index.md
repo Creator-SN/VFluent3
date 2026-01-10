@@ -134,7 +134,7 @@ Basic
 ### Propoties
 ---
 |  属性(attr)   |   类型(type)    | 必填(required) | 默认值(default)  |                      说明(statement)                      |
-|:-------------:|:---------------:|:--------------:|:----------------:|:---------------------------------------------------------:|
+| :-----------: | :-------------: | :------------: | :--------------: | :-------------------------------------------------------: |
 |  modelValue   |     String      |       No       |       N/A        |                        字符串路径                         |
 |   separator   |     String      |       No       |        /         |               分隔符显示, 可以是字符或图标                |
 | separatorChar |     String      |       No       |        /         |                    以什么字符分割路径                     |
@@ -142,15 +142,16 @@ Basic
 |   rootIcon    |     String      |       No       | FolderHorizontal |                          根图标                           |
 |   readOnly    |     Boolean     |       No       |       true       |                         是否只读                          |
 |  borderColor  | [string(color)] |       No       |       N/A        |                                                           |
+|   fontSize    |     String      |       No       |       12px       |                                                           |
 |   disabled    |     Boolean     |       No       |      false       |                                                           |
-| borderRadius  |     Number      |       No       |        2         |                                                           |
+| borderRadius  |     Number      |       No       |        6         |                                                           |
 |     theme     |     String      |       No       |      system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
 
 
 ### Events
 ---
 | 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
+| :----------: | :------------: | :-------------: |
 |  root-click  |     object     | 单击根图标触发  |
 |  item-click  |     object     | 单击路由项触发  |
   

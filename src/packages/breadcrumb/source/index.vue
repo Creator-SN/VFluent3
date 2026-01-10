@@ -16,7 +16,12 @@
         }"
     >
         <div class="fv-bc-route-list" ref="main" @click="editorMode">
-            <div v-show="showRoot" class="fv-bc-route-item" @click="routeClick">
+            <div
+                v-show="showRoot"
+                class="fv-bc-route-item"
+                :style="{ 'font-size': fontSize }"
+                @click="routeClick"
+            >
                 <slot
                     name="root"
                     :rootIcon="rootIcon"
@@ -30,6 +35,9 @@
                     <i
                         class="fv-bc-separator-icon ms-Icon"
                         :class="[separatorIcon ? `ms-Icon--${separator}` : '']"
+                        :style="{
+                            'font-family': separatorIcon ? '' : 'Calibri'
+                        }"
                         >{{ separatorIcon ? '' : separator }}</i
                     >
                 </slot>
@@ -39,13 +47,18 @@
                 v-for="(item, index) in routeList"
                 :key="index"
                 class="fv-bc-route-item"
-                @click="routeItemClick(item, index)"
+                :style="{ 'font-size': fontSize }"
+                @click="routeItemClick(item, index, $event)"
+                @dblclick="editorMode"
             >
                 <slot name="route-item" :item="item" :index="index">
                     <p class="fv-bc-separator-content">{{ item }}</p>
                     <i
                         class="fv-bc-separator-icon ms-Icon"
                         :class="[separatorIcon ? `ms-Icon--${separator}` : '']"
+                        :style="{
+                            'font-family': separatorIcon ? '' : 'Calibri'
+                        }"
                         >{{ separatorIcon ? '' : separator }}</i
                     >
                 </slot>
@@ -56,6 +69,7 @@
                 class="fv-bc-route-text-box"
                 type="text"
                 ref="editor"
+                :style="{ 'font-size': fontSize }"
                 @keyup="handleEnter"
             />
         </div>
@@ -90,6 +104,9 @@ const props = defineProps({
     readOnly: {
         default: true
     },
+    fontSize: {
+        default: '16px'
+    },
     borderColor: {
         default: ''
     },
@@ -97,7 +114,7 @@ const props = defineProps({
         default: false
     },
     borderRadius: {
-        default: '2'
+        default: 6
     }
 });
 </script>
@@ -183,26 +200,29 @@ export default {
         editorMode(event) {
             if (this.isDisabled) return 0;
             if (this.readOnly) return 0;
-            if (event.target !== this.$refs.main) return 0;
             event.preventDefault();
             event.stopPropagation();
-            this.mode = 'editor';
-            setTimeout(() => {
-                this.$refs.editor.focus();
-                this.$refs.editor.select();
-            }, 300);
+            if (this.mode !== 'editor') {
+                this.mode = 'editor';
+                this.$nextTick(() => {
+                    this.$refs.editor.focus();
+                    this.$refs.editor.select();
+                });
+            }
         },
         handleEnter(event) {
             if (event.keyCode === 13) this.mode = 'default';
         },
-        routeClick() {
+        routeClick(event) {
+            event.stopPropagation();
             if (this.isDisabled) return 0;
             this.$emit('root-click', {
                 path: this.thisValue,
                 pathList: this.routeList
             });
         },
-        routeItemClick(item, index) {
+        routeItemClick(item, index, event) {
+            event.stopPropagation();
             if (this.isDisabled) return 0;
             let path = '';
             let pathList = [];

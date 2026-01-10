@@ -63,11 +63,11 @@ export default {
 ---
 
 <ClientOnly>
-<fv-DropDown :options="options" placeholder="Select options" :multiple="true"></fv-DropDown>
+<fv-DropDown v-model="value" :options="options" placeholder="Select options" :multiple="true"></fv-DropDown>
 </ClientOnly>
 
 ```vue
-<fv-DropDown :options="options" placeholder="Select options" :multiple="true"></fv-DropDown>
+<fv-DropDown v-model="value" :options="options" placeholder="Select options" :multiple="true"></fv-DropDown>
 ```
 
 ### DropDown-Customize
