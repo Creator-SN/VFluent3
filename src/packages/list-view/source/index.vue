@@ -85,6 +85,10 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
+import { getCurrentInstance } from 'vue';
+
+const { proxy } = getCurrentInstance();
+
 const emits = defineEmits([
     'update:modelValue',
     'item-click',
@@ -139,6 +143,10 @@ const props = defineProps({
     sliderIndex: {
         default: -1
     }
+});
+
+defineExpose({
+    move: (...args) => proxy.move(...args)
 });
 </script>
 
@@ -335,10 +343,8 @@ export default {
                 );
                 if (t != undefined) {
                     cur.choosen = false;
-                    this.thisValue[this.thisValue.indexOf(cur)] = cur;
                 } else {
                     cur.choosen = true;
-                    this.thisValue[this.thisValue.indexOf(cur)] = cur;
                 }
             } else {
                 for (let it of this.currentChoosen) {
@@ -346,7 +352,6 @@ export default {
                     this.thisValue[this.thisValue.indexOf(it)] = it;
                 }
                 cur.choosen = true;
-                this.thisValue[this.thisValue.indexOf(cur)] = cur;
             }
 
             this.selectionFormat(cur);
@@ -456,10 +461,8 @@ export default {
                 );
                 if (t != undefined) {
                     cur.choosen = false;
-                    this.thisValue[this.thisValue.indexOf(cur)] = cur;
                 } else {
                     cur.choosen = true;
-                    this.thisValue[this.thisValue.indexOf(cur)] = cur;
                 }
             } else {
                 for (let it of this.currentChoosen) {
@@ -467,7 +470,6 @@ export default {
                     this.thisValue[this.thisValue.indexOf(it)] = it;
                 }
                 cur.choosen = true;
-                this.thisValue[this.thisValue.indexOf(cur)] = cur;
             }
 
             let index = this.thisValue.indexOf(cur);
