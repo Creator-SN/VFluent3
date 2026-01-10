@@ -32,14 +32,6 @@
                         class="fv-bc-separator-content ms-Icon"
                         :class="[`ms-Icon--${rootIcon}`]"
                     ></i>
-                    <i
-                        class="fv-bc-separator-icon ms-Icon"
-                        :class="[separatorIcon ? `ms-Icon--${separator}` : '']"
-                        :style="{
-                            'font-family': separatorIcon ? '' : 'Calibri'
-                        }"
-                        >{{ separatorIcon ? '' : separator }}</i
-                    >
                 </slot>
             </div>
             <div
@@ -48,12 +40,18 @@
                 :key="index"
                 class="fv-bc-route-item"
                 :style="{ 'font-size': fontSize }"
-                @click="routeItemClick(item, index, $event)"
                 @dblclick="editorMode"
             >
                 <slot name="route-item" :item="item" :index="index">
-                    <p class="fv-bc-separator-content">{{ item }}</p>
+                    <p
+                        v-show="item"
+                        class="fv-bc-separator-content"
+                        @click="routeItemClick(item, index, $event)"
+                    >
+                        {{ item }}
+                    </p>
                     <i
+                        v-show="index < routeList.length - 1"
                         class="fv-bc-separator-icon ms-Icon"
                         :class="[separatorIcon ? `ms-Icon--${separator}` : '']"
                         :style="{
@@ -151,16 +149,9 @@ export default {
         mode(val) {
             if (val == 'editor') {
                 let route = this.thisValue;
-                if (route[0] == this.separatorChar)
-                    route = route.slice(1, route.length);
                 this.tempValue = route;
             } else {
-                let route = this.tempValue;
-                if (route[0] == this.separatorChar)
-                    route = route.slice(1, route.length);
-                if (this.thisValue[0] == this.separatorChar)
-                    this.thisValue = `${this.separatorChar}${route}`;
-                else this.thisValue = route;
+                this.thisValue = this.tempValue;
             }
         },
         thisValue(val) {
@@ -181,8 +172,6 @@ export default {
         },
         routeList() {
             let route = this.thisValue;
-            if (route[0] == this.separatorChar)
-                route = route.slice(1, route.length);
             if (route == '') return [];
             return route.split(this.separatorChar);
         },
