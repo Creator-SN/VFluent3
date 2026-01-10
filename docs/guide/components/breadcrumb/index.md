@@ -150,10 +150,12 @@ Basic
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-| :----------: | :------------: | :-------------: |
-|  root-click  |     object     | 单击根图标触发  |
-|  item-click  |     object     | 单击路由项触发  |
+|  事件名(Name)  | 参数类型(args) | 说明(statement)  |
+| :------------: | :------------: | :--------------: |
+|     change     |     string     | 临时路径改变触发 |
+| debounce-input |     string     |  输入框防抖触发  |
+|   root-click   |     object     |  单击根图标触发  |
+|   item-click   |     object     |  单击路由项触发  |
   
 
 ### Slot

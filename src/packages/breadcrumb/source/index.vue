@@ -80,7 +80,13 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
-const emits = defineEmits(['update:modelValue', 'root-click', 'item-click']);
+const emits = defineEmits([
+    'update:modelValue',
+    'change',
+    'debounce-input',
+    'root-click',
+    'item-click'
+]);
 
 const props = defineProps({
     ...commonProps,
@@ -115,6 +121,9 @@ const props = defineProps({
     },
     borderRadius: {
         default: 6
+    },
+    debounceDelay: {
+        default: 300
     }
 });
 </script>
@@ -129,7 +138,10 @@ export default {
         return {
             mode: 'default',
             thisValue: this.modelValue,
-            tempValue: ''
+            tempValue: '',
+            timer: {
+                debounce: null
+            }
         };
     },
     watch: {
@@ -153,6 +165,13 @@ export default {
         },
         thisValue(val) {
             this.$emit('update:modelValue', val);
+        },
+        tempValue(val) {
+            this.$emit('change', val);
+            if (this.timer.debounce) clearTimeout(this.timer.debounce);
+            this.timer.debounce = setTimeout(() => {
+                this.$emit('debounce-input', val);
+            }, this.debounceDelay);
         }
     },
     computed: {
@@ -214,16 +233,16 @@ export default {
             if (event.keyCode === 13) this.mode = 'default';
         },
         routeClick(event) {
-            event.stopPropagation();
             if (this.isDisabled) return 0;
+            event.stopPropagation();
             this.$emit('root-click', {
                 path: this.thisValue,
                 pathList: this.routeList
             });
         },
         routeItemClick(item, index, event) {
-            event.stopPropagation();
             if (this.isDisabled) return 0;
+            event.stopPropagation();
             let path = '';
             let pathList = [];
             for (let i = 0; i <= index; i++) pathList.push(this.routeList[i]);
