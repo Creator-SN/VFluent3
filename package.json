@@ -1,7 +1,7 @@
 {
   "name": "@creatorsn/vfluent3",
   "private": false,
-  "version": "0.3.33",
+  "version": "0.3.35",
   "files": [
     "dist"
   ],
