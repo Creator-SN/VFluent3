@@ -80,7 +80,7 @@ import { commonProps } from '@/packages/common/props';
 
 const emits = defineEmits([
     'update:modelValue',
-    'change',
+    'input-change',
     'debounce-input',
     'root-click',
     'item-click'
@@ -158,7 +158,7 @@ export default {
             this.$emit('update:modelValue', val);
         },
         tempValue(val) {
-            this.$emit('change', val);
+            this.$emit('input-change', val);
             if (this.timer.debounce) clearTimeout(this.timer.debounce);
             this.timer.debounce = setTimeout(() => {
                 this.$emit('debounce-input', val);
