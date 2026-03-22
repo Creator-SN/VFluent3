@@ -124,7 +124,7 @@ export default {
     },
     watch: {
         modelValue() {
-            this.thisValue = this.value;
+            this.thisValue = this.modelValue;
         },
         async 'queueFunction.length'() {
             if (this.queueFunction.length === 0) return;
