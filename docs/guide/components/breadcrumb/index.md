@@ -1,7 +1,7 @@
 ---
 page: true
 title: Breadcrumb
---- 
+---
 
 <script lang="ts" setup>
 import { ref } from 'vue'; 
@@ -15,10 +15,10 @@ const modelValue = ref("/creatorsn/vfluent/breadcrumb")
 </script>
 
 ### Breadcrumb-DEMO
---- 
+
+---
 
 Basic
-
 
 <ClientOnly>
 <fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb">
@@ -31,6 +31,7 @@ Basic
 ```
 
 ### Breadcrumb-Editable
+
 ---
 
 <ClientOnly>
@@ -44,6 +45,7 @@ Basic
 ```
 
 ### Breadcrumb-Custom Icon
+
 ---
 
 1. Char
@@ -54,7 +56,11 @@ Basic
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator=">">
+<fv-Breadcrumb
+    modelValue="/creatorsn/vfluent/breadcrumb"
+    :readOnly="false"
+    separator=">"
+>
 </fv-Breadcrumb>
 ```
 
@@ -66,11 +72,16 @@ Basic
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" separator="ChevronRightMed">
+<fv-Breadcrumb
+    modelValue="/creatorsn/vfluent/breadcrumb"
+    :readOnly="false"
+    separator="ChevronRightMed"
+>
 </fv-Breadcrumb>
 ```
 
 ### Breadcrumb-Hide Root
+
 ---
 
 <ClientOnly>
@@ -79,11 +90,16 @@ Basic
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" :showRoot="false">
+<fv-Breadcrumb
+    modelValue="/creatorsn/vfluent/breadcrumb"
+    :readOnly="false"
+    :showRoot="false"
+>
 </fv-Breadcrumb>
 ```
 
 ### Breadcrumb-Dark Theme
+
 ---
 
 <div style="padding: 8px; background: black;">
@@ -101,7 +117,9 @@ Basic
 ```
 
 ### Breadcrumb-Dark Disabled
+
 ---
+
 1. Light
 
 <ClientOnly>
@@ -110,7 +128,11 @@ Basic
 </ClientOnly>
 
 ```vue
-<fv-Breadcrumb modelValue="/creatorsn/vfluent/breadcrumb" :readOnly="false" disabled>
+<fv-Breadcrumb
+    modelValue="/creatorsn/vfluent/breadcrumb"
+    :readOnly="false"
+    disabled
+>
 </fv-Breadcrumb>
 ```
 
@@ -130,9 +152,10 @@ Basic
 </div>
 ```
 
-
 ### Propoties
+
 ---
+
 |  属性(attr)   |   类型(type)    | 必填(required) | 默认值(default)  |                      说明(statement)                      |
 | :-----------: | :-------------: | :------------: | :--------------: | :-------------------------------------------------------: |
 |  modelValue   |     String      |       No       |       N/A        |                        字符串路径                         |
@@ -147,16 +170,16 @@ Basic
 | borderRadius  |     Number      |       No       |        6         |                                                           |
 |     theme     |     String      |       No       |      system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
 
-
 ### Events
+
 ---
+
 |  事件名(Name)  | 参数类型(args) | 说明(statement)  |
 | :------------: | :------------: | :--------------: |
-|     change     |     string     | 临时路径改变触发 |
+|  input-change  |     string     | 临时路径改变触发 |
 | debounce-input |     string     |  输入框防抖触发  |
 |   root-click   |     object     |  单击根图标触发  |
 |   item-click   |     object     |  单击路由项触发  |
-  
 
 ### Slot
 
@@ -172,8 +195,15 @@ Basic
 
 ```vue
 <template v-slot:root="x">
-    <i class="fv-bc-separator-content ms-Icon" :class="[`ms-Icon--${x.rootIcon}`]"></i>
-    <i class="fv-bc-separator-icon ms-Icon" :class="[x.separatorIcon ? `ms-Icon--${x.separator}` : '']">{{x.separatorIcon ? '' : x.separator}}</i>
+    <i
+        class="fv-bc-separator-content ms-Icon"
+        :class="[`ms-Icon--${x.rootIcon}`]"
+    ></i>
+    <i
+        class="fv-bc-separator-icon ms-Icon"
+        :class="[x.separatorIcon ? `ms-Icon--${x.separator}` : '']"
+        >{{ x.separatorIcon ? '' : x.separator }}</i
+    >
 </template>
 ```
 
