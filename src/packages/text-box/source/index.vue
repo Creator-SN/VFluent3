@@ -237,7 +237,8 @@ export default {
     },
     data() {
         return {
-            thisValue: this.modelValue.toString(),
+            thisValue:
+                this.modelValue == null ? '' : this.modelValue.toString(),
             isFocus: false,
             timer: {
                 debounce: null
@@ -246,7 +247,7 @@ export default {
     },
     watch: {
         modelValue(val) {
-            this.thisValue = val.toString();
+            this.thisValue = val == null ? '' : val.toString();
         },
         thisValue(val) {
             clearTimeout(this.timer.debounce);
