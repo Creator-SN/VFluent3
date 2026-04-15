@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /guide/
+      link: /guide/index.zh-CN
     - theme: alt
       text: GitHub
       link: https://github.com/Creator-SN/VFluent3.git
