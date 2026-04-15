@@ -10,38 +10,38 @@
 </div>
 
 <h4 align="center">
-  <i>Fluent Design components for Vue 3, built for crisp Windows-like web experiences.</i>
+  <i>为 Vue 3 打造的 Fluent Design 组件库，让 Web 界面更接近清爽、细腻的 Windows 体验。</i>
 </h4>
 
 <p align="center">
-  <a href="https://creator-sn.github.io/VFluent3/">Documentation</a>
+  <a href="https://creator-sn.github.io/VFluent3/">文档</a>
   ·
   <a href="https://www.npmjs.com/package/@creatorsn/vfluent3">npm</a>
   ·
   <a href="https://github.com/Creator-SN/VFluent3/issues">Issues</a>
 </p>
 
-English | [简体中文](./README_zh.md)
+[English](./README.md) | 简体中文
 
 ## VFluent3
 
-VFluent3 is a Vue 3 component library inspired by Microsoft's [Fluent Design System](https://developer.microsoft.com/en-us/fluentui#/). It brings Fluent-style components, icons, shadows, Acrylic-like surfaces, and Reveal interactions into modern Vue applications.
+VFluent3 是一个受 Microsoft [Fluent Design System](https://developer.microsoft.com/en-us/fluentui#/) 启发的 Vue 3 组件库。它为现代 Vue 应用提供 Fluent 风格组件、图标、阴影、类 Acrylic 表面以及 Reveal 交互效果。
 
-The project is powered by Vite and focuses on making desktop-inspired web interfaces feel clean, responsive, and delightful.
+项目基于 Vite 构建，目标是让桌面风格的 Web 界面更清晰、更响应式，也更有质感。
 
-## Installation
+## 安装
 
-Install the package with Yarn:
+使用 Yarn 安装：
 
 ```sh
 yarn add @creatorsn/vfluent3
 ```
 
-npm and pnpm work in a similar way.
+npm 和 pnpm 的操作类似。
 
-## Quick Start
+## 快速开始
 
-Register VFluent3 in your Vue entry file, usually `main.js`:
+在 Vue 入口文件中注册 VFluent3，通常是 `main.js`：
 
 ```js
 import { createApp } from 'vue';
@@ -54,76 +54,76 @@ app.use(VueFluent);
 app.mount('#app');
 ```
 
-Then use components in your Vue app:
+然后就可以在 Vue 中使用组件：
 
 ```vue
 <template>
-  <fv-button>Create something fluent</fv-button>
+  <fv-button>创建一个 Fluent 界面</fv-button>
 </template>
 ```
 
-## Documentation
+## 文档
 
-Read the full documentation and component examples:
+完整文档与组件示例：
 
 [https://creator-sn.github.io/VFluent3/](https://creator-sn.github.io/VFluent3/)
 
-## Development
+## 本地开发
 
-Clone the repository and install dependencies:
+克隆仓库后安装依赖：
 
 ```sh
 yarn
 ```
 
-Start the VitePress documentation site:
+启动 VitePress 文档站点：
 
 ```sh
 yarn docs:dev
 ```
 
-Create a new component scaffold:
+创建新的组件模板：
 
 ```sh
 yarn bin:new
 ```
 
-Build the library:
+构建组件库：
 
 ```sh
 yarn build
 ```
 
-## Contributing
+## 参与贡献
 
-VFluent3 is still growing, and contributions are welcome.
+VFluent3 仍在持续完善中，欢迎一起让它变得更好。
 
-If you have ideas, feedback, bug reports, or design suggestions, please open an [issue](https://github.com/Creator-SN/VFluent3/issues). If you want to contribute a fix or improvement, please submit a pull request.
+如果你有想法、建议、问题反馈或设计意见，可以提交 [issue](https://github.com/Creator-SN/VFluent3/issues)。如果你愿意贡献修复或改进，请提交 pull request。
 
-For commit messages, this project supports Commitizen:
+项目支持使用 Commitizen 生成提交信息：
 
 ```sh
 yarn cz
 ```
 
-## Fluent Icons
+## Fluent 图标
 
-VFluent3 uses Microsoft Fabric UI and Fluent icon resources in several places, including icons and shadows.
+VFluent3 在多个场景中使用了 Microsoft Fabric UI 与 Fluent 图标资源，包括图标与阴影等视觉能力。
 
-Basic icon usage:
+基础图标用法：
 
 ```vue
 <i class="ms-Icon ms-Icon--AADLogo"></i>
 ```
 
-When a VFluent3 component supports an icon prop, you can usually pass the icon name directly.
+当 VFluent3 组件的某个 prop 支持图标时，通常可以直接传入图标名称。
 
-Windows 11 Fluent Icons reference:
+Windows 11 Fluent Icons 参考：
 
 [https://learn.microsoft.com/en-us/windows/apps/design/style/segoe-fluent-icons-font](https://learn.microsoft.com/en-us/windows/apps/design/style/segoe-fluent-icons-font)
 
 ## License
 
-VFluent3 is released under the [MIT License](./LICENSE).
+VFluent3 基于 [MIT License](./LICENSE) 开源。
 
 Copyright (c) 2025 Creator SN
