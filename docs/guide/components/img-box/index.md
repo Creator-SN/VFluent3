@@ -3,6 +3,9 @@ page: true
 title: ImgBox
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### ImgBox-DEMO
 ---
 
@@ -37,17 +40,20 @@ title: ImgBox
 ```
 
 
-### Propoties
+### Properties
 ---
-|  属性(attr)  |     类型(type)     |   必填(required)    |                   默认值(default)                    |                 说明(statement)                  |
-|:------------:|:------------------:|:-------------------:|:----------------------------------------------------:|:------------------------------------------------:|
-|     url      |       String       |         Yes         |                         N/A                          | Image url, be careful don't use cross-domain url |
-|    onlazy    |      Boolean       |         No          |                        false                         |                 Lazy load image                  |
-| loadingColor | [string(color)] No | rgba(0, 90, 158, 1) | The foreground of the progress-ring or progress-bar. |                                                  |
-| onbackground |      Boolean       |         No          |                        false                         |                Show as background                |
+| Property     | Type    | Required | Default               | Description                                      |
+|:------------:|:-------:|:--------:|:---------------------:|:------------------------------------------------:|
+| url          | string  | No       | ''                    | Image url, be careful don't use cross-domain url |
+| onlazy       | boolean | No       | false                 | Lazy load image                                  |
+| loadingColor | string  | No       | 'rgba(36, 36, 36, 1)' |                                                  |
+| onbackground | boolean | No       | false                 | Show as background                               |
+| theme        | string  | No       | 'global'              | See the ImgBox `theme` option.                   |
+| disabled     | boolean | No       | false                 | See the ImgBox `disabled` option.                |
+| lang         | string  | No       | "global"              | See the ImgBox `lang` option.                    |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |                           说明(statement)                           |
-|:------------:|:--------------:|:-------------------------------------------------------------------:|
-|    error     |     object     | Image load failed will call back error function with error message. |
+| Event | Arguments | Description                                                         |
+|:-----:|:---------:|:-------------------------------------------------------------------:|
+| error | object    | Image load failed will call back error function with error message. |

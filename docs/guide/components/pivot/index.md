@@ -2,6 +2,9 @@
 page: true
 title: Pivot
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Pivot-DEMO
 ---
 
@@ -78,41 +81,43 @@ export default {
 
 </ClientOnly>
 
-### Propoties
+### Properties
 ---
-|     属性(attr)     |   类型(type)    | 必填(required) |        默认值(default)         |                      说明(statement)                      |
-| :----------------: | :-------------: | :------------: | :----------------------------: | :-------------------------------------------------------: |
-|       value        |     Object      |       No       |              N/A               |                       当前选中项值                        |
-|       items        |      Array      |       No       | [{ name: "Pivot", width: 80 }] |                        选项卡数据                         |
-|        tab         |     Boolean     |       No       |             false              |                      是否开启tab样式                      |
-|      padding       |     String      |       No       |              N/A               |                          内边距                           |
-|    itemPadding     |     String      |       No       |              N/A               |                       选项卡内边距                        |
-|      fontSize      |     Number      |       No       |              N/A               |                       默认字体大小                        |
-|     foreground     | [string(color)] |       No       |              N/A               |                          前景色                           |
-| choosenForeground  | [string(color)] |       No       |              N/A               |                       选中项前景色                        |
-|  sliderBackground  | [string(color)] |       No       |              N/A               |                        滑块背景色                         |
-|  sliderBoxshadow   |     Boolean     |       No       |             false              |                     是否开启滑块阴影                      |
-| sliderBorderRadius |     String      |       No       |             '3px'              |                         滑块圆角                          |
-|     background     | [string(color)] |       No       |              N/A               |                          背景色                           |
-|    borderRadius    |     String      |       No       |              N/A               |                         边框圆角                          |
-|       theme        |     String      |       No       |             system             | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property           | Type    | Required | Default                        | Description                                                              |
+|:------------------:|:-------:|:--------:|:------------------------------:|:------------------------------------------------------------------------:|
+| modelValue         | object  | No       | () => { return null; }         | See the Pivot `modelValue` option.                                       |
+| items              | array   | No       | [{ name: 'Pivot', width: 80 }] | See the Pivot `items` option.                                            |
+| tab                | boolean | No       | false                          | See the Pivot `tab` option.                                              |
+| padding            | string  | No       | ''                             | See the Pivot `padding` option.                                          |
+| itemPadding        | string  | No       | ''                             | See the Pivot `itemPadding` option.                                      |
+| fontSize           | string  | No       | ''                             | See the Pivot `fontSize` option.                                         |
+| foreground         | string  | No       | ''                             | Foreground color.                                                        |
+| choosenForeground  | string  | No       | ''                             | See the Pivot `choosenForeground` option.                                |
+| sliderBackground   | string  | No       | ''                             | See the Pivot `sliderBackground` option.                                 |
+| sliderBoxshadow    | boolean | No       | false                          | See the Pivot `sliderBoxshadow` option.                                  |
+| sliderBorderRadius | string  | No       | '3'                            | See the Pivot `sliderBorderRadius` option.                               |
+| background         | string  | No       | ''                             | Background color.                                                        |
+| borderRadius       | string  | No       | ''                             | See the Pivot `borderRadius` option.                                     |
+| theme              | string  | No       | 'global'                       | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled           | boolean | No       | false                          | See the Pivot `disabled` option.                                         |
+| lang               | string  | No       | "global"                       | See the Pivot `lang` option.                                             |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |        说明(statement)        |
-| :----------: | :------------: | :---------------------------: |
-|    input     |     value      | 当选中项发生改变时, 返回value |
-|    change    |     object     | 当选中项发生改变时, 返回value |
+| Event  | Arguments | Description                        |
+|:------:|:---------:|:----------------------------------:|
+| input  | value     | See the component `input` option.  |
+| change | object    | See the component `change` option. |
 
-### Slot
+### Slots
 ---
 1. Container
 
-自定义项目内的内容, 包含以下属性:
-- item: 当前项目数据
-- index: 当前项目索引
-- equal: 当前项目是否为选中项, 是一个`function`, 参数为当前项目数据, 返回值为`boolean`
-- valueTrigger: 选中项触发函数, 是一个`function`
+
+
+
+
+
 
 ```javascript
 <template v-slot:container="x">
@@ -123,7 +128,7 @@ export default {
 ---
 1. items
 
-Pivot只针对对象的`key`和`name`进行匹配, 当`value`传入的这两个属性能够在`options`中匹配时, 选中项即为被匹配项.
+
 
 ```javascript
 items = [{ key: 0, name: "Pivot", width: 80, show: true, disabled: false }]
@@ -132,5 +137,3 @@ items = [{ key: 0, name: "Pivot", width: 80, show: true, disabled: false }]
 
 items: [{ key: 0, name: "Pivot", width: 80 }]
 ```
-**特别地** 1.0.3版本后支持采用函数式字段, 其中支持的字段包括`name`, `disabled`, `show`, `width`
-1.1.0版本后`width`支持数值和CSS字符串赋值

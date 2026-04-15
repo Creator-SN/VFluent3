@@ -3,6 +3,9 @@ page: true
 title: TreeView
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
   export default {
     data() {
@@ -155,7 +158,7 @@ title: TreeView
 </fv-TreeView>
 ```
 
-默认的修改项目顺序的示例, 其中`dropParent`和`dragParent`在根下为`null`
+
 
 ```javascript
 dropItem (event) {
@@ -188,7 +191,7 @@ dropItem (event) {
 </fv-TreeView>
 ```
 
-### Slot
+### Slots
 
 <ClientOnly>
 <fv-TreeView v-model="files" style="width:200px">
@@ -271,47 +274,49 @@ foregroundColor:
 </fv-TreeView>
 ```
 
-### Propoties
+### Properties
 
 ---
 
-|      属性(attr)       |             类型(type)             | 必填(required) |   默认值(default)   |    说明(statement)     |
-|:---------------------:|:----------------------------------:|:--------------:|:-------------------:|:----------------------:|
-|         value         |               Array                |      Yes       |         []          |     数据，详见data     |
-|       draggable       |              Boolean               |       No       |        false        |       是否可拖动       |
-|       checkable       |              Boolean               |       No       |        false        |        是否可选        |
-|         space         |               Number               |       No       |         20          | 树形父与子间的间距(px) |
-|      foreground       |               String               |       No       | rgba(0, 90, 158, 1) |         前景色         |
-|     expandedIcon      |               String               |       No       |  ChevronDownSmall   |      扩展后的箭头      |
-|    unexpandedIcon     |               String               |       No       |  ChevronRightSmall  |      未扩展的箭头      |
-| backgroundColorHover  |               String               |       No       |         N/A         |    子项Hover的颜色     |
-| backgroundColorActive |               String               |       No       |         N/A         |     子项激活的颜色     |
-|      itemHeight       |               String               |       No       |         30          |        子项高度        |
-|      showLoading      |              Boolean               |       No       |        false        |  加载时是否显示进度条  |
-| expandedIconPosition  |          ['left','right']          |       No       |       'left'        |      扩展箭头位置      |
-|    expandClickMode    |         ['icon','normal']          |       No       |      'normal'       |     点击展开的方式     |
-|         theme         | ['system','dark','light','custom'] |       No       |      'system'       |         主题色         |
+| Property              | Type    | Required | Default               | Description                                         |
+|:---------------------:|:-------:|:--------:|:---------------------:|:---------------------------------------------------:|
+| modelValue            | array   | No       | []                    | Data. See the data section for details.             |
+| draggable             | boolean | No       | false                 | Whether items are draggable.                        |
+| checkable             | boolean | No       | false                 | Whether items are checkable.                        |
+| space                 | number  | No       | 20                    | See the TreeView `space` option.                    |
+| foreground            | string  | No       | 'rgba(0, 90, 158, 1)' | Foreground color.                                   |
+| expandedIcon          | string  | No       | 'ChevronDownSmall'    | See the TreeView `expandedIcon` option.             |
+| unexpandedIcon        | string  | No       | 'ChevronRightSmall'   | See the TreeView `unexpandedIcon` option.           |
+| backgroundColorHover  | string  | No       | ''                    | See the TreeView `backgroundColorHover` option.     |
+| backgroundColorActive | string  | No       | ''                    | See the TreeView `backgroundColorActive` option.    |
+| itemHeight            | number  | No       | 30                    | Item height.                                        |
+| showLoading           | boolean | No       | false                 | Whether to show a progress indicator while loading. |
+| expandedIconPosition  | string  | No       | 'left'                | Expand arrow position.                              |
+| expandClickMode       | string  | No       | 'normal'              | Expand trigger mode.                                |
+| theme                 | string  | No       | 'global'              | Theme color.                                        |
+| disabled              | boolean | No       | false                 | See the TreeView `disabled` option.                 |
+| lang                  | string  | No       | "global"              | See the TreeView `lang` option.                     |
 
 ### Events
 ---
 
-|  事件名(Name)   |                   参数类型(args)                   |           说明(statement)            |
-|:---------------:|:--------------------------------------------------:|:------------------------------------:|
-|      click      |                        item                        | 当点击时触发，第一个参数为点击的item |
-|    drop-item    | \{root, drop, dropParent, drag, dragParent, mode\} |        项目间拖动放置回调函数        |
-| item-drag-over  |             \{root, drop, dropParent\}             |           当前项被放置进入           |
-| item-drag-leave |             \{root, drop, dropParent\}             |           当前项被放置离开           |
-|    item-drop    |             \{root, drop, dropParent\}             |             当前项被放置             |
+| Event           | Arguments                                          | Description                                                              |
+|:---------------:|:--------------------------------------------------:|:------------------------------------------------------------------------:|
+| click           | item                                               | Emitted when an item is clicked. The first argument is the clicked item. |
+| drop-item       | \{root, drop, dropParent, drag, dragParent, mode\} | See the component `drop-item` option.                                    |
+| item-drag-over  | \{root, drop, dropParent\}                         | Emitted when the dragged item enters the current item.                   |
+| item-drag-leave | \{root, drop, dropParent\}                         | Emitted when the dragged item leaves the current item.                   |
+| item-drop       | \{root, drop, dropParent\}                         | Emitted when an item is dropped on the current item.                     |
 
 
-### Slots
+### Slotss
 ---
 
 1. TreeItem
 
-默认以value中每一项的属性name作为默认显示, 包含以下可选属性
-- item: 当前项
-- deep: 当前深度
+
+
+
 
 ```vue
 <template v-slot:default="x">
@@ -324,9 +329,9 @@ foregroundColor:
 
 1. value
 
-其中`icon`表示该项图标, 支持引入图像, `expanded`表示是否展开, `selected`表示是否选中, `loading`表示该项是否在加载, `dropInside`表示是否允许拖动放置到该项内部, `show`表示是否显示该项, `children`表示子项
 
-若想在外部控制`expanded`和`selected`, 需在传入数据前定义它们
+
+
 
 ``` javascript
 value = [{label: '', icon: '', disabled: '', children: [], expanded: false, selected: false, loading: false, dropInside: true, show: true}]
@@ -397,6 +402,3 @@ value = [{label: '', icon: '', disabled: '', children: [], expanded: false, sele
     }
 ]
 ```
-
-
-**特别地** 1.2.31版本后支持采用函数式字段, 其中支持的字段包括`label`, `icon`, `disabled`, `loading`, `dropInside`, `show`

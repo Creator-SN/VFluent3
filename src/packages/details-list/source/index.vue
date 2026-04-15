@@ -612,16 +612,18 @@ export default {
                 console.warn(this.filter, 'Invalid filter.');
                 return 0;
             }
+            const keyword = this.filterTextValue(filter.value);
             if (filter.key == 'any') {
                 for (let i = 0; i < this.thisValue.length; i++) {
                     let status = false;
                     let item = this.thisValue[i];
                     for (let it in this.thisValue[i]) {
-                        if (typeof item[it] != 'string') continue;
+                        const itemValue = this.filterTextValue(item[it]);
+                        if (itemValue === '') continue;
                         if (
-                            item[it]
+                            itemValue
                                 .toLowerCase()
-                                .indexOf(filter.value.toLowerCase()) > -1
+                                .indexOf(keyword.toLowerCase()) > -1
                         ) {
                             status = true;
                             break;
@@ -632,14 +634,19 @@ export default {
             } else {
                 for (let i = 0; i < this.thisValue.length; i++) {
                     let item = this.thisValue[i];
+                    const itemValue = this.filterTextValue(item[filter.key]);
                     let status =
-                        this.thisValue[i][this.filter.key]
-                            .toLowerCase()
-                            .indexOf(filter.value.toLowerCase()) > -1;
+                        itemValue.toLowerCase().indexOf(keyword.toLowerCase()) >
+                        -1;
                     item.show = status;
                 }
             }
             this.$emit('change-value', this.thisValue);
+        },
+        filterTextValue(val) {
+            val = this.valueTrigger(val);
+            if (val == undefined || val == null) return '';
+            return val.toString();
         },
         resizeDown(event, index) {
             let item = this.thisHead[index];

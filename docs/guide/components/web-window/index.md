@@ -3,6 +3,9 @@ page: true
 title: WebWindow
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### WebWindow-DEMO
 ---
 
@@ -66,26 +69,29 @@ export default {
 
 
 
-### Propoties
+### Properties
 ---
-|   属性(attr)    | 类型(type) | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:---------------:|:----------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|  value/v-model  |  Boolean   |       No       |      true       |                    开启或关闭WebWindow                    |
-|      title      |   String   |       No       |       N/A       |                       WebWindow标题                       |
-|      left       |   Number   |       No       |        0        |                WebWindow默认距离左边的距离                |
-|       top       |   Number   |       No       |        0        |                WebWindow默认距离顶部的距离                |
-|    isResize     |  Boolean   |       No       |      false      |                     是否启用可变尺寸                      |
-|    isAcrylic    |  Boolean   |       No       |      false      |                     是否开启背景模糊                      |
-| refreshPosition |  Boolean   |       No       |      false      |               是否在WebWindow打开时刷新位置               |
-|      theme      |   String   |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property        | Type    | Required | Default     | Description                                                              |
+|:---------------:|:-------:|:--------:|:-----------:|:------------------------------------------------------------------------:|
+| modelValue      | boolean | No       | true        | See the WebWindow `modelValue` option.                                   |
+| title           | string  | No       | 'WebWindow' | See the WebWindow `title` option.                                        |
+| left            | number  | No       | 0           | See the WebWindow `left` option.                                         |
+| top             | number  | No       | 0           | See the WebWindow `top` option.                                          |
+| isResize        | boolean | No       | false       | See the WebWindow `isResize` option.                                     |
+| isAcrylic       | boolean | No       | false       | See the WebWindow `isAcrylic` option.                                    |
+| refreshPosition | Boolean | No       | false       | See the WebWindow `refreshPosition` option.                              |
+| theme           | string  | No       | 'global'    | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| refreshPos      | boolean | No       | false       | See the WebWindow `refreshPos` option.                                   |
+| disabled        | boolean | No       | false       | See the WebWindow `disabled` option.                                     |
+| lang            | string  | No       | "global"    | See the WebWindow `lang` option.                                         |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |     说明(statement)     |
-|:------------:|:--------------:|:-----------------------:|
-|    close     |                | WebWindow关闭时触发事件 |
+| Event | Arguments | Description                       |
+|:-----:|:---------:|:---------------------------------:|
+| close |           | See the component `close` option. |
 
-### Slot
+### Slots
 ---
 
 1. Default
@@ -95,4 +101,3 @@ export default {
     <div></div>
 </fv-web-window>
 ```
-  

@@ -2,6 +2,9 @@
 page: true
 title: Combobox
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Combobox-DEMO
 ---
 
@@ -87,43 +90,44 @@ Default Styles
 
 </ClientOnly>
 
-### Propoties
+### Properties
 ---
-|       属性(attr)        |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-| :---------------------: | :-------------: | :------------: | :-------------: | :-------------------------------------------------------: |
-|      value/v-model      |     Object      |       No       |       N/A       |                    Combobox当前项绑定                     |
-|         options         |      Array      |      Yes       |       N/A       |                       Combobox数据                        |
-|       borderWidth       |     Number      |       No       |        1        |                                                           |
-|       placeholder       |     String      |       No       |    Combobox     |                                                           |
-|       borderColor       | [string(color)] |       No       |       N/A       |                                                           |
-|      borderRadius       |     Number      |       No       |        3        |                                                           |
-|       background        | [string(color)] |       No       |       N/A       |                                                           |
-|    choosenBackground    | [string(color)] |       No       |       N/A       |                                                           |
-| choosenSliderBackground | [string(color)] |       No       |       N/A       |                                                           |
-|     inputForeground     | [string(color)] |       No       |       N/A       |                                                           |
-|     inputBackground     | [string(color)] |       No       |       N/A       |                                                           |
-|     titleForeground     | [string(color)] |       No       |   ChevronDown   |                                                           |
-|       itemHeight        |     Number      |       No       |       40        |                    Combobox Item 高度                     |
-|      dropDownIcon       |     String      |       No       |       N/A       |                                                           |
-| dropDownIconForeground  | [string(color)] |       No       |       N/A       |                                                           |
-|    revealBorderColor    | [string(color)] |       No       |       N/A       |                                                           |
-|  revealBackgroundColor  | [string(color)] |       No       |       N/A       |                                                           |
-|        disabled         |     Boolean     |       No       |       N/A       |                                                           |
-|          theme          |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property                | Type    | Required | Default       | Description                                                              |
+|:-----------------------:|:-------:|:--------:|:-------------:|:------------------------------------------------------------------------:|
+| modelValue              | object  | No       | {}            | See the Combobox `modelValue` option.                                    |
+| options                 | array   | No       | []            | See the Combobox `options` option.                                       |
+| borderWidth             | number  | No       | 1             |                                                                          |
+| placeholder             | string  | No       | 'Combobox'    |                                                                          |
+| borderColor             | string  | No       | ''            |                                                                          |
+| borderRadius            | number  | No       | 6             |                                                                          |
+| background              | string  | No       | ''            |                                                                          |
+| choosenBackground       | string  | No       | ''            |                                                                          |
+| choosenSliderBackground | string  | No       | ''            |                                                                          |
+| inputForeground         | string  | No       | ''            |                                                                          |
+| inputBackground         | string  | No       | ''            |                                                                          |
+| titleForeground         | string  | No       | ''            |                                                                          |
+| itemHeight              | number  | No       | 40            | See the Combobox `itemHeight` option.                                    |
+| dropDownIcon            | string  | No       | 'ChevronDown' |                                                                          |
+| dropDownIconForeground  | string  | No       | ''            |                                                                          |
+| revealBorderColor       | boolean | No       | false         |                                                                          |
+| revealBackgroundColor   | boolean | No       | false         |                                                                          |
+| disabled                | boolean | No       | false         |                                                                          |
+| theme                   | string  | No       | 'global'      | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| lang                    | string  | No       | "global"      | See the Combobox `lang` option.                                          |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |   说明(statement)    |
-| :----------: | :------------: | :------------------: |
-| choose-item  |  value/object  | Combobox choose item |
+| Event       | Arguments    | Description          |
+|:-----------:|:------------:|:--------------------:|
+| choose-item | value/object | Combobox choose item |
 
-### Slot
+### Slots
 
 ---
 
 1. Default
 
-用户可自定义 Combobx Item 内容
+
 
 ```vue
 <slot :item="item">
@@ -131,9 +135,9 @@ Default Styles
 </slot>
 ```
 
-用户自定义样式时, 包含以下可选属性
 
-- item: 当前组数据
+
+
 
 ```vue
 <template v-slot:default="x">
@@ -163,5 +167,3 @@ options: [
     { key: "lettuce", text: "Lettuce" }
 ]
 ```
-  
-**特别地** 0.1.62版本后支持采用函数式字段, 其中支持的字段包括`text`, `disabled`, `type`

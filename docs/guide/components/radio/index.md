@@ -3,6 +3,9 @@ page: true
 title: Radio
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
   export default {
     data(){
@@ -143,27 +146,27 @@ Disabled
 ```
 
 
-### Propoties
+### Properties
 ---
-|      属性(attr)       |             类型(type)             | 必填(required) |     默认值(default)      |    说明(statement)     |
-|:---------------------:|:----------------------------------:|:--------------:|:------------------------:|:----------------------:|
-|     v-model/value     |               Object               |      Yes       |        undefined         |         选项值         |
-|         label         |               Object               |      Yes       |        undefined         |         选项值         |
-|         theme         | ['system','dark','light','custom'] |       No       |         'system'         |         主题色         |
-|         icon          |               String               |       No       |           null           |        MS-ICON         |
-|         color         |          [string(color)]           |       No       |           null           |    文字和图标前景色    |
-|      foreground       |          [string(color)]           |       No       | rgba(0, 120, 212, 0.829) |      Radio前景色       |
-| iconBlockBorderRadius |          [string(color)]           |       No       |            3             |   带图标样式圆角大小   |
-| iconBlockBorderWidth  |          [string(color)]           |       No       |            2             |   带图标样式边框大小   |
-|         image         |               String               |       No       |           null           |     32*32 图像链接     |
-|      activeImage      |               String               |       No       |           null           | 32*32 选中时的图像链接 |
-|       disabled        |              Boolean               |       No       |          false           |        是否禁用        |
+| Property              | Type    | Required | Default                 | Description                                   |
+|:---------------------:|:-------:|:--------:|:-----------------------:|:---------------------------------------------:|
+| modelValue            |         | No       | ''                      | The component value used by v-model.          |
+| v-model/value         | Object  | Yes      | undefined               | See the Radio `v-model/value` option.         |
+| label                 |         | Yes      | undefined               | See the Radio `label` option.                 |
+| theme                 | string  | No       | 'global'                | Theme color.                                  |
+| icon                  | string  | No       | null                    | MS-ICON                                       |
+| color                 | string  | No       | ''                      | See the Radio `color` option.                 |
+| foreground            | string  | No       | 'rgba(0, 90, 158, 0.8)' | See the Radio `foreground` option.            |
+| iconBlockBorderRadius | number  | No       | 6                       | See the Radio `iconBlockBorderRadius` option. |
+| iconBlockBorderWidth  | number  | No       | 2                       | See the Radio `iconBlockBorderWidth` option.  |
+| image                 | string  | No       | null                    | See the Radio `image` option.                 |
+| activeImage           | string  | No       | null                    | See the Radio `activeImage` option.           |
+| disabled              | boolean | No       | false                   | Whether the component is disabled.            |
+| lang                  | string  | No       | "global"                | See the Radio `lang` option.                  |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
-|    click     |     event      |      点击       |
-|   actived    |     event      |   选中时触发    |
-
-  
+| Event   | Arguments | Description                         |
+|:-------:|:---------:|:-----------------------------------:|
+| click   | event     | See the component `click` option.   |
+| actived | event     | See the component `actived` option. |

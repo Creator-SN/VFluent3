@@ -2,6 +2,9 @@
 page: true
 title: TextField
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### TextField-DEMO
 --- 
 
@@ -185,37 +188,38 @@ Customize background
 
 
 
-### Propoties
+### Properties
 ---
-|      属性(attr)       |     类型(type)     | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:---------------------:|:------------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|         value         |       String       |       No       |                 |             Using v-model binding input value             |
-|      placeholder      |       String       |       No       |       N/A       |                      等同HTML[input]                      |
-|       readonly        |      Boolean       |       No       |      false      |                      等同HTML[input]                      |
-|       maxlength       |       Number       |       No       |       N/A       |                      等同HTML[input]                      |
-|       underline       |      Boolean       |       No       |      false      |             是否开启Underline风格的TextField              |
-|      background       |  [string(color)]   |       No       |       N/A       |                                                           |
-|      borderWidth      |      Boolean       |       No       |       N/A       |                                                           |
-|      borderColor      |  [string(color)]   |       No       |       N/A       |                                                           |
-|   focusBorderColor    |  [string(color)]   |       No       |       N/A       |                                                           |
-|       fontSize        |       Number       |       No       |      13.3       |                                                           |
-|      fontWeight       |      [string       |    number]     |       No        |                          normal                           |
-|      foreground       |  [string(color)]   |       No       |       N/A       |                                                           |
-|       textAlign       |       String       |       No       |      left       |                                                           |
-|     borderRadius      |       Number       |       No       |        3        |        TextField圆角大小, 启用revealBorder时将失效        |
-|      isBoxShadow      |      Boolean       |       No       |      false      |                    开启`TextField`阴影                    |
-|     revealBorder      |      Boolean       |       No       |      false      |                                                           |
-|   revealBorderColor   |  [string(color)]   |       No       |       N/A       |                                                           |
-| revealBackgroundColor |  [string(color)]   |       No       |       N/A       |                                                           |
-|        status         | ['warn','correct'] |       No       |       N/A       |            状态边框预设, 默认有警告和正确两种             |
-|       disabled        |      Boolean       |       No       |      false      |                                                           |
-|         theme         |       String       |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property              | Type    | Required | Default  | Description                                                              |
+|:---------------------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| modelValue            | string  | No       | ''       | Using v-model binding input value                                        |
+| placeholder           | string  | No       | ''       | Same as the native HTML input attribute.                                 |
+| readonly              | boolean | No       | false    | Same as the native HTML input attribute.                                 |
+| maxlength             | string  | No       | ''       | Same as the native HTML input attribute.                                 |
+| underline             | boolean | No       | false    | Whether to use the underline style for TextField                         |
+| background            | string  | No       | ''       |                                                                          |
+| borderWidth           | number  | No       | 1        |                                                                          |
+| borderColor           | string  | No       | ''       |                                                                          |
+| focusBorderColor      | string  | No       | ''       |                                                                          |
+| fontSize              | number  | No       | 13.8     |                                                                          |
+| fontWeight            | string  | No       | 'normal' | normal                                                                   |
+| foreground            | string  | No       | ''       |                                                                          |
+| textAlign             | string  | No       | 'left'   |                                                                          |
+| borderRadius          | number  | No       | 3        | See the TextField `borderRadius` option.                                 |
+| isBoxShadow           | boolean | No       | false    | Enable `TextField` shadow.                                               |
+| revealBorder          | boolean | No       | false    |                                                                          |
+| revealBorderColor     | boolean | No       | false    |                                                                          |
+| revealBackgroundColor | boolean | No       | false    |                                                                          |
+| status                | string  | No       | ''       | Preset status border. Built-in values are warning and correct.           |
+| disabled              | boolean | No       | false    |                                                                          |
+| theme                 | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| lang                  | string  | No       | "global" | See the TextField `lang` option.                                         |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
-|   keydown    |     event      |                 |
-|    keyup     |     event      |                 |
-|    change    |     event      |                 |
-|    paste     |     event      |                 |
+| Event   | Arguments | Description |
+|:-------:|:---------:|:-----------:|
+| keydown | event     |             |
+| keyup   | event     |             |
+| change  | event     |             |
+| paste   | event     |             |

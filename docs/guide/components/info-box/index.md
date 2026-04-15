@@ -2,6 +2,9 @@
 page: true
 title: InfoBox
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### InfoBox-DEMO
 ---
 
@@ -16,7 +19,7 @@ export default {
         show1 () {
             this.$infoBox('This is a toast info.', {
                 status: 'correct',
-                title: 'Toast Info',
+                title: 'InfoBox',
                 confirmTitle: 'Confirm',
                 cancelTitle: 'Cancel',
                 confirm: () => { alert('Confirm'); },
@@ -248,7 +251,7 @@ Without TitleBar
 ```javascript
 this.$infoBox('This is a toast info.', {
     status: 'correct',
-    title: 'Toast Info',
+    title: 'InfoBox',
     confirm: () => { alert('Confirm'); },
     cancel: () => { alert('Cancel'); }
 });
@@ -326,35 +329,38 @@ this.$infoBox(h('div', [
 ```
 
 
-### Propoties
+### Properties
 ---
-|  属性(attr)  |                    类型(type)                     | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:------------:|:-------------------------------------------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|    title     |                      String                       |       No       |       Tip       |                     `InfoBox`窗口标题                     |
-|    status    | ['default','warning','correct','blocked','error'] |       No       |     default     |                    显示状态, 一共有5种                    |
-|     mode     |          ['relative','absolute','fixed']          |       No       |    relative     |                       显示定位模式                        |
-|    toast     |                      Boolean                      |       No       |      false      |               点击按钮后是否采用`toast`模式               |
-| confirmTitle |                      String                       |       No       |      确定       |                       确定按钮标题                        |
-| cancelTitle  |                      String                       |       No       |      取消       |                       取消按钮标题                        |
-|   acrylic    |                      Boolean                      |       No       |      false      |                    是否开启背景毛玻璃                     |
-| showTitleBar |                      Boolean                      |       No       |      true       |                      是否显示标题栏                       |
-|    theme     |                      String                       |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property     | Type    | Required | Default    | Description                                                              |
+|:------------:|:-------:|:--------:|:----------:|:------------------------------------------------------------------------:|
+| title        | string  | No       | 'Tip'      | See the InfoBox `title` option.                                          |
+| status       | string  | No       | 'default'  | See the InfoBox `status` option.                                         |
+| mode         | string  | No       | 'relative' | See the InfoBox `mode` option.                                           |
+| toast        | Boolean | No       | false      | See the InfoBox `toast` option.                                          |
+| confirmTitle | string  | No       | '确定'     | See the InfoBox `confirmTitle` option.                                   |
+| cancelTitle  | string  | No       | '取消'     | See the InfoBox `cancelTitle` option.                                    |
+| acrylic      | boolean | No       | false      | See the InfoBox `acrylic` option.                                        |
+| showTitleBar | boolean | No       | true       | See the InfoBox `showTitleBar` option.                                   |
+| theme        | string  | No       | 'global'   | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| destroy      |         | No       | false      | See the InfoBox `destroy` option.                                        |
+| disabled     | boolean | No       | false      | See the InfoBox `disabled` option.                                       |
+| lang         | string  | No       | "global"   | See the InfoBox `lang` option.                                           |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |     说明(statement)     |
-|:------------:|:--------------:|:-----------------------:|
-|   confirm    |                | 确认`InfoBox`时触发事件 |
-|    close     |                | 取消`InfoBox`时触发事件 |
+| Event   | Arguments | Description                         |
+|:-------:|:---------:|:-----------------------------------:|
+| confirm |           | See the component `confirm` option. |
+| close   |           | See the component `close` option.   |
 
-### Slot
+### Slots
 ---
 
 1. Msg
 
-- 默认为正常标题
-- `class="header"` 加粗标题
-- `<a></a>` 链接
+
+
+
 
 ```vue
 <template v-slot:msg>
@@ -364,10 +370,10 @@ this.$infoBox(h('div', [
 
 2. Control Panel
 
-- confirm: 确认函数
-- cancel: 取消函数
-- theme: 当前主题
-- iconList: 图标列表及颜色数组
+
+
+
+
 
 ```vue
 <template v-slot:control-panel="x">
@@ -380,12 +386,12 @@ this.$infoBox(h('div', [
 
 ```javascript
 this.$infoBox(msg, options = {
-    title: 'Tip',
+    title: 'InfoBox',
     status: 'default',
     mode: 'fixed',
     toast: true,
-    confirmTitle: '确定',
-    cancelTitle: '取消',
+
+
     acrylic: false,
     confirm: async () => {},
     cancel: async () => {},
@@ -393,7 +399,6 @@ this.$infoBox(msg, options = {
     theme: 'global'
 });
 
-msg: h() // 传入$createElement函数
-control_panel: x => h() // 传入具名插槽属性参数的函数, 函数返回值为$createElement函数
+
+
 ```
-  

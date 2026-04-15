@@ -2,6 +2,9 @@
 page: true
 title: Tag
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Tag-DEMO
 --- 
 
@@ -74,29 +77,31 @@ title: Tag
 
 
 
-### Propoties
+### Properties
 ---
-|    属性(attr)     |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-| :---------------: | :-------------: | :------------: | :-------------: | :-------------------------------------------------------: |
-|       value       |     String      |       No       |       []        |                         标签数组                          |
-| newTagPlaceholder |     String      |       No       |     New Tag     |                    NewTag Placeholder                     |
-|       size        |     String      |       No       |       N/A       |         尺寸`normal`, `medium`, `small`, `xsmall`         |
-| newTagBackground  | [string(color)] |       No       |      null       |                     NewTag按钮背景色                      |
-|     fontSize      |     String      |       No       |       12        |                         字体大小                          |
-|   borderRadius    |     Number      |       No       |        6        |                         圆角大小                          |
-|     isNewTag      |     [bool]      |       No       |      false      |                      是否启用NewTag                       |
-|       isDel       |     [bool]      |       No       |      false      |                     是否启用删除按钮                      |
-|       theme       |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property          | Type    | Required | Default   | Description                                                              |
+|:-----------------:|:-------:|:--------:|:---------:|:------------------------------------------------------------------------:|
+| modelValue        | array   | No       | []        | Tag list.                                                                |
+| newTagPlaceholder | string  | No       | 'New Tag' | NewTag Placeholder                                                       |
+| size              | string  | No       | ''        | See the Tag `size` option.                                               |
+| newTagBackground  | any     | No       | null      | See the Tag `newTagBackground` option.                                   |
+| fontSize          | number  | No       | 12        | Font size.                                                               |
+| borderRadius      | number  | No       | 6         | Border radius.                                                           |
+| isNewTag          | boolean | No       | false     | Whether to enable NewTag.                                                |
+| isDel             | boolean | No       | false     | Whether to enable the delete button.                                     |
+| theme             | string  | No       | 'global'  | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled          | boolean | No       | false     | See the Tag `disabled` option.                                           |
+| lang              | string  | No       | "global"  | See the Tag `lang` option.                                               |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |      说明(statement)       |
-| :----------: | :------------: | :------------------------: |
-|  tag-click   |     object     | 标签点击时触发并返回点击项 |
-|   add-item   |     object     | 添加标签时触发并返回添加项 |
-|   del-item   |     object     | 删除标签时触发并返回删除项 |
+| Event     | Arguments | Description                                              |
+|:---------:|:---------:|:--------------------------------------------------------:|
+| tag-click | object    | Emitted when a tag is clicked; returns the clicked item. |
+| add-item  | object    | Emitted when a tag is added; returns the added item.     |
+| del-item  | object    | Emitted when a tag is deleted; returns the deleted item. |
 
-### Slot
+### Slots
 ---
 1. Default
 

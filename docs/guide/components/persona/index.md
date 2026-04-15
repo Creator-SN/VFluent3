@@ -2,6 +2,9 @@
 page: true
 title: Persona
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Persona-DEMO
 ---
 
@@ -220,26 +223,28 @@ export default {
 ```
 
 
-### Propoties
+### Properties
 ---
-| 属性(attr) |               类型(type)               | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:----------:|:--------------------------------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|    src     |                 String                 |       No       |       N/A       |                    Persona图像资源链接                    |
-|    name    |                 String                 |       No       |       N/A       |                           名称                            |
-|    size    |                 Number                 |       No       |       40        |                      Persona头像大小                      |
-|   status   | [online,offline,away,busy,dnd,blocked] |       No       |       N/A       |                        Persona状态                        |
-|    icon    |                 String                 |       No       |       N/A       |                      自定义状态图标                       |
-| iconColor  |            [string(color)]             |       No       |       N/A       |                   自定义状态图标前景色                    |
-| background |            [string(color)]             |       No       |       N/A       |                   自定义状态图标背景色                    |
-|  showInfo  |                Boolean                 |       No       |      false      |                       是否显示信息                        |
-|   theme    |                 String                 |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property   | Type    | Required | Default  | Description                                                              |
+|:----------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| src        | string  | No       | ''       | See the Persona `src` option.                                            |
+| name       | string  | No       | ''       | See the Persona `name` option.                                           |
+| size       | number  | No       | 40       | See the Persona `size` option.                                           |
+| status     | string  | No       | ''       | See the Persona `status` option.                                         |
+| icon       | string  | No       | ''       | See the Persona `icon` option.                                           |
+| iconColor  | string  | No       | ''       | See the Persona `iconColor` option.                                      |
+| background | string  | No       | ''       | See the Persona `background` option.                                     |
+| showInfo   | boolean | No       | false    | See the Persona `showInfo` option.                                       |
+| theme      | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled   | boolean | No       | false    | See the Persona `disabled` option.                                       |
+| lang       | string  | No       | "global" | See the Persona `lang` option.                                           |
 
-### Slot
+### Slots
 ---
 
 1. Name
 
-你可以直接在属性中指定`name`, 当使用模板时Persona将检测不到名称缩写
+
 
 ```vue
 <template v-slot:name>

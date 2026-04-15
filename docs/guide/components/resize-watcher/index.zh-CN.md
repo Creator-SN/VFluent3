@@ -1,0 +1,88 @@
+---
+page: true
+title: ResizeWatcher
+--- 
+
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
+<script>
+export default {
+
+    data () {
+        return {
+            isPos: false,
+            isMove: false,
+            pos: {
+                left: 0,
+                top: 0,
+                right: 0,
+                bottom: 0
+            },
+            size: {
+                width: 0,
+                height: 0
+            }
+        }
+    },
+    methods: {
+        setPos (event) {
+            const {left, top, right, bottom} = event;
+            this.pos = {left, top, right, bottom};
+        },
+        setSize (event) {
+            const {width, height} = event;
+            this.size = {width, height};
+        }
+    }
+}
+</script>
+
+<ClientOnly>
+<fv-button ref="a" :style="{width: isPos ? '200px' : '120px'}" style="transition: all 0.3s;" @click="isPos ^= true">Resize Me</fv-button>
+
+<fv-ResizeWatcher :target="() => $refs.a ? $refs.a.$el : null" @watch="setSize">
+</fv-ResizeWatcher>
+
+<p>width: {{size.width}} height: {{size.height}}</p>
+</ClientOnly>
+
+```vue-html
+<fv-button ref="a" :style="{width: isPos ? '200px' : '120px'}" style="transition: all 0.3s;" @click="isPos ^= true">Resize Me</fv-button>
+
+<fv-ResizeWatcher :target="() => $refs.a ? $refs.a.$el : null" @watch="setSize">
+</fv-ResizeWatcher>
+```
+
+<ClientOnly>
+<fv-button ref="b" :style="{left: isMove ? '50px' : ''}" style="transition: all 0.3s;" @click="isMove ^= true">Move Me</fv-button>
+
+<fv-ResizeWatcher :target="() => $refs.b ? $refs.b.$el : null" @watch="setPos">
+</fv-ResizeWatcher>
+
+<p>left: {{pos.left}} top: {{pos.top}} right: {{pos.right}} bottom: {{pos.bottom}}</p>
+</ClientOnly>
+
+```vue-html
+<fv-button ref="b" :style="{left: isMove ? '50px' : ''}" style="transition: all 0.3s;" @click="isMove ^= true">Move Me</fv-button>
+
+<fv-ResizeWatcher :target="() => $refs.b ? $refs.b.$el : null" @watch="setPos">
+</fv-ResizeWatcher>
+```
+
+### 属性
+---
+| 属性     | 类型    | 必填  | 默认值   | 说明                                                             |
+|:--------:|:-------:|:-----:|:--------:|:----------------------------------------------------------------:|
+| target   | any     | 否    | null     | 定义一个函数返回要监听的元素。                                   |
+| theme    | string  | 否    | 'global' | 主题样式。支持 `global`、`light`、`dark`、`system` 和 `custom`。 |
+| disabled | boolean | 否    | false    | 参见组件的 `disabled` 选项。                                     |
+| lang     | string  | 否    | "global" | 参见组件的 `lang` 选项。                                         |
+
+### 事件
+---
+| 事件名       | 参数   | 说明               |
+|:------------:|:------:|:------------------:|
+| watch        | object | 监听元素状态变化。 |
+| watch-resize | object | 监听元素大小变化。 |
+| watch-pos    | object | 监听元素位置变化。 |

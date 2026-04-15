@@ -3,6 +3,9 @@ page: true
 title: RatingControl
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### RatingControl-DEMO
 ---
 
@@ -102,28 +105,29 @@ export default {
 </fv-RatingControl>
 ```
 
-### Propoties
+### Properties
 ---
-|  属性(attr)   |             类型(type)             | 必填(required) |    默认值(default)     | 说明(statement) |
-|:-------------:|:----------------------------------:|:--------------:|:----------------------:|:---------------:|
-|     value     |               Number               |       No       |           0            |      分值       |
-|    maxRate    |               Number               |       No       |           5            |     最大值      |
-|   halfRate    |              Boolean               |       No       |         false          |  是否允许半分   |
-|  defaultIcon  |               String               |       No       |      FavoriteStar      |    默认图标     |
-| selectedIcon  |               String               |       No       |    FavoriteStarFill    |    选中图标     |
-|  borderColor  |          [string(color)]           |       No       | rgba(200, 200, 200, 1) |    边框颜色     |
-| selectedColor |          [string(color)]           |       No       |  rgba(255, 149, 0, 1)  |    选中颜色     |
-|    isClear    |              Boolean               |       No       |         false          |  是否允许清除   |
-|   readonly    |              Boolean               |       No       |         false          |      只读       |
-|     theme     | ['system','dark','light','custom'] |       No       |        'system'        |     主题色      |
+| Property      | Type    | Required | Default            | Description                                   |
+|:-------------:|:-------:|:--------:|:------------------:|:---------------------------------------------:|
+| modelValue    | number  | No       | 0                  | See the RatingControl `modelValue` option.    |
+| maxRate       | number  | No       | 5                  | See the RatingControl `maxRate` option.       |
+| halfRate      | boolean | No       | false              | See the RatingControl `halfRate` option.      |
+| defaultIcon   | string  | No       | 'FavoriteStar'     | See the RatingControl `defaultIcon` option.   |
+| selectedIcon  | string  | No       | 'FavoriteStarFill' | See the RatingControl `selectedIcon` option.  |
+| borderColor   | string  | No       | ''                 | Border color.                                 |
+| selectedColor | string  | No       | ''                 | See the RatingControl `selectedColor` option. |
+| isClear       | boolean | No       | false              | See the RatingControl `isClear` option.       |
+| readonly      | boolean | No       | false              | See the RatingControl `readonly` option.      |
+| theme         | string  | No       | 'global'           | Theme color.                                  |
+| disabled      | boolean | No       | false              | See the RatingControl `disabled` option.      |
+| lang          | string  | No       | "global"           | See the RatingControl `lang` option.          |
 
 
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
-|    change    |     Number     | 分值改变时触发  |
-|    hover     |     Object     | 鼠标悬浮时触发  |
-|    leave     |     Number     | 鼠标离开时触发  |
-  
+| Event  | Arguments | Description                        |
+|:------:|:---------:|:----------------------------------:|
+| change | Number    | See the component `change` option. |
+| hover  | Object    | See the component `hover` option.  |
+| leave  | Number    | See the component `leave` option.  |

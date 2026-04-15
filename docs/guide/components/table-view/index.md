@@ -3,6 +3,9 @@ page: true
 title: TableView
 --- 
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
 export default {
   data() {
@@ -105,31 +108,33 @@ export default {
 
 <div style="width: 100%; height: 1000px;"></div>
 
-### Propoties
+### Properties
 ---
-|     属性(attr)      | 类型(type) | 必填(required) |   默认值(default)   |                      说明(statement)                      |
-| :-----------------: | :--------: | :------------: | :-----------------: | :-------------------------------------------------------: |
-|        value        |   Object   |      Yes       |         {}          |       绑定数据对象, 包含heads: []和rows: []两个对象       |
-|        i18n         |  Function  |       No       |                     |          语言本地化函数, 默认为直接返回传入文本           |
-|     foreground      |   String   |       No       | rgba(0, 90, 158, 1) |                          主题色                           |
-|  deleteColumnFunc   |  Function  |       No       |        null         |                     客制化删除列函数                      |
-|   deleteRowsFunc    |  Function  |       No       |        null         |                     客制化删除行函数                      |
-|    copyTableFunc    |  Function  |       No       |        null         |                   客制化复制选中项函数                    |
-|   pastedTableFunc   |  Function  |       No       |        null         |                      客制化粘贴函数                       |
-|    syncRowsFunc     |  Function  |       No       |        null         |                   客制化表格值拖拽函数                    |
-| rightMenuBackground |   String   |       No       |         N/A         |                      右键菜单背景色                       |
-|     extensions      |   Array    |       No       |         []          |                           扩展                            |
-|        theme        |   String   |       No       |       system        | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property            | Type     | Required | Default               | Description                                                              |
+|:-------------------:|:--------:|:--------:|:---------------------:|:------------------------------------------------------------------------:|
+| modelValue          | object   | No       | {}                    | See the TableView `modelValue` option.                                   |
+| i18n                | function | No       | (key) => key          | See the TableView `i18n` option.                                         |
+| foreground          | string   | No       | 'rgba(0, 90, 158, 1)' | Theme color.                                                             |
+| deleteColumnFunc    | function | No       | null                  | See the TableView `deleteColumnFunc` option.                             |
+| deleteRowsFunc      | function | No       | null                  | See the TableView `deleteRowsFunc` option.                               |
+| copyTableFunc       | function | No       | null                  | See the TableView `copyTableFunc` option.                                |
+| pastedTableFunc     | function | No       | null                  | See the TableView `pastedTableFunc` option.                              |
+| syncRowsFunc        | function | No       | null                  | See the TableView `syncRowsFunc` option.                                 |
+| rightMenuBackground | string   | No       | ''                    | See the TableView `rightMenuBackground` option.                          |
+| extensions          | array    | No       | []                    | Extensions.                                                              |
+| theme               | string   | No       | 'global'              | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled            | boolean  | No       | false                 | See the TableView `disabled` option.                                     |
+| lang                | string   | No       | "global"              | See the TableView `lang` option.                                         |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-| :----------: | :------------: | :-------------: |
-|              |                |                 |
+| Event | Arguments | Description |
+|:-----:|:---------:|:-----------:|
+|       |           |             |
 
 ### Extensions
 
-`TableView`支持自定义新的列类型, 通过`extensions`属性传入一个数组, 数组中每个对象需包含以下基本属性:
+
 
 ```javascript
 {
@@ -157,13 +162,13 @@ export default {
 }
 ```
 
-在上述属性中, 包含`headComponent`和`cellComponent`两个属性, 用于自定义列头和单元格组件, 因此对于每个客制化的拓展, 需包含三个文件:
 
-- `customHead.vue`: 列头组件
-- `customCell.vue`: 列单元格组件
-- `index.js`: 拓展对象
 
-这里以`Number`组件为例, 展示如何自定义一个`Number`列类型:
+
+
+
+
+
 
 - index.js:
 
@@ -196,7 +201,7 @@ export default {
 
 - numberHead.vue:
 
-对于Head组件, 默认采用`fv-table-view-head-base`组件, 通过`formatFunction`属性传入一个格式化函数, 用于格式化列头数据:
+
 
 ```vue
 <template>
@@ -298,11 +303,11 @@ export default {
 </script>
 ```
 
-上述的`props`属性均需要传入组件中.
+
 
 - numberCell.vue:
 
-对于Cell组件, 默认采用`fv-table-view-cell-base`组件, 通过`formatFunction`属性传入一个格式化函数, 用于格式化单元格数据:
+
 
 ```vue
 <template>
@@ -383,5 +388,3 @@ export default {
 };
 </script>
 ```
-
-上述的`props`属性均需要传入组件中.

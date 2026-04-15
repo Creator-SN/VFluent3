@@ -3,6 +3,9 @@ page: true
 title: RadioGroup
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
   export default {
     data(){
@@ -147,21 +150,20 @@ title: RadioGroup
 </fv-radio-group>
 ```
 
-### Propoties
+### Properties
 ---
 
-| 属性(attr) |             类型(type)             | 必填(required) | 默认值(default) | 说明(statement) |
-|:----------:|:----------------------------------:|:--------------:|:---------------:|:---------------:|
-|  v-model   |               Object               |       No       |    undefined    |     选中值      |
-|   theme    | ['system','dark','light','custom'] |       No       |    'system'     |     主题色      |
-|   label    |               String               |       No       |    undefined    |      标签       |
-|  disabled  |              Boolean               |       No       |      false      |    是否禁用     |
-|   inline   |              Boolean               |       No       |      false      |                 |
+| Property   | Type    | Required | Default   | Description                             |
+|:----------:|:-------:|:--------:|:---------:|:---------------------------------------:|
+| modelValue | any     | Yes      | undefined | See the RadioGroup `modelValue` option. |
+| theme      | string  | No       | 'global'  | Theme color.                            |
+| label      | string  | No       | ''        | See the RadioGroup `label` option.      |
+| disabled   | boolean | No       | false     | Whether the component is disabled.      |
+| inline     | boolean | No       | false     |                                         |
+| lang       | string  | No       | "global"  | See the RadioGroup `lang` option.       |
 
 ### Events
 ---
-| 事件名(Name) |  参数类型(args)  | 说明(statement)  |
-|:------------:|:----------------:|:----------------:|
-|    change    | event(value,...) | 选项值改变时触发 |
-
-  
+| Event  | Arguments        | Description                        |
+|:------:|:----------------:|:----------------------------------:|
+| change | event(value,...) | See the component `change` option. |

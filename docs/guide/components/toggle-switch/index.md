@@ -2,6 +2,9 @@
 page: true
 title: ToggleSwitch
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### ToggleSwitch-DEMO
 --- 
 
@@ -76,26 +79,27 @@ title: ToggleSwitch
 
 </ClientOnly>
 
-### Propoties
+### Properties
 ---
-|     属性(attr)     |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:------------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|       value        |     Number      |       No       |      false      |                    Toggleswitch value                     |
-|         on         |     String      |       No       |       On        |          Toggleswitch content when value is true          |
-|        off         |     String      |       No       |       Off       |         Toggleswitch content when value is false          |
-|    onForeground    | [string(color)] |       No       |       N/A       |    Toggleswitch content foreground when value is true     |
-|   offForeground    | [string(color)] |       No       |       N/A       |    Toggleswitch content foreground when value is false    |
-|    borderColor     | [string(color)] |       No       |       N/A       |                                                           |
-|       width        |     Number      |       No       |       40        |                                                           |
-|       height       |     Number      |       No       |       20        |                                                           |
-|   insideContent    |     Boolean     |       No       |      false      |                                                           |
-|   ringBackground   | [string(color)] |       No       |       N/A       |                                                           |
-| switchOnBackground | [string(color)] |       No       |       N/A       |                                                           |
-|      disabled      |     Boolean     |       No       |       N/A       |                                                           |
-|       theme        |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property           | Type    | Required | Default  | Description                                                              |
+|:------------------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| modelValue         | boolean | No       | false    | Toggleswitch value                                                       |
+| on                 | string  | No       | 'On'     | Toggleswitch content when value is true                                  |
+| off                | string  | No       | 'Off'    | Toggleswitch content when value is false                                 |
+| onForeground       | string  | No       | ''       | Toggleswitch content foreground when value is true                       |
+| offForeground      | string  | No       | ''       | Toggleswitch content foreground when value is false                      |
+| borderColor        | string  | No       | ''       |                                                                          |
+| width              | number  | No       | 40       |                                                                          |
+| height             | number  | No       | 20       |                                                                          |
+| insideContent      | boolean | No       | false    |                                                                          |
+| ringBackground     | string  | No       | ''       |                                                                          |
+| switchOnBackground | string  | No       | ''       |                                                                          |
+| disabled           | boolean | No       | false    |                                                                          |
+| theme              | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| lang               | string  | No       | "global" | See the ToggleSwitch `lang` option.                                      |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
-|    toggle    |     value      |                 |
+| Event  | Arguments | Description |
+|:------:|:---------:|:-----------:|
+| toggle | value     |             |

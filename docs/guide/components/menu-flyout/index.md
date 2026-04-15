@@ -3,6 +3,9 @@ page: true
 title: MenuFlyout
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
 export default {
     data () {
@@ -82,48 +85,50 @@ export default {
 </fv-menuFlyout>
 ```
 
-### Propoties
+### Properties
 ---
-|       属性(attr)        |   类型(type)    | 必填(required) | 默认值(default) |                       说明(statement)                        |
-| :---------------------: | :-------------: | :------------: | :-------------: | :----------------------------------------------------------: |
-|      value/v-model      |     Object      |       No       |       N/A       |                      Combobox当前项绑定                      |
-|         options         |      Array      |      Yes       |       N/A       |                         Combobox数据                         |
-|       borderWidth       |     Number      |       No       |        2        |                                                              |
-|       placeholder       |     String      |       No       |    Combobox     |                                                              |
-|      borderRadius       |     Number      |       No       |        3        |                                                              |
-|       background        | [string(color)] |       No       |       N/A       |                                                              |
-|    choosenBackground    | [string(color)] |       No       |       N/A       |                                                              |
-| choosenSliderBackground | [string(color)] |       No       |       N/A       |                                                              |
-|     inputForeground     | [string(color)] |       No       |       N/A       |                                                              |
-|     inputBackground     | [string(color)] |       No       |       N/A       |                                                              |
-|     titleForeground     | [string(color)] |       No       |   ChevronDown   |                                                              |
-|      dropDownIcon       |     String      |       No       |       N/A       |                                                              |
-| dropDownIconForeground  | [string(color)] |       No       |       N/A       |                                                              |
-|        menuWidth        |     Number      |       No       |       200       |                                                              |
-|      menuMaxHeight      |     Number      |       No       |       350       |                                                              |
-|     rootTriggerMode     |     String      |       No       |      click      |         外层触发方式, click 点击触发, enter 移动触发         |
-|       triggerMode       |     String      |       No       |      enter      |         内层触发方式, click 点击触发, enter 移动触发         |
-|       wrapperNode       |  HTML Element   |       No       |       N/A       | 外层元素包括的滚动容器, 如果要考虑滚动同步, 则需要设置该属性 |
-|    revealBorderColor    | [string(color)] |       No       |       N/A       |                                                              |
-|  revealBackgroundColor  | [string(color)] |       No       |       N/A       |                                                              |
-|       mobileMode        |     Boolean     |       No       |      false      |                      是否开启移动端显示                      |
-|       isBoxShadow       |     Boolean     |       No       |      true       |                                                              |
-|        disabled         |     Boolean     |       No       |       N/A       |                                                              |
-|          theme          |     String      |       No       |     system      |  主题样式, 包含`light`, `dark`, `system`, `custom`几种样式   |
+| Property                | Type    | Required | Default              | Description                                                              |
+|:-----------------------:|:-------:|:--------:|:--------------------:|:------------------------------------------------------------------------:|
+| modelValue              | object  | No       | () => { return []; } | See the MenuFlyout `modelValue` option.                                  |
+| options                 | array   | No       | []                   | See the MenuFlyout `options` option.                                     |
+| borderWidth             | number  | No       | 1                    |                                                                          |
+| placeholder             | string  | No       | 'menuFlyout'         |                                                                          |
+| borderRadius            | string  | No       | '3'                  |                                                                          |
+| background              | string  | No       | ''                   |                                                                          |
+| choosenBackground       | string  | No       | ''                   |                                                                          |
+| choosenSliderBackground | string  | No       | ''                   |                                                                          |
+| inputForeground         | string  | No       | ''                   |                                                                          |
+| inputBackground         | string  | No       | ''                   |                                                                          |
+| titleForeground         | string  | No       | ''                   |                                                                          |
+| dropDownIcon            | string  | No       | 'ChevronDown'        |                                                                          |
+| dropDownIconForeground  | string  | No       | ''                   |                                                                          |
+| menuWidth               | number  | No       | 200                  |                                                                          |
+| menuMaxHeight           | number  | No       | 350                  |                                                                          |
+| rootTriggerMode         | string  | No       | 'click'              | See the MenuFlyout `rootTriggerMode` option.                             |
+| triggerMode             | string  | No       | 'enter'              | See the MenuFlyout `triggerMode` option.                                 |
+| wrapperNode             | any     | No       | null                 | See the MenuFlyout `wrapperNode` option.                                 |
+| revealBorderColor       | boolean | No       | false                |                                                                          |
+| revealBackgroundColor   | boolean | No       | false                |                                                                          |
+| mobileMode              | boolean | No       | false                | See the MenuFlyout `mobileMode` option.                                  |
+| isBoxShadow             | boolean | No       | true                 |                                                                          |
+| disabled                | boolean | No       | false                |                                                                          |
+| theme                   | string  | No       | 'global'             | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| revealBorder            | boolean | No       | true                 | See the MenuFlyout `revealBorder` option.                                |
+| lang                    | string  | No       | "global"             | See the MenuFlyout `lang` option.                                        |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |   说明(statement)    |
-| :----------: | :------------: | :------------------: |
-| choose-item  |  value/object  | Combobox choose item |
+| Event       | Arguments    | Description          |
+|:-----------:|:------------:|:--------------------:|
+| choose-item | value/object | Combobox choose item |
 
-### Slot
+### Slots
 
 ---
 
 1. Default
 
-用户可自定义 MenuFlyout Item 内容
+
 
 ```vue
 <slot :item="item">
@@ -131,9 +136,9 @@ export default {
 </slot>
 ```
 
-用户自定义样式时, 包含以下可选属性
 
-- item: 当前组数据
+
+
 
 ```vue
 <template v-slot:default="x">
@@ -143,9 +148,9 @@ export default {
 
 2. Input
 
-用户可自定义 MenuFlyout Input 内容
 
-- switchStatus: 切换状态函数
+
+
 
 ```vue
 <slot name="input" :switch="switchStatus">
@@ -210,5 +215,3 @@ options: [
     { key: "lettuce", text: "Lettuce" }
 ]
 ```
-  
-**其中** `text`, `disabled`, `type`属性支持函数式声明.

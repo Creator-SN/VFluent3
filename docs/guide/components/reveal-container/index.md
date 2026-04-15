@@ -3,6 +3,9 @@ page: true
 title: RevealContainer
 --- 
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script lang="ts" setup>
 import { ref } from 'vue'; 
 import { useTheme } from '../common/index.js'; 
@@ -68,37 +71,38 @@ Gradient Color
 </fv-RevealContainer>
 ```
 
-### Propoties
+### Properties
 ---
-|       属性(attr)       |        类型(type)         | 必填(required) |     默认值(default)      |         说明(statement)          |
-|:----------------------:|:-------------------------:|:--------------:|:------------------------:|:--------------------------------:|
-|    revealContainer     |         Object          |       No       |          false           |                                  |
-|         parent         |        [function]         |       No       |           null           |                                  |
-|      borderWidth       |         Number          |       No       |            1             |                                  |
-|      borderRadius      |         Number          |       No       |            6             |                                  |
-|    backgroundColor     |      [string(color)]      |       No       | rgba(121, 119, 117, 0.6) |                                  |
-| backgroundGradientList |          Array          |       No       |            []            |                                  |
-| backgroundGradientSize |         Number          |       No       |           120            |                                  |
-|      borderColor       |      [string(color)]      |       No       | rgba(121, 119, 117, 0.6) |                                  |
-|   borderGradientList   |          Array          |       No       |            []            |                                  |
-|   borderGradientSize   |         Number          |       No       |            60            |                                  |
-|    debounceDistance    |         Number          |       No       |           300            | 节流, 超过此距离时, 不去计算渲染 |
-|        disabled        |         Boolean         |       No       |          false           |                                  |
-|         theme          | ['system','light','dark'] |       No       |          system          |                                  |
+| Property               | Type    | Required | Default                    | Description                                        |
+|:----------------------:|:-------:|:--------:|:--------------------------:|:--------------------------------------------------:|
+| revealContainer        | boolean | No       | false                      |                                                    |
+| parent                 | any     | No       | null                       |                                                    |
+| borderWidth            | number  | No       | 1                          |                                                    |
+| borderRadius           | number  | No       | 6                          |                                                    |
+| backgroundColor        | string  | No       | 'rgba(121, 119, 117, 0.6)' |                                                    |
+| backgroundGradientList | array   | No       | []                         |                                                    |
+| backgroundGradientSize | number  | No       | 120                        |                                                    |
+| borderColor            | string  | No       | 'rgba(121, 119, 117, 0.6)' |                                                    |
+| borderGradientList     | array   | No       | []                         |                                                    |
+| borderGradientSize     | number  | No       | 60                         |                                                    |
+| debounceDistance       | number  | No       | 300                        | See the RevealContainer `debounceDistance` option. |
+| disabled               | boolean | No       | false                      |                                                    |
+| theme                  | string  | No       | 'global'                   |                                                    |
+| lang                   | string  | No       | "global"                   | See the RevealContainer `lang` option.             |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
-|    click     |     event      |   Click Event   |
+| Event | Arguments | Description |
+|:-----:|:---------:|:-----------:|
+| click | event     | Click Event |
   
 
 ### Data
 
 1. revealContainer
 
-若要将Reveal事件监听器绑定在某个元素上以节省性能, 请使用此属性并且需要指定三个属性`init`, `el`和`revealHandlerList`.
-默认值为false时, 将会在window上监听, 并在全局状态管理下的`revealHandlerList`下维护所有的RevealContainer组件.
+
+
 
 ```javascript
 {
@@ -110,7 +114,7 @@ Gradient Color
 
 2. parent
 
-当RevealContainer被定义在父元素的底层时, 无法触发到click事件, 因此可以利用parent来显式定义被监听的click对象. 需要说明的是, parent必须用函数式定义.
+
 
 ```javascript
 parent: () => HTMLElement

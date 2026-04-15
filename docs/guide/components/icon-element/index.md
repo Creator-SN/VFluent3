@@ -2,6 +2,9 @@
 page: true
 title: IconElement
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### IconElement-DEMO
 --- 
 
@@ -201,20 +204,21 @@ positionsFour: [
 <fv-IconElement :value="heart" :iconButton="true" :paddingWidth="3"></fv-IconElement>
 ```
 
-### Propoties
+### Properties
 ---
-|  属性(attr)  | 类型(type) | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:------------:|:----------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|    value     |   Array    |     String     | AppIconDefault  |                                                           |
-|   fontSize   |   String   |       No       |      16px       |                    IconElement字体大小                    |
-| paddingWidth |   String   |       No       |       0px       |                     IconElement内边距                     |
-|  iconButton  |  Boolean   |       No       |      false      |                  是否以图标按钮样式呈现                   |
-| borderRadius |   String   |       No       |       0px       |                       图标按钮圆角                        |
-|    theme     |   String   |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property     | Type    | Required | Default          | Description                                                              |
+|:------------:|:-------:|:--------:|:----------------:|:------------------------------------------------------------------------:|
+| value        | string  | No       | 'AppIconDefault' |                                                                          |
+| fontSize     | number  | No       | 32               | See the IconElement `fontSize` option.                                   |
+| paddingWidth | number  | No       | 2                | See the IconElement `paddingWidth` option.                               |
+| iconButton   | boolean | No       | false            | See the IconElement `iconButton` option.                                 |
+| borderRadius | number  | No       | 6                | See the IconElement `borderRadius` option.                               |
+| theme        | string  | No       | 'global'         | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled     | boolean | No       | false            | See the IconElement `disabled` option.                                   |
+| lang         | string  | No       | "global"         | See the IconElement `lang` option.                                       |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
-|    click     |     event      | Button onclick  |
-  
+| Event | Arguments | Description    |
+|:-----:|:---------:|:--------------:|
+| click | event     | Button onclick |

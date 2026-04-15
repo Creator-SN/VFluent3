@@ -3,6 +3,9 @@ page: true
 title: SwipeControl
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### SwipeControl-DEMO
 ---
 
@@ -262,34 +265,35 @@ export default {
 
 
 
-### Propoties
+### Properties
 ---
-|    属性(attr)     | 类型(type) | 必填(required) |  默认值(default)   |                      说明(statement)                      |
-|:-----------------:|:----------:|:--------------:|:------------------:|:---------------------------------------------------------:|
-|       value       |   Object   |       No       |         {}         |        当前绑定的项目, 作为`options`中的`func`参数        |
-|    minOpWidth     |   Number   |       No       |         60         |                   操作按钮区域最小宽度                    |
-|    maxOpWidth     |   Number   |       No       |        300         |                   操作按钮区域最大宽度                    |
-|    leftOptions    |   Array    |       No       |         []         |                     左侧操作按钮选项                      |
-|      options      |   Array    |       No       | [{icon: 'Delete'}] |                     右侧操作按钮选项                      |
-|    itemPadding    |   String   |       No       |       0 10px       |                      主体内容内边距                       |
-|   disabledLeft    |  Boolean   |       No       |        true        |                     禁用左侧操作按钮                      |
-|   disabledRight   |  Boolean   |       No       |       false        |                     禁用右侧操作按钮                      |
-| disabledLeftFull  |  Boolean   |       No       |        true        |                       禁用左滑到底                        |
-| disabledRightFull |  Boolean   |       No       |       false        |                       禁用右滑到底                        |
-|     disabled      |  Boolean   |       No       |       false        |                           禁用                            |
-|       theme       |   String   |       No       |       system       | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property          | Type    | Required | Default                                                | Description                                                              |
+|:-----------------:|:-------:|:--------:|:------------------------------------------------------:|:------------------------------------------------------------------------:|
+| value             | object  | No       | {}                                                     | See the SwipeControl `value` option.                                     |
+| minOpWidth        | number  | No       | 60                                                     | See the SwipeControl `minOpWidth` option.                                |
+| maxOpWidth        | number  | No       | 300                                                    | See the SwipeControl `maxOpWidth` option.                                |
+| leftOptions       | array   | No       | []                                                     | See the SwipeControl `leftOptions` option.                               |
+| options           | any     | No       | [ { icon: 'Delete', func: () => {}, type: 'delete' } ] | See the SwipeControl `options` option.                                   |
+| itemPadding       | string  | No       | '0 10px'                                               | See the SwipeControl `itemPadding` option.                               |
+| disabledLeft      | boolean | No       | true                                                   | See the SwipeControl `disabledLeft` option.                              |
+| disabledRight     | boolean | No       | false                                                  | See the SwipeControl `disabledRight` option.                             |
+| disabledLeftFull  | boolean | No       | true                                                   | See the SwipeControl `disabledLeftFull` option.                          |
+| disabledRightFull | boolean | No       | false                                                  | See the SwipeControl `disabledRightFull` option.                         |
+| disabled          | boolean | No       | false                                                  | See the SwipeControl `disabled` option.                                  |
+| theme             | string  | No       | 'global'                                               | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| lang              | string  | No       | "global"                                               | See the SwipeControl `lang` option.                                      |
 
 ### Events
 ---
-| 事件名(Name)  | 参数类型(args) |                           说明(statement)                            |
-|:-------------:|:--------------:|:--------------------------------------------------------------------:|
-| status-change |     String     | 内部滑动状态, 包含`normal`, `left`, `right`, `leftFull`, `rightFull` |
+| Event         | Arguments | Description                               |
+|:-------------:|:---------:|:-----------------------------------------:|
+| status-change | String    | See the component `status-change` option. |
 
-### Slot
+### Slots
 ---
 1. Default
 
-自定义主体内容
+
 
 ```vue
 <template>
@@ -299,9 +303,9 @@ export default {
   
 ### Data
 ---
-1. options 及 leftOptions
 
-其中`type`包含`info`, `correct`, `warning`, `tool`, `delete`几种预设样式.
+
+
 
 ```javascript
 options = [{icon: '', text: '', type: '', disabled: ''}]
@@ -321,5 +325,3 @@ options: [
     }
 ]
 ```
-  
-**其中** `icon`, `text`, `disabled`, `type`属性支持函数式声明.

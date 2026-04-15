@@ -2,6 +2,9 @@
 page: true
 title: MessageBar
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### MessageBar-DEMO
 ---
 
@@ -289,30 +292,34 @@ this.$swiftWarning(document.getElementById('example'), {
 
 
 
-### Propoties
+### Properties
 ---
-| 属性(attr)  |                    类型(type)                     | 必填(required) | 默认值(default) |                       说明(statement)                        |
-|:-----------:|:-------------------------------------------------:|:--------------:|:---------------:|:------------------------------------------------------------:|
-|   status    | ['default','warning','correct','blocked','error'] |       No       |     default     |                     显示状态, 一共有5种                      |
-| showControl |                      Boolean                      |       No       |      false      |                       是否显示控制按钮                       |
-|  showClose  |                      Boolean                      |       No       |      true       |                       是否显示关闭按钮                       |
-|    mode     |               ['relative','fixed']                |       No       |    relative     |   显示模式`relative`下位相对定位, `fixed`下为悬浮固定定位    |
-|  autoClose  |                      Number                       |       No       |      3000       | MessageBar自动关闭时间, 单位为`ms`, 设为`-1`时永远不自动消失 |
+| Property    | Type    | Required | Default    | Description                              |
+|:-----------:|:-------:|:--------:|:----------:|:----------------------------------------:|
+| status      |         | No       | 'default'  | See the MessageBar `status` option.      |
+| showControl |         | No       | false      | See the MessageBar `showControl` option. |
+| showClose   |         | No       | true       | See the MessageBar `showClose` option.   |
+| mode        | string  | No       | 'relative' | See the MessageBar `mode` option.        |
+| autoClose   | number  | No       | 3000       | See the MessageBar `autoClose` option.   |
+| destroy     | object  | No       | () => {}   | See the MessageBar `destroy` option.     |
+| theme       | string  | No       | 'global'   | See the MessageBar `theme` option.       |
+| disabled    | boolean | No       | false      | See the MessageBar `disabled` option.    |
+| lang        | string  | No       | "global"   | See the MessageBar `lang` option.        |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |      说明(statement)       |
-|:------------:|:--------------:|:--------------------------:|
-|    close     |                | 关闭`MessageBar`时触发事件 |
+| Event | Arguments | Description                       |
+|:-----:|:---------:|:---------------------------------:|
+| close |           | See the component `close` option. |
 
-### Slot
+### Slots
 ---
 
 1. Msg
 
-- 默认为正常标题
-- `class="header"` 加粗标题
-- `<a></a>` 链接
+
+
+
 
 ```vue
 <template v-slot:msg>
@@ -322,8 +329,8 @@ this.$swiftWarning(document.getElementById('example'), {
 
 2. Control
 
-- cancel: 取消函数
-- theme: 当前主题
+
+
 
 ```vue
 <template v-slot:control="x">
@@ -353,4 +360,3 @@ this.$swiftWarning(element, options = {
     replaceTitle: "Swift Warning"
 });
 ```
-  

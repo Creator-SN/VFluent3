@@ -3,6 +3,9 @@ page: true
 title: ScrollStory
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### ScrollStory-DEMO
 ---
 
@@ -47,19 +50,22 @@ title: ScrollStory
 </fv-ScrollStory>
 ```
 
-### Propoties
+### Properties
 
 ---
-|  属性(attr)  | 类型(type) | 必填(required) | 默认值(default) |     说明(statement)     |
-|:------------:|:----------:|:--------------:|:---------------:|:-----------------------:|
-|     name     |  Boolean   |       No       |       N/A       | Vue transition css name |
-|   infinite   |  Boolean   |       No       |      false      |      Infinite show      |
-| overCollapse |  Boolean   |       No       |      false      |  Scroll over collapse   |
-|  trueRender  |  Boolean   |       No       |      false      |  Only render when show  |
+| Property     | Type    | Required | Default  | Description                            |
+|:------------:|:-------:|:--------:|:--------:|:--------------------------------------:|
+| name         | string  | No       | ''       | Vue transition css name                |
+| infinite     | boolean | No       | false    | Infinite show                          |
+| overCollapse | boolean | No       | false    | Scroll over collapse                   |
+| trueRender   | boolean | No       | false    | Only render when show                  |
+| theme        | string  | No       | 'global' | See the ScrollStory `theme` option.    |
+| disabled     | boolean | No       | false    | See the ScrollStory `disabled` option. |
+| lang         | string  | No       | "global" | See the ScrollStory `lang` option.     |
 
 ### Events
 
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
-| show-changed |      show      |                 |
+| Event        | Arguments | Description |
+|:------------:|:---------:|:-----------:|
+| show-changed | show      |             |

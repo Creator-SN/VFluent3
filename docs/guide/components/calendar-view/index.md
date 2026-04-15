@@ -3,6 +3,9 @@ page: true
 title: CalendarView
 --- 
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### CalendarView-DEMO
 ---
 
@@ -136,42 +139,48 @@ Custom Selected Color
 <fv-CalendarView theme="dark" background="rgba(30, 19, 57, 1)" foreground="rgba(0, 204, 153, 1)" nowDayColor="rgba(0, 180, 153, 1)" rangeChooseColorFE="rgba(0, 220, 153, 0.9)" rangeChooseColorMiddle="rgba(0, 220, 153, 0.6)" borderRadius="50" multiple="range"></fv-CalendarView>
 ```
 
-### Propoties
+### Properties
 
 ---
 
-|       属性(attr)       |          类型(type)           | 必填(required) | 默认值(default) |                      说明(statement)                      |
-| :--------------------: | :---------------------------: | :------------: | :-------------: | :-------------------------------------------------------: |
-|         value          |            [date]             |       No       |   CurrentDate   |                                                           |
-|        multiple        | ['single','multiple','range'] |       No       |     single      |                                                           |
-|      choosenDates      |             Array             |       No       |       []        |                 CalendarView初始选中日期                  |
-|       foreground       |        [string(color)]        |       No       |       N/A       |                  CalendarView主题前景色                   |
-|       background       |        [string(color)]        |       No       |       N/A       |                    CalendarView 背景色                    |
-|      nowDayColor       |        [string(color)]        |       No       |       N/A       |                         今日颜色                          |
-|   rangeChooseColorFE   |        [string(color)]        |       No       |       N/A       |                 起始日开头结尾按钮背景色                  |
-| rangeChooseColorMiddle |        [string(color)]        |       No       |       N/A       |                 起始日中间日期按钮背景色                  |
-|         theme          |            String             |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property               | Type     | Required | Default                                                                                                                      | Description                                                              |
+|:----------------------:|:--------:|:--------:|:----------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|
+| modelValue             | function | No       | () => new Date()                                                                                                             |                                                                          |
+| multiple               | string   | No       | 'single'                                                                                                                     |                                                                          |
+| choosenDates           | array    | No       | []                                                                                                                           | CalendarViewInitial selected date.                                       |
+| foreground             | string   | No       | ''                                                                                                                           | See the CalendarView `foreground` option.                                |
+| background             | string   | No       | ''                                                                                                                           | See the CalendarView `background` option.                                |
+| nowDayColor            | string   | No       | ''                                                                                                                           | Color for today.                                                         |
+| rangeChooseColorFE     | string   | No       | ''                                                                                                                           | See the CalendarView `rangeChooseColorFE` option.                        |
+| rangeChooseColorMiddle | string   | No       | ''                                                                                                                           | See the CalendarView `rangeChooseColorMiddle` option.                    |
+| theme                  | string   | No       | 'global'                                                                                                                     | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| start                  | number   | No       | 1900                                                                                                                         | See the CalendarView `start` option.                                     |
+| weekdays               | array    | No       | ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']                                                                                   | See the CalendarView `weekdays` option.                                  |
+| monthList              | array    | No       | [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ] | See the CalendarView `monthList` option.                                 |
+| borderRadius           | string   | No       | ''                                                                                                                           | See the CalendarView `borderRadius` option.                              |
+| disabled               | boolean  | No       | false                                                                                                                        | See the CalendarView `disabled` option.                                  |
+| lang                   | string   | No       | "global"                                                                                                                     | See the CalendarView `lang` option.                                      |
 
 ### Events
 
 ---
 
-|    事件名(Name)     | 参数类型(args) |                   说明(statement)                   |
-| :-----------------: | :------------: | :-------------------------------------------------: |
-|     choose-year     |     string     |                 选择年份后返回年份                  |
-|    choose-month     |     string     |                 选择月份后返回月份                  |
-| update:choosenDates |     array      |                双向绑定choosenDates                 |
-|     choose-date     |      date      |                 选择日期后返回日期                  |
-|    choosen-dates    |     array      | 选择多个日期后返回日期数组, 类型为[{year,month,no}] |
-|  choosen-dates-obj  |     array      |                返回[Date]类型的数组                 |
+| Event               | Arguments | Description                                     |
+|:-------------------:|:---------:|:-----------------------------------------------:|
+| choose-year         | string    | See the component `choose-year` option.         |
+| choose-month        | string    | See the component `choose-month` option.        |
+| update:choosenDates | array     | See the component `update:choosenDates` option. |
+| choose-date         | date      | See the component `choose-date` option.         |
+| choosen-dates       | array     | See the component `choosen-dates` option.       |
+| choosen-dates-obj   | array     | Returns an array of `Date` values.              |
 
-### Slot
+### Slots
 ---
 1. Statement
 
-`CalendarView`的显式栏描述内容
-- value: 原文描述内容
-- dayRange: 当前日期数据对象
+
+
+
 
 ```vue
 <template v-slot:statement="x">
@@ -181,8 +190,8 @@ Custom Selected Color
 
 2. Weekday Content
 
-日期上方星期栏描述内容
-- value: 默认星期描述内容
+
+
 
 ```vue
 <template v-slot:weekday_content>

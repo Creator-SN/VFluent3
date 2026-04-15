@@ -2,6 +2,9 @@
 page: true
 title: SearchBox
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### SearchBox-DEMO
 ---
 
@@ -86,15 +89,12 @@ Disabled
     </template>
     <template v-slot:searchResult="x">
         <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
-            <span class="list-item list-title">人物</span>
             <div style="position: relative; width: 100%; height: 60px; display: flex;">
                 <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.native="resultPlaceholder.push(item)"/>
             </div>
-            <span class="list-item list-title">位置</span>
             <span>
                 <p v-for="(item, index) in x.data.pos" class="list-item" :key="index">{{item}}</p>
             </span>
-            <span class="list-item list-title">职业</span>
             <span>
                 <p v-for="(item, index) in x.data.pro" class="list-item" :key="index">{{item}}</p>
             </span>
@@ -178,15 +178,12 @@ Disabled
     </template>
     <template v-slot:searchResult="x">
         <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
-            <span class="list-item list-title">人物</span>
             <div style="position: relative; width: 100%; height: 60px; display: flex;">
                 <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.native="resultPlaceholder.push(item)"/>
             </div>
-            <span class="list-item list-title">位置</span>
             <span>
                 <p v-for="(item, index) in x.data.pos" class="list-item" :key="index">{{item}}</p>
             </span>
-            <span class="list-item list-title">职业</span>
             <span>
                 <p v-for="(item, index) in x.data.pro" class="list-item" :key="index">{{item}}</p>
             </span>
@@ -256,61 +253,63 @@ Customize background
 </div>
 ```
 
-### Propoties
+### Properties
 ---
-|        属性(attr)        |             类型(type)             | 必填(required) | 默认值(default) |              说明(statement)              |
-|:------------------------:|:----------------------------------:|:--------------:|:---------------:|:-----------------------------------------:|
-|          value           |              String              |       No       |                 |     Using v-model binding input value     |
-|         options          |         [array or object]          |      Yes       |       N/A       |           SearchBox搜索候选数据           |
-|       placeholder        |              String              |       No       |       N/A       |              等同HTML[input]              |
-|           type           |              String              |       No       |      text       |              等同HTML[input]              |
-|         readonly         |             Boolean              |       No       |      false      |              等同HTML[input]              |
-|        maxlength         |              Number              |       No       |       N/A       |              等同HTML[input]              |
-|       customFilter       |         [object(function)]         |       No       |       N/A       |            客制化搜索筛选函数             |
-|    resultPlaceholder     |              Array               |       No       |       N/A       |     结果占位数据, 显示在SearchBox左端     |
-|        focusShow         |             Boolean              |       No       |      false      |       是否开启获取焦点时显示结果框        |
-|         leftIcon         |              String              |       No       |       N/A       |                  左图标                   |
-|           icon           |              String              |       No       |       N/A       |                  右图标                   |
-|        underline         |             Boolean              |       No       |      false      |     是否开启Underline风格的SearchBox      |
-|        background        |          [string(color)]           |       No       |       N/A       |                  背景色                   |
-|       borderWidth        |             Boolean              |       No       |        1        |                                           |
-|       borderColor        |          [string(color)]           |       No       |       N/A       |                                           |
-|     focusBorderColor     |          [string(color)]           |       No       |       N/A       |                                           |
-|         fontSize         |              Number              |       No       |      13.3       |                                           |
-|        fontWeight        |          [string,number]           |       No       |     normal      |                                           |
-|        foreground        |          [string(color)]           |       No       |       N/A       |                                           |
-|        textAlign         |              String              |       No       |      left       |                                           |
-|       borderRadius       |              Number              |       No       |       N/A       | Textbox圆角大小, 启用revealBorder时将失效 |
-|       revealBorder       |             Boolean              |       No       |      false      |                                           |
-|          status          |         ['warn','correct']         |       No       |       N/A       |    状态边框预设, 默认有警告和正确两种     |
-|      debounceDelay       |              Number              |       No       |       300       |             搜索节流延迟时间              |
-|         disabled         |             Boolean              |       No       |      false      |                                           |
-|     theme     | String |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式              |
+| Property          | Type    | Required | Default  | Description                                                              |
+|:-----------------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| modelValue        | string  | No       | ''       | Using v-model binding input value                                        |
+| options           | array   | No       | []       | See the SearchBox `options` option.                                      |
+| placeholder       | string  | No       | ''       | Same as the native HTML input attribute.                                 |
+| type              | string  | No       | 'text'   | Same as the native HTML input attribute.                                 |
+| readonly          | boolean | No       | false    | Same as the native HTML input attribute.                                 |
+| maxlength         | string  | No       | ''       | Same as the native HTML input attribute.                                 |
+| customFilter      | boolean | No       | false    | See the SearchBox `customFilter` option.                                 |
+| resultPlaceholder | boolean | No       | false    | See the SearchBox `resultPlaceholder` option.                            |
+| focusShow         | boolean | No       | false    | See the SearchBox `focusShow` option.                                    |
+| leftIcon          | string  | No       | ''       | Left icon.                                                               |
+| icon              | string  | No       | ''       | Right icon.                                                              |
+| underline         | boolean | No       | false    | Whether to use the underline style for SearchBox                         |
+| background        | string  | No       | ''       | Background color.                                                        |
+| borderWidth       | number  | No       | 1        |                                                                          |
+| borderColor       | string  | No       | ''       |                                                                          |
+| focusBorderColor  | string  | No       | ''       |                                                                          |
+| fontSize          | number  | No       | 13.3     |                                                                          |
+| fontWeight        | string  | No       | 'normal' |                                                                          |
+| foreground        | string  | No       | ''       |                                                                          |
+| textAlign         | string  | No       | 'left'   |                                                                          |
+| borderRadius      | number  | No       | 3        | See the SearchBox `borderRadius` option.                                 |
+| revealBorder      | boolean | No       | false    |                                                                          |
+| status            | string  | No       | ''       | Preset status border. Built-in values are warning and correct.           |
+| debounceDelay     | number  | No       | 300      | Debounced input delay.                                                   |
+| disabled          | boolean | No       | false    |                                                                          |
+| theme             | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| isBoxShadow       | boolean | No       | false    | See the SearchBox `isBoxShadow` option.                                  |
+| lang              | string  | No       | "global" | See the SearchBox `lang` option.                                         |
 
 ### Events
 ---
-|       事件名(Name)       | 参数类型(args) |                                              说明(statement)                                               |
-|:------------------------:|:--------------:|:----------------------------------------------------------------------------------------------------------:|
-|         keydown          |     event      |                                                                                                            |
-|          keyup           |     event      |                                                                                                            |
-|          change          |     event      |                                                                                                            |
-|          paste           |     event      |                                                                                                            |
-|     left-icon-click      |     event      |                                                                                                            |
-|        icon-click        |     event      |                                                                                                            |
-|         lazyload         |     array      |                      搜索结果框滚动加载事件, 滑动到最底部时触发, 返回当前搜索筛选数据                      |
-| update:resultPlaceholder |     array      | 更新搜索占位数组, 在清除搜索框时触发清除搜索占位数组, 再按下退格键时若文本为空, 清除最后一个搜索占位数据项 |
-|       clear-click        |     array      |                                            清除搜索框文本时触发                                            |
-|      choose-result       |     object     |                                       搜索结果框选中项目后返回当前项                                       |
-|      debounce-input      |     string     |                                              搜索节流内容反馈                                              |
+| Event                    | Arguments | Description                                          |
+|:------------------------:|:---------:|:----------------------------------------------------:|
+| keydown                  | event     |                                                      |
+| keyup                    | event     |                                                      |
+| change                   | event     |                                                      |
+| paste                    | event     |                                                      |
+| left-icon-click          | event     |                                                      |
+| icon-click               | event     |                                                      |
+| lazyload                 | array     | See the component `lazyload` option.                 |
+| update:resultPlaceholder | array     | See the component `update:resultPlaceholder` option. |
+| clear-click              | array     | See the component `clear-click` option.              |
+| choose-result            | object    | See the component `choose-result` option.            |
+| debounce-input           | string    | Emitted with debounced input content.                |
 
-### Slot
+### Slots
 ---
 1. SearchResult
 
-默认情况下用户可直接在`options`中定义`name`来应用默认样式, 不需要修改此模板, 可缺省
-用户自定义样式时, 包含以下可选属性
-- data: 传入的`filterOptions`
-- chooseResult: 用于回调的选择出发函数, 需要传入一个对象, 包含`item`和`item.name`属性
+
+
+
+
 
 ```vue
  <template v-slot:searchResult="x">
@@ -320,7 +319,7 @@ Customize background
 
 2. ResultPlaceholder
 
-用户根据自己的需要在搜索框选择结果后将值显示在`SearchBox`左侧显示相应数据, 数据模板即为`ResultPlaceholder`
+
 
 ```vue
 <template v-slot:resultPlaceholder="x">
@@ -333,7 +332,7 @@ Customize background
 
 1. options
 
-数据格式参考`ListView`中`items`的形式, 其中`key`字段建议开发者在有重复名称和类型字段时声明用来区别项目
+
 
 ```javascript
 options = [{key: '', name: '', type: '', disabled: ''}]

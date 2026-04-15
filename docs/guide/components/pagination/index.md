@@ -2,6 +2,9 @@
 page: true
 title: Pagination
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Pagination-DEMO
 --- 
 
@@ -91,28 +94,29 @@ title: Pagination
 ```
 
 
-### Propoties
+### Properties
 ---
-|      属性(attr)       |   类型(type)    | 必填(required) |   默认值(default)   |                      说明(statement)                      |
-| :-------------------: | :-------------: | :------------: | :-----------------: | :-------------------------------------------------------: |
-|         value         |     Number      |       No       |          1          |                        当前页码数                         |
-|      foreground       | [string(color)] |       No       | rgba(0, 90, 158, 1) |                                                           |
-|      background       | [string(color)] |       No       |     transparent     |                                                           |
-|     borderRadius      |     Number      |       No       |          3          |                     页码按钮圆角半径                      |
-| revealBackgroundColor | [string(color)] |       No       |         ''          |                 页码按钮`Reveal`背景颜色                  |
-|   revealBorderColor   | [string(color)] |       No       |         ''          |                 页码按钮`Reveal`边框颜色                  |
-|         total         |     Number      |       No       |         10          |                         总页码数                          |
-|       maxVisual       |     Number      |       No       |          7          |                       最大可视按钮                        |
-|         small         |     Boolean     |       No       |        false        |                       小型分页按钮                        |
-|        shadow         |     Boolean     |       No       |        false        |                                                           |
-|       disabled        |     Boolean     |       No       |        false        |                                                           |
-|         theme         |     String      |       No       |       system        | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property              | Type    | Required | Default                                                         | Description                                                              |
+|:---------------------:|:-------:|:--------:|:---------------------------------------------------------------:|:------------------------------------------------------------------------:|
+| modelValue            | number  | No       | 1                                                               | See the Pagination `modelValue` option.                                  |
+| foreground            | string  | No       | 'rgba(0, 90, 158, 1)'                                           |                                                                          |
+| background            | string  | No       | 'transparent'                                                   |                                                                          |
+| borderRadius          | number  | No       | 3                                                               | See the Pagination `borderRadius` option.                                |
+| revealBackgroundColor | string  | No       | ''                                                              | See the Pagination `revealBackgroundColor` option.                       |
+| revealBorderColor     | string  | No       | ''                                                              | See the Pagination `revealBorderColor` option.                           |
+| total                 | number  | No       | 10                                                              | See the Pagination `total` option.                                       |
+| maxVisual             | number  | No       | 7                                                               | See the Pagination `maxVisual` option.                                   |
+| small                 | boolean | No       | false                                                           | See the Pagination `small` option.                                       |
+| shadow                | boolean | No       | false                                                           |                                                                          |
+| disabled              | boolean | No       | false                                                           |                                                                          |
+| theme                 | string  | No       | 'global'                                                        | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| emits                 | array   | No       | ['update:modelValue', 'next-click', 'prev-click', 'page-click'] | See the Pagination `emits` option.                                       |
+| lang                  | string  | No       | "global"                                                        | See the Pagination `lang` option.                                        |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-| :----------: | :------------: | :-------------: |
-|  next-click  |     number     | 下一页按钮点击  |
-|  prev-click  |     number     | 上一页按钮点击  |
-|  page-click  |     number     |  翻页按钮点击   |
-  
+| Event      | Arguments | Description                            |
+|:----------:|:---------:|:--------------------------------------:|
+| next-click | number    | See the component `next-click` option. |
+| prev-click | number    | See the component `prev-click` option. |
+| page-click | number    | See the component `page-click` option. |

@@ -2,6 +2,9 @@
 page: true
 title: NavigationPanel
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### NavigationPanel-DEMO
 ---
 
@@ -95,47 +98,50 @@ title: NavigationPanel
 <fv-NavigationPanel mobileDisplay="100000000" flyoutDisplay="500" theme="dark"></fv-NavigationPanel>
 ```
 
-### Propoties
+### Properties
 
 ---
 
-|   属性(attr)    |      类型(type)       | 必填(required) | 默认值(default) |                                说明(statement)                                 |
-|:---------------:|:---------------------:|:--------------:|:---------------:|:------------------------------------------------------------------------------:|
-|      title      |        String         |       No       | NavigationPanel |                              NavigationPanel 标题                              |
-|     expand      |        Boolean        |       No       |      true       |                    初始是否展开, 可通过 sync 方法来同步状态                    |
-|   expandMode    | ['relative','flyout'] |       No       |    relative     |                           展开模式, 有占位和浮动两种                           |
-|   expandWidth   |        Number         |       No       |       350       |                             展开宽度, 以`px`为单位                             |
-|  expandDisplay  |        Number         |       No       |      1024       |                            浏览器宽度大于多少时展开                            |
-|  compactWidth   |        Number         |       No       |       50        |                             折叠宽度, 以`px`为单位                             |
-|  flyoutDisplay  |        Number         |       No       |        0        | 浏览器宽度小于多少时开启浮动模式, 若`expandMode`设为`flyout`, 则始终为浮动模式 |
-| fullSizeDisplay |        Number         |       No       |       800       |                          浏览器宽度小于多少时全屏显示                          |
-|  mobileDisplay  |        Number         |       No       |        0        |                       浏览器宽度小于多少时开启移动端模式                       |
-|    showBack     |        Boolean        |       No       |      true       |                                是否显示后退按钮                                |
-|   showSearch    |        Boolean        |       No       |      true       |                                 是否显示搜索框                                 |
-|  settingTitle   |        String         |       No       |    Settings     |                                 设置选项的标题                                 |
-|   showSetting   |        Boolean        |       No       |      true       |                                是否显示设置选项                                |
-|   background    |    [string(color)]    |       No       |       N/A       |                             NavigationPanel 背景色                             |
-|      theme      |        String         |       No       |     system      |           主题样式, 包含`light`, `dark`, `system`, `custom`几种样式            |
+| Property        | Type    | Required | Default           | Description                                                              |
+|:---------------:|:-------:|:--------:|:-----------------:|:------------------------------------------------------------------------:|
+| title           | string  | No       | 'NavigationPanel' | See the NavigationPanel `title` option.                                  |
+| expand          | boolean | No       | true              | See the NavigationPanel `expand` option.                                 |
+| expandMode      | string  | No       | 'relative'        | See the NavigationPanel `expandMode` option.                             |
+| expandWidth     | number  | No       | 350               | See the NavigationPanel `expandWidth` option.                            |
+| expandDisplay   | number  | No       | 1024              | See the NavigationPanel `expandDisplay` option.                          |
+| compactWidth    | number  | No       | 50                | See the NavigationPanel `compactWidth` option.                           |
+| flyoutDisplay   | number  | No       | 0                 | See the NavigationPanel `flyoutDisplay` option.                          |
+| fullSizeDisplay | number  | No       | 800               | See the NavigationPanel `fullSizeDisplay` option.                        |
+| mobileDisplay   | number  | No       | 0                 | See the NavigationPanel `mobileDisplay` option.                          |
+| showBack        | boolean | No       | true              | See the NavigationPanel `showBack` option.                               |
+| showSearch      | boolean | No       | true              | See the NavigationPanel `showSearch` option.                             |
+| settingTitle    | string  | No       | 'Settings'        | See the NavigationPanel `settingTitle` option.                           |
+| showSetting     | boolean | No       | true              | See the NavigationPanel `showSetting` option.                            |
+| background      | string  | No       | ''                | See the NavigationPanel `background` option.                             |
+| theme           | string  | No       | 'global'          | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| showNav         | boolean | No       | true              | See the NavigationPanel `showNav` option.                                |
+| disabled        | boolean | No       | false             | See the NavigationPanel `disabled` option.                               |
+| lang            | string  | No       | "global"          | See the NavigationPanel `lang` option.                                   |
 
 ### Events
 
 ---
 
-| 事件名(Name)  | 参数类型(args) |                    说明(statement)                    |
-|:-------------:|:--------------:|:-----------------------------------------------------:|
-| setting-click |     Object     | 设置选项被点击后触发事件, 返回`{ event: MouseEvent }` |
-| update:expand |    boolean     |         当折叠或展开时同步外界传入的`expand`          |
-| expand-change |    boolean     |         当折叠或展开时触发事件并提供当前状态          |
-| expand-click  |                |                                                       |
-|     back      |   MouseEvent   |               返回选项被点击后触发事件                |
+| Event         | Arguments  | Description                               |
+|:-------------:|:----------:|:-----------------------------------------:|
+| setting-click | Object     | See the component `setting-click` option. |
+| update:expand | boolean    | See the component `update:expand` option. |
+| expand-change | boolean    | See the component `expand-change` option. |
+| expand-click  |            |                                           |
+| back          | MouseEvent | See the component `back` option.          |
 
-### Slot
+### Slots
 
 ---
 
 1. SearchBlock
 
-自定义搜索框区域内容, 默认的搜索框无实际作用
+
 
 ```javascript
 <template v-slot:searchBlock></template>
@@ -143,7 +149,7 @@ title: NavigationPanel
 
 2. NavIcon
 
-自定义`NavigationPanel`导航按钮区域内容, 默认的导航按钮为`GlobalNavButton`图标
+
 
 ```javascript
 <template v-slot:navIcon>
@@ -153,7 +159,7 @@ title: NavigationPanel
 
 2. BackIcon
 
-自定义`NavigationPanel`后退按钮区域内容, 默认的后退按钮为`Back`图标
+
 
 ```javascript
 <template v-slot:backIcon>
@@ -163,7 +169,7 @@ title: NavigationPanel
 
 3. Title
 
-自定义`NavigationPanel`标题区域内容, 默认的标题为`title`属性值
+
 
 ```javascript
 <template v-slot:title="{ show }">
@@ -173,7 +179,7 @@ title: NavigationPanel
 
 4. Panel
 
-自定义`NavigationPanel`中的内容
+
 
 ```javascript
 <template v-slot:panel></template>
@@ -181,7 +187,7 @@ title: NavigationPanel
 
 5. Banner
 
-自定义`NavigationPanel`顶部banner区域内容, 可用于自定义logo等
+
 
 ```javascript
 <template v-slot:banner></template>
@@ -192,7 +198,7 @@ title: NavigationPanel
 
 ---
 
-1. 获取`NavigationPanel`中`setting`的`dom`方法:
+
 
 ```vue
 <fv-NavigationPanel v-model="items" ref="nav"></fv-NavigationPanel>

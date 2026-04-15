@@ -3,6 +3,9 @@ page: true
 title: TimePicker
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
   export default {
     data(){
@@ -104,26 +107,27 @@ hoverColor="rgba(0, 153, 204, 0.1)"
 </ClientOnly>
 
 
-### Propoties
+### Properties
 ---
-|     属性(attr)     |              类型(type)               | 必填(required) |   默认值(default)    |                            说明(statement)                             |
-| :----------------: | :-----------------------------------: | :------------: | :------------------: | :--------------------------------------------------------------------: |
-|      v-model       |                 Date                  |       No       |        Date()        |                               绑定的时间                               |
-|      timeType      |                Number                 |       No       |          12          |                          时间制（可选12，24）                          |
-|       period       |                 Array                 |       No       |   ['A.M.','P.M.']    |                              上午下午显示                              |
-|  inputBackground   |                String                 |       No       |         N/A          |                              输入框背景色                              |
-|  innerBorderColor  |                String                 |       No       |         N/A          |                              内部边框颜色                              |
-|  optionBackground  |                String                 |       No       |         N/A          |                              选择器背景色                              |
-| slideBtnBackground |                String                 |       No       |         N/A          |                          滑动按钮Hover背景色                           |
-|      disabled      |                Boolean                |       No       |        false         |                             是否禁用选项框                             |
-|     hoverColor     |                String                 |       No       |      undefined       |                           选项的Hover背景色                            |
-|     secondType     |                String                 |       No       | 'same','zero','full' | 默认秒数, 'same'表示与当前传入日期一致, 'zero'/'full'分别表示设为0/59s |
-|       theme        | ['light', 'dark', 'custom', 'system'] |       No       |        system        |                              Custom theme                              |
+| Property           | Type    | Required | Default                    | Description                                     |
+|:------------------:|:-------:|:--------:|:--------------------------:|:-----------------------------------------------:|
+| modelValue         | Date    | No       | () => new Date()           | See the TimePicker `modelValue` option.         |
+| timeType           | number  | No       | 12                         | See the TimePicker `timeType` option.           |
+| period             | array   | No       | ['A.M.', 'P.M.']           | See the TimePicker `period` option.             |
+| inputBackground    | string  | No       | ''                         | See the TimePicker `inputBackground` option.    |
+| innerBorderColor   | string  | No       | 'rgba(200, 200, 200, 0.3)' | See the TimePicker `innerBorderColor` option.   |
+| optionBackground   | string  | No       | ''                         | See the TimePicker `optionBackground` option.   |
+| slideBtnBackground | string  | No       | ''                         | See the TimePicker `slideBtnBackground` option. |
+| disabled           | boolean | No       | false                      | See the TimePicker `disabled` option.           |
+| hoverColor         | string  | No       | undefined                  | See the TimePicker `hoverColor` option.         |
+| secondType         | string  | No       | 'same'                     | See the TimePicker `secondType` option.         |
+| theme              | string  | No       | 'global'                   | Custom theme                                    |
+| selectedBackground | string  | No       | ''                         | See the TimePicker `selectedBackground` option. |
+| lang               | string  | No       | "global"                   | See the TimePicker `lang` option.               |
 
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |    说明(statement)     |
-| :----------: | :------------: | :--------------------: |
-|    change    |                | 当选中的时间发生变化时 |
-
+| Event  | Arguments | Description                        |
+|:------:|:---------:|:----------------------------------:|
+| change |           | See the component `change` option. |

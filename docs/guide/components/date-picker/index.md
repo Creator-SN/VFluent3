@@ -3,6 +3,9 @@ page: true
 title: DatePicker
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
   export default {
     data(){
@@ -125,28 +128,30 @@ hoverColor="rgba(0, 153, 204, 0.1)"
 ```
 
 
-### Propoties
+### Properties
 ---
-|     属性(attr)     |             类型(type)             | 必填(required) |      默认值(default)       |   说明(statement)   |
-| :----------------: | :--------------------------------: | :------------: | :------------------------: | :-----------------: |
-|      v-model       |               [Date]               |       No       |            Date            |     绑定的时间      |
-|       theme        | ['system','dark','light','custom'] |       No       |          'system'          |       主题色        |
-|       months       |               Array                |       No       | ["January","February",...] |    月份显示数组     |
-|       weeks        |               Array                |       No       |     ["Sun.","Mon."...]     |    星期显示输出     |
-|      hideYear      |              Boolean               |       No       |           false            |    是否隐藏年份     |
-|     hideMonth      |              Boolean               |       No       |           false            |    是否隐藏月份     |
-|      hideDay       |              Boolean               |       No       |           false            |    是否隐藏天数     |
-|      showWeek      |              Boolean               |       No       |           false            |    是否显示星期     |
-|  inputBackground   |               String               |       No       |            N/A             |    输入框背景色     |
-|  innerBorderColor  |               String               |       No       |            N/A             |    内部边框颜色     |
-|  optionBackground  |               String               |       No       |            N/A             |    选择器背景色     |
-| slideBtnBackground |               String               |       No       |            N/A             | 滑动按钮Hover背景色 |
-|      disabled      |              Boolean               |       No       |           false            |   是否禁用选项框    |
-|     hoverColor     |               String               |       No       |         undefined          |  选项的Hover背景色  |
+| Property           | Type    | Required | Default                                                                                                                      | Description                                     |
+|:------------------:|:-------:|:--------:|:----------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------:|
+| modelValue         | Date    | No       | () => new Date()                                                                                                             | See the DatePicker `modelValue` option.         |
+| theme              | string  | No       | 'global'                                                                                                                     | Theme color.                                    |
+| months             | array   | No       | [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ] | See the DatePicker `months` option.             |
+| weeks              | array   | No       | ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.']                                                                     | See the DatePicker `weeks` option.              |
+| hideYear           | boolean | No       | false                                                                                                                        | See the DatePicker `hideYear` option.           |
+| hideMonth          | boolean | No       | false                                                                                                                        | See the DatePicker `hideMonth` option.          |
+| hideDay            | boolean | No       | false                                                                                                                        | See the DatePicker `hideDay` option.            |
+| showWeek           | boolean | No       | false                                                                                                                        | See the DatePicker `showWeek` option.           |
+| inputBackground    | string  | No       | ''                                                                                                                           | See the DatePicker `inputBackground` option.    |
+| innerBorderColor   | string  | No       | 'rgba(200, 200, 200, 0.3)'                                                                                                   | See the DatePicker `innerBorderColor` option.   |
+| optionBackground   | string  | No       | ''                                                                                                                           | See the DatePicker `optionBackground` option.   |
+| slideBtnBackground | string  | No       | ''                                                                                                                           | See the DatePicker `slideBtnBackground` option. |
+| disabled           | boolean | No       | false                                                                                                                        | See the DatePicker `disabled` option.           |
+| hoverColor         | string  | No       | undefined                                                                                                                    | See the DatePicker `hoverColor` option.         |
+| selectedBackground | string  | No       | ''                                                                                                                           | See the DatePicker `selectedBackground` option. |
+| reverseLayout      | boolean | No       | false                                                                                                                        | See the DatePicker `reverseLayout` option.      |
+| lang               | string  | No       | "global"                                                                                                                     | See the DatePicker `lang` option.               |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |    说明(statement)     |
-| :----------: | :------------: | :--------------------: |
-|    change    |                | 当选中的时间发生变化时 |
-  
+| Event  | Arguments | Description                        |
+|:------:|:---------:|:----------------------------------:|
+| change |           | See the component `change` option. |

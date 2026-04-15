@@ -3,6 +3,9 @@ page: true
 title: Panel
 --- 
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Panel-DEMO
 ---
 
@@ -173,36 +176,38 @@ Acrylic
 </fv-Panel>
 ```
 
-### Propoties
+### Properties
 ---
-|   属性(attr)   |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:--------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|     value      |     Boolean     |       No       |      false      |                     显示/隐藏`Panel`                      |
-|     title      |     String      |       No       |  Sample Panel   |                           标题                            |
-|   titleSize    | [number,string] |       No       |       20        |                       标题字体大小                        |
-|  titleWeight   | [number,string] |       No       |       600       |                       标题字体粗细                        |
-|   titleColor   | [string(color)] |       No       |       N/A       |                       标题字体颜色                        |
-|     width      | [number,string] |       No       |       340       |                           宽度                            |
-|     height     | [number,string] |       No       |      100%       |                           宽度                            |
-|   background   | [string(color)] |       No       |       N/A       |                       `Panel`背景色                       |
-|   isNearSide   |     Boolean     |       No       |      false      |                      是否从左侧显示                       |
-| isCentralSide  |     Boolean     |       No       |      false      |                      是否从中央显示                       |
-| isLightDismiss |     Boolean     |       No       |      false      |                    是否单击空白处关闭                     |
-|  showTitleBar  |     Boolean     |       No       |      false      |                      是否显示标题栏                       |
-|    isFooter    |     Boolean     |       No       |      false      |                     是否显示底部控制                      |
-|   isAcrylic    |     Boolean     |       No       |      false      |                   是否开启`Acrylic`效果                   |
-| controlPadding |     String      |       No       |      10px       |                    标题和控制栏内边距                     |
-| contentPadding |     String      |       No       |       0px       |                        内容内边距                         |
-|  isBottomSide  |     Boolean     |       No       |      false      |                        从底部显式                         |
-|   isTopSide    |     Boolean     |       No       |      false      |                        从顶部显示                         |
-|    teleport    |     Boolean     |       No       |      false      |                  穿越当前父容器全局放置                   |
-|     theme      |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property       | Type    | Required | Default        | Description                                                              |
+|:--------------:|:-------:|:--------:|:--------------:|:------------------------------------------------------------------------:|
+| modelValue     | any     | No       | !false         | See the Panel `modelValue` option.                                       |
+| title          | string  | No       | 'Sample Panel' | Title.                                                                   |
+| titleSize      | number  | No       | 20             | See the Panel `titleSize` option.                                        |
+| titleWeight    | number  | No       | 600            | See the Panel `titleWeight` option.                                      |
+| titleColor     | string  | No       | ''             | See the Panel `titleColor` option.                                       |
+| width          | string  | No       | '340'          | See the Panel `width` option.                                            |
+| height         | string  | No       | '100%'         | See the Panel `height` option.                                           |
+| background     | string  | No       | ''             | See the Panel `background` option.                                       |
+| isNearSide     | boolean | No       | false          | See the Panel `isNearSide` option.                                       |
+| isCentralSide  | boolean | No       | false          | See the Panel `isCentralSide` option.                                    |
+| isLightDismiss | boolean | No       | false          | See the Panel `isLightDismiss` option.                                   |
+| showTitleBar   | boolean | No       | true           | See the Panel `showTitleBar` option.                                     |
+| isFooter       | boolean | No       | false          | See the Panel `isFooter` option.                                         |
+| isAcrylic      | boolean | No       | false          | See the Panel `isAcrylic` option.                                        |
+| controlPadding | string  | No       | '15px'         | See the Panel `controlPadding` option.                                   |
+| contentPadding | string  | No       | '0px'          | See the Panel `contentPadding` option.                                   |
+| isBottomSide   | boolean | No       | false          | See the Panel `isBottomSide` option.                                     |
+| isTopSide      | boolean | No       | false          | See the Panel `isTopSide` option.                                        |
+| teleport       | boolean | No       | false          | See the Panel `teleport` option.                                         |
+| theme          | string  | No       | 'global'       | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled       | boolean | No       | false          | See the Panel `disabled` option.                                         |
+| lang           | string  | No       | "global"       | See the Panel `lang` option.                                             |
 
-### Slot
+### Slots
 ---
 1. Container
 
-自定义容器内容
+
 
 ```javascript
 <template v-slot:container>
@@ -211,7 +216,7 @@ Acrylic
 
 2. Header
 
-自定义标题栏内容
+
 
 ```javascript
 <template v-slot:header>
@@ -220,7 +225,7 @@ Acrylic
 
 3. Footer
 
-自定义`Footer`内容
+
 
 ```javascript
 <template v-slot:footer>

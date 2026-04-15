@@ -2,6 +2,9 @@
 page: true
 title: DetailsList
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### DetailsList-DEMO
 ---
 
@@ -561,53 +564,56 @@ export default {
 }
 ```
 
-### Propoties
+### Properties
 
 ---
 
-|     属性(attr)      |   类型(type)    | 必填(required) | 默认值(default) |                                       说明(statement)                                       |
-|:-------------------:|:---------------:|:--------------:|:---------------:|:-------------------------------------------------------------------------------------------:|
-|        value        |      Array      |      Yes       |       N/A       |                              列表数据, 数据格式详见数据格式表                               |
-|        head         |      Array      |      Yes       |       N/A       |                              表头数据, 数据格式详见数据格式表                               |
-|        group        |      Array      |       No       |       N/A       |                              分组数据, 数据格式详见数据格式表                               |
-|       filter        |     String      |       No       |       N/A       |                  搜索筛选, 数据格式详见数据格式表, 控制表显示哪些搜索字段                   |
-|      showGroup      |     Boolean     |       No       |      false      | 是否开启按组分割显示, 开启后排序功能将失效, 默认不开启, 若 group 为空, 则开启后表格内容为空 |
-|     autoHeight      |     Boolean     |       No       |      false      |                                      是否开启自动高度                                       |
-|     foreground      | [string(color)] |       No       |       N/A       |                                         表格前景色                                          |
-|   headBackground    | [string(color)] |       No       |       N/A       |         表头背景, 不会修改点燃颜色, 若要修改点燃颜色请自定义 fv-custom-head 类样式          |
-|       compact       |     Boolean     |       No       |      false      |                                      是否开启收缩模式                                       |
-|   multiSelection    |     Boolean     |       No       |      false      |                                      是否开启多选模式                                       |
-|      allowDrag      |     Boolean     |       No       |      false      |                                      是否开启拖动排序                                       |
-|       rowCSS        |     String      |       No       |       N/A       |                                     客制化每一行的样式                                      |
-|   rightMenuWidth    |     Number      |       No       |       200       |                                      右键菜单宽度设置                                       |
-|    showRightMenu    |     Boolean     |       No       |                 |                                      是否启用右键菜单                                       |
-| rightMenuBackground | [string(color)] |       No       |                 |                                       右键菜单背景色                                        |
-| rightMenuFullExpand |     Boolean     |       No       |                 |                               是否启用全展开右键菜单显示动画                                |
-|        theme        |     String      |       No       |     system      |                  主题样式, 包含`light`, `dark`, `system`, `custom`几种样式                  |
+| Property            | Type    | Required | Default                                     | Description                                                              |
+|:-------------------:|:-------:|:--------:|:-------------------------------------------:|:------------------------------------------------------------------------:|
+| modelValue          | array   | No       | []                                          | See the DetailsList `modelValue` option.                                 |
+| head                | array   | No       | []                                          | See the DetailsList `head` option.                                       |
+| group               | array   | No       | []                                          | See the DetailsList `group` option.                                      |
+| filter              | object  | No       | () => { return { key: 'any', value: '' }; } | See the DetailsList `filter` option.                                     |
+| showGroup           | boolean | No       | false                                       | See the DetailsList `showGroup` option.                                  |
+| autoHeight          | boolean | No       | false                                       | See the DetailsList `autoHeight` option.                                 |
+| foreground          | string  | No       | ''                                          | See the DetailsList `foreground` option.                                 |
+| headBackground      | string  | No       | ''                                          | See the DetailsList `headBackground` option.                             |
+| compact             | boolean | No       | false                                       | See the DetailsList `compact` option.                                    |
+| multiSelection      | boolean | No       | false                                       | See the DetailsList `multiSelection` option.                             |
+| allowDrag           | boolean | No       | false                                       | See the DetailsList `allowDrag` option.                                  |
+| rowCSS              | String  | No       | N/A                                         | See the DetailsList `rowCSS` option.                                     |
+| rightMenuWidth      | number  | No       | 200                                         | See the DetailsList `rightMenuWidth` option.                             |
+| showRightMenu       | boolean | No       | true                                        | See the DetailsList `showRightMenu` option.                              |
+| rightMenuBackground | string  | No       | ''                                          | See the DetailsList `rightMenuBackground` option.                        |
+| rightMenuFullExpand | boolean | No       | false                                       | See the DetailsList `rightMenuFullExpand` option.                        |
+| theme               | string  | No       | 'global'                                    | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| rowCss              | string  | No       | ''                                          | See the DetailsList `rowCss` option.                                     |
+| disabled            | boolean | No       | false                                       | See the DetailsList `disabled` option.                                   |
+| lang                | string  | No       | "global"                                    | See the DetailsList `lang` option.                                       |
 
 ### Events
 
 ---
 
-| 事件名(Name) |         参数类型(args)          |                              说明(statement)                               |
-|:------------:|:-------------------------------:|:--------------------------------------------------------------------------:|
-| change-value |         修改后的 value          |        在列表内部的 value 发生改变后会触发事件并返回修改后的 value         |
-| choose-items |          currentChoose          |                      在选择某行数据后返回被选中的数据                      |
-|   lazyload   |         修改后的 value          |                  滚动到底部加载数据, 返回列表内部的 value                  |
-|  rightclick  |       当前选中的 row-item       |                         右键菜单返回当前选择的项目                         |
-|  drop-items  | 返回对象包含`transfer`和`value` | 项目拖拽释放后触发事件, `transfer`包含拖拽项目, `value`包含列表内部的value |
+| Event        | Arguments                       | Description                              |
+|:------------:|:-------------------------------:|:----------------------------------------:|
+| change-value | 修改后的 value                  | See the component `change-value` option. |
+| choose-items | currentChoose                   | See the component `choose-items` option. |
+| lazyload     | 修改后的 value                  | See the component `lazyload` option.     |
+| rightclick   | 当前选中的 row-item             | See the component `rightclick` option.   |
+| drop-items   | 返回对象包含`transfer`和`value` | See the component `drop-items` option.   |
 
-### Slot
+### Slots
 
 ---
 
 1. Head
 
-默认情况下用户可直接在`head`中定义`content`来应用默认样式, 不需要修改此模板, 可缺省
-用户自定义样式时, 包含以下可选属性
 
-- item: 当前项
-- index: 当前项索引
+
+
+
+
 
 ```vue
 <template v-slot:head="x">
@@ -617,13 +623,13 @@ export default {
 
 2. Column
 
-用户根据`head`中的数量通过`column_[数字]`的方式来定义每一列的模板
-默认情况下利用`<p>`标签来表示正文, 通过`class="sec"`来表示附属文本
-用户自定义样式时, 包含以下可选属性
 
-- item: 当前项
-- row_index: 当前项行号
-- col_index: 当前项列号
+
+
+
+
+
+
 
 ```vue
 <template v-slot:column_0="x">
@@ -644,10 +650,10 @@ export default {
 
 3. Row Expand
 
-用户可以根据需要在每一行添加额外的内容, 如下拉菜单, 注意自定义的内容定位需要设置为'absolute'.
 
-- item: 当前项
-- row_index: 当前项行号
+
+
+
 
 ```vue
 <template v-slot:row_expand="x">
@@ -657,7 +663,7 @@ export default {
 
 4. Group
 
-源代码, 默认不需要修改, 用户只需要定义`gi`数组中每一项的`name`来应用默认样式, 不需要定义此模板, 可缺省
+
 
 ```vue
 <slot name="group" :item="gi" :index="i" :isMulti="multiSelection" :isChoose="isGroupChooseAll(gi)">
@@ -677,12 +683,12 @@ export default {
 </slot>
 ```
 
-用户自定义样式时, 包含以下可选属性
 
-- item: 当前组数据
-- index: 当前组索引
-- isMulti: 当前是否开启多选
-- isChoose: 当前组是否全选
+
+
+
+
+
 
 ```vue
 <template v-slot:group="x">
@@ -692,7 +698,7 @@ export default {
 
 5. Goup Content
 
-若用户想保留默认`Group`下拉样式并且只修改内容部分, 可使用`group_content`来重定义样式, 默认值为:
+
 
 ```vue
 <slot name="group_content" :item="gi" :index="i">
@@ -702,12 +708,12 @@ export default {
 </slot>
 ```
 
-用户自定义样式时, 包含以下可选属性
 
-- item: 当前组数据
-- index: 当前组索引
-- isMulti: 当前是否开启多选
-- isChoose: 当前组是否全选
+
+
+
+
+
 
 ```vue
 <template v-slot:group_content="x">
@@ -717,7 +723,7 @@ export default {
 
 6. Context Menu
 
-默认显示列表选中数量
+
 
 ```vue
 <template v-slot:menu>
@@ -847,16 +853,16 @@ group: [
 
 ---
 
-1. 触发`RightMenu`显示
 
-通过`DetailsList`对象的`rightClick`函数可以触发显示菜单, 其中函数包含两个参数
 
-- event: 一般为鼠标或触摸事件, `RightMenu`将根据`event.target`来获取显示的位置.
-- item: 当前的项目.
 
-2. 刷新表头位置
 
-当窗口布局发生改变时, 可以通过`DetailsList`对象的`headInit`函数重新初始化表头位置.
+
+
+
+
+
+
 
 ### Custom Class
 

@@ -2,6 +2,9 @@
 page: true
 title: Collapse
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Collapse-DEMO
 --- 
 
@@ -91,40 +94,42 @@ Extension
 </fv-Collapse>
 ```
 
-### Propoties
+### Properties
 
 ---
-|    属性(attr)    |   类型(type)    | 必填(required) |         默认值(default)          |                      说明(statement)                      |
-|:----------------:|:---------------:|:--------------:|:--------------------------------:|:---------------------------------------------------------:|
-|      value       |     Boolean     |       No       |              false               |                    是否展开 `Collapse`                    |
-|       icon       |     String      |       No       |           CollapseMenu           |                   Icon with Fabric-Icon                   |
-|      title       |     String      |       No       |        Title of Collapse.        |                           标题                            |
-|     content      |     String      |       No       | Content information of Collapse. |                        副标题信息                         |
-|    background    | [string(color)] |       No       |               N/A                |                  客制化 `Collapse` 背景                   |
-|  defaultHeight   |     Number      |       No       |                70                |                         默认高度                          |
-|    maxHeight     |     Number      |       No       |               300                |                       展开最大高度                        |
-| disabledCollapse |     Boolean     |       No       |              false               |                    禁用展开 `Collapse`                    |
-| visibleOverflow  |     Boolean     |       No       |               true               |       在禁用展开 `Collapse` , 允许overflow内容显示        |
-|      theme       |     String      |       No       |              system              | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property         | Type    | Required | Default                            | Description                                                              |
+|:----------------:|:-------:|:--------:|:----------------------------------:|:------------------------------------------------------------------------:|
+| modelValue       | boolean | No       | false                              | See the Collapse `modelValue` option.                                    |
+| icon             | string  | No       | 'Mail'                             | Icon with Fabric-Icon                                                    |
+| title            | string  | No       | 'Title of Collapse.'               | Title.                                                                   |
+| content          | string  | No       | 'Content information of Collapse.' | Subtitle content.                                                        |
+| background       | string  | No       | ''                                 | See the Collapse `background` option.                                    |
+| defaultHeight    | number  | No       | 70                                 | See the Collapse `defaultHeight` option.                                 |
+| maxHeight        | number  | No       | 300                                | See the Collapse `maxHeight` option.                                     |
+| disabledCollapse | boolean | No       | false                              | See the Collapse `disabledCollapse` option.                              |
+| visibleOverflow  | boolean | No       | true                               | See the Collapse `visibleOverflow` option.                               |
+| theme            | string  | No       | 'global'                           | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled         | boolean | No       | false                              | See the Collapse `disabled` option.                                      |
+| lang             | string  | No       | "global"                           | See the Collapse `lang` option.                                          |
 
 ### Events
 
 ---
-|   事件名(Name)   | 参数类型(args) |          说明(statement)          |
-|:----------------:|:--------------:|:---------------------------------:|
-|    item-click    |    boolean     | 返回 `Collapse` 属性 `value` 的值 |
-| descrption-click |      N/A       |            描述框点击             |
-|    icon-click    |      N/A       |           右侧图标点击            |
-| left-icon-click  |      N/A       |           左侧图标点击            |
+| Event            | Arguments | Description                                  |
+|:----------------:|:---------:|:--------------------------------------------:|
+| item-click       | boolean   | See the component `item-click` option.       |
+| descrption-click | N/A       | See the component `descrption-click` option. |
+| icon-click       | N/A       | See the component `icon-click` option.       |
+| left-icon-click  | N/A       | See the component `left-icon-click` option.  |
   
 
-### Slot
+### Slots
 
 ---
 
 1. Default
 
-定义下拉内容
+
 
 ```vue
 <fv-Collapse background="rgba(0, 98, 158, 1)">
@@ -134,7 +139,7 @@ Extension
 
 2. icon
 
-自定义 `Collapse` 显示图标
+
 
 ```vue
 <template v-slot:icon="x">
@@ -144,10 +149,10 @@ Extension
 
 3. container
 
-自定义内容, 如果只需要单独修改标题 `title` 或副标题 `content` , 可使用下面的 `template` 进行自定义
 
-* title: 标题
-* contnet: 副标题
+
+* title: Collapse
+
 
 ```vue
 <template v-slot:container="x">
@@ -158,7 +163,7 @@ Extension
 
 4. Extension
 
-扩展操作内容
+
 
 ```vue
 <template v-slot:extension>
@@ -168,9 +173,9 @@ Extension
 
 5. title
 
-自定义标题
 
-* title: 标题
+
+* title: Collapse
 
 ```vue
 <template v-slot:title="x">
@@ -180,9 +185,9 @@ Extension
 
 6. content
 
-自定义副标题
 
-* content: 副标题
+
+
 
 ```vue
 <template v-slot:content="x">
@@ -192,10 +197,10 @@ Extension
 
 7. expand-icon
 
-自定义展开状态图标
 
-* value: 当前是否展开
-* disabledCollaspe: 是否禁用展开
+
+
+
 
 ```vue
 <template v-slot:expand-icon="x">

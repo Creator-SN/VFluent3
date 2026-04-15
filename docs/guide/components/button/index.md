@@ -3,7 +3,10 @@ page: true
 title: Button
 ---
 
-### Button-DEMO
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
+### Basic Button
 ---
 
 
@@ -26,7 +29,7 @@ title: Button
 <fv-button icon="CalculatorAddition" theme="dark">Add</fv-button>
 ```
 
-### Button Customize
+### Custom Button
 ---
 
 <ClientOnly>
@@ -45,7 +48,7 @@ title: Button
 <fv-button icon="CalculatorAddition" theme="dark" background="linear-gradient(to right, #000046, #1cb5e0)" borderRadius="3" :isBoxShadow="true">Add</fv-button>
 ```
 
-Customize Reveal Border
+Custom Reveal Border
 <ClientOnly>
 <fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="3" borderWidth="3" :isBoxShadow="true">Add</fv-button>
 </ClientOnly>
@@ -54,7 +57,7 @@ Customize Reveal Border
 <fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="3" borderWidth="3" :isBoxShadow="true">Add</fv-button>
 ```
 
-### Button Disabled
+### Disabled Button
 ---
 <ClientOnly>
 <fv-button disabled icon="CalculatorAddition">Add</fv-button>
@@ -66,31 +69,34 @@ Customize Reveal Border
 
 
 
-### Propoties
+### Properties
 ---
-|      属性(attr)       |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:---------------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|         icon          |     String      |       No       |       N/A       |                   Icon with Fabric-Icon                   |
-|      foreground       | [string(color)] |       No       |       N/A       |                       Button 前景色                       |
-|      background       | [string(color)] |       No       |       N/A       |                       Button 背景色                       |
-|     borderRadius      |     Number      |       No       |        3        |                      Button 圆角大小                      |
-|      borderColor      | [string(color)] |       No       |       N/A       |                      Button 边框颜色                      |
-|       fontSize        |     Number      |       No       |       N/A       |                      Button 字体大小                      |
-|      fontWeight       |     String      |       No       |     normal      |                     Button 字体粗细度                     |
-|   revealBorderColor   | [string(color)] |       No       |      false      |                  Button Reveal 边框颜色                   |
-| revealBackgroundColor | [string(color)] |       No       |      false      |                  Button Reveal 背景颜色                   |
-|      isBoxShadow      |     Boolean     |       No       |      false      |                     开启`Button`阴影                      |
-|       disabled        |     Boolean     |       No       |      false      |                      Disabled button                      |
-|      borderWidth      |     Number      |       No       |        1        |                      Button 边框大小                      |
-|         theme         |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property                     | Type    | Required | Default  | Description                                                              |
+|:----------------------------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| icon                         | string  | No       | ''       | Icon with Fabric-Icon                                                    |
+| foreground                   | string  | No       | ''       | Button foreground color.                                                 |
+| background                   | string  | No       | ''       | Button background color.                                                 |
+| borderRadius                 | number  | No       | 3        | Button border radius.                                                    |
+| borderColor                  | string  | No       | ''       | Button border color.                                                     |
+| fontSize                     | number  | No       | 13.3     | Button font size.                                                        |
+| fontWeight                   | string  | No       | 'normal' | Button font weight.                                                      |
+| revealBorderColor            | boolean | No       | false    | Reveal border color for the button.                                      |
+| revealBackgroundColor        | boolean | No       | false    | Reveal background color for the button.                                  |
+| isBoxShadow                  | boolean | No       | false    | Enable the button shadow.                                                |
+| disabled                     | boolean | No       | false    | Disabled button                                                          |
+| borderWidth                  | number  | No       | 1        | Button border width.                                                     |
+| theme                        | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| revealBorderGradientList     | array   | No       | []       | See the Button `revealBorderGradientList` option.                        |
+| revealBackgroundGradientList | array   | No       | []       | See the Button `revealBackgroundGradientList` option.                    |
+| lang                         | string  | No       | "global" | See the Button `lang` option.                                            |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement) |
-|:------------:|:--------------:|:---------------:|
-|    click     |     event      | Button onclick  |
+| Event | Arguments | Description    |
+|:-----:|:---------:|:--------------:|
+| click | event     | Button onclick |
 
-### Slot
+### Slots
 ---
 1. Default
 

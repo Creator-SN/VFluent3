@@ -2,6 +2,9 @@
 page: true
 title: Img
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Img-DEMO
 ---
 
@@ -40,11 +43,14 @@ title: Img
 ```
 
 
-### Propoties
+### Properties
 ---
-|  属性(attr)  |     类型(type)     |   必填(required)    |                   默认值(default)                    |                                              说明(statement)                                              |
-|:------------:|:------------------:|:-------------------:|:----------------------------------------------------:|:---------------------------------------------------------------------------------------------------------:|
-|     src      |      String      |         Yes         |                         N/A                          | 图像资源路径, 支持跨域和本域, 本域下将默认启用ImgBox进行缓存管理, 跨域时启用Image进行加载, 但无法实现缓存 |
-|    onlazy    |     Boolean      |         No          |                        false                         |                                              Lazy load image                                              |
-| loadingColor | [string(color)] No | rgba(0, 90, 158, 1) | The foreground of the progress-ring or progress-bar. |                                                                                                           |
-| onbackground |     Boolean      |         No          |                        false                         |                                            Show as background                                             |
+| Property     | Type    | Required | Default               | Description                    |
+|:------------:|:-------:|:--------:|:---------------------:|:------------------------------:|
+| src          | string  | No       | ''                    | See the Img `src` option.      |
+| onlazy       | boolean | No       | false                 | Lazy load image                |
+| loadingColor | string  | No       | 'rgba(36, 36, 36, 1)' |                                |
+| onbackground | boolean | No       | false                 | Show as background             |
+| theme        | string  | No       | 'global'              | See the Img `theme` option.    |
+| disabled     | boolean | No       | false                 | See the Img `disabled` option. |
+| lang         | string  | No       | "global"              | See the Img `lang` option.     |

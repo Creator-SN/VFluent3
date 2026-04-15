@@ -2,6 +2,9 @@
 page: true
 title: ProgressBar
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### ProgressBar-DEMO
 ---
 
@@ -114,20 +117,22 @@ export default {
 
 
 
-### Propoties
+### Properties
 ---
-|  属性(attr)  |   类型(type)    | 必填(required) | 默认值(default) |       说明(statement)        |
-| :----------: | :-------------: | :------------: | :-------------: | :--------------------------: |
-|    value     |     Number      |       No       |        0        |      Progressbar value       |
-|   loading    |     Boolean     |       No       |      false      | Is progressbar indeterminate |
-|  foreground  | [string(color)] |       No       |       N/A       |                              |
-|  background  | [string(color)] |       No       |       N/A       |                              |
-| borderRadius |     Number      |       No       |        2        |                              |
-|   disabled   |     Boolean     |       No       |      false      |                              |
+| Property     | Type    | Required | Default  | Description                         |
+|:------------:|:-------:|:--------:|:--------:|:-----------------------------------:|
+| modelValue   | number  | No       | 0        | Progressbar value                   |
+| loading      | boolean | No       | false    | Is progressbar indeterminate        |
+| foreground   | string  | No       | ''       |                                     |
+| background   | string  | No       | ''       |                                     |
+| borderRadius | number  | No       | 2        |                                     |
+| disabled     | boolean | No       | false    |                                     |
+| theme        | string  | No       | 'global' | See the ProgressBar `theme` option. |
+| lang         | string  | No       | "global" | See the ProgressBar `lang` option.  |
 
 ### Events
 ---
-|   事件名(Name)    | 参数类型(args) | 说明(statement) |
-| :---------------: | :------------: | :-------------: |
-|  progress-change  |    percent     |                 |
-| progress-finished |    percent     |                 |
+| Event             | Arguments | Description |
+|:-----------------:|:---------:|:-----------:|
+| progress-change   | percent   |             |
+| progress-finished | percent   |             |

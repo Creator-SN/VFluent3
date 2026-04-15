@@ -2,6 +2,9 @@
 page: true
 title: Badge
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Badge-DEMO
 ---
 
@@ -104,17 +107,20 @@ Primary
 
 
 
-### Propoties
+### Properties
 ---
-| 属性(attr) |                          类型(type)                           | 必填(required) | 默认值(default) |         说明(statement)         |
-| :--------: | :-----------------------------------------------------------: | :------------: | :-------------: | :-----------------------------: |
-| modelValue |                        [string,number]                        |      Yes       |       N/A       |                                 |
-|    max     |                            Number                             |       No       |    Infinity     |                                 |
-|   isDot    |                            Boolean                            |       No       |      false      |                                 |
-|   hidden   |                            Boolean                            |       No       |      false      |                                 |
-|    type    | ['primary','success','warning','danger','info',string(color)] |       No       |     default     | `Badge`类型, 可以输入颜色字符串 |
+| Property   | Type    | Required | Default   | Description                      |
+|:----------:|:-------:|:--------:|:---------:|:--------------------------------:|
+| modelValue | string  | No       | ''        |                                  |
+| max        | any     | No       | Infinity  |                                  |
+| isDot      | boolean | No       | false     |                                  |
+| hidden     | boolean | No       | false     |                                  |
+| type       | string  | No       | 'default' | See the Badge `type` option.     |
+| theme      | string  | No       | 'global'  | See the Badge `theme` option.    |
+| disabled   | boolean | No       | false     | See the Badge `disabled` option. |
+| lang       | string  | No       | "global"  | See the Badge `lang` option.     |
 
-### Slot
+### Slots
 ---
 1. Default
 

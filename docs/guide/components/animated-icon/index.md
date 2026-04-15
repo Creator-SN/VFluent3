@@ -2,6 +2,9 @@
 page: true
 title: AnimatedIcon
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### AnimatedIcon-DEMO
 ---
 
@@ -205,32 +208,34 @@ data () {
 </fv-AnimatedIcon>
 ```
 
-### Propoties
+### Properties
 
 ---
-|     属性(attr)     |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:------------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|       value        |     String      |       No       |    scaleDown    |                       动画预设名称                        |
-|        icon        |     String      |       No       |       N/A       |                   Icon with Fabric-Icon                   |
-| customizeAnimation |     Object      |       No       |       N/A       |                        自定义动画                         |
-|     background     | [string(color)] |       No       |       N/A       |                          背景色                           |
-|      fontSize      |     Number      |       No       |       16        |                   AnimatedIcon 字体大小                   |
-|    hideContent     |     [bool]      |       No       |      false      |                       隐藏文本内容                        |
-|       theme        |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property           | Type    | Required | Default     | Description                                                              |
+|:------------------:|:-------:|:--------:|:-----------:|:------------------------------------------------------------------------:|
+| modelValue         | string  | No       | 'scaleDown' | Animation preset name.                                                   |
+| icon               | string  | No       | 'Search'    | Icon with Fabric-Icon                                                    |
+| customizeAnimation | boolean | No       | false       | Custom animation.                                                        |
+| background         | string  | No       | ''          | Background color.                                                        |
+| fontSize           | number  | No       | 16          | See the AnimatedIcon `fontSize` option.                                  |
+| hideContent        | boolean | No       | false       | Hide the text content.                                                   |
+| theme              | string  | No       | 'global'    | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled           | boolean | No       | false       | See the AnimatedIcon `disabled` option.                                  |
+| lang               | string  | No       | "global"    | See the AnimatedIcon `lang` option.                                      |
 
 ### Events
 
 ---
-| 事件名(Name) | 参数类型(args) |   说明(statement)    |
-|:------------:|:--------------:|:--------------------:|
-|    click     |     event      | AnimatedIcon onclick |
+| Event | Arguments | Description          |
+|:-----:|:---------:|:--------------------:|
+| click | event     | AnimatedIcon onclick |
 
-### Slot
+### Slots
 
 ---
 1. Default
 
-默认模板是图标自定义模板
+The default slot customizes the icon content.
 
 ```javascript
 <fv-animated-icon>
@@ -240,7 +245,7 @@ data () {
 
 2. Content
 
-客制化修改文字内容
+Customize the text content.
 
 ```javascript
 <fv-animated-icon>

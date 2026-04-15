@@ -3,6 +3,9 @@ page: true
 title: TextBox
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### TextBox-DEMO
 ---
 
@@ -286,64 +289,65 @@ Customize background
 ```
 
 
-### Propoties
+### Properties
 ---
-|      属性(attr)       |     类型(type)     | 必填(required) | 默认值(default) |                            说明(statement)                            |
-| :-------------------: | :----------------: | :------------: | :-------------: | :-------------------------------------------------------------------: |
-|         value         |       String       |       No       |                 |                   Using v-model binding input value                   |
-|         mode          | ['default','mask'] |       No       |     default     |                          Choose TextBox mode                          |
-|       inputmode       |       String       |       No       |       N/A       | 输入模式, 可选值为`numeric`, `tel`, `text`, `decimal`, `email`, `url` |
-|      placeholder      |       String       |       No       |       N/A       |                            等同HTML[input]                            |
-|         type          |       String       |       No       |      text       |                            等同HTML[input]                            |
-|         mask          |       String       |       No       |    mask:___     |                     The mask mode input template                      |
-|         flag          |       String       |       No       |        _        |                       The mask mode input flag                        |
-|        pattern        |       String       |       No       |     [\S\s]*     |                          输入字符的正则限制                           |
-|      inputRules       |       String       |       No       |     [\S\s]*     |                 输入文本的正则限制, 在Mask模式下无效                  |
-|       readonly        |      Boolean       |       No       |      false      |                            等同HTML[input]                            |
-|       maxlength       |       Number       |       No       |       N/A       |                            等同HTML[input]                            |
-|        prefix         |       String       |       No       |       N/A       |                                 前缀                                  |
-|        suffix         |       String       |       No       |       N/A       |                                 后缀                                  |
-|       leftIcon        |       String       |       No       |       N/A       |                                左图标                                 |
-|         icon          |       String       |       No       |       N/A       |                                右图标                                 |
-|    iconForeground     |  [string(color)]   |       No       |       N/A       |                                                                       |
-|       underline       |      Boolean       |       No       |      false      |                    是否开启Underline风格的TextBox                     |
-|      background       |  [string(color)]   |       No       |       N/A       |                                                                       |
-|      borderWidth      |      Boolean       |       No       |       N/A       |                                                                       |
-|      borderColor      |  [string(color)]   |       No       |       N/A       |                                                                       |
-|   focusBorderColor    |  [string(color)]   |       No       |       N/A       |                                                                       |
-|   revealBorderColor   |  [string(color)]   |       No       |       N/A       |                                                                       |
-| revealBackgroundColor |  [string(color)]   |       No       |       N/A       |                                                                       |
-|       fontSize        |       Number       |       No       |      13.3       |                                                                       |
-|      fontWeight       |  [string,number]   |       No       |     normal      |                                                                       |
-|      foreground       |  [string(color)]   |       No       |       N/A       |                                                                       |
-|       textAlign       |       String       |       No       |      left       |                                                                       |
-|     borderRadius      |       Number       |       No       |        3        |               Textbox圆角大小, 启用revealBorder时将失效               |
-|      isBoxShadow      |      Boolean       |       No       |      false      |                           开启`TextBox`阴影                           |
-|     revealBorder      |      Boolean       |       No       |      false      |                                                                       |
-|        status         | ['warn','correct'] |       No       |       N/A       |                  状态边框预设, 默认有警告和正确两种                   |
-|     debounceDelay     |       Number       |       No       |       300       |                           搜索节流延迟时间                            |
-|       disabled        |      Boolean       |       No       |      false      |                                                                       |
-|        cursor         |       string       |       No       |       N/A       |                                                                       |
-|         theme         |       String       |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式       |
+| Property              | Type    | Required | Default    | Description                                                              |
+|:---------------------:|:-------:|:--------:|:----------:|:------------------------------------------------------------------------:|
+| modelValue            | string  | No       | ''         | Using v-model binding input value                                        |
+| mode                  | string  | No       | 'default'  | Choose TextBox mode                                                      |
+| inputmode             | string  | No       | 'text'     | Input mode. Options:`numeric`, `tel`, `text`, `decimal`, `email`, `url`  |
+| placeholder           | string  | No       | ''         | Same as the native HTML input attribute.                                 |
+| type                  | string  | No       | 'text'     | Same as the native HTML input attribute.                                 |
+| mask                  | string  | No       | 'mask:___' | The mask mode input template                                             |
+| flag                  | string  | No       | '_'        | The mask mode input flag                                                 |
+| pattern               | string  | No       | '[Ss]*'    | See the TextBox `pattern` option.                                        |
+| inputRules            | string  | No       | '[\S\s]*'  | See the TextBox `inputRules` option.                                     |
+| readonly              | boolean | No       | false      | Same as the native HTML input attribute.                                 |
+| maxlength             | string  | No       | ''         | Same as the native HTML input attribute.                                 |
+| prefix                | string  | No       | ''         | Prefix.                                                                  |
+| suffix                | string  | No       | ''         | Suffix.                                                                  |
+| leftIcon              | string  | No       | ''         | Left icon.                                                               |
+| icon                  | string  | No       | ''         | Right icon.                                                              |
+| iconForeground        | string  | No       | ''         |                                                                          |
+| underline             | boolean | No       | false      | Whether to use the underline style for TextBox                           |
+| background            | string  | No       | ''         |                                                                          |
+| borderWidth           | number  | No       | 1          |                                                                          |
+| borderColor           | string  | No       | ''         |                                                                          |
+| focusBorderColor      | string  | No       | ''         |                                                                          |
+| revealBorderColor     | boolean | No       | false      |                                                                          |
+| revealBackgroundColor | boolean | No       | false      |                                                                          |
+| fontSize              | number  | No       | 13.3       |                                                                          |
+| fontWeight            | string  | No       | 'normal'   |                                                                          |
+| foreground            | string  | No       | ''         |                                                                          |
+| textAlign             | string  | No       | 'left'     |                                                                          |
+| borderRadius          | number  | No       | 3          | See the TextBox `borderRadius` option.                                   |
+| isBoxShadow           | boolean | No       | false      | Enable `TextBox` shadow.                                                 |
+| revealBorder          | boolean | No       | false      |                                                                          |
+| status                | string  | No       | ''         | Preset status border. Built-in values are warning and correct.           |
+| debounceDelay         | number  | No       | 300        | Debounced input delay.                                                   |
+| disabled              | boolean | No       | false      |                                                                          |
+| cursor                | string  | No       | ''         |                                                                          |
+| theme                 | string  | No       | 'global'   | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| lang                  | string  | No       | "global"   | See the TextBox `lang` option.                                           |
 
 ### Events
 ---
-|  事件名(Name)   | 参数类型(args) | 说明(statement)  |
-| :-------------: | :------------: | :--------------: |
-|     keydown     |     event      |                  |
-|      keyup      |     event      |                  |
-|     change      |     event      |                  |
-|      paste      |     event      |                  |
-| left-icon-click |     event      |                  |
-|   icon-click    |     event      |                  |
-| debounce-input  |     string     | 搜索节流内容反馈 |
+| Event           | Arguments | Description                           |
+|:---------------:|:---------:|:-------------------------------------:|
+| keydown         | event     |                                       |
+| keyup           | event     |                                       |
+| change          | event     |                                       |
+| paste           | event     |                                       |
+| left-icon-click | event     |                                       |
+| icon-click      | event     |                                       |
+| debounce-input  | string    | Emitted with debounced input content. |
 
-### Slot
+### Slots
 ---
 
 1. left-icon
 
-用户可以自定义左图标插槽, 插槽名称为`left-icon`
+
 
 ```html
 <template #left-icon>
@@ -353,7 +357,7 @@ Customize background
 
 2. icon
 
-用户可以自定义右图标插槽, 插槽名称为`icon`
+
 
 ```html
 <template #icon>

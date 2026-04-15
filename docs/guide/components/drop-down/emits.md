@@ -1,5 +1,5 @@
 ## Emits
 
 ---
-| EmitName | Arguments | Statement |
-|:------------:|:--------------:|:---------------:|
+| Event | Arguments | Description |
+|:-----:|:---------:|:-----------:|

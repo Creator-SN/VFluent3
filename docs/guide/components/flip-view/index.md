@@ -2,6 +2,9 @@
 page: true
 title: FlipView
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### FlipView-DEMO
 ---
 
@@ -130,29 +133,31 @@ export default {
 </fv-FlipView>
 ```
 
-### Propoties
+### Properties
 
 ---
 
-|    属性(attr)    |             类型(type)             | 必填(required) | 默认值(default) |                 说明(statement)                 |
-|:----------------:|:----------------------------------:|:--------------:|:---------------:|:-----------------------------------------------:|
-|      value       |              Array               |      Yes       |       []        |             Flipview template data              |
-|    direction     |     ['horizontal','vertical']      |       No       |   horizontal    |                                                 |
-|    animation     |              String              |       No       |      move       | move, moveFade, moveDifferent, glue, push, fold |
-|     duration     |              Number              |       No       |       800       |                                                 |
-|     autoPlay     |             Boolean              |       No       |      true       |                                                 |
-| autoPlayDuration |              Number              |       No       |      5000       |                                                 |
-| showControlPanel |       ['','hidden','hover']        |       No       |       N/A       |                                                 |
-|       mask       |          [string(color)]           |       No       |       N/A       |         The mask color of control panel         |
-|     theme     | String |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式              |
+| Property         | Type    | Required | Default      | Description                                                              |
+|:----------------:|:-------:|:--------:|:------------:|:------------------------------------------------------------------------:|
+| modelValue       | array   | No       | []           | Flipview template data                                                   |
+| direction        | string  | No       | 'horizontal' |                                                                          |
+| animation        | string  | No       | 'move'       | move, moveFade, moveDifferent, glue, push, fold                          |
+| duration         | number  | No       | 800          |                                                                          |
+| autoPlay         | boolean | No       | true         |                                                                          |
+| autoPlayDuration | number  | No       | 5000         |                                                                          |
+| showControlPanel | string  | No       | ''           |                                                                          |
+| mask             | string  | No       | ''           | The mask color of control panel                                          |
+| theme            | string  | No       | 'global'     | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled         | boolean | No       | false        | See the FlipView `disabled` option.                                      |
+| lang             | string  | No       | "global"     | See the FlipView `lang` option.                                          |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |                     说明(statement)                     |
-|:------------:|:--------------:|:-------------------------------------------------------:|
-|    change    |     object     | 当切换页面时返回当前索引`index`和当前轮播周期`duration` |
+| Event  | Arguments | Description                        |
+|:------:|:---------:|:----------------------------------:|
+| change | object    | See the component `change` option. |
 
-### Slot
+### Slots
 
 ---
 

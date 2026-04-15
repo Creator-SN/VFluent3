@@ -2,6 +2,9 @@
 page: true
 title: ProgressRing
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### ProgressRing-DEMO
 --- 
 
@@ -183,16 +186,18 @@ export default {
 
 
 
-### Propoties
+### Properties
 ---
-| 属性(attr)  |     类型(type)     | 必填(required) |    默认值(default)     |                     说明(statement)                      |
-|:-----------:|:------------------:|:--------------:|:----------------------:|:--------------------------------------------------------:|
-|    value    |       Number       |       No       |           0            |                    progressRing value                    |
-|    size     | ['l','m','s','xs'] |       No       |           xs           | The size of progress ring, only works on legacy versions |
-|      r      |       Number       |       No       |           40           |                Radius of the ProgressRing                |
-|   loading   |      Boolean       |       No       |         false          |              Is progressRing indeterminate               |
-|    color    |  [string(color)]   |       No       |  rgba(0, 90, 158, 1)   |                The color of progress ring                |
-| background  |  [string(color)]   |       No       | rgba(204, 204, 204, 1) |                                                          |
-| borderWidth |       Number       |       No       |           8            |                                                          |
-|   legacy    |      Boolean       |       No       |         false          |          Use the legacy version of ProgressRing          |
-
+| Property    | Type    | Required | Default                  | Description                                              |
+|:-----------:|:-------:|:--------:|:------------------------:|:--------------------------------------------------------:|
+| modelValue  | number  | No       | 0                        | progressRing value                                       |
+| size        | string  | No       | 'xs'                     | The size of progress ring, only works on legacy versions |
+| r           | number  | No       | 40                       | Radius of the ProgressRing                               |
+| loading     | boolean | No       | false                    | Is progressRing indeterminate                            |
+| color       | string  | No       | 'rgba(0, 90, 158, 1)'    | The color of progress ring                               |
+| background  | string  | No       | 'rgba(204, 204, 204, 1)' |                                                          |
+| borderWidth | number  | No       | 8                        |                                                          |
+| legacy      | boolean | No       | false                    | Use the legacy version of ProgressRing                   |
+| theme       | string  | No       | 'global'                 | See the ProgressRing `theme` option.                     |
+| disabled    | boolean | No       | false                    | See the ProgressRing `disabled` option.                  |
+| lang        | string  | No       | "global"                 | See the ProgressRing `lang` option.                      |

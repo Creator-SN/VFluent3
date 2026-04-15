@@ -3,6 +3,9 @@ page: true
 title: CommandBar
 --- 
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### CommandBar-DEMO
 ---
 
@@ -144,38 +147,40 @@ Compact Mode
 </div>
 ```
 
-### Propoties
+### Properties
 
 ---
 
-|      属性(attr)       |   类型(type)    | 必填(required) | 默认值(default) |                      说明(statement)                      |
-| :-------------------: | :-------------: | :------------: | :-------------: | :-------------------------------------------------------: |
-|         value         |     Object      |       No       |       N/A       |                    绑定当前选中的对象                     |
-|        options        |      Array      |      Yes       |       N/A       |                     CommandBar 数据源                     |
-|        toward         |  ['down','up']  |       No       |      down       |                      下拉菜单的朝向                       |
-|      background       | [string(color)] |       No       |       N/A       |                      CommandBar 背景                      |
-|  dropDownBackground   | [string(color)] |       No       |       N/A       |                       下拉菜单背景                        |
-|        compact        |     Boolean     |       No       |      false      |                         紧凑样式                          |
-|   revealBorderColor   | [string(color)] |       No       |       N/A       |                                                           |
-| revealBackgroundColor | [string(color)] |       No       |       N/A       |                                                           |
-|   itemBorderRadius    |     Number      |       No       |        6        |                       项目圆角半径                        |
-|         theme         |     String      |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property              | Type    | Required | Default  | Description                                                              |
+|:---------------------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| modelValue            | object  | No       | {}       | See the CommandBar `modelValue` option.                                  |
+| options               | array   | No       | []       | See the CommandBar `options` option.                                     |
+| toward                | string  | No       | 'down'   | See the CommandBar `toward` option.                                      |
+| background            | string  | No       | ''       | See the CommandBar `background` option.                                  |
+| dropDownBackground    | string  | No       | ''       | See the CommandBar `dropDownBackground` option.                          |
+| compact               | boolean | No       | false    | See the CommandBar `compact` option.                                     |
+| revealBorderColor     | boolean | No       | false    |                                                                          |
+| revealBackgroundColor | boolean | No       | false    |                                                                          |
+| itemBorderRadius      | number  | No       | 6        | See the CommandBar `itemBorderRadius` option.                            |
+| theme                 | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled              | boolean | No       | false    | See the CommandBar `disabled` option.                                    |
+| lang                  | string  | No       | "global" | See the CommandBar `lang` option.                                        |
 
 ### Events
 
 ---
 
-| 事件名(Name) | 参数类型(args) |     说明(statement)      |
-| :----------: | :------------: | :----------------------: |
-|  item-click  |     object     | 选中项目时返回当前数据项 |
+| Event      | Arguments | Description                            |
+|:----------:|:---------:|:--------------------------------------:|
+| item-click | object    | See the component `item-click` option. |
 
-### Slot
+### Slots
 
 ---
 
 1. Right Space (right-space)
 
-用户可自定义 CommandBar 右侧内容
+
 
 ```vue
 <template v-slot:right-space>
@@ -185,10 +190,10 @@ Compact Mode
 
 2. Option Item (optionItem)
 
-用户可自定义 CommandBar 选项项内容, 包含以下可选属性
 
-- item: 当前项
-- valueTrigger: 计算函数式定义的字段, 例如`item.name: () => '@' + item.name`
+
+
+
 
 ```vue
 <template v-slot:optionItem="{ item, valueTrigger }">
@@ -198,11 +203,11 @@ Compact Mode
 
 3. List Item (listItem)
 
-用户可自定义 CommandBar 下拉选项项内容, 包含以下可选属性
 
-- item: 当前项
-- index: 当前项索引
-- valueTrigger: 计算函数式定义的字段, 例如`item.name: () => '@' + item.name`
+
+
+
+
 
 ```vue
 <template v-slot:listItem="x">
@@ -231,14 +236,14 @@ Compact Mode
 
 1. options
 
-`options`中包含像`ListView`中的`items`一样的数据引用方式, 此外用户还可以指定:
 
-- 前景色`foreground`
-- 背景色`background`
-- 图标`icon`
-- 图标颜色`iconColor`
-- 触发函数`func`
-- 是否包含二级菜单`secondary`, `secondary`中的数据格式同`options`中一致
+
+
+
+
+
+
+
 
 ```javascript
 options = [
@@ -282,5 +287,3 @@ options: [
   }
 ];
 ```
-
-**特别地** 支持采用函数式字段, 其中支持的字段包括`name`, `disabled`, `foreground`, `background`, `icon`, `iconColor`, `type`

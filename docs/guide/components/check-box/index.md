@@ -3,6 +3,9 @@ page: true
 title: CheckBox
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### CheckBox-DEMO
 --- 
 
@@ -72,23 +75,24 @@ export default {
 <fv-checkBox v-model="value" borderColor="rgba(0,204,153,1)" foreground="rgba(0,204,153,1)" background="rgba(0,204,153,1)">Checkbox</fv-checkBox>
 ```
 
-### Propoties
+### Properties
 
 ---
-| 属性(attr)  |             类型(type)             | 必填(required) | 默认值(default) |     说明(statement)     |
-|:-----------:|:----------------------------------:|:--------------:|:---------------:|:-----------------------:|
-|    value    |             Boolean              |       No       |     [empty]     |     Checkbox value      |
-| foreground  |              String              |       No       |       N/A       |   Checkbox foreground   |
-| borderColor |              String              |       No       |       N/A       |  Checkbox borderColor   |
-| background  |              String              |       No       |       N/A       |    Checkbox background    |
-|   boxSide   |          ['start', 'end']           |       No       |      start      | CheckBox text font weight |
-|  disabled   |             Boolean              |       No       |      false      |     Disabled checkbox     |
-| borderWidth |              Number              |       No       |        1        |   Checkbox border width   |
-|     theme     | String |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式              |
+| Property    | Type    | Required | Default               | Description                                                              |
+|:-----------:|:-------:|:--------:|:---------------------:|:------------------------------------------------------------------------:|
+| modelValue  | string  | No       | ''                    | Checkbox value                                                           |
+| foreground  | string  | No       | ''                    | Checkbox foreground                                                      |
+| borderColor | string  | No       | ''                    | Checkbox borderColor                                                     |
+| background  | string  | No       | 'rgba(0, 90, 158, 1)' | Checkbox background                                                      |
+| boxSide     | string  | No       | 'start'               | CheckBox text font weight                                                |
+| disabled    | boolean | No       | false                 | Disabled checkbox                                                        |
+| borderWidth | number  | No       | 1.5                   | Checkbox border width                                                    |
+| theme       | string  | No       | 'global'              | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| lang        | string  | No       | "global"              | See the CheckBox `lang` option.                                          |
 
 ### Events
 
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement)  |
-|:------------:|:--------------:|:----------------:|
-|    click     |     value      | Checkbox onclick |
+| Event | Arguments | Description      |
+|:-----:|:---------:|:----------------:|
+| click | value     | Checkbox onclick |

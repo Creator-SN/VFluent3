@@ -3,6 +3,9 @@ page: true
 title: Drawer
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
   export default {
 
@@ -87,35 +90,37 @@ title: Drawer
 
 </ClientOnly>
 
-### Propoties
+### Properties
 
 ---
-|   属性(attr)   |              类型(type)               | 必填(required) | 默认值(default) |      说明(statement)      |
-| :------------: | :-----------------------------------: | :------------: | :-------------: | :-----------------------: |
-|     theme      | ['system', 'dark', 'light', 'custom'] |       No       |    'system'     |          主题色           |
-|     value      |                Boolean                |       No       |      false      |         是否可视          |
-|     length     |           [number, string]            |       No       |       300       |         抽屉长度          |
-|     title      |                String                 |       No       |    'Drawer'     |          标题栏           |
-|   titleSize    |                String                 |       No       |       20        |      标题栏字体大小       |
-|  titleWeight   |                String                 |       No       |     'bold'      |      标题栏字体粗细       |
-|   titleColor   |                String                 |       No       |       ''        |      标题栏字体颜色       |
-|   background   |                  ''                   |       No       |      false      |        是否有背景         |
-|  borderRadius  |                String                 |       No       |       ''        |           圆角            |
-| controlPadding |                String                 |       No       |   '12px 24px'   |       控制区内边距        |
-| contentPadding |                String                 |       No       |     '24px'      |        内容内边距         |
-|  showTitleBar  |                Boolean                |       No       |      true       |      是否显示标题栏       |
-|    isFooter    |                Boolean                |       No       |      false      |      是否显示Footer       |
-| isLightDismiss |                Boolean                |       No       |      false      |    是否单击空白处关闭     |
-|   isAcrylic    |                Boolean                |       No       |      false      |      是否亚克力模糊       |
-|     zIndex     |                Number                 |       No       |       10        |          层叠数           |
-|    position    |  ['bottom', 'left', 'top', 'right']   |       No       |    'bottom'     |           位置            |
-|   appendBody   |                Boolean                |       No       |      false      | 是否添加到body（IOS兼容） |
+| Property       | Type    | Required | Default     | Description                             |
+|:--------------:|:-------:|:--------:|:-----------:|:---------------------------------------:|
+| theme          | string  | No       | 'global'    | Theme color.                            |
+| modelValue     | any     | No       | undefined   | See the Drawer `modelValue` option.     |
+| length         | number  | No       | 800         | See the Drawer `length` option.         |
+| title          | string  | No       | 'Drawer'    | See the Drawer `title` option.          |
+| titleSize      | number  | No       | 20          | See the Drawer `titleSize` option.      |
+| titleWeight    | string  | No       | 'bold'      | See the Drawer `titleWeight` option.    |
+| titleColor     | string  | No       | ''          | See the Drawer `titleColor` option.     |
+| background     | string  | No       | ''          | See the Drawer `background` option.     |
+| borderRadius   | string  | No       | ''          | See the Drawer `borderRadius` option.   |
+| controlPadding | string  | No       | '12px 24px' | See the Drawer `controlPadding` option. |
+| contentPadding | string  | No       | '24px'      | See the Drawer `contentPadding` option. |
+| showTitleBar   | boolean | No       | true        | See the Drawer `showTitleBar` option.   |
+| isFooter       | boolean | No       | false       | See the Drawer `isFooter` option.       |
+| isLightDismiss | boolean | No       | true        | See the Drawer `isLightDismiss` option. |
+| isAcrylic      | boolean | No       | true        | See the Drawer `isAcrylic` option.      |
+| zIndex         | number  | No       | 30          | See the Drawer `zIndex` option.         |
+| position       | string  | No       | 'bottom'    | Position.                               |
+| appendBody     | boolean | No       | true        | See the Drawer `appendBody` option.     |
+| disabled       | boolean | No       | false       | See the Drawer `disabled` option.       |
+| lang           | string  | No       | "global"    | See the Drawer `lang` option.           |
   
-### Slot
+### Slots
 ---
 1. Default
 
-自定义容器内内容
+
 
 ```vue
 <template>
@@ -125,7 +130,7 @@ title: Drawer
 
 2. Header
 
-自定义标题栏内容
+
 
 ```javascript
 <template v-slot:header>
@@ -134,7 +139,7 @@ title: Drawer
 
 3. Footer
 
-自定义`Footer`内容
+
 
 ```javascript
 <template v-slot:footer>

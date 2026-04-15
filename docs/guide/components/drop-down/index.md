@@ -2,6 +2,9 @@
 page: true
 title: DropDown
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### DropDown-DEMO
 ---
 
@@ -167,48 +170,49 @@ export default {
 <fv-DropDown :options="options" placeholder="Select an option" theme="dark" :multiple="true"></fv-DropDown>
 ```
 
-### Propoties
+### Properties
 ---
-|       属性(attr)       |   类型(type)    | 必填(required) |      默认值(default)       |                      说明(statement)                      |
-| :--------------------: | :-------------: | :------------: | :------------------------: | :-------------------------------------------------------: |
-|         value          |      Array      |       No       |            N/A             |                       Choosen Value                       |
-|        options         |      Array      |       No       |            N/A             |                  Dropdown options array                   |
-|        multiple        |     Boolean     |       No       |            N/A             |                 Is enable multiple select                 |
-|      borderWidth       |     Number      |       No       |             2              |                   Dropdown border width                   |
-|      borderRadius      |     Number      |       No       |             6              |                  Dropdown border radius                   |
-|      placeholder       |     String      |       No       |          Dropdown          |                   Dropdown placeholder                    |
-|       maxHeight        |     Number      |       No       |            N/A             |                 Dropdown list max height                  |
-|   checkBoxBackground   | [string(color)] |       No       |            N/A             |             CheckBox Background when Multiple             |
-|    inputForeground     | [string(color)] |       No       |            N/A             |                                                           |
-|    inputBorderColor    | [string(color)] |       No       |            N/A             |                                                           |
-|      inputHeight       |     String      |       No       |            N/A             |                                                           |
-|     inputFontSize      |     Number      |       No       |            N/A             |                                                           |
-| dropDownListForeground | [string(color)] |       No       |    rgba(0,120,215,0.9)     |                                                           |
-|    inputBackground     | [string(color)] |       No       |            N/A             |                                                           |
-| dropDownListBackground | [string(color)] |       No       |            N/A             |                                                           |
-|      dropDownIcon      |     String      |       No       |        ChevronDown         |                   Icon with Fabric-Icon                   |
-| dropDownIconForeground | [string(color)] |       No       |            N/A             |                                                           |
-|   revealBorderColor    | [string(color)] |       No       |            N/A             |                                                           |
-| revealBackgroundColor  | [string(color)] |       No       |            N/A             |                                                           |
-|       showError        |     Boolean     |       No       |           false            |                                                           |
-|      errorMessage      |     String      |       No       | This dropdown has an error |                                                           |
-|        disabled        |     Boolean     |       No       |           false            |                                                           |
-|        setFocus        |     Boolean     |       No       |           false            |                Whether Dropdown list show                 |
-|         theme          |     String      |       No       |           system           | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property               | Type            | Required | Default                      | Description                                                              |
+|:----------------------:|:---------------:|:--------:|:----------------------------:|:------------------------------------------------------------------------:|
+| modelValue             | array           | No       | []                           | Choosen Value                                                            |
+| options                | array           | No       | []                           | Dropdown options array                                                   |
+| multiple               | boolean         | No       | false                        | Is enable multiple select                                                |
+| borderWidth            | number          | No       | 1                            | Dropdown border width                                                    |
+| borderRadius           | string          | No       | '6'                          | Dropdown border radius                                                   |
+| placeholder            | string          | No       | 'Dropdown'                   | Dropdown placeholder                                                     |
+| maxHeight              | string          | No       | ''                           | Dropdown list max height                                                 |
+| checkBoxBackground     | string          | No       | ''                           | CheckBox Background when Multiple                                        |
+| inputForeground        | string          | No       | ''                           |                                                                          |
+| inputBorderColor       | string          | No       | ''                           |                                                                          |
+| inputHeight            | string          | No       | ''                           |                                                                          |
+| inputFontSize          | string          | No       | ''                           |                                                                          |
+| dropDownListForeground | string          | No       | ''                           |                                                                          |
+| inputBackground        | string          | No       | ''                           |                                                                          |
+| dropDownListBackground | string          | No       | ''                           |                                                                          |
+| dropDownIcon           | string          | No       | 'ChevronDown'                | Icon with Fabric-Icon                                                    |
+| dropDownIconForeground | string          | No       | ''                           |                                                                          |
+| revealBorderColor      | [string(color)] | No       | N/A                          |                                                                          |
+| revealBackgroundColor  | [string(color)] | No       | N/A                          |                                                                          |
+| showError              | boolean         | No       | false                        |                                                                          |
+| errorMessage           | string          | No       | 'This dropdown has an error' |                                                                          |
+| disabled               | boolean         | No       | false                        |                                                                          |
+| setFocus               | boolean         | No       | false                        | Whether Dropdown list show                                               |
+| theme                  | string          | No       | 'global'                     | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| lang                   | string          | No       | "global"                     | See the DropDown `lang` option.                                          |
 
 ### Events
 ---
-|  事件名(Name)  | 参数类型(args) |       说明(statement)        |
-| :------------: | :------------: | :--------------------------: |
-|     change     |     value      |     Dropdown choose item     |
-| visible-change |    visible     | Dropdown list show or hidden |
+| Event          | Arguments | Description                  |
+|:--------------:|:---------:|:----------------------------:|
+| change         | value     | Dropdown choose item         |
+| visible-change | visible   | Dropdown list show or hidden |
 
-### Slot
+### Slots
 ---
 1. Input
 
-- placeholder: 当前选中内容
-- value: 当前Placeholder
+
+
 
 ```javascript
 <template v-slot:input="x">
@@ -220,9 +224,9 @@ export default {
 
 2. Options
 
-- option: 当前项内容
-- index: 当前项索引
-- valueTrigger: 支持函数式驱动的值函数
+
+
+
 
 ```javascript
 <template v-slot:options="x">
@@ -232,9 +236,9 @@ export default {
 
 3. Drop Carrier
 
-- value: 当前选中内容
-- placeholoder: 当前Placeholder
-- theme: 当前主题
+
+
+
 
 ```javascript
 <template v-slot:drop-carrier="x">
@@ -264,5 +268,3 @@ options: [
     { key: "lettuce", text: "Lettuce" }
 ]
 ```
-
-**特别地** 0.1.62版本后支持采用函数式字段, 其中支持的字段包括`text`, `disabled`, `type`

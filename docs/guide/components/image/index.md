@@ -2,6 +2,9 @@
 page: true
 title: Image
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Image-DEMO
 ---
 
@@ -55,11 +58,14 @@ export default {
 ```
 
 
-### Propoties
+### Properties
 
 ---
 
-| 属性(attr) | 类型(type) | 必填(required) | 默认值(default) |           说明(statement)            |
-| :--------: | :--------: | :------------: | :-------------: | :----------------------------------: |
-|    src     |  String  |      Yes       |       N/A       | 图像 src, 支持跨域加载, 但不支持缓存 |
-|   onlazy   | Boolean  |       No       |      false      |            是否开启懒加载            |
+| Property | Type    | Required | Default  | Description                      |
+|:--------:|:-------:|:--------:|:--------:|:--------------------------------:|
+| src      | string  | No       | ''       | See the Image `src` option.      |
+| onlazy   | boolean | No       | false    | See the Image `onlazy` option.   |
+| theme    | string  | No       | 'global' | See the Image `theme` option.    |
+| disabled | boolean | No       | false    | See the Image `disabled` option. |
+| lang     | string  | No       | "global" | See the Image `lang` option.     |

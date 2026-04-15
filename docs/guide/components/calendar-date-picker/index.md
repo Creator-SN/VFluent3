@@ -2,6 +2,9 @@
 page: true
 title: CalendarDatePicker
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### CalendarDatePicker-DEMO
 ---
 
@@ -85,49 +88,52 @@ export default {
 <fv-CalendarDatePicker v-model="value" theme="dark" style="z-index: 2"></fv-CalendarDatePicker>
 ```
 
-### Propoties
+### Properties
 
 ---
-|       属性(attr)       |           类型(type)            | 必填(required) | 默认值(default) |                      说明(statement)                      |
-| :--------------------: | :-----------------------------: | :------------: | :-------------: | :-------------------------------------------------------: |
-|     value/v-model      |             [date]              |       No       |   CurrentDate   |                                                           |
-|      borderWidth       |             Number              |       No       |        2        |              CalendarDatePicker border width              |
-|      borderRadius      |             Number              |       No       |        3        |             CalendarDatePicker border radius              |
-|      placeholder       |             String              |       No       |   Pick a day    |              CalendarDatePicker placeholder               |
-|    inputForeground     |         [string(color)]         |       No       |       N/A       |                     输入框文字前景色                      |
-|    inputBackground     |         [string(color)]         |       No       |       N/A       |                       输入框背景色                        |
-|      dropDownIcon      |             String              |       No       |   CalendarDay   |                   Icon with Fabric-Icon                   |
-|  dropDownRevealBorder  |             Boolean             |       No       |      true       |                                                           |
-|  dropDownIsBoxShadow   |             Boolean             |       No       |      true       |                                                           |
-|     dropDownStyles     |             Object              |       No       |       {}        |                                                           |
-|        editable        |             Boolean             |       No       |       N/A       |                                                           |
-|       background       |         [string(color)]         |       No       |       N/A       |                                                           |
-|      borderRadius      |             Number              |       No       |       N/A       |                                                           |
-|      nowDayColor       |         [string(color)]         |       No       |       N/A       |                                                           |
-|   rangeChooseColorFE   |         [string(color)]         |       No       |       N/A       |                                                           |
-| rangeChooseColorMiddle |         [string(color)]         |       No       |       N/A       |                                                           |
-|        disabled        |             Boolean             |       No       |      false      |                                                           |
-|        multiple        | ['single', 'multiple', 'range'] |       No       |     single      |           多选模式, 有单选、多选和范围日期选择            |
-|          lan           |          ['en', 'zh']           |       No       |       en        |               CalendarDatePicker language.                |
-|      choosenDates      |              Array              |       No       |       []        |                 CalendarView初始选中日期                  |
-|       foreground       |         [string(color)]         |       No       |       N/A       |                  CalendarView主题前景色                   |
-|         theme          |             String              |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property               | Type         | Required | Default       | Description                                                              |
+|:----------------------:|:------------:|:--------:|:-------------:|:------------------------------------------------------------------------:|
+| modelValue             | array        | No       | []            |                                                                          |
+| borderWidth            | number       | No       | 1             | CalendarDatePicker border width                                          |
+| borderRadius           | string       | No       | ''            | CalendarDatePicker border radius                                         |
+| placeholder            | string       | No       | 'Pick a day'  | CalendarDatePicker placeholder                                           |
+| inputForeground        | string       | No       | ''            | See the CalendarDatePicker `inputForeground` option.                     |
+| inputBackground        | string       | No       | ''            | See the CalendarDatePicker `inputBackground` option.                     |
+| dropDownIcon           | string       | No       | 'CalendarDay' | Icon with Fabric-Icon                                                    |
+| dropDownRevealBorder   | boolean      | No       | true          |                                                                          |
+| dropDownIsBoxShadow    | boolean      | No       | true          |                                                                          |
+| dropDownStyles         | object       | No       | {}            |                                                                          |
+| editable               | boolean      | No       | false         |                                                                          |
+| background             | string       | No       | ''            |                                                                          |
+| borderRadius           | string       | No       | ''            |                                                                          |
+| nowDayColor            | string       | No       | ''            |                                                                          |
+| rangeChooseColorFE     | string       | No       | ''            |                                                                          |
+| rangeChooseColorMiddle | string       | No       | ''            |                                                                          |
+| disabled               | boolean      | No       | false         |                                                                          |
+| multiple               | string       | No       | 'single'      | Selection mode: single date, multiple dates, or date range.              |
+| lan                    | ['en', 'zh'] | No       | en            | CalendarDatePicker language.                                             |
+| choosenDates           | array        | No       | []            | CalendarViewInitial selected date.                                       |
+| foreground             | string       | No       | ''            | See the CalendarDatePicker `foreground` option.                          |
+| theme                  | string       | No       | 'global'      | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| dropDownBorderRadius   | number       | No       | 6             | See the CalendarDatePicker `dropDownBorderRadius` option.                |
+| dropDownIconForeground | string       | No       | ''            | See the CalendarDatePicker `dropDownIconForeground` option.              |
+| lang                   | string       | No       | "global"      | See the CalendarDatePicker `lang` option.                                |
 
 ### Events
 
 ---
-|   事件名(Name)    | 参数类型(args) |          说明(statement)          |
-| :---------------: | :------------: | :-------------------------------: |
-|   choosen-dates   |     array      | 返回[{year, month, no}]类型的数组 |
-| choosen-dates-obj |     array      |       返回[Date]类型的数组        |
+| Event             | Arguments | Description                                          |
+|:-----------------:|:---------:|:----------------------------------------------------:|
+| choosen-dates     | array     | Returns an array in the shape `{ year, month, no }`. |
+| choosen-dates-obj | array     | Returns an array of `Date` values.                   |
 
-### Slot
+### Slots
 ---
 1. Default
-`Dropdown`文本框自定义
-- displayContent: 默认显示内容
-- showCalendar: 触发显示CalendarView
-- disabled: 是否禁止
+
+
+
+
 
 ```vue
 <template v-slot:default="x">
@@ -137,9 +143,9 @@ export default {
 
 2. Statement
 
-`CalendarView`的显式栏描述内容
-- value: 原文描述内容
-- dayRange: 当前日期数据对象
+
+
+
 
 ```vue
 <template v-slot:statement="x">
@@ -149,8 +155,8 @@ export default {
 
 3. Weekday Content
 
-日期上方星期栏描述内容
-- value: 默认星期描述内容
+
+
 
 ```vue
 <template v-slot:weekday_content>

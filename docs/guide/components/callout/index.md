@@ -3,6 +3,9 @@ page: true
 title: Callout
 --- 
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
   export default {
     data(){
@@ -114,29 +117,29 @@ position:
 </fv-callout>
 ```
 
-### Propoties
+### Properties
 
 ---
 
-| 属性(attr)  |             类型(type)             | 必填(required) | 默认值(default) |    说明(statement)     |
-| :---------: | :--------------------------------: | :------------: | :-------------: | :--------------------: |
-|   v-model   |              Boolean               |       No       |      false      |        是否显示        |
-|    theme    | ['system','light','dark','custom'] |       No       |    'system'     |         主题色         |
-|  disabled   |              Boolean               |       No       |      false      |        是否禁用        |
-|    space    |               Number               |       No       |        0        |        间距(px)        |
-|    beak     |               Number               |       No       |       10        |      角标大小(px)      |
-|  position   |    ['topLeft','topCenter',...]     |       No       | 'bottomCenter'  |          位置          |
-| lockScroll  |              Boolean               |       No       |      false      |      是否锁定滚动      |
-|  focusTrap  |              Boolean               |       No       |      false      |        是否聚焦        |
-| delayClose  |               Number               |       No       |        0        | 显示时是否延时关闭(ms) |
-|   effect    |     ['click','hover','always']     |       No       |     'click'     |      显示触发方式      |
-| popperStyle |               Object               |       No       |       {}        |      悬浮窗的样式      |
-| popperClass |               Array                |       No       |       []        |      悬浮窗的 css      |
+| Property    | Type    | Required | Default        | Description                          |
+|:-----------:|:-------:|:--------:|:--------------:|:------------------------------------:|
+| v-model     | Boolean | No       | false          | Whether the component is visible.    |
+| theme       | string  | No       | 'global'       | Theme color.                         |
+| disabled    | boolean | No       | false          | Whether the component is disabled.   |
+| space       | number  | No       | 0              | Spacing in pixels.                   |
+| beak        | number  | No       | 0              | Beak size in pixels.                 |
+| position    | string  | No       | 'bottomCenter' | Position.                            |
+| lockScroll  | boolean | No       | true           | Whether page scrolling is locked.    |
+| focusTrap   | boolean | No       | false          | Whether focus trapping is enabled.   |
+| delayClose  | number  | No       | 0              | See the Callout `delayClose` option. |
+| effect      | string  | No       | 'click'        | Display trigger mode.                |
+| popperStyle | object  | No       | {}             | Floating panel style.                |
+| popperClass | array   | No       | []             | Floating panel CSS classes.          |
+| keepalive   | boolean | No       | false          | See the Callout `keepalive` option.  |
+| lang        | string  | No       | "global"       | See the Callout `lang` option.       |
 
 ### Appendix
 
 ---
 
 1. position
-
-`position`属性包括: `topLeft`, `topRight`, `topCenter`, `bottomLeft`, `bottomRight`, `bottomCenter`, `leftTop`, `leftCenter`, `leftBottom`, `rightTop`, `rightBottom`, `rightCenter`

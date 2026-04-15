@@ -2,6 +2,9 @@
 page: true
 title: Shimmer
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Shimmer-DEMO
 --- 
 
@@ -167,23 +170,25 @@ List items with two column
 
 
 
-### Propoties
+### Properties
 ---
-| 属性(attr) |             类型(type)             | 必填(required) | 默认值(default) | 说明(statement) |
-|:----------:|:----------------------------------:|:--------------:|:---------------:|:---------------:|
-|     theme     | String |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式              |
+| Property | Type    | Required | Default  | Description                                                              |
+|:--------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| theme    | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled | boolean | No       | false    | See the Shimmer `disabled` option.                                       |
+| lang     | string  | No       | "global" | See the Shimmer `lang` option.                                           |
 
-### Slot
+### Slots
 ---
 1. Default
 
-默认样式为:
+
 
 ```vue
 <div class="sample"></div>
 ```
 
-自定义`Shimmer`内容时, 将要呈现Skeleton效果的元素加上`sample`类.
+
 
 ```javascript
 <fv-shimmer>

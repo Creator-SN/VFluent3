@@ -3,6 +3,9 @@ page: true
 title: InfiniteScrollView
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### InfiniteScrollView-DEMO
 ---
 
@@ -36,32 +39,34 @@ export default {
 ```
 
 
-### Propoties
+### Properties
 ---
-| 属性(attr) | 类型(type) | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:----------:|:----------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|   value    |   Array    |       No       |       []        |                       要装载的数组                        |
-| batchSize  |   Number   |       No       |       30        |                  动态加载的每一批次大小                   |
-|   offset   |   Number   |       No       |       100       |                      滚动加载偏移量                       |
-|   static   |  Boolean   |       No       |      false      |                     是否取消动态加载                      |
-|   theme    |   String   |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property   | Type    | Required | Default  | Description                                                              |
+|:----------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| modelValue | array   | No       | []       | See the InfiniteScrollView `modelValue` option.                          |
+| batchSize  | number  | No       | 30       | See the InfiniteScrollView `batchSize` option.                           |
+| offset     | number  | No       | 100      | See the InfiniteScrollView `offset` option.                              |
+| static     | boolean | No       | false    | See the InfiniteScrollView `static` option.                              |
+| theme      | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled   | boolean | No       | false    | See the InfiniteScrollView `disabled` option.                            |
+| lang       | string  | No       | "global" | See the InfiniteScrollView `lang` option.                                |
 
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |                  说明(statement)                   |
-|:------------:|:--------------:|:--------------------------------------------------:|
-|   lazyload   |    boolean     | 动态加载时触发此事件, 返回当前加载批次数据是否为空 |
-|  init-start  |      N/A       |                   初始化加载开始                   |
-|   init-end   |      N/A       |                   初始化加载结束                   |
+| Event      | Arguments | Description                            |
+|:----------:|:---------:|:--------------------------------------:|
+| lazyload   | boolean   | See the component `lazyload` option.   |
+| init-start | N/A       | See the component `init-start` option. |
+| init-end   | N/A       | See the component `init-end` option.   |
 
-### Slot
+### Slots
 
 ---
 
 1. Default
 
-默认模板, 可将`InfiniteScrollView`当作`Div`来使用
+
 
 ```vue
 <slot :thisValue="thisValue" :dynamicValue="dynamicValue">
@@ -69,8 +74,8 @@ export default {
 </slot>
 ```
 
-- thisValue: 传入数组
-- dynamicValue: 已动态加载的数组
+
+
 
 ```
 <template v-slot:default="x">

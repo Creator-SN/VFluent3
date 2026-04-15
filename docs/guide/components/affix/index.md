@@ -3,6 +3,9 @@ page: true
 title: Affix
 --- 
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
 export default {
 
@@ -93,28 +96,30 @@ export default {
 </div>
 ```
 
-### Propoties
+### Properties
 ---
-| 属性(attr) | 类型(type) | 必填(required) | 默认值(default) |                             说明(statement)                             |
-|:----------:|:----------:|:--------------:|:---------------:|:-----------------------------------------------------------------------:|
-|    left    |   String   |       No       |       N/A       |                      `left`属性值, 参照`HTML`属性                       |
-|    top     |   String   |       No       |       N/A       |                       `top`属性值, 参照`HTML`属性                       |
-|   right    |   String   |       No       |       N/A       |                      `right`属性值, 参照`HTML`属性                      |
-|   bottom   |   String   |       No       |       N/A       |                     `bottom`属性值, 参照`HTML`属性                      |
-|   target   |  Function  |      Yes       |       N/A       |                      `Affix`的目标元素, 为一个函数                      |
-|    mode    |   String   |       No       |     `fixed`     |               `Affix`的模式, `fixed`, `relative`或`auto`                |
-|  affixPos  |   Array    |       No       |     ['top']     | `Affix`的在父元素滚动吸附位置, 可以为`left`, `top`, `right` 和 `bottom` |
-|   zIndex   |   Number   |       No       |       N/A       |                        `Affix`容器的`z-index`值                         |
-|   theme    |   String   |       No       |     system      |        主题样式, 包含`light`, `dark`, `system`, `custom`几种样式        |
+| Property | Type    | Required | Default  | Description                                                               |
+|:--------:|:-------:|:--------:|:--------:|:-------------------------------------------------------------------------:|
+| left     | string  | No       | ''       | Value of the `left` HTML attribute.                                       |
+| top      | string  | No       | ''       | Value of the `top` HTML attribute.                                        |
+| right    | string  | No       | ''       | Value of the `right` HTML attribute.                                      |
+| bottom   | string  | No       | ''       | Value of the `bottom` HTML attribute.                                     |
+| target   | any     | No       | null     | Target element for `Affix`; pass it as a function.                        |
+| mode     | string  | No       | 'fixed'  | `Affix` mode: `fixed`, `relative`, or `auto`.                             |
+| affixPos | array   | No       | ['top']  | Sticky positions inside the parent: `left`, `top`, `right`, and `bottom`. |
+| zIndex   | string  | No       | ''       | `z-index` value of the `Affix` container.                                 |
+| theme    | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`.  |
+| disabled | boolean | No       | false    | See the Affix `disabled` option.                                          |
+| lang     | string  | No       | "global" | See the Affix `lang` option.                                              |
 
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |            说明(statement)             |
-|:------------:|:--------------:|:--------------------------------------:|
-|    change    |    Boolean     | 当固定状态发生改变时触发, 返回是否固定 |
+| Event  | Arguments | Description                                                        |
+|:------:|:---------:|:------------------------------------------------------------------:|
+| change | Boolean   | Emitted when the fixed state changes; returns whether it is fixed. |
 
-### Slot
+### Slots
 ---
 
 1. Default
@@ -124,5 +129,3 @@ export default {
     <div></div>
 </fv-affix>
 ```
-
-**特别地** 若需要进行性能优化, 可以考虑在元素被隐藏时, 将`mode`设置为`relative`.

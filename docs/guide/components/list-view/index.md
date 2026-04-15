@@ -3,6 +3,9 @@ page: true
 title: ListView
 --- 
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### ListView-DEMO
 ---
 
@@ -96,45 +99,47 @@ export default {
 
 
 
-### Propoties
+### Properties
 ---
-|      属性(attr)       |   类型(type)    | 必填(required) | 默认值(default) |                             说明(statement)                              |
-| :-------------------: | :-------------: | :------------: | :-------------: | :----------------------------------------------------------------------: |
-|         value         |      Array      |      Yes       |       N/A       |                             ListView数据绑定                             |
-|        choosen        |      Array      |       No       |       N/A       |                          外部设置ListView选中项                          |
-|       multiple        |     Boolean     |       No       |      false      |                               是否开启多选                               |
-|       rowHeight       |     Number      |       No       |       N/A       |                                每一项高度                                |
-|   headerForeground    | [string(color)] |       No       |       N/A       |                                标题前景色                                |
-|   choosenBackground   | [string(color)] |       No       |       N/A       |                               选中项背景色                               |
-|      itemPadding      |     String      |       No       |       N/A       |                           每一项的`padding`值                            |
-|   itemBorderRadius    |     Number      |       No       |       N/A       |                             每一项的边框圆角                             |
-|   revealBorderColor   | [string(color)] |       No       |       N/A       |                              Reveal边框颜色                              |
-| revealBackgroundColor | [string(color)] |       No       |       N/A       |                              Reveal背景颜色                              |
-|      showSlider       |     Boolean     |       No       |      false      |                           是否显示选中项滑动条                           |
-|     sliderTarget      |     String      |       No       |       N/A       | 修改滑动条绑定元素, 可通过`sync`方法同步, 注意元素需要存在于`ListView`中 |
-|      sliderIndex      |     Number      |       No       |       N/A       |               修改滑动条绑定元素索引, 可通过`sync`方法同步               |
-|         theme         |     String      |       No       |     system      |        主题样式, 包含`light`, `dark`, `system`, `custom`几种样式         |
+| Property              | Type    | Required | Default  | Description                                                              |
+|:---------------------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| modelValue            | array   | No       | []       | See the ListView `modelValue` option.                                    |
+| choosen               | array   | No       | []       | See the ListView `choosen` option.                                       |
+| multiple              | boolean | No       | false    | See the ListView `multiple` option.                                      |
+| rowHeight             | string  | No       | ''       | See the ListView `rowHeight` option.                                     |
+| headerForeground      | string  | No       | ''       | See the ListView `headerForeground` option.                              |
+| choosenBackground     | string  | No       | ''       | See the ListView `choosenBackground` option.                             |
+| itemPadding           | string  | No       | ''       | See the ListView `itemPadding` option.                                   |
+| itemBorderRadius      | number  | No       | 3        | See the ListView `itemBorderRadius` option.                              |
+| revealBorderColor     | boolean | No       | false    | See the ListView `revealBorderColor` option.                             |
+| revealBackgroundColor | boolean | No       | false    | See the ListView `revealBackgroundColor` option.                         |
+| showSlider            | boolean | No       | false    | See the ListView `showSlider` option.                                    |
+| sliderTarget          | object  | No       | () => {} | See the ListView `sliderTarget` option.                                  |
+| sliderIndex           | number  | No       | -1       | See the ListView `sliderIndex` option.                                   |
+| theme                 | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled              | boolean | No       | false    | See the ListView `disabled` option.                                      |
+| lang                  | string  | No       | "global" | See the ListView `lang` option.                                          |
 
 ### Events
 ---
-|   事件名(Name)   | 参数类型(args) |       说明(statement)        |
-| :--------------: | :------------: | :--------------------------: |
-|    item-click    |     object     |     选中项点击后返回选项     |
-|    chooseItem    |     object     |     选中项点击后返回选项     |
-|  choosen-items   |     array      | 选中项点击后返回所有被选中项 |
-| selection-change |     object     |  光标选择某一项后返回选中项  |
-|  item-drag-over  | \{root, drop\} |       当前项被放置进入       |
-| item-drag-leave  | \{root, drop\} |       当前项被放置离开       |
-|    item-drop     | \{root, drop\} |         当前项被放置         |
+| Event            | Arguments      | Description                                            |
+|:----------------:|:--------------:|:------------------------------------------------------:|
+| item-click       | object         | See the component `item-click` option.                 |
+| chooseItem       | object         | See the component `chooseItem` option.                 |
+| choosen-items    | array          | See the component `choosen-items` option.              |
+| selection-change | object         | See the component `selection-change` option.           |
+| item-drag-over   | \{root, drop\} | Emitted when the dragged item enters the current item. |
+| item-drag-leave  | \{root, drop\} | Emitted when the dragged item leaves the current item. |
+| item-drop        | \{root, drop\} | Emitted when an item is dropped on the current item.   |
 
-### Slot
+### Slots
 ---
 1. ListItem
 
-默认以value中每一项的属性name作为默认显示, 包含以下可选属性
-- item: 当前项
-- index: 当前项索引
-- valueTrigger: 计算函数式定义的字段, 例如`item.name: () => '@' + item.name`
+
+
+
+
 
 ```vue
 <template v-slot:listItem="x">
@@ -144,7 +149,7 @@ export default {
 
 2. Header
 
-ListView前置内容
+
 
 ```vue
 <template v-slot:header>
@@ -154,7 +159,7 @@ ListView前置内容
 
 3. Footer
 
-ListView后置内容
+
 
 ```vue
 <template v-slot:footer>
@@ -166,7 +171,7 @@ ListView后置内容
 ---
 1. items
 
-其中`key`字段建议开发者在有重复名称和类型字段时声明用来区别项目
+
 
 ```javascript
 items = [{key: '', name: '', type: '', disabled: '', show: ''}]
@@ -191,17 +196,16 @@ items: [
 
 ---
 
-1. 获取`ListView`中第`index`项`item`的`dom`方法(其中`<index>`代表`items`索引):
+
 
 ```vue
 <fv-ListView v-model="items" ref="list"></fv-ListView>
 let item = this.$refs.list.$refs['list_item_<index>]'];
 ```
 
-**特别地** 0.1.32版本后支持采用函数式字段, 其中支持的字段包括`name`, `disabled`, `choosen`, `type`
-0.1.54版本后支持`show`
 
-2. 需要模拟键盘上下移动可以执行`move`方法
+
+
+
 
 - event
-- direction: 移动方向, 可选值`1`, `-1`

@@ -2,6 +2,9 @@
 page: true
 title: Expander
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### Expander-DEMO
 --- 
 
@@ -92,40 +95,42 @@ Extension
 </fv-Expander>
 ```
 
-### Propoties
+### Properties
 
 ---
-|    属性(attr)    |   类型(type)    | 必填(required) |         默认值(default)          |                      说明(statement)                      |
-|:----------------:|:---------------:|:--------------:|:--------------------------------:|:---------------------------------------------------------:|
-|      value       |     Boolean     |       No       |              false               |                    是否展开 `Expander`                    |
-|       icon       |     String      |       No       |           ExpanderMenu           |                   Icon with Fabric-Icon                   |
-|      title       |     String      |       No       |        Title of Expander.        |                           标题                            |
-|     content      |     String      |       No       | Content information of Expander. |                        副标题信息                         |
-| titleBackground  | [string(color)] |       No       |               N/A                |                  客制化 `Expander` 背景                   |
-| expandBackground | [string(color)] |       No       |               N/A                |                  客制化 `Expander` 背景                   |
-|  defaultHeight   |     Number      |       No       |                70                |                         默认高度                          |
-|    maxHeight     |     Number      |       No       |               300                |                       展开最大高度                        |
-| disabled |     Boolean     |       No       |              false               |                    禁用展开 `Expander`                    |
-| visibleOverflow  |     Boolean     |       No       |               true               |       在禁用展开 `Expander` , 允许overflow内容显示        |
-|      theme       |     String      |       No       |              system              | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property         | Type    | Required | Default                            | Description                                                              |
+|:----------------:|:-------:|:--------:|:----------------------------------:|:------------------------------------------------------------------------:|
+| modelValue       | boolean | No       | false                              | See the Expander `modelValue` option.                                    |
+| icon             | string  | No       | 'Mail'                             | Icon with Fabric-Icon                                                    |
+| title            | string  | No       | 'Title of Expander.'               | Title.                                                                   |
+| content          | string  | No       | 'Content information of Expander.' | Subtitle content.                                                        |
+| titleBackground  | string  | No       | ''                                 | See the Expander `titleBackground` option.                               |
+| expandBackground | string  | No       | ''                                 | See the Expander `expandBackground` option.                              |
+| defaultHeight    | number  | No       | 50                                 | See the Expander `defaultHeight` option.                                 |
+| maxHeight        | number  | No       | 300                                | See the Expander `maxHeight` option.                                     |
+| disabled         | boolean | No       | false                              | See the Expander `disabled` option.                                      |
+| visibleOverflow  | boolean | No       | true                               | See the Expander `visibleOverflow` option.                               |
+| theme            | string  | No       | 'global'                           | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabledExpander | boolean | No       | false                              | See the Expander `disabledExpander` option.                              |
+| lang             | string  | No       | "global"                           | See the Expander `lang` option.                                          |
 
 ### Events
 
 ---
-|   事件名(Name)   | 参数类型(args) |          说明(statement)          |
-|:----------------:|:--------------:|:---------------------------------:|
-|    item-click    |    boolean     | 返回 `Expander` 属性 `value` 的值 |
-| descrption-click |      N/A       |            描述框点击             |
-|    icon-click    |      N/A       |           右侧图标点击            |
+| Event            | Arguments | Description                                  |
+|:----------------:|:---------:|:--------------------------------------------:|
+| item-click       | boolean   | See the component `item-click` option.       |
+| descrption-click | N/A       | See the component `descrption-click` option. |
+| icon-click       | N/A       | See the component `icon-click` option.       |
   
 
-### Slot
+### Slots
 
 ---
 
 1. Default
 
-定义下拉内容
+
 
 ```vue
 <fv-Expander background="rgba(0, 98, 158, 1)">
@@ -135,10 +140,10 @@ Extension
 
 2. content
 
-自定义内容
 
-* title: 标题
-* contnet: 副标题
+
+* title: Expander
+
 
 ```vue
 <template v-slot:content="x">
@@ -149,7 +154,7 @@ Extension
 
 3. Extension
 
-扩展操作内容
+
 
 ```vue
 <template v-slot:extension>
@@ -160,10 +165,10 @@ Extension
 
 4. expand-icon
 
-自定义展开状态图标
 
-* value: 当前是否展开
-* disabledCollaspe: 是否禁用展开
+
+
+
 
 ```vue
 <template v-slot:expand-icon="x">

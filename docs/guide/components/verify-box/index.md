@@ -2,6 +2,9 @@
 page: true
 title: VerifyBox
 --- 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 ### VerifyBox-DEMO
 --- 
 
@@ -79,30 +82,30 @@ Reveal Border
 </ClientOnly>
 
 
-### Propoties
+### Properties
 ---
-|    属性(attr)    |   类型(type)    | 必填(required) | 默认值(default) |                            说明(statement)                            |
-|:----------------:|:---------------:|:--------------:|:---------------:|:---------------------------------------------------------------------:|
-|      value       |     String      |       No       |                 |                   Using v-model binding input value                   |
-|      length      |     Number      |       No       |       N/A       |                              验证码长度                               |
-|    inputmode     |     String      |       No       |     numeric     | 输入模式, 可选值为`numeric`, `tel`, `text`, `decimal`, `email`, `url` |
-|    underline     |     Boolean     |       No       |      false      |                   是否开启Underline风格的VerifyBox                    |
-|    background    | [string(color)] |       No       |       N/A       |                                                                       |
-|   borderWidth    |     Boolean     |       No       |       N/A       |                                                                       |
-|   borderColor    | [string(color)] |       No       |       N/A       |                                                                       |
-| focusBorderColor | [string(color)] |       No       |       N/A       |                                                                       |
-|     fontSize     |     Number      |       No       |       18        |                                                                       |
-|    fontWeight    | [string,number] |       No       |      bold       |                                                                       |
-|    foreground    | [string(color)] |       No       |       N/A       |                                                                       |
-|   borderRadius   |     Number      |       No       |        3        |              VerifyBox圆角大小, 启用revealBorder时将失效              |
-|   isBoxShadow    |     Boolean     |       No       |      false      |                          开启`VerifyBox`阴影                          |
-|   revealBorder   |     Boolean     |       No       |      false      |                                                                       |
-|     disabled     |     Boolean     |       No       |      false      |                                                                       |
-|      theme       |     String      |       No       |     system      |       主题样式, 包含`light`, `dark`, `system`, `custom`几种样式       |
+| Property         | Type    | Required | Default   | Description                                                              |
+|:----------------:|:-------:|:--------:|:---------:|:------------------------------------------------------------------------:|
+| modelValue       | string  | No       | ''        | Using v-model binding input value                                        |
+| length           | number  | No       | 4         | Verification code length.                                                |
+| inputmode        | string  | No       | 'numeric' | Input mode. Options:`numeric`, `tel`, `text`, `decimal`, `email`, `url`  |
+| underline        | boolean | No       | false     | Whether to use the underline style for VerifyBox                         |
+| background       | string  | No       | ''        |                                                                          |
+| borderWidth      | number  | No       | 1         |                                                                          |
+| borderColor      | string  | No       | ''        |                                                                          |
+| focusBorderColor | string  | No       | ''        |                                                                          |
+| fontSize         | number  | No       | 18        |                                                                          |
+| fontWeight       | string  | No       | 'bold'    |                                                                          |
+| foreground       | string  | No       | ''        |                                                                          |
+| borderRadius     | number  | No       | 3         | See the VerifyBox `borderRadius` option.                                 |
+| isBoxShadow      | boolean | No       | false     | Enable `VerifyBox` shadow.                                               |
+| revealBorder     | boolean | No       | false     |                                                                          |
+| disabled         | boolean | No       | false     |                                                                          |
+| theme            | string  | No       | 'global'  | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| lang             | string  | No       | "global"  | See the VerifyBox `lang` option.                                         |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |  说明(statement)   |
-|:------------:|:--------------:|:------------------:|
-|   confirm    |     string     | 完成输入并返回结果 |
-
+| Event   | Arguments | Description                                            |
+|:-------:|:---------:|:------------------------------------------------------:|
+| confirm | string    | Emitted when input is complete and returns the result. |

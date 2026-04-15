@@ -3,6 +3,9 @@ page: true
 title: Breadcrumb
 ---
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script lang="ts" setup>
 import { ref } from 'vue'; 
 import { useTheme } from '../common/index.js'; 
@@ -152,46 +155,48 @@ Basic
 </div>
 ```
 
-### Propoties
+### Properties
 
 ---
 
-|  属性(attr)   |   类型(type)    | 必填(required) | 默认值(default)  |                      说明(statement)                      |
-| :-----------: | :-------------: | :------------: | :--------------: | :-------------------------------------------------------: |
-|  modelValue   |     String      |       No       |       N/A        |                        字符串路径                         |
-|   separator   |     String      |       No       |        /         |               分隔符显示, 可以是字符或图标                |
-| separatorChar |     String      |       No       |        /         |                    以什么字符分割路径                     |
-|   showRoot    |     Boolean     |       No       |       true       |                        显示根图标                         |
-|   rootIcon    |     String      |       No       | FolderHorizontal |                          根图标                           |
-|   readOnly    |     Boolean     |       No       |       true       |                         是否只读                          |
-|  borderColor  | [string(color)] |       No       |       N/A        |                                                           |
-|   fontSize    |     String      |       No       |       12px       |                                                           |
-|   disabled    |     Boolean     |       No       |      false       |                                                           |
-| borderRadius  |     Number      |       No       |        6         |                                                           |
-|     theme     |     String      |       No       |      system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property      | Type    | Required | Default            | Description                                                              |
+|:-------------:|:-------:|:--------:|:------------------:|:------------------------------------------------------------------------:|
+| modelValue    | string  | No       | ''                 | String path.                                                             |
+| separator     | string  | No       | '/'                | Separator display, either text or an icon.                               |
+| separatorChar | string  | No       | '/'                | Character used to split the path.                                        |
+| showRoot      | boolean | No       | true               | Whether to show the root icon.                                           |
+| rootIcon      | string  | No       | 'FolderHorizontal' | Root icon.                                                               |
+| readOnly      | boolean | No       | true               | Whether the component is read-only.                                      |
+| borderColor   | string  | No       | ''                 |                                                                          |
+| fontSize      | string  | No       | '16px'             |                                                                          |
+| disabled      | boolean | No       | false              |                                                                          |
+| borderRadius  | number  | No       | 6                  |                                                                          |
+| theme         | string  | No       | 'global'           | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| debounceDelay | number  | No       | 300                | See the Breadcrumb `debounceDelay` option.                               |
+| lang          | string  | No       | "global"           | See the Breadcrumb `lang` option.                                        |
 
 ### Events
 
 ---
 
-|  事件名(Name)  | 参数类型(args) | 说明(statement)  |
-| :------------: | :------------: | :--------------: |
-|  input-change  |     string     | 临时路径改变触发 |
-| debounce-input |     string     |  输入框防抖触发  |
-|   root-click   |     object     |  单击根图标触发  |
-|   item-click   |     object     |  单击路由项触发  |
+| Event          | Arguments | Description                                |
+|:--------------:|:---------:|:------------------------------------------:|
+| input-change   | string    | See the component `input-change` option.   |
+| debounce-input | string    | See the component `debounce-input` option. |
+| root-click     | object    | See the component `root-click` option.     |
+| item-click     | object    | See the component `item-click` option.     |
 
-### Slot
+### Slots
 
 ---
 
 1. root
 
-定义下拉内容
 
-- rootIcon: 根图标
-- separatorIcon: 分割图标
-- separator: 分隔符
+
+
+
+
 
 ```vue
 <template v-slot:root="x">
@@ -209,10 +214,10 @@ Basic
 
 2. route-item
 
-自定义`Collapse`显示图标
 
-- item: 当前项
-- index: 当前索引
+
+
+
 
 ```vue
 <template v-slot:route-item="x">

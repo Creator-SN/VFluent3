@@ -3,6 +3,9 @@ page: true
 title: ResizeWatcher
 --- 
 
+
+<!-- lang-switch -->
+[English](./) | [简体中文](./index.zh-CN.md)
 <script>
 export default {
 
@@ -67,18 +70,19 @@ export default {
 </fv-ResizeWatcher>
 ```
 
-### Propoties
+### Properties
 ---
-| 属性(attr) | 类型(type) | 必填(required) | 默认值(default) |                      说明(statement)                      |
-|:----------:|:----------:|:--------------:|:---------------:|:---------------------------------------------------------:|
-|   target   |  Function  |       No       |      null       |               定义一个函数返回要监听的元素                |
-|   theme    |   String   |       No       |     system      | 主题样式, 包含`light`, `dark`, `system`, `custom`几种样式 |
+| Property | Type    | Required | Default  | Description                                                              |
+|:--------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
+| target   | any     | No       | null     | See the ResizeWatcher `target` option.                                   |
+| theme    | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+| disabled | boolean | No       | false    | See the ResizeWatcher `disabled` option.                                 |
+| lang     | string  | No       | "global" | See the ResizeWatcher `lang` option.                                     |
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) | 说明(statement)  |
-|:------------:|:--------------:|:----------------:|
-|    watch     |     object     | 监听元素状态变化 |
-| watch-resize |     object     | 监听元素大小变化 |
-|  watch-pos   |     object     | 监听元素位置变化 |
-  
+| Event        | Arguments | Description                              |
+|:------------:|:---------:|:----------------------------------------:|
+| watch        | object    | See the component `watch` option.        |
+| watch-resize | object    | See the component `watch-resize` option. |
+| watch-pos    | object    | See the component `watch-pos` option.    |
