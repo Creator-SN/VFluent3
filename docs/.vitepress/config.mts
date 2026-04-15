@@ -386,7 +386,21 @@ export default defineConfig({
             link: '/zh-CN/',
             lang: 'zh-CN',
             title: 'vfluent3',
-            description: '一个基于 Fluent UI 的 Vue3 组件库'
+            description: '一个基于 Fluent UI 的 Vue3 组件库',
+            themeConfig: {
+                langMenuLabel: '语言',
+                nav: [
+                    {
+                        text: '首页',
+                        link: '/zh-CN/'
+                    },
+                    {
+                        text: '指南',
+                        link: '/zh-CN/guide/'
+                    }
+                ],
+                sidebar: createSidebar('zh', '/zh-CN')
+            }
         }
     },
     themeConfig: {
@@ -409,24 +423,7 @@ export default defineConfig({
                 link: '/guide/'
             }
         ],
-        sidebar: createSidebar('en'),
-        locales: {
-            'zh-CN': {
-                label: '简体中文',
-                langMenuLabel: '语言',
-                nav: [
-                    {
-                        text: '首页',
-                        link: '/zh-CN/'
-                    },
-                    {
-                        text: '指南',
-                        link: '/zh-CN/guide/'
-                    }
-                ],
-                sidebar: createSidebar('zh', '/zh-CN')
-            }
-        }
+        sidebar: createSidebar('en')
     },
     markdown: {
         lineNumbers: true,

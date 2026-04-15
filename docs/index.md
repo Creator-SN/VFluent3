@@ -15,7 +15,7 @@ hero:
       link: https://github.com/Creator-SN/VFluent3.git
     - theme: alt
       text: 简体中文
-      link: /index.zh-CN
+      link: /zh-CN/
 
   image: https://raw.githubusercontent.com/aleversn/VFluent/master/examples/assert/logo/VFluent.png
 
