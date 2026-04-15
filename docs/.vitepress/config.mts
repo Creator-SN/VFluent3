@@ -9,7 +9,7 @@ export default defineConfig({
         siteTitle: 'VFluent3',
         footer: {
             message: 'MIT Licensed',
-            copyright: 'Copyright © Creator SN - 2025'
+            copyright: 'Copyright © Creator SN - 2026'
         },
         search: {
             provider: 'local'

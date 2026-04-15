@@ -34,5 +34,3 @@ features:
   details: VitePress-powered docs keep examples close to the components, so the library is easier to explore, maintain, and extend.
 ---
 
-<!-- lang-switch -->
-[English](/) | [简体中文](/index.zh-CN)

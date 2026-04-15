@@ -126,4 +126,4 @@ Windows 11 Fluent Icons 参考：
 
 VFluent3 基于 [MIT License](./LICENSE) 开源。
 
-Copyright (c) 2025 Creator SN
+Copyright (c) 2026 Creator SN

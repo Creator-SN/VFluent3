@@ -126,4 +126,4 @@ Windows 11 Fluent Icons reference:
 
 VFluent3 is released under the [MIT License](./LICENSE).
 
-Copyright (c) 2025 Creator SN
+Copyright (c) 2026 Creator SN

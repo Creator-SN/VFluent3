@@ -33,6 +33,3 @@ features:
 - title: 文档与组件同步演进
   details: 通过 VitePress 组织文档与示例，让组件能力更容易浏览、维护和扩展。
 ---
-
-<!-- lang-switch -->
-[English](/) | [简体中文](/index.zh-CN)
