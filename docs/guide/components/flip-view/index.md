@@ -4,7 +4,6 @@ title: FlipView
 --- 
 
 <!-- lang-switch -->
-[English](./) | [简体中文](./index.zh-CN.md)
 ### FlipView-DEMO
 ---
 

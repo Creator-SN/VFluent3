@@ -5,7 +5,6 @@ title: CheckBox
 
 
 <!-- lang-switch -->
-[English](./) | [简体中文](./index.zh-CN.md)
 ### CheckBox-DEMO
 --- 
 

@@ -1,0 +1,361 @@
+---
+page: true
+title: MessageBar
+--- 
+
+<!-- lang-switch -->
+### MessageBar-DEMO
+---
+
+<script>
+import { h, resolveComponent } from "vue";
+
+export default {
+    data () {
+        return {}
+    },
+    methods: {
+        show1 () {
+            this.$barWarning('This is a toast message.', {
+                status: 'correct'
+            });
+        },
+        show2 () {
+            this.$barWarning(h('div', [
+                h('span', { class: 'header' }, 'Message'),
+                'This is a toast message.',
+                h('a', 'Visit our website.')
+            ]), {
+                status: 'correct'
+            });
+        },
+        show3 () {
+            this.$barWarning(h('div', [
+                h('span', { class: 'header' }, 'Message'),
+                'This is a toast message.',
+                h('a', 'Visit our website.')
+            ]), {
+                status: 'correct',
+                showControl: true,
+                autoClose: -1,
+                control: x => {
+                    return h('div', {
+                        style: {
+                            display: "flex",
+                            alignItems: "center"
+                        }
+                    }, [
+                        h(resolveComponent('fv-button'), {
+                            onClick: () => {
+                                alert('Yes');
+                                x.cancel();
+                            },
+                        }, 'Yes'),
+                        h(resolveComponent('fv-button'), {
+                            onClick: () => {
+                                alert('No');
+                                x.cancel();
+                            },
+                            style: 'margin-left: 5px;' }, 'No')
+                    ]);
+                }
+            });
+        },
+        showSwiftWarning () {
+            this.$swiftWarning(document.getElementById('example'), {
+                color: "rgba(173, 38, 45, 1)",
+                replaceTitle: "You clicked Swift Warning."
+            });
+        }
+    }
+}
+</script>
+
+
+
+Default
+
+
+<ClientOnly>
+<fv-MessageBar>
+</fv-MessageBar>
+</ClientOnly>
+
+Error
+
+
+<ClientOnly>
+<fv-MessageBar status="error">
+</fv-MessageBar>
+</ClientOnly>
+
+Blocked
+
+
+<ClientOnly>
+<fv-MessageBar status="blocked">
+</fv-MessageBar>
+</ClientOnly>
+
+Correct
+
+
+<ClientOnly>
+<fv-MessageBar status="correct">
+</fv-MessageBar>
+</ClientOnly>
+
+Warning
+
+
+<ClientOnly>
+<fv-MessageBar status="warning">
+</fv-MessageBar>
+</ClientOnly>
+
+```vue
+Default
+
+<fv-MessageBar>
+</fv-MessageBar>
+
+Error
+
+<fv-MessageBar status="error">
+</fv-MessageBar>
+
+Blocked
+
+<fv-MessageBar status="blocked">
+</fv-MessageBar>
+
+Correct
+
+<fv-MessageBar status="correct">
+</fv-MessageBar>
+
+Warning
+
+<fv-MessageBar status="warning">
+</fv-MessageBar>
+```
+
+### MessageBar-Dark Theme
+---
+
+Default
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark">
+</fv-MessageBar>
+</ClientOnly>
+
+Error
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark" status="error">
+</fv-MessageBar>
+</ClientOnly>
+
+Blocked
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark" status="blocked">
+</fv-MessageBar>
+</ClientOnly>
+
+Correct
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark" status="correct">
+</fv-MessageBar>
+</ClientOnly>
+
+Warning
+
+
+<ClientOnly>
+<fv-MessageBar theme="dark" status="warning">
+</fv-MessageBar>
+</ClientOnly>
+
+### MessageBar-Toast
+---
+1. Standard
+
+
+<ClientOnly>
+<fv-button style="width: 200px;" @click="show1">Show MessageBar</fv-button>
+</ClientOnly>
+
+```vue
+<fv-button style="width: 200px;" @click="show1">Show MessageBar</fv-button>
+```
+
+```javascript
+this.$barWarning('This is a toast message.', {
+    status: 'correct'
+});
+```
+
+2. Customize Message Template
+
+
+<ClientOnly>
+<fv-button style="width: 200px;" @click="show2">Show MessageBar</fv-button>
+</ClientOnly>
+
+```vue
+<fv-button style="width: 200px;" @click="show2">Show MessageBar</fv-button>
+```
+
+```javascript
+this.$barWarning(h('div', [
+    h('span', { class: 'header' }, 'Message'),
+    'This is a toast message.',
+    h('a', 'Visit our website.')
+]), {
+    status: 'correct'
+});
+```
+
+3. Customize Control Template
+
+
+<ClientOnly>
+<fv-button style="width: 200px;" @click="show3">Show MessageBar</fv-button>
+</ClientOnly>
+
+```vue
+<fv-button style="width: 200px;" @click="show3">Show MessageBar</fv-button>
+```
+
+```javascript
+this.$barWarning(h('div', [
+    h('span', { class: 'header' }, 'Message'),
+    'This is a toast message.',
+    h('a', 'Visit our website.')
+]), {
+    status: 'correct',
+    showControl: true,
+    autoClose: -1,
+    control: x => {
+        return h('div', {
+            style: {
+                display: "flex",
+                alignItems: "center"
+            }
+        }, [
+            h(resolveComponent('fv-button'), {
+                onClick: () => {
+                    alert('Yes');
+                    x.cancel();
+                },
+            }, 'Yes'),
+            h(resolveComponent('fv-button'), {
+                onClick: () => {
+                    alert('No');
+                    x.cancel();
+                },
+                style: 'margin-left: 5px;' }, 'No')
+        ]);
+    }
+});
+```
+
+### SwiftWarning
+
+<p id="example">Swift Warning</p>
+
+
+<ClientOnly>
+<fv-button style="width: 200px;" @click="showSwiftWarning">Click to Show SwiftWarning</fv-button>
+</ClientOnly>
+
+```vue
+<p id="example">Swift Warning</p>
+
+<fv-button style="width: 200px;" @click="showSwiftWarning">Click to Show SwiftWarning</fv-button>
+```
+
+```javascript
+this.$swiftWarning(document.getElementById('example'), {
+    color: "rgba(173, 38, 45, 1)",
+    replaceTitle: "You clicked Swift Warning."
+});
+```
+
+
+
+### 属性
+---
+| 属性        | 类型    | 必填  | 默认值     | 说明                                                           |
+|:-----------:|:-------:|:-----:|:----------:|:--------------------------------------------------------------:|
+| status      |         | 否    | 'default'  | 显示状态，一共有5种。                                          |
+| showControl |         | 否    | false      | 是否显示控制按钮。                                             |
+| showClose   |         | 否    | true       | 是否显示关闭按钮。                                             |
+| mode        | string  | 否    | 'relative' | 显示模式`relative`下位相对定位，`fixed`下为悬浮固定定位。      |
+| autoClose   | number  | 否    | 3000       | MessageBar自动关闭时间，单位为`ms`，设为`-1`时永远不自动消失。 |
+| destroy     | object  | 否    | () => {}   | 参见组件的 `destroy` 选项。                                    |
+| theme       | string  | 否    | 'global'   | 参见组件的 `theme` 选项。                                      |
+| disabled    | boolean | 否    | false      | 参见组件的 `disabled` 选项。                                   |
+| lang        | string  | 否    | "global"   | 参见组件的 `lang` 选项。                                       |
+
+### 事件
+---
+| 事件名 | 参数  | 说明                         |
+|:------:|:-----:|:----------------------------:|
+| close  |       | 关闭`MessageBar`时触发事件。 |
+
+### 插槽
+---
+
+1. Msg
+
+- 默认为正常标题
+- `class="header"` 加粗标题
+- `<a></a>` 链接
+
+```vue
+<template v-slot:msg>
+    <span>Normal content <span class="header">Header content</span><a>Link</a></span>
+</template>
+```
+
+2. Control
+
+- cancel: 取消函数
+- theme: 当前主题
+
+```vue
+<template v-slot:control="x">
+    <fv-button @click="x.cancel()">Yes</fv-button>
+</template>
+```
+
+### Toast
+---
+
+```javascript
+this.$barWarning(msg, options = {
+    status: 'default',
+    showControl: false,
+    showClose: true,
+    control: null,
+    mode: 'fixed',
+    autoClose: 3000
+});
+
+control_panel: x => h() // 传入具名插槽属性参数的函数, 函数返回值为$createElement函数
+```
+
+```javascript
+this.$swiftWarning(element, options = {
+    color: "rgba(173, 38, 45, 1)",
+    replaceTitle: "Swift Warning"
+});
+```
