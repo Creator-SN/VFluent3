@@ -24,7 +24,12 @@
                 :value="showDate(1)"
                 readonly
                 class="fv-date-picker-input-item"
-                :style="{ borderColor: innerBorderColor }"
+                :style="{
+                    borderColor: innerBorderColor,
+                    'border-right-color': hideYear
+                        ? 'transparent'
+                        : innerBorderColor
+                }"
             />
             <input
                 v-show="!hideYear"
