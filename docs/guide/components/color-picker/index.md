@@ -13,11 +13,12 @@ const { theme } = useTheme();
 const colorMode = ref<'ring' | 'box'>('ring');
 const color = ref('#4F6BEDCC');
 const compactColor = ref('#0F6CBDFF');
-const previewColor = ref('#CA5010FF');
+const alphaColor = ref('#CA5010FF');
+const infoColor = ref('#6B69D6CC');
 const colorInfo = ref({
-    hex: '#4F6BEDCC',
-    rgba: { r: 79, g: 107, b: 237, a: 0.8 },
-    hsla: { h: 229.37, s: 81.44, l: 61.96, a: 0.8 }
+    hex: '#6B69D6CC',
+    rgba: { r: 107, g: 105, b: 214, a: 0.8 },
+    hsla: { h: 241.1, s: 57.59, l: 62.55, a: 0.8 }
 });
 
 function handleModelUpdate(value: string, info?: any) {
@@ -32,12 +33,8 @@ function handleColorInfo(info: any) {
 </script>
 
 <style scoped>
-.cp-docs {
-    display: grid;
-    gap: 20px;
-}
-
 .cp-panel {
+    margin: 12px 0 18px;
     padding: 18px 20px;
     border-radius: 16px;
     border: 1px solid rgba(120, 120, 120, 0.14);
@@ -71,20 +68,14 @@ function handleColorInfo(info: any) {
     border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.cp-grid {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.cp-meta {
+.cp-note {
     margin: 0 0 12px;
     color: rgba(0, 0, 0, 0.68);
     line-height: 1.6;
 }
 
 .cp-code {
-    margin: 0;
+    margin: 12px 0 0;
     padding: 14px;
     border-radius: 12px;
     background: rgba(15, 23, 42, 0.96);
@@ -93,75 +84,24 @@ function handleColorInfo(info: any) {
     line-height: 1.7;
     overflow: auto;
 }
-
-.cp-example {
-    display: grid;
-    gap: 12px;
-}
 </style>
 
-# ColorPicker
+### ColorPicker-Demo
 
-ColorPicker supports `box` and `ring` picking modes, string-based `v-model`, and a richer color payload for listeners that need structured channel values.
-
-## Quick Start
-
-<div class="cp-docs">
-    <section class="cp-panel">
-        <div class="cp-toolbar">
-            <span class="cp-chip">
-                <span class="cp-swatch" :style="{ background: color }"></span>
-                <strong>{{ color }}</strong>
-            </span>
-            <fv-radio :theme="theme" v-model="colorMode" label="ring">Ring</fv-radio>
-            <fv-radio :theme="theme" v-model="colorMode" label="box">Box</fv-radio>
-        </div>
-        <fv-color-picker
-            v-model="color"
-            :theme="theme"
-            :type="colorMode"
-            @update:modelValue="handleModelUpdate"
-            @color-info="handleColorInfo"
-        />
-    </section>
-
-    <section class="cp-grid">
-        <article class="cp-panel cp-example">
-            <h3>Structured Color Payload</h3>
-            <p class="cp-meta">
-                `v-model` still receives the hex string. The same `update:modelValue` event now exposes a second argument with `hex`, `rgba`, and `hsla`, and the `color-info` event emits the same object directly.
-            </p>
-            <pre class="cp-code">{{ JSON.stringify(colorInfo, null, 2) }}</pre>
-        </article>
-
-        <article class="cp-panel cp-example">
-            <h3>Compact Mode</h3>
-            <p class="cp-meta">
-                Hide the fields section and only keep the sliders you need.
-            </p>
-            <fv-color-picker
-                v-model="compactColor"
-                :theme="theme"
-                hideFields
-                :showSaturationSlider="false"
-            />
-        </article>
-
-        <article class="cp-panel cp-example">
-            <h3>Preview Only Sliders</h3>
-            <p class="cp-meta">
-                You can independently toggle the value, saturation, and alpha sliders.
-            </p>
-            <fv-color-picker
-                v-model="previewColor"
-                :theme="theme"
-                type="box"
-                :showValueSlider="false"
-                :showSaturationSlider="true"
-                :showAlphaSlider="true"
-            />
-        </article>
-    </section>
+<div class="cp-panel">
+    <div class="cp-toolbar">
+        <span class="cp-chip">
+            <span class="cp-swatch" :style="{ background: color }"></span>
+            <strong>{{ color }}</strong>
+        </span>
+        <fv-radio :theme="theme" v-model="colorMode" label="ring">Ring</fv-radio>
+        <fv-radio :theme="theme" v-model="colorMode" label="box">Box</fv-radio>
+    </div>
+    <fv-color-picker
+        v-model="color"
+        :theme="theme"
+        :type="colorMode"
+    />
 </div>
 
 ```vue
@@ -169,6 +109,37 @@ ColorPicker supports `box` and `ring` picking modes, string-based `v-model`, and
 import { ref } from 'vue';
 
 const color = ref('#4F6BEDCC');
+const colorMode = ref<'ring' | 'box'>('ring');
+</script>
+
+<template>
+  <fv-color-picker
+    v-model="color"
+    :type="colorMode"
+  />
+</template>
+```
+
+### ColorPicker-Color Info
+
+<div class="cp-panel">
+    <p class="cp-note">
+        `v-model` keeps returning a hex string. If you need more detail, `update:modelValue` now passes a second argument with `hex`, `rgba`, and `hsla`, and `color-info` emits the same object directly.
+    </p>
+    <fv-color-picker
+        v-model="infoColor"
+        :theme="theme"
+        @update:modelValue="handleModelUpdate"
+        @color-info="handleColorInfo"
+    />
+    <pre class="cp-code">{{ JSON.stringify(colorInfo, null, 2) }}</pre>
+</div>
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const color = ref('#6B69D6CC');
 
 function handleUpdate(value: string, info?: {
   hex: string;
@@ -183,15 +154,23 @@ function handleUpdate(value: string, info?: {
 <template>
   <fv-color-picker
     v-model="color"
-    type="ring"
     @update:modelValue="handleUpdate"
   />
 </template>
 ```
 
-## More Examples
+### ColorPicker-Hide Fields
 
-### Hide The Fields Area
+<div class="cp-panel">
+    <p class="cp-note">
+        Use `hideFields` when you want the picker UI without the lower numeric editor and mode switcher.
+    </p>
+    <fv-color-picker
+        v-model="compactColor"
+        :theme="theme"
+        hideFields
+    />
+</div>
 
 ```vue
 <fv-color-picker
@@ -200,7 +179,21 @@ function handleUpdate(value: string, info?: {
 />
 ```
 
-### Show Only The Alpha Slider
+### ColorPicker-Control Sliders
+
+<div class="cp-panel">
+    <p class="cp-note">
+        The value, saturation, and alpha sliders can be toggled independently, so the picker can be simplified for different product flows.
+    </p>
+    <fv-color-picker
+        v-model="alphaColor"
+        :theme="theme"
+        hideFields
+        :showValueSlider="false"
+        :showSaturationSlider="false"
+        :showAlphaSlider="true"
+    />
+</div>
 
 ```vue
 <fv-color-picker
@@ -212,12 +205,23 @@ function handleUpdate(value: string, info?: {
 />
 ```
 
-### Listen Only To Structured Color Data
+### ColorPicker-Ring Only
+
+<div class="cp-panel">
+    <p class="cp-note">
+        Set `type="ring"` when you prefer circular hue selection instead of the rectangular area.
+    </p>
+    <fv-color-picker
+        v-model="color"
+        :theme="theme"
+        type="ring"
+    />
+</div>
 
 ```vue
 <fv-color-picker
   v-model="color"
-  @color-info="(info) => console.log(info.hsla)"
+  type="ring"
 />
 ```
 
