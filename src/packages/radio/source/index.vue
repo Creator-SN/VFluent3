@@ -108,53 +108,26 @@ export default {
             // [2020-5-13][fix] fix value display issue
             return this.model == this.label;
         },
-        isGroup() {
-            let parent = this.$parent;
-            while (parent) {
-                if (parent.$options.name != 'FvRadioGroup') {
-                    parent = parent.$parent;
-                } else {
-                    this.setGroup(parent);
-                    return true;
-                }
-            }
-            return false;
-        },
         isDisabled() {
-            return this.isGroup
-                ? this._group.disabled || this.disabled
-                : this.disabled;
+            return this.disabled;
         },
         model: {
             get() {
-                return this.isGroup ? this._group.value : this.modelValue;
+                return this.modelValue;
             },
             set(val) {
-                if (this.isGroup) {
-                    this._group.$emit('update:modelValue', val);
-                } else {
-                    this.$emit('update:modelValue', val);
-                }
+                this.$emit('update:modelValue', val);
             }
         }
     },
-    mounted() {},
     methods: {
         click() {
             if (this.isDisabled) return;
-            if (!this.isGroup) {
-                this.$emit('update:modelValue', this.label);
-            } else {
-                this._group.$emit('update:modelValue', this.label);
-                this._group.change(this.label);
-            }
+            this.$emit('update:modelValue', this.label);
             if (this.isActived) {
                 this.$emit('actived');
             }
             this.$emit('click');
-        },
-        setGroup(parent) {
-            this._group = parent;
         }
     }
 };

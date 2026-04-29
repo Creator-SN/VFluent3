@@ -4,19 +4,18 @@ title: Radio
 ---
 
 <!-- lang-switch -->
-<script>
-export default {
-    data() {
-        return {
-            basicValue: 'Option',
-            groupValue: 'Windows',
-            darkGroupValue: 'Email',
-            iconValue: 'NUIIris',
-            imageValue: 'Chart',
-            customValue: 'Mint'
-        };
-    }
-}
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { useTheme } from '../common/index.js';
+
+const { theme } = useTheme();
+
+const basicValue = ref('Option');
+const groupValue = ref('Windows');
+const darkGroupValue = ref('Email');
+const iconValue = ref('NUIIris');
+const imageValue = ref('Chart');
+const customValue = ref('Mint');
 </script>
 
 [[toc]]
@@ -48,7 +47,7 @@ export default {
 ---
 
 <ClientOnly>
-<div class="radio-docs-card">
+<div :class="['radio-docs-card', { 'radio-docs-card--dark': theme === 'dark' }]">
     <div class="radio-docs-card__title">Choose a platform</div>
     <div class="radio-docs-row">
         <fv-radio v-model="groupValue" label="Windows">Windows</fv-radio>
@@ -59,7 +58,7 @@ export default {
 </ClientOnly>
 
 ```vue
-<div class="radio-docs-card">
+<div :class="['radio-docs-card', { 'radio-docs-card--dark': theme === 'dark' }]">
   <div class="radio-docs-card__title">Choose a platform</div>
   <div class="radio-docs-row">
     <fv-radio v-model="groupValue" label="Windows">Windows</fv-radio>
