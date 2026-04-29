@@ -517,9 +517,10 @@ export default {
         });
     },
     mounted() {
-        if (this.modelValue === undefined) {
-            this.syncFromColor(new Color(this.color), true, false);
-        }
+        this.pointerReady = false;
+        this.$nextTick(() => {
+            this.syncFromColor(this.colorObj, true, false);
+        });
     },
     methods: {
         withSyncLock(task) {
