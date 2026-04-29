@@ -1,8 +1,9 @@
 .fv-color-picker {
     width: 312px;
-    --fv-color-picker--color-value-empty: rgb(255,255,255);
-    --fv-color-picker--color-list: red, rgb(255, 153, 0), rgb(205, 255, 0), rgb(53, 255, 0), rgb(0, 255, 102),
-        rgb(0, 255, 253), rgb(0, 102, 255), rgb(50, 0, 255), rgb(205, 0, 255), rgb(255, 0, 153), red;
+    --fv-color-picker--color-value-empty: rgb(255, 255, 255);
+    --fv-color-picker--color-list:
+        red, rgb(255, 153, 0), rgb(205, 255, 0), rgb(53, 255, 0), rgb(0, 255, 102), rgb(0, 255, 253), rgb(0, 102, 255),
+        rgb(50, 0, 255), rgb(205, 0, 255), rgb(255, 0, 153), red;
     --fv-color-picker--color: initial;
     --fv-color-picker--color-alpha: initial;
     --fv-color-picker--color-value: initial;
@@ -11,8 +12,8 @@
     --fv-color-picker--color-value-left: 0px;
     --fv-color-picker--color-saturation-left: 0px;
     --fv-color-picker--color-alpha-left: 0px;
-    --fv-color-picker--color-saturation-empty: rgb(255,255,255);
-    --fv-color-picker--color-saturation-full: rgb(255,0,0);
+    --fv-color-picker--color-saturation-empty: rgb(255, 255, 255);
+    --fv-color-picker--color-saturation-full: rgb(255, 0, 0);
     .color-picker {
         display: flex;
         .color-area {
@@ -216,6 +217,7 @@
             }
             .fields {
                 margin-top: 10px;
+                user-select: none;
                 .row {
                     display: flex;
                     margin: 10px 0px;

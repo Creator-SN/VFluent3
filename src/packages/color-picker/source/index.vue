@@ -746,6 +746,7 @@ export default {
             } else if (mouse instanceof TouchEvent && !isMobile()) {
                 return;
             }
+            mouse.preventDefault();
             this.colorAreaMouseMoveEvent.listen();
             this.mousemoveEvent(mouse);
         },
@@ -773,6 +774,7 @@ export default {
             } else if (mouse instanceof TouchEvent && !isMobile()) {
                 return;
             }
+            mouse.preventDefault();
             this.colorValueMouseMoveEvent.listen();
             this.valueMousemoveEvent(mouse);
         },
@@ -802,6 +804,7 @@ export default {
             } else if (mouse instanceof TouchEvent && !isMobile()) {
                 return;
             }
+            mouse.preventDefault();
             this.colorSaturationMouseMoveEvent.listen();
             this.saturationMousemoveEvent(mouse);
         },
@@ -843,6 +846,7 @@ export default {
             } else if (mouse instanceof TouchEvent && !isMobile()) {
                 return;
             }
+            mouse.preventDefault();
             this.colorAlphaMouseMoveEvent.listen();
             this.alphaMousemoveEvent(mouse);
         }
