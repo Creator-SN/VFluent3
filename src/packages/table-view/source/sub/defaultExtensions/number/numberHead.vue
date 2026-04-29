@@ -115,7 +115,7 @@
                             borderWidth="2"
                             is-box-shadow="true"
                             style="width: 120px; margin-left: 5px"
-                            @click.native="$refs.text.focus()"
+                            @click.capture="$refs.text.focus()"
                         >
                         </fv-text-box>
                     </div>

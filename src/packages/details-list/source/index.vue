@@ -192,7 +192,7 @@
                             >
                                 <selector
                                     v-model="item.choosen"
-                                    @click.native="itemChooseClick(item)"
+                                    @click.capture="itemChooseClick(item)"
                                     :color="foreground"
                                 ></selector>
                             </span>

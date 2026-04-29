@@ -82,14 +82,14 @@ Disabled
 ### SearchBox-Custom Search Result
 ---
 <div>
-<fv-SearchBox v-model="value" icon="Search" placeholder="Search" :options="custom_items" :focusShow="true" :customFilter="customFilterFunc" :resultPlaceholder.sync="resultPlaceholder">
+<fv-SearchBox v-model="value" icon="Search" placeholder="Search" :options="custom_items" :focusShow="true" :customFilter="customFilterFunc" v-model:resultPlaceholder="resultPlaceholder">
     <template v-slot:resultPlaceholder="x">
         <fv-img v-for="(item, index) in resultPlaceholder" :key="index" :src="item" style="width: 25px; height: 25px; margin: 0px 3px; border-radius: 50%;"/>
     </template>
     <template v-slot:searchResult="x">
         <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
             <div style="position: relative; width: 100%; height: 60px; display: flex;">
-                <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.native="resultPlaceholder.push(item)"/>
+                <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
             </div>
             <span>
                 <p v-for="(item, index) in x.data.pos" class="list-item" :key="index">{{item}}</p>
@@ -104,7 +104,7 @@ Disabled
 
 ```vue
 <div>
-    <fv-SearchBox v-model="value" icon="Search" placeholder="Search" :options="custom_items" :focusShow="true" :customFilter="customFilterFunc" :resultPlaceholder.sync="resultPlaceholder">
+    <fv-SearchBox v-model="value" icon="Search" placeholder="Search" :options="custom_items" :focusShow="true" :customFilter="customFilterFunc" v-model:resultPlaceholder="resultPlaceholder">
         <template v-slot:resultPlaceholder="x">
             <fv-img v-for="(item, index) in resultPlaceholder" :key="index" :src="item" style="width: 25px; height: 25px; margin: 0px 3px; border-radius: 50%;"/>
         </template>
@@ -112,7 +112,7 @@ Disabled
             <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
                 <span class="list-item list-title">人物</span>
                 <div style="position: relative; width: 100%; height: 60px; display: flex;">
-                    <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.native="resultPlaceholder.push(item)"/>
+                    <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
                 </div>
                 <span class="list-item list-title">位置</span>
                 <span>
@@ -171,14 +171,14 @@ Disabled
 2. Custom Template
 
 <div style="width: 100%; padding: 25px; background: black;">
-<fv-SearchBox v-model="value" icon="Search" placeholder="Search" theme="dark" :options="custom_items" :focusShow="true" :customFilter="customFilterFunc" :resultPlaceholder.sync="resultPlaceholder">
+<fv-SearchBox v-model="value" icon="Search" placeholder="Search" theme="dark" :options="custom_items" :focusShow="true" :customFilter="customFilterFunc" v-model:resultPlaceholder="resultPlaceholder">
     <template v-slot:resultPlaceholder="x">
         <fv-img v-for="(item, index) in resultPlaceholder" :key="index" :src="item" style="width: 25px; height: 25px; margin: 0px 3px; border-radius: 50%;"/>
     </template>
     <template v-slot:searchResult="x">
         <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
             <div style="position: relative; width: 100%; height: 60px; display: flex;">
-                <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.native="resultPlaceholder.push(item)"/>
+                <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
             </div>
             <span>
                 <p v-for="(item, index) in x.data.pos" class="list-item" :key="index">{{item}}</p>
@@ -203,7 +203,7 @@ Disabled
 
 ```vue
 <div style="width: 100%; padding: 25px; background: black;">
-    <fv-SearchBox v-model="value" icon="Search" placeholder="Search" theme="dark" :options="custom_items" :focusShow="true" :customFilter="customFilterFunc" :resultPlaceholder.sync="resultPlaceholder">
+    <fv-SearchBox v-model="value" icon="Search" placeholder="Search" theme="dark" :options="custom_items" :focusShow="true" :customFilter="customFilterFunc" v-model:resultPlaceholder="resultPlaceholder">
         <template v-slot:resultPlaceholder="x">
             <fv-img v-for="(item, index) in resultPlaceholder" :key="index" :src="item" style="width: 25px; height: 25px; margin: 0px 3px; border-radius: 50%;"/>
         </template>
@@ -211,7 +211,7 @@ Disabled
             <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
                 <span class="list-item list-title">人物</span>
                 <div style="position: relative; width: 100%; height: 60px; display: flex;">
-                    <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.native="resultPlaceholder.push(item)"/>
+                    <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
                 </div>
                 <span class="list-item list-title">位置</span>
                 <span>

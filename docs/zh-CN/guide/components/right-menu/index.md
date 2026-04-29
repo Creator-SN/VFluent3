@@ -31,12 +31,12 @@ export default {
 <ClientOnly>
 Inside the Parent Element.
 
-<fv-button ref="b1" style="width: 120px;" @contextmenu.native="rightClick($event, $el)">Inside Parent</fv-button>
+<fv-button ref="b1" style="width: 120px;" @contextmenu.capture="rightClick($event, $el)">Inside Parent</fv-button>
 
 <fv-RightMenu ref="r1" :rightMenuWidth="200"><span>Item1</span><hr><span>Item2</span></fv-RightMenu>
 
 ```vue
-<fv-button ref="b1" style="width: 120px;" @contextmenu.native="rightClick($event, $el)">Inside Parent</fv-button>
+<fv-button ref="b1" style="width: 120px;" @contextmenu.capture="rightClick($event, $el)">Inside Parent</fv-button>
 
 <fv-RightMenu ref="r1" :rightMenuWidth="200">
     <span>Item1</span>
@@ -47,10 +47,10 @@ Inside the Parent Element.
 
 Inside the button.
 
-<fv-button ref="b2" style="width: 120px;" @contextmenu.native="rightClick($event, $refs.b2.$el)">Inside Button</fv-button>
+<fv-button ref="b2" style="width: 120px;" @contextmenu.capture="rightClick($event, $refs.b2.$el)">Inside Button</fv-button>
 
 ```vue
-<fv-button ref="b2" style="width: 120px;" @contextmenu.native="rightClick($event, $refs.b2.$el)">Inside Button</fv-button>
+<fv-button ref="b2" style="width: 120px;" @contextmenu.capture="rightClick($event, $refs.b2.$el)">Inside Button</fv-button>
 
 <fv-RightMenu ref="r1" :rightMenuWidth="200">
     <span>Item1</span>
