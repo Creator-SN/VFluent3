@@ -456,12 +456,15 @@ export default {
                 this.s = val;
                 let number = parseInt(val);
                 if (!isNaN(number)) {
-                    const scale = this.paletteSaturationValue / 100 || 1;
-                    this.pointerSaturationValue = Math.max(
-                        Math.min(100, number / scale),
-                        0
+                    number = Math.max(Math.min(100, number), 0);
+                    if (this.pointerSaturationValue <= 0) {
+                        this.applyPaletteSaturation(0);
+                        return;
+                    }
+                    const paletteSaturation = Math.round(
+                        (number / this.pointerSaturationValue) * 100
                     );
-                    this.commitState(true, true);
+                    this.applyPaletteSaturation(paletteSaturation);
                 }
             }
         },
