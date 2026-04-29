@@ -33,6 +33,16 @@
                 <div class="color-value-btn"></div>
             </div>
             <div
+                class="color-saturation"
+                ref="colorSaturation"
+                draggable="false"
+                @mousedown.stop="onSaturationMouseDown"
+                @touchstart.stop="onSaturationMouseDown"
+            >
+                <div class="color-saturation-bg"></div>
+                <div class="color-saturation-btn"></div>
+            </div>
+            <div
                 class="color-alpha"
                 ref="colorAlpha"
                 draggable="false"
@@ -276,21 +286,25 @@ export default {
             alpha: '100%',
             syncLock: false,
             hueValue: 0,
-            saturationValue: 0,
+            pointerSaturationValue: 0,
+            paletteSaturationValue: 100,
             brightnessValue: 0,
             alphaValue: 1,
             colorObj: new Color('#000000FF'),
             colorLeft: 0,
             colorTop: 0,
             colorValueLeft: 0,
+            colorSaturationLeft: 0,
             colorAlphaLeft: 0,
             baseColorList: colors.map((item) => new Color(item)),
             colorList: colors.map((item) => new Color(item)),
             updateCoordsThrottled: undefined,
             updateValueThrottled: undefined,
+            updateSaturationThrottled: undefined,
             updateAlphaThrottled: undefined,
             colorAreaMouseMoveEvent: undefined,
             colorValueMouseMoveEvent: undefined,
+            colorSaturationMouseMoveEvent: undefined,
             colorAlphaMouseMoveEvent: undefined
         };
     },
@@ -312,9 +326,22 @@ export default {
                     .clone()
                     .value(100)
                     .cssrgb(),
+                '--fv-color-picker--color-saturation-empty': this.colorObj
+                    .clone()
+                    .hue(this.hueValue)
+                    .saturation(0)
+                    .value(this.brightnessValue)
+                    .cssrgb(),
+                '--fv-color-picker--color-saturation-full': this.colorObj
+                    .clone()
+                    .hue(this.hueValue)
+                    .saturation(100)
+                    .value(this.brightnessValue)
+                    .cssrgb(),
                 '--fv-color-picker--pointer-left': `${this.colorLeft}px`,
                 '--fv-color-picker--pointer-top': `${this.colorTop}px`,
                 '--fv-color-picker--color-value-left': `${this.colorValueLeft}px`,
+                '--fv-color-picker--color-saturation-left': `${this.colorSaturationLeft}px`,
                 '--fv-color-picker--color-alpha-left': `${this.colorAlphaLeft}px`,
                 '--fv-color-picker--color-value-empty': this.colorObj
                     .clone()
@@ -429,7 +456,11 @@ export default {
                 this.s = val;
                 let number = parseInt(val);
                 if (!isNaN(number)) {
-                    this.saturationValue = Math.max(Math.min(100, number), 0);
+                    const scale = this.paletteSaturationValue / 100 || 1;
+                    this.pointerSaturationValue = Math.max(
+                        Math.min(100, number / scale),
+                        0
+                    );
                     this.commitState(true, true);
                 }
             }
@@ -503,6 +534,9 @@ export default {
         this.updateValueThrottled = throttle((mouse) => {
             this.handleUpdateValue(mouse);
         });
+        this.updateSaturationThrottled = throttle((mouse) => {
+            this.handleUpdateSaturation(mouse);
+        });
         this.updateAlphaThrottled = throttle((mouse) => {
             this.handleUpdateAlpha(mouse);
         });
@@ -511,6 +545,9 @@ export default {
         });
         this.colorValueMouseMoveEvent = new MouseMoveEvent((mouse) => {
             this.valueMousemoveEvent(mouse);
+        });
+        this.colorSaturationMouseMoveEvent = new MouseMoveEvent((mouse) => {
+            this.saturationMousemoveEvent(mouse);
         });
         this.colorAlphaMouseMoveEvent = new MouseMoveEvent((mouse) => {
             this.alphaMousemoveEvent(mouse);
@@ -547,12 +584,15 @@ export default {
         },
         syncStateFields(clr) {
             this.hueValue = Math.round(clr.hue());
-            this.saturationValue = Math.round(clr.saturation());
+            this.pointerSaturationValue = Math.round(clr.saturation());
             this.brightnessValue = Math.round(clr.value());
             this.alphaValue = clr.alpha();
             this.withSyncLock(() => {
                 this.h = this.hueValue.toString();
-                this.s = this.saturationValue.toString();
+                this.s = Math.round(
+                    (this.pointerSaturationValue * this.paletteSaturationValue) /
+                        100
+                ).toString();
                 this.v = this.brightnessValue.toString();
                 this.alpha = `${Math.round(this.alphaValue * 100)}%`;
             });
@@ -561,17 +601,21 @@ export default {
             const { width, height } = getBoundingClientRect(this.$refs.colorArea);
             if (this.type === 'ring') {
                 let angle = (this.hueValue / 360) * Math.PI * 2;
-                let l = ((width / 2) * this.saturationValue) / 100;
+                let l = ((width / 2) * this.pointerSaturationValue) / 100;
                 this.colorLeft = width / 2 + Math.cos(angle) * l;
                 this.colorTop = height / 2 + Math.sin(angle) * l;
             } else {
                 this.colorLeft = (this.hueValue / 359) * width;
-                this.colorTop = (1 - this.saturationValue / 100) * height;
+                this.colorTop = (1 - this.pointerSaturationValue / 100) * height;
             }
         },
         syncValueSliderFromState() {
             const { width } = getBoundingClientRect(this.$refs.colorValue);
             this.colorValueLeft = width * 0.01 * this.brightnessValue;
+        },
+        syncSaturationSliderFromState() {
+            const { width } = getBoundingClientRect(this.$refs.colorSaturation);
+            this.colorSaturationLeft = width * 0.01 * this.paletteSaturationValue;
         },
         syncAlphaSliderFromState() {
             const { width } = getBoundingClientRect(this.$refs.colorAlpha);
@@ -579,13 +623,24 @@ export default {
         },
         syncColorList() {
             this.colorList = this.baseColorList.map((item) =>
-                item.clone().value(this.brightnessValue)
+                item
+                    .clone()
+                    .value(this.brightnessValue)
+                    .saturation(this.paletteSaturationValue)
             );
         },
         buildColorFromState() {
             let clr = new Color('#000000FF');
             clr = clr.hue(this.hueValue).clone();
-            clr = clr.saturation(this.saturationValue).clone();
+            clr = clr
+                .saturation(
+                    Math.round(
+                        (this.pointerSaturationValue *
+                            this.paletteSaturationValue) /
+                            100
+                    )
+                )
+                .clone();
             clr = clr.value(this.brightnessValue).clone();
             clr = clr.alpha(this.alphaValue).clone();
             return clr;
@@ -596,6 +651,7 @@ export default {
             this.syncRGBFields(this.colorObj);
             this.syncColorList();
             this.syncValueSliderFromState();
+            this.syncSaturationSliderFromState();
             this.syncAlphaSliderFromState();
             if (syncPointer) {
                 this.syncPointerFromState();
@@ -608,6 +664,7 @@ export default {
             this.syncRGBFields(this.colorObj);
             this.syncColorList();
             this.syncValueSliderFromState();
+            this.syncSaturationSliderFromState();
             this.syncAlphaSliderFromState();
             if (syncPointer) {
                 this.syncPointerFromState();
@@ -661,13 +718,17 @@ export default {
                     angle += Math.PI * 2;
                 }
                 this.hueValue = Math.round((angle / (Math.PI * 2)) * 359);
-                this.saturationValue = Math.round((l / (width / 2)) * 100);
+                this.pointerSaturationValue = Math.round(
+                    (l / (width / 2)) * 100
+                );
                 this.colorLeft = cx;
                 this.colorTop = cy;
                 this.commitState(false, true);
             } else {
                 this.hueValue = Math.round((cx / width) * 359);
-                this.saturationValue = Math.round((1 - cy / height) * 100);
+                this.pointerSaturationValue = Math.round(
+                    (1 - cy / height) * 100
+                );
                 this.colorLeft = cx;
                 this.colorTop = cy;
                 this.commitState(false, true);
@@ -711,6 +772,49 @@ export default {
             }
             this.colorValueMouseMoveEvent.listen();
             this.valueMousemoveEvent(mouse);
+        },
+        handleUpdateSaturation(mouse) {
+            if (mouse !== undefined) {
+                const { left, width } = getBoundingClientRect(
+                    this.$refs.colorSaturation
+                );
+                let x = 0;
+                if (mouse instanceof TouchEvent) {
+                    x = mouse.touches[0].clientX;
+                } else {
+                    x = mouse.clientX;
+                }
+                const saturation = Math.min(Math.max(0, x - left), width);
+                this.applyPaletteSaturation(
+                    Math.round((saturation / width) * 100)
+                );
+            }
+        },
+        saturationMousemoveEvent(mouse) {
+            this.updateSaturationThrottled(mouse);
+        },
+        onSaturationMouseDown(mouse) {
+            if (mouse instanceof MouseEvent && isMobile()) {
+                return;
+            } else if (mouse instanceof TouchEvent && !isMobile()) {
+                return;
+            }
+            this.colorSaturationMouseMoveEvent.listen();
+            this.saturationMousemoveEvent(mouse);
+        },
+        applyPaletteSaturation(number, emit = true) {
+            this.paletteSaturationValue = Math.max(Math.min(100, number), 0);
+            this.colorObj = this.buildColorFromState();
+            this.withSyncLock(() => {
+                this.s = Math.round(
+                    (this.pointerSaturationValue * this.paletteSaturationValue) /
+                        100
+                ).toString();
+            });
+            this.syncRGBFields(this.colorObj);
+            this.syncColorList();
+            this.syncSaturationSliderFromState();
+            this.syncText(this.colorObj, emit);
         },
         handleUpdateAlpha(mouse) {
             if (mouse !== undefined) {

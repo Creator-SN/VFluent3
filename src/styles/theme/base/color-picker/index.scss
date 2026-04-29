@@ -9,7 +9,10 @@
     --fv-color-picker--pointer-top: 0px;
     --fv-color-picker--pointer-left: 0px;
     --fv-color-picker--color-value-left: 0px;
+    --fv-color-picker--color-saturation-left: 0px;
     --fv-color-picker--color-alpha-left: 0px;
+    --fv-color-picker--color-saturation-empty: rgb(255,255,255);
+    --fv-color-picker--color-saturation-full: rgb(255,0,0);
     .color-picker {
         display: flex;
         .color-area {
@@ -173,6 +176,42 @@
                     box-shadow: rgba(0, 0, 0, 1) 0 0 2px;
                     transform-origin: 0px 0px;
                     transform: translateX(var(--fv-color-picker--color-alpha-left));
+                }
+            }
+            .color-saturation {
+                cursor: pointer;
+                position: relative;
+                border-radius: 6px;
+                margin: 25px 0 20px;
+                height: 12px;
+                width: 100%;
+                .color-saturation-bg {
+                    border-radius: inherit;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background: linear-gradient(
+                        to right,
+                        var(--fv-color-picker--color-saturation-empty),
+                        var(--fv-color-picker--color-saturation-full)
+                    );
+                }
+                .color-saturation-btn {
+                    position: absolute;
+                    top: -2px;
+                    left: -8px;
+                    height: 16px;
+                    width: 16px;
+                    border-radius: 50%;
+                    border-style: solid;
+                    border-width: 3px;
+                    border-color: rgba(255, 255, 255, 1);
+                    background: rgba(0, 0, 0, 1);
+                    box-shadow: rgba(0, 0, 0, 1) 0 0 2px;
+                    transform-origin: 0px 0px;
+                    transform: translateX(var(--fv-color-picker--color-saturation-left));
                 }
             }
             .fields {
