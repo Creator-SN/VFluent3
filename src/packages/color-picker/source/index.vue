@@ -274,11 +274,17 @@ export default {
             s: '0',
             v: '0',
             alpha: '100%',
+            syncLock: false,
+            hueValue: 0,
+            saturationValue: 0,
+            brightnessValue: 0,
+            alphaValue: 1,
             colorObj: new Color('#000000FF'),
             colorLeft: 0,
             colorTop: 0,
             colorValueLeft: 0,
             colorAlphaLeft: 0,
+            baseColorList: colors.map((item) => new Color(item)),
             colorList: colors.map((item) => new Color(item)),
             updateCoordsThrottled: undefined,
             updateValueThrottled: undefined,
@@ -322,20 +328,21 @@ export default {
         },
         computedText: {
             get() {
-                if (this.modelValue === undefined) {
-                    return this.color;
-                }
-                return this.modelValue;
+                return this.color;
             },
             set(val) {
-                this.color = val;
-                if (/^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$/.test(val)) {
-                    this.colorObj = this.colorObj.parse(this.color).clone();
-                    this.syncHSV(this.colorObj);
-                    this.syncRGB(this.colorObj);
-                    this.syncAlpha(this.colorObj);
+                if (this.syncLock && val === this.color) {
+                    return;
                 }
-                this.$emit('update:modelValue', val);
+                if (val === this.color) {
+                    return;
+                }
+                if (/^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$/.test(val)) {
+                    this.syncFromColor(new Color(val), true, true);
+                } else {
+                    this.color = val;
+                    this.$emit('update:modelValue', val);
+                }
             }
         },
         computedR: {
@@ -343,12 +350,17 @@ export default {
                 return this.r;
             },
             set(val) {
+                if (this.syncLock && val === this.r) {
+                    return;
+                }
                 this.r = val;
                 let number = parseInt(val);
                 if (!isNaN(number)) {
-                    this.colorObj = this.colorObj.red(number).clone();
-                    this.syncText(this.colorObj);
-                    this.syncHSV(this.colorObj);
+                    this.syncFromColor(
+                        this.colorObj.red(number).clone(),
+                        true,
+                        true
+                    );
                 }
             }
         },
@@ -357,12 +369,17 @@ export default {
                 return this.g;
             },
             set(val) {
+                if (this.syncLock && val === this.g) {
+                    return;
+                }
                 this.g = val;
                 let number = parseInt(val);
                 if (!isNaN(number)) {
-                    this.colorObj = this.colorObj.green(number).clone();
-                    this.syncText(this.colorObj);
-                    this.syncHSV(this.colorObj);
+                    this.syncFromColor(
+                        this.colorObj.green(number).clone(),
+                        true,
+                        true
+                    );
                 }
             }
         },
@@ -371,12 +388,17 @@ export default {
                 return this.b;
             },
             set(val) {
+                if (this.syncLock && val === this.b) {
+                    return;
+                }
                 this.b = val;
                 let number = parseInt(val);
                 if (!isNaN(number)) {
-                    this.colorObj = this.colorObj.blue(number).clone();
-                    this.syncText(this.colorObj);
-                    this.syncHSV(this.colorObj);
+                    this.syncFromColor(
+                        this.colorObj.blue(number).clone(),
+                        true,
+                        true
+                    );
                 }
             }
         },
@@ -385,25 +407,14 @@ export default {
                 return this.h;
             },
             set(val) {
+                if (this.syncLock && val === this.h) {
+                    return;
+                }
                 this.h = val;
                 let number = parseInt(val);
                 if (!isNaN(number)) {
-                    number = Math.min(359, Math.max(0, number));
-                    this.colorObj = this.colorObj.hue(number).clone();
-                    this.syncText(this.colorObj);
-                    this.syncRGB(this.colorObj);
-                    const { width, height } = getBoundingClientRect(
-                        this.$refs.colorArea
-                    );
-                    if (this.type === 'ring') {
-                        let angle = (number / 360) * Math.PI * 2;
-                        let l =
-                            ((width / 2) * this.colorObj.saturation()) / 100;
-                        this.colorLeft = width / 2 + Math.cos(angle) * l;
-                        this.colorTop = height / 2 + Math.sin(angle) * l;
-                    } else {
-                        this.colorLeft = (number / 359) * width;
-                    }
+                    this.hueValue = Math.min(359, Math.max(0, number));
+                    this.commitState(true, true);
                 }
             }
         },
@@ -412,24 +423,14 @@ export default {
                 return this.s;
             },
             set(val) {
+                if (this.syncLock && val === this.s) {
+                    return;
+                }
                 this.s = val;
                 let number = parseInt(val);
                 if (!isNaN(number)) {
-                    number = Math.max(Math.min(100, number), 0);
-                    this.colorObj = this.colorObj.saturation(number).clone();
-                    this.syncText(this.colorObj);
-                    this.syncRGB(this.colorObj);
-                    const { width, height } = getBoundingClientRect(
-                        this.$refs.colorArea
-                    );
-                    if (this.type === 'ring') {
-                        let angle = (this.colorObj.hue() / 360) * Math.PI * 2;
-                        let l = ((width / 2) * number) / 100;
-                        this.colorLeft = width / 2 + Math.cos(angle) * l;
-                        this.colorTop = height / 2 + Math.sin(angle) * l;
-                    } else {
-                        this.colorTop = (1 - number / 100) * height;
-                    }
+                    this.saturationValue = Math.max(Math.min(100, number), 0);
+                    this.commitState(true, true);
                 }
             }
         },
@@ -438,20 +439,19 @@ export default {
                 return this.v;
             },
             set(val) {
+                if (this.syncLock && val === this.v) {
+                    return;
+                }
                 this.v = val;
                 let number = parseInt(val);
                 if (!isNaN(number)) {
-                    number = Math.max(Math.min(100, number), 0);
-                    this.colorObj = this.colorObj.value(number).clone();
-                    this.syncText(this.colorObj);
-                    this.syncRGB(this.colorObj);
-                    const { width } = getBoundingClientRect(
-                        this.$refs.colorValue
-                    );
-                    this.colorValueLeft = width * 0.01 * number;
-                    this.colorList = this.colorList.map((item) =>
-                        item.clone().value(number)
-                    );
+                    this.brightnessValue = Math.max(Math.min(100, number), 0);
+                    this.colorObj = this.buildColorFromState();
+                    this.v = this.brightnessValue.toString();
+                    this.syncRGBFields(this.colorObj);
+                    this.syncColorList();
+                    this.syncValueSliderFromState();
+                    this.syncText(this.colorObj, true);
                 }
             }
         },
@@ -460,16 +460,18 @@ export default {
                 return this.alpha;
             },
             set(val) {
+                if (this.syncLock && val === this.alpha) {
+                    return;
+                }
                 this.alpha = val;
                 let number = parseInt(val);
                 if (!isNaN(number)) {
-                    number = Math.max(Math.min(100, number), 0);
-                    this.colorObj = this.colorObj.alpha(number / 100).clone();
-                    this.syncText(this.colorObj);
-                    const { width } = getBoundingClientRect(
-                        this.$refs.colorAlpha
-                    );
-                    this.colorAlphaLeft = width * 0.01 * number;
+                    this.alphaValue =
+                        Math.max(Math.min(100, number), 0) / 100;
+                    this.colorObj = this.buildColorFromState();
+                    this.alpha = `${Math.round(this.alphaValue * 100)}%`;
+                    this.syncAlphaSliderFromState();
+                    this.syncText(this.colorObj, true);
                 }
             }
         }
@@ -478,20 +480,20 @@ export default {
         modelValue: {
             handler(val) {
                 if (
-                    typeof val === 'string' &&
-                    /^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$/.test(val)
+                    typeof val !== 'string' ||
+                    !/^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$/.test(val)
                 ) {
-                    this.colorObj = new Color(val);
-                    this.color = val;
-                    this.syncHSV(this.colorObj);
-                    this.syncRGB(this.colorObj);
-                    this.syncAlpha(this.colorObj);
+                    return;
                 }
+                if (val === this.color) {
+                    return;
+                }
+                this.syncFromColor(new Color(val), true, false);
             },
             immediate: true
         },
         type() {
-            this.syncHSV(this.colorObj);
+            this.syncPointerFromState();
         }
     },
     created() {
@@ -515,51 +517,114 @@ export default {
         });
     },
     mounted() {
-        this.colorObj = new Color(this.computedText);
-        this.syncHSV(this.colorObj);
-        this.syncRGB(this.colorObj);
-        this.syncAlpha(this.colorObj);
+        if (this.modelValue === undefined) {
+            this.syncFromColor(new Color(this.color), true, false);
+        }
     },
     methods: {
-        syncText(clr) {
-            this.color = clr.hexa();
-            this.$emit('update:modelValue', this.color);
+        withSyncLock(task) {
+            this.syncLock = true;
+            task();
+            this.$nextTick(() => {
+                this.syncLock = false;
+            });
         },
-        syncRGB(clr) {
-            this.r = clr.red().toString();
-            this.g = clr.green().toString();
-            this.b = clr.blue().toString();
+        syncRGBFields(clr) {
+            this.withSyncLock(() => {
+                this.r = clr.red().toString();
+                this.g = clr.green().toString();
+                this.b = clr.blue().toString();
+            });
+        },
+        syncText(clr, emit = true) {
+            this.withSyncLock(() => {
+                this.color = clr.hexa();
+            });
+            if (emit) {
+                this.$emit('update:modelValue', this.color);
+            }
+        },
+        syncStateFields(clr) {
+            this.hueValue = Math.round(clr.hue());
+            this.saturationValue = Math.round(clr.saturation());
+            this.brightnessValue = Math.round(clr.value());
+            this.alphaValue = clr.alpha();
+            this.withSyncLock(() => {
+                this.h = this.hueValue.toString();
+                this.s = this.saturationValue.toString();
+                this.v = this.brightnessValue.toString();
+                this.alpha = `${Math.round(this.alphaValue * 100)}%`;
+            });
+        },
+        syncPointerFromState() {
+            const { width, height } = getBoundingClientRect(this.$refs.colorArea);
+            if (this.type === 'ring') {
+                let angle = (this.hueValue / 360) * Math.PI * 2;
+                let l = ((width / 2) * this.saturationValue) / 100;
+                this.colorLeft = width / 2 + Math.cos(angle) * l;
+                this.colorTop = height / 2 + Math.sin(angle) * l;
+            } else {
+                this.colorLeft = (this.hueValue / 359) * width;
+                this.colorTop = (1 - this.saturationValue / 100) * height;
+            }
+        },
+        syncValueSliderFromState() {
+            const { width } = getBoundingClientRect(this.$refs.colorValue);
+            this.colorValueLeft = width * 0.01 * this.brightnessValue;
+        },
+        syncAlphaSliderFromState() {
+            const { width } = getBoundingClientRect(this.$refs.colorAlpha);
+            this.colorAlphaLeft = this.alphaValue * width;
+        },
+        syncColorList() {
+            this.colorList = this.baseColorList.map((item) =>
+                item.clone().value(this.brightnessValue)
+            );
+        },
+        buildColorFromState() {
+            let clr = new Color('#000000FF');
+            clr = clr.hue(this.hueValue).clone();
+            clr = clr.saturation(this.saturationValue).clone();
+            clr = clr.value(this.brightnessValue).clone();
+            clr = clr.alpha(this.alphaValue).clone();
+            return clr;
+        },
+        commitState(syncPointer = true, emit = true) {
+            this.colorObj = this.buildColorFromState();
+            this.syncStateFields(this.colorObj);
+            this.syncRGBFields(this.colorObj);
+            this.syncColorList();
+            this.syncValueSliderFromState();
+            this.syncAlphaSliderFromState();
+            if (syncPointer) {
+                this.syncPointerFromState();
+            }
+            this.syncText(this.colorObj, emit);
+        },
+        syncFromColor(clr, syncPointer = true, emit = false) {
+            this.colorObj = clr.clone();
+            this.syncStateFields(this.colorObj);
+            this.syncRGBFields(this.colorObj);
+            this.syncColorList();
+            this.syncValueSliderFromState();
+            this.syncAlphaSliderFromState();
+            if (syncPointer) {
+                this.syncPointerFromState();
+            }
+            this.syncText(this.colorObj, emit);
         },
         syncHSV(clr) {
             this.h = Math.round(clr.hue()).toString();
             this.s = Math.round(clr.saturation()).toString();
             this.v = Math.round(clr.value()).toString();
-            this.colorList = this.colorList.map((item) =>
+            this.colorList = this.baseColorList.map((item) =>
                 item.clone().value(clr.value())
             );
-            const { width, height } = getBoundingClientRect(
-                this.$refs.colorArea
-            );
-            if (this.type === 'ring') {
-                let angle = (clr.hue() / 360) * Math.PI * 2;
-                let l = ((width / 2) * clr.saturation()) / 100;
-                this.colorLeft = width / 2 + Math.cos(angle) * l;
-                this.colorTop = height / 2 + Math.sin(angle) * l;
-            } else {
-                this.colorLeft = (clr.hue() / 359) * width;
-                this.colorTop = (1 - clr.saturation() / 100) * height;
-            }
-            const colorValueRect = getBoundingClientRect(this.$refs.colorValue);
-            this.colorValueLeft = colorValueRect.width * 0.01 * clr.value();
         },
         syncAlpha(clr) {
             this.alpha = `${Math.round(clr.alpha() * 100)}%`;
             const { width } = getBoundingClientRect(this.$refs.colorAlpha);
             this.colorAlphaLeft = clr.alpha() * width;
-        },
-        coorSync(left, top) {
-            this.computedH = Math.round(left * 359).toString();
-            this.computedS = Math.round(top * 100).toString();
         },
         handleUpdateCoords(mouse) {
             const { left, top, height, width } = getBoundingClientRect(
@@ -594,9 +659,17 @@ export default {
                 if (angle < 0) {
                     angle += Math.PI * 2;
                 }
-                this.coorSync(angle / (Math.PI * 2), l / (width / 2));
+                this.hueValue = Math.round((angle / (Math.PI * 2)) * 359);
+                this.saturationValue = Math.round((l / (width / 2)) * 100);
+                this.colorLeft = cx;
+                this.colorTop = cy;
+                this.commitState(false, true);
             } else {
-                this.coorSync(cx / width, 1 - cy / height);
+                this.hueValue = Math.round((cx / width) * 359);
+                this.saturationValue = Math.round((1 - cy / height) * 100);
+                this.colorLeft = cx;
+                this.colorTop = cy;
+                this.commitState(false, true);
             }
         },
         mousemoveEvent(mouse) {

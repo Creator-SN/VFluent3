@@ -276,7 +276,7 @@ export class Color {
         let [h, s, v] = this.channels.hsv;
         s /= 100;
         v /= 100;
-        let c = s,
+        let c = v * s,
             h_ = h / 60,
             x = c * (1 - Math.abs((h_ % 2) - 1));
         let [r, g, b] = [v - c, v - c, v - c];
