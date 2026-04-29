@@ -20,8 +20,9 @@
                 <div class="color-bg"></div>
             </div>
         </div>
-        <div class="control vertical">
+        <div v-if="hasVisibleControls" class="control vertical">
             <div
+                v-if="showValueSlider"
                 class="color-value"
                 ref="colorValue"
                 draggable="false"
@@ -33,6 +34,7 @@
                 <div class="color-value-btn"></div>
             </div>
             <div
+                v-if="showSaturationSlider"
                 class="color-saturation"
                 ref="colorSaturation"
                 draggable="false"
@@ -43,6 +45,7 @@
                 <div class="color-saturation-btn"></div>
             </div>
             <div
+                v-if="showAlphaSlider"
                 class="color-alpha"
                 ref="colorAlpha"
                 draggable="false"
@@ -53,7 +56,7 @@
                 <div class="color-alpha-mask"></div>
                 <div class="color-alpha-btn"></div>
             </div>
-            <div class="fields">
+            <div v-if="!hideFields" class="fields">
                 <div class="row">
                     <div class="cell">
                         <fv-combobox
@@ -214,7 +217,7 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits(['update:modelValue', 'color-info']);
 
 const props = defineProps({
     ...commonProps,
@@ -228,6 +231,22 @@ const props = defineProps({
     type: {
         type: String,
         default: 'box'
+    },
+    hideFields: {
+        type: Boolean,
+        default: false
+    },
+    showValueSlider: {
+        type: Boolean,
+        default: true
+    },
+    showSaturationSlider: {
+        type: Boolean,
+        default: true
+    },
+    showAlphaSlider: {
+        type: Boolean,
+        default: true
     }
 });
 </script>
@@ -266,6 +285,49 @@ const colorModeOptions = [
         text: 'RGB'
     }
 ];
+
+function roundColorNumber(value, digits = 2) {
+    const base = Math.pow(10, digits);
+    return Math.round(value * base) / base;
+}
+
+function rgbaToHsla(r, g, b, a) {
+    const red = r / 255;
+    const green = g / 255;
+    const blue = b / 255;
+    const max = Math.max(red, green, blue);
+    const min = Math.min(red, green, blue);
+    const delta = max - min;
+    const lightness = (max + min) / 2;
+    let hue = 0;
+    let saturation = 0;
+
+    if (delta !== 0) {
+        saturation = delta / (1 - Math.abs(2 * lightness - 1));
+        switch (max) {
+            case red:
+                hue = ((green - blue) / delta) % 6;
+                break;
+            case green:
+                hue = (blue - red) / delta + 2;
+                break;
+            default:
+                hue = (red - green) / delta + 4;
+                break;
+        }
+        hue *= 60;
+        if (hue < 0) {
+            hue += 360;
+        }
+    }
+
+    return {
+        h: roundColorNumber(hue),
+        s: roundColorNumber(saturation * 100),
+        l: roundColorNumber(lightness * 100),
+        a: roundColorNumber(a, 4)
+    };
+}
 
 export default {
     name: 'FvColorPicker',
@@ -314,6 +376,14 @@ export default {
         },
         computedColorPickerClass() {
             return ['fv-color-picker'];
+        },
+        hasVisibleControls() {
+            return (
+                !this.hideFields ||
+                this.showValueSlider ||
+                this.showSaturationSlider ||
+                this.showAlphaSlider
+            );
         },
         computedColorPickerStyle() {
             return {
@@ -526,6 +596,27 @@ export default {
             },
             immediate: true
         },
+        showValueSlider(val) {
+            if (val) {
+                this.$nextTick(() => {
+                    this.syncValueSliderFromState();
+                });
+            }
+        },
+        showSaturationSlider(val) {
+            if (val) {
+                this.$nextTick(() => {
+                    this.syncSaturationSliderFromState();
+                });
+            }
+        },
+        showAlphaSlider(val) {
+            if (val) {
+                this.$nextTick(() => {
+                    this.syncAlphaSliderFromState();
+                });
+            }
+        },
         type() {
             this.syncPointerFromState();
         }
@@ -582,8 +673,27 @@ export default {
                 this.color = clr.hexa();
             });
             if (emit) {
-                this.$emit('update:modelValue', this.color);
+                this.emitColorChange(clr);
             }
+        },
+        buildColorInfo(clr) {
+            const rgba = {
+                r: clr.red(),
+                g: clr.green(),
+                b: clr.blue(),
+                a: roundColorNumber(clr.alpha(), 4)
+            };
+
+            return {
+                hex: clr.hexa(),
+                rgba,
+                hsla: rgbaToHsla(rgba.r, rgba.g, rgba.b, rgba.a)
+            };
+        },
+        emitColorChange(clr) {
+            const colorInfo = this.buildColorInfo(clr);
+            this.$emit('update:modelValue', colorInfo.hex, colorInfo);
+            this.$emit('color-info', colorInfo);
         },
         syncStateFields(clr) {
             this.hueValue = Math.round(clr.hue());
@@ -613,14 +723,23 @@ export default {
             }
         },
         syncValueSliderFromState() {
+            if (!this.$refs.colorValue) {
+                return;
+            }
             const { width } = getBoundingClientRect(this.$refs.colorValue);
             this.colorValueLeft = width * 0.01 * this.brightnessValue;
         },
         syncSaturationSliderFromState() {
+            if (!this.$refs.colorSaturation) {
+                return;
+            }
             const { width } = getBoundingClientRect(this.$refs.colorSaturation);
             this.colorSaturationLeft = width * 0.01 * this.paletteSaturationValue;
         },
         syncAlphaSliderFromState() {
+            if (!this.$refs.colorAlpha) {
+                return;
+            }
             const { width } = getBoundingClientRect(this.$refs.colorAlpha);
             this.colorAlphaLeft = this.alphaValue * width;
         },
@@ -684,6 +803,9 @@ export default {
         },
         syncAlpha(clr) {
             this.alpha = `${Math.round(clr.alpha() * 100)}%`;
+            if (!this.$refs.colorAlpha) {
+                return;
+            }
             const { width } = getBoundingClientRect(this.$refs.colorAlpha);
             this.colorAlphaLeft = clr.alpha() * width;
         },
