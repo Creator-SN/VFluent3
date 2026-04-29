@@ -113,8 +113,8 @@ export default {
 | revealBorderColor     | boolean | No       | false    | See the ListView `revealBorderColor` option.                             |
 | revealBackgroundColor | boolean | No       | false    | See the ListView `revealBackgroundColor` option.                         |
 | showSlider            | boolean | No       | false    | See the ListView `showSlider` option.                                    |
-| sliderTarget          | object  | No       | () => {} | See the ListView `sliderTarget` option.                                  |
-| sliderIndex           | number  | No       | -1       | See the ListView `sliderIndex` option.                                   |
+| v-model:sliderTarget  | object  | No       | () => {} | See the ListView `sliderTarget` option.                                  |
+| v-model:sliderIndex   | number  | No       | -1       | See the ListView `sliderIndex` option.                                   |
 | theme                 | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
 | disabled              | boolean | No       | false    | See the ListView `disabled` option.                                      |
 | lang                  | string  | No       | "global" | See the ListView `lang` option.                                          |

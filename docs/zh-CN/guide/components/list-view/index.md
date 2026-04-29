@@ -113,8 +113,8 @@ export default {
 | revealBorderColor     | boolean | 否    | false    | Reveal边框颜色。                                                           |
 | revealBackgroundColor | boolean | 否    | false    | Reveal背景颜色。                                                           |
 | showSlider            | boolean | 否    | false    | 是否显示选中项滑动条。                                                     |
-| sliderTarget          | object  | 否    | () => {} | 修改滑动条绑定元素，可通过`sync`方法同步，注意元素需要存在于`ListView`中。 |
-| sliderIndex           | number  | 否    | -1       | 修改滑动条绑定元素索引，可通过`sync`方法同步。                             |
+| v-model:sliderTarget  | object  | 否    | () => {} | 修改滑动条绑定元素，可通过`sync`方法同步，注意元素需要存在于`ListView`中。 |
+| v-model:sliderIndex   | number  | 否    | -1       | 修改滑动条绑定元素索引，可通过`sync`方法同步。                             |
 | theme                 | string  | 否    | 'global' | 主题样式。支持 `global`、`light`、`dark`、`system` 和 `custom`。           |
 | disabled              | boolean | 否    | false    | 参见组件的 `disabled` 选项。                                               |
 | lang                  | string  | 否    | "global" | 参见组件的 `lang` 选项。                                                   |
