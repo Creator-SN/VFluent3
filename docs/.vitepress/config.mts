@@ -46,10 +46,6 @@ const sidebarSections = [
                 link: '/guide/components/radio/'
             },
             {
-                text: 'RadioGroup',
-                link: '/guide/components/radio-group/'
-            },
-            {
                 text: 'RatingControl',
                 link: '/guide/components/rating-control/'
             },

@@ -55,7 +55,6 @@ const componentNameMap = {
     'progress-bar': 'ProgressBar',
     'progress-ring': 'ProgressRing',
     'radio': 'Radio',
-    'radio-group': 'RadioGroup',
     'rating-control': 'RatingControl',
     'resize-watcher': 'ResizeWatcher',
     'reveal-container': 'RevealContainer',

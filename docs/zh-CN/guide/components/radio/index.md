@@ -3,169 +3,256 @@ page: true
 title: Radio
 ---
 
-
 <!-- lang-switch -->
 <script>
-  export default {
-    data(){
-      return {
-        value:"Option"
-      }
-    },
-    methods:{
-      active(){
-        ++this.status;
-      }
+export default {
+    data() {
+        return {
+            basicValue: 'Option',
+            groupValue: 'Windows',
+            darkGroupValue: 'Email',
+            iconValue: 'NUIIris',
+            imageValue: 'Chart',
+            customValue: 'Mint'
+        };
     }
-  }
+}
 </script>
-  
+
 [[toc]]
 
-### Radio
+多个 `fv-radio` 只要共享同一个 `v-model`，并且各自提供不同的 `label`，就可以自然形成单选组效果，所以 `radio` 本身已经能覆盖 `radio-group` 的常见用法。
 
----
-
-
-<ClientOnly>
-<div>
-<fv-radio v-model="value" label="Option">
-Option
-</fv-radio> 
-<fv-radio v-model="value" label="Option2">
-Option2
-</fv-radio>
-<fv-radio label="Option3" disabled>
-Disabled
-</fv-radio>
-</div>
-</ClientOnly>
-
-```vue
-<div>
-<fv-radio v-model="value" label="Option">
-Option
-</fv-radio> 
-<fv-radio v-model="value" label="Option2">
-Option2
-</fv-radio>
-<fv-radio label="Option3" disabled>
-Disabled
-</fv-radio>
-</div>
-```
-
-### Radio-Dark
+### 基础用法
 
 ---
 
 <ClientOnly>
-<div style="background:#000;height:30px;padding:20px;">
-<fv-radio v-model="value" label="Option" theme="dark">Option</fv-radio>
-<fv-radio v-model="value" label="Option2" theme="dark" disabled>Disabled</fv-radio>
+<div class="radio-docs-row">
+    <fv-radio v-model="basicValue" label="Option">Option</fv-radio>
+    <fv-radio v-model="basicValue" label="Option2">Option2</fv-radio>
+    <fv-radio label="Option3" disabled>Disabled</fv-radio>
 </div>
 </ClientOnly>
 
 ```vue
-<div style="background:#000;height:30px;padding:20px;">
-<fv-radio v-model="value" label="Option" theme="dark">Option</fv-radio>
-<fv-radio v-model="value" label="Option2" theme="dark" disabled>Disabled</fv-radio>
+<div class="radio-docs-row">
+  <fv-radio v-model="basicValue" label="Option">Option</fv-radio>
+  <fv-radio v-model="basicValue" label="Option2">Option2</fv-radio>
+  <fv-radio label="Option3" disabled>Disabled</fv-radio>
 </div>
 ```
 
-### Radio With Icon
+### 分组示例
 
 ---
 
 <ClientOnly>
-<div >
-<fv-radio v-model="value" label="NUIIris" icon="NUIIris">NUIIris</fv-radio>
-<fv-radio v-model="value" label="MSN" icon="NUIFace" >MSN</fv-radio>
-<fv-radio v-model="value" label="MSN" icon="NUIFace" disabled >Disabled</fv-radio>
-
+<div class="radio-docs-card">
+    <div class="radio-docs-card__title">Choose a platform</div>
+    <div class="radio-docs-row">
+        <fv-radio v-model="groupValue" label="Windows">Windows</fv-radio>
+        <fv-radio v-model="groupValue" label="macOS">macOS</fv-radio>
+        <fv-radio v-model="groupValue" label="Linux">Linux</fv-radio>
+    </div>
 </div>
 </ClientOnly>
 
 ```vue
-<div >
-<fv-radio v-model="value" label="NUIIris" icon="NUIIris">NUIIris</fv-radio>
-<fv-radio v-model="value" label="MSN" icon="NUIFace" >MSN</fv-radio>
-<fv-radio v-model="value" label="MSN" icon="NUIFace" disabled >Disabled</fv-radio>
-
+<div class="radio-docs-card">
+  <div class="radio-docs-card__title">Choose a platform</div>
+  <div class="radio-docs-row">
+    <fv-radio v-model="groupValue" label="Windows">Windows</fv-radio>
+    <fv-radio v-model="groupValue" label="macOS">macOS</fv-radio>
+    <fv-radio v-model="groupValue" label="Linux">Linux</fv-radio>
+  </div>
 </div>
 ```
 
-### Radio With Image
-
----
-
-<div>
-<ClientOnly>
-<fv-radio image="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-unselected.png" activeImage="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-selected.png" v-model="value" label="chart" >Chart</fv-radio>
-</ClientOnly>
-</div>
-
-```vue
-<div>
-<fv-radio image="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-unselected.png" activeImage="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-selected.png" v-model="value" label="chart" >Chart</fv-radio>
-</div>
-```
-
-### Radio-Dark With Icon
+### 暗色分组
 
 ---
 
 <ClientOnly>
-<div style="background:#000;padding:20px;">
-<fv-radio v-model="value" label="NUIIris" icon="NUIIris" theme="dark">NUIIris</fv-radio>
-<fv-radio v-model="value" label="NUIIris" icon="NUIIris" theme="dark" disabled>disabled</fv-radio>
-<fv-radio v-model="value" label="MSN" icon="NUIFace" theme="dark">MSN</fv-radio>
+<div class="radio-docs-card radio-docs-card--dark">
+    <div class="radio-docs-card__title">Notification channel</div>
+    <div class="radio-docs-row">
+        <fv-radio v-model="darkGroupValue" label="Email" theme="dark">Email</fv-radio>
+        <fv-radio v-model="darkGroupValue" label="Teams" theme="dark">Teams</fv-radio>
+        <fv-radio v-model="darkGroupValue" label="SMS" theme="dark" disabled>SMS</fv-radio>
+    </div>
 </div>
 </ClientOnly>
 
 ```vue
-<div style="background:#000;padding:20px;">
-<fv-radio v-model="value" label="NUIIris" icon="NUIIris" theme="dark">NUIIris</fv-radio>
-<fv-radio v-model="value" label="NUIIris" icon="NUIIris" theme="dark" disabled>disabled</fv-radio>
-<fv-radio v-model="value" label="MSN" icon="NUIFace" theme="dark">MSN</fv-radio>
+<div class="radio-docs-card radio-docs-card--dark">
+  <div class="radio-docs-card__title">Notification channel</div>
+  <div class="radio-docs-row">
+    <fv-radio v-model="darkGroupValue" label="Email" theme="dark">Email</fv-radio>
+    <fv-radio v-model="darkGroupValue" label="Teams" theme="dark">Teams</fv-radio>
+    <fv-radio v-model="darkGroupValue" label="SMS" theme="dark" disabled>SMS</fv-radio>
+  </div>
 </div>
 ```
 
-### Radio Custom Color
+### 图标样式
 
 ---
+
 <ClientOnly>
-<fv-radio  icon="NUIIris" v-model="value" label="NUIIris" style="background:#00cc99;" theme="dark" >NUIIris</fv-radio>
-<fv-radio icon="NUIIris" v-model="value" label="NUIIris" style="background:#00cc99;" theme="dark" disabled>Disabled</fv-radio>
+<div class="radio-docs-row">
+    <fv-radio v-model="iconValue" label="NUIIris" icon="NUIIris">NUIIris</fv-radio>
+    <fv-radio v-model="iconValue" label="MSN" icon="NUIFace">MSN</fv-radio>
+    <fv-radio v-model="iconValue" label="DisabledIcon" icon="NUIFace" disabled>Disabled</fv-radio>
+</div>
 </ClientOnly>
 
 ```vue
-<fv-radio  icon="NUIIris" v-model="value" label="NUIIris" style="background:#00cc99;" theme="dark" >NUIIris</fv-radio>
-<fv-radio icon="NUIIris" v-model="value" label="NUIIris" style="background:#00cc99;" theme="dark" disabled>Disabled</fv-radio>
+<div class="radio-docs-row">
+  <fv-radio v-model="iconValue" label="NUIIris" icon="NUIIris">NUIIris</fv-radio>
+  <fv-radio v-model="iconValue" label="MSN" icon="NUIFace">MSN</fv-radio>
+  <fv-radio v-model="iconValue" label="DisabledIcon" icon="NUIFace" disabled>Disabled</fv-radio>
+</div>
 ```
 
+### 图片样式
+
+---
+
+<ClientOnly>
+<div class="radio-docs-row">
+    <fv-radio
+        v-model="imageValue"
+        label="Chart"
+        image="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-unselected.png"
+        activeImage="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-selected.png"
+    >
+        Chart
+    </fv-radio>
+</div>
+</ClientOnly>
+
+```vue
+<div class="radio-docs-row">
+  <fv-radio
+    v-model="imageValue"
+    label="Chart"
+    image="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-unselected.png"
+    activeImage="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/choicegroup-bar-selected.png"
+  >
+    Chart
+  </fv-radio>
+</div>
+```
+
+### 自定义颜色
+
+---
+
+<ClientOnly>
+<div class="radio-docs-row">
+    <fv-radio
+        icon="NUIIris"
+        v-model="customValue"
+        label="Mint"
+        style="background:#00cc99;"
+        theme="dark"
+    >
+        Mint
+    </fv-radio>
+    <fv-radio
+        icon="NUIIris"
+        v-model="customValue"
+        label="MintDisabled"
+        style="background:#00cc99;"
+        theme="dark"
+        disabled
+    >
+        Disabled
+    </fv-radio>
+</div>
+</ClientOnly>
+
+```vue
+<div class="radio-docs-row">
+  <fv-radio
+    icon="NUIIris"
+    v-model="customValue"
+    label="Mint"
+    style="background:#00cc99;"
+    theme="dark"
+  >
+    Mint
+  </fv-radio>
+  <fv-radio
+    icon="NUIIris"
+    v-model="customValue"
+    label="MintDisabled"
+    style="background:#00cc99;"
+    theme="dark"
+    disabled
+  >
+    Disabled
+  </fv-radio>
+</div>
+```
 
 ### 属性
+
 ---
-| 属性                  | 类型    | 必填  | 默认值                  | 说明                     |
-|:---------------------:|:-------:|:-----:|:-----------------------:|:------------------------:|
-| modelValue            |         | 否    | ''                      | 组件的双向绑定值。       |
-| v-model/value         | Object  | Yes   | undefined               | 选项值。                 |
-| label                 |         | 是    | undefined               | 选项值。                 |
-| theme                 | string  | 否    | 'global'                | 主题色。                 |
-| icon                  | string  | 否    | null                    | MS-ICON                  |
-| color                 | string  | 否    | ''                      | 文字和图标前景色。       |
-| foreground            | string  | 否    | 'rgba(0, 90, 158, 0.8)' | Radio前景色。            |
-| iconBlockBorderRadius | number  | 否    | 6                       | 带图标样式圆角大小。     |
-| iconBlockBorderWidth  | number  | 否    | 2                       | 带图标样式边框大小。     |
-| image                 | string  | 否    | null                    | 32*32 图像链接。         |
-| activeImage           | string  | 否    | null                    | 32*32 选中时的图像链接。 |
-| disabled              | boolean | 否    | false                   | 是否禁用。               |
-| lang                  | string  | 否    | "global"                | 参见组件的 `lang` 选项。 |
+
+| 属性                  | 类型                        | 必填 | 默认值                  | 说明                                                                 |
+|:---------------------:|:---------------------------:|:----:|:-----------------------:|:--------------------------------------------------------------------:|
+| modelValue            | string \| number \| boolean | 否   | ''                      | `v-model` 绑定值。多个 `radio` 共享同一个 `v-model` 时会形成单选组。 |
+| label                 | string \| number            | 是   | undefined               | 当前选项被选中后写入的值。                                           |
+| theme                 | string                      | 否   | 'global'                | 主题色。                                                             |
+| icon                  | string                      | 否   | null                    | Fluent 图标名称。                                                    |
+| color                 | string                      | 否   | ''                      | 文本颜色。                                                           |
+| foreground            | string                      | 否   | 'rgba(0, 90, 158, 0.8)' | 选中态前景色。                                                       |
+| iconBlockBorderRadius | number                      | 否   | 6                       | 图标或图片模式下的圆角大小。                                         |
+| iconBlockBorderWidth  | number                      | 否   | 2                       | 图标或图片模式下的边框宽度。                                         |
+| image                 | string                      | 否   | null                    | 预览图片地址。                                                       |
+| activeImage           | string                      | 否   | null                    | 选中态下使用的预览图片地址。                                         |
+| disabled              | boolean                     | 否   | false                   | 是否禁用。                                                           |
+| lang                  | string                      | 否   | "global"                | 继承组件库的语言设置。                                               |
 
 ### 事件
+
 ---
-| 事件名  | 参数  | 说明         |
-|:-------:|:-----:|:------------:|
-| click   | event | 点击。       |
-| actived | event | 选中时触发。 |
+
+| 事件    | 参数  | 说明                     |
+|:-------:|:-----:|:------------------------:|
+| click   | event | 点击当前选项时触发。     |
+| actived | event | 当前选项进入选中态时触发。 |
+
+<style>
+.radio-docs-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 18px;
+}
+
+.radio-docs-card {
+    padding: 18px 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(244, 247, 251, 0.96));
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.radio-docs-card--dark {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(135deg, rgba(18, 24, 33, 0.98), rgba(36, 44, 58, 0.95));
+    color: #fff;
+}
+
+.radio-docs-card__title {
+    margin-bottom: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+</style>

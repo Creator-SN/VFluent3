@@ -38,7 +38,6 @@ export * from "./pivot"
 export * from "./progress-bar"
 export * from "./progress-ring"
 export * from "./radio"
-export * from "./radio-group"
 export * from "./rating-control"
 export * from "./resize-watcher"
 export * from "./reveal-container"
@@ -103,7 +102,6 @@ import Pivot from "./pivot"
 import ProgressBar from "./progress-bar"
 import ProgressRing from "./progress-ring"
 import Radio from "./radio"
-import RadioGroup from "./radio-group"
 import RatingControl from "./rating-control"
 import ResizeWatcher from "./resize-watcher"
 import RevealContainer from "./reveal-container"
@@ -163,7 +161,6 @@ const components = [
     ProgressBar,
     ProgressRing,
     Radio,
-    RadioGroup,
     RatingControl,
     ResizeWatcher,
     RevealContainer,
@@ -236,7 +233,6 @@ declare module 'vue' {
 		FvProgressBar: typeof ProgressBar;
 		FvProgressRing: typeof ProgressRing;
 		FvRadio: typeof Radio;
-		FvRadioGroup: typeof RadioGroup;
 		FvRatingControl: typeof RatingControl;
 		FvResizeWatcher: typeof ResizeWatcher;
 		FvRevealContainer: typeof RevealContainer;
