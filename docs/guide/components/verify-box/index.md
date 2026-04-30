@@ -13,6 +13,11 @@ export default {
         return {
             value: ""
         }
+    },
+    methods: {
+        handleConfirm(value) {
+            console.log('confirm', value)
+        }
     }
 }
 </script>
@@ -63,6 +68,29 @@ Reveal Border
 </fv-VerifyBox>
 ```
 
+Confirm Event
+
+
+<ClientOnly>
+<fv-VerifyBox v-model="value" @confirm="handleConfirm">
+</fv-VerifyBox>
+</ClientOnly>
+
+```vue
+<fv-VerifyBox v-model="value" @confirm="handleConfirm">
+</fv-VerifyBox>
+
+<script>
+export default {
+    methods: {
+        handleConfirm(value) {
+            console.log('confirm', value)
+        }
+    }
+}
+</script>
+```
+
 
 ### VerifyBox-Disabled
 ---
@@ -107,4 +135,4 @@ Reveal Border
 ---
 | Event   | Arguments | Description                                            |
 |:-------:|:---------:|:------------------------------------------------------:|
-| confirm | string    | Emitted when input is complete and returns the result. |
+| confirm | string    | Emitted when input is complete. You can use `@confirm="handleConfirm"` to `console.log` the result. |

@@ -184,6 +184,9 @@ export default {
             for (let i = 0; i < this.length; i++) {
                 this.thisValue[i] = data[i];
             }
+            if (this.thisValue.length == this.length) {
+                this.$emit('confirm', this.thisValue.join(''));
+            }
         }
     }
 };
