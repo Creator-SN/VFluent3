@@ -5,7 +5,9 @@
         :style="{
             padding: padding,
             background: background,
-            borderRadius: formatSize(borderRadius)
+            borderRadius: formatSize(borderRadius),
+            '--tab-view-hover-background': hoverBackground || '',
+            '--tab-view-active-background': activeBackground || ''
         }"
     >
         <div class="tab-view-wrapper">
@@ -165,6 +167,12 @@ const props = defineProps({
         default: ''
     },
     background: {
+        default: ''
+    },
+    hoverBackground: {
+        default: ''
+    },
+    activeBackground: {
         default: ''
     },
     fontSize: {

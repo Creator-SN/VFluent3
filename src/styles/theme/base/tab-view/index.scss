@@ -4,6 +4,13 @@
     --tab-view-background: rgba(243, 243, 243, 1);
     --tab-view-hover-background: rgba(235, 235, 235, 0.96);
     --tab-view-active-background: rgba(255, 255, 255, 1);
+    --tab-view-divider-color: rgba(210, 210, 210, 1);
+    --tab-view-icon-color: rgba(73, 73, 73, 1);
+    --tab-view-title-color: rgba(52, 52, 52, 1);
+    --tab-view-close-color: rgba(43, 43, 43, 0.9);
+    --tab-view-close-hover-background: rgba(0, 0, 0, 0.08);
+    --tab-view-add-color: rgba(38, 38, 38, 0.95);
+    --tab-view-add-hover-background: rgba(255, 255, 255, 0.55);
 
     position: relative;
     width: 100%;
@@ -64,7 +71,7 @@
             top: 12px;
             bottom: 11px;
             width: 1px;
-            background: rgba(210, 210, 210, 1);
+            background: var(--tab-view-divider-color);
             opacity: 1;
             transition: opacity 0.18s;
             pointer-events: none;
@@ -139,7 +146,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: rgba(73, 73, 73, 1);
+            color: var(--tab-view-icon-color);
         }
 
         .tab-view-item-image {
@@ -155,7 +162,7 @@
             font-size: 13px;
             font-weight: 500;
             line-height: 1;
-            color: rgba(52, 52, 52, 1);
+            color: var(--tab-view-title-color);
         }
 
         .tab-view-item-close {
@@ -168,14 +175,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: rgba(43, 43, 43, 0.9);
+            color: var(--tab-view-close-color);
             opacity: 0.88;
             transition:
                 background 0.15s,
                 opacity 0.15s;
 
             &:hover {
-                background: rgba(0, 0, 0, 0.08);
+                background: var(--tab-view-close-hover-background);
                 opacity: 1;
             }
         }
@@ -195,7 +202,7 @@
         background: transparent;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
-        color: rgba(38, 38, 38, 0.95);
+        color: var(--tab-view-add-color);
         transition:
             background 0.15s,
             color 0.15s,
@@ -203,7 +210,7 @@
         cursor: default;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.55);
+            background: var(--tab-view-add-hover-background);
         }
 
         &.disabled {

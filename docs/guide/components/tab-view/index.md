@@ -162,6 +162,8 @@ export default {
 |   choosenForeground   |     string      |    No    |         ''          |                                    Text and icon color of the selected tab.                                     |
 |   chooseBackground    |     string      |    No    |         ''          |                                         Background of the selected tab.                                         |
 |      background       |     string      |    No    |         ''          |                                        Background of the whole TabView.                                         |
+|    hoverBackground    |     string      |    No    |         ''          |                                       Background of a tab while hovering.                                       |
+|   activeBackground    |     string      |    No    |         ''          |                                       Background of a tab while active.                                         |
 |       fontSize        | number / string |    No    |         13          |                                          Font size of the tab title.                                           |
 |    imgBorderRadius    | number / string |    No    |          4          |                                          Border radius for tab images.                                          |
 |       draggable       |     boolean     |    No    |        true         |                                 Whether tabs can be reordered by drag and drop.                                 |

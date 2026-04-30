@@ -2,27 +2,24 @@
 
 .fv-TabView {
     &.dark {
-        background: rgba(32, 32, 32, 1);
-        border-top-color: rgba(59, 59, 59, 1);
-        border-bottom-color: rgba(49, 49, 49, 1);
+        --tab-view-background: rgba(32, 32, 32, 1);
+        --tab-view-hover-background: rgba(58, 58, 58, 0.96);
+        --tab-view-active-background: rgba(40, 40, 40, 1);
+        --tab-view-divider-color: rgba(72, 72, 72, 1);
+        --tab-view-icon-color: rgba(245, 245, 245, 0.94);
+        --tab-view-title-color: rgba(245, 245, 245, 0.94);
+        --tab-view-close-color: rgba(255, 255, 255, 0.86);
+        --tab-view-close-hover-background: rgba(255, 255, 255, 0.12);
+        --tab-view-add-color: rgba(245, 245, 245, 0.92);
+        --tab-view-add-hover-background: rgba(255, 255, 255, 0.08);
+
+        background: var(--tab-view-background);
 
         .tab-view-item {
             color: rgba(245, 245, 245, 0.92);
-            background: rgba(48, 48, 48, 0.88);
-
-            &::before,
-            &::after {
-                background: rgba(72, 72, 72, 1);
-            }
-
-            &:hover {
-                background: rgba(58, 58, 58, 0.96);
-            }
 
             &.choose {
                 color: rgba(255, 255, 255, 1);
-                background: rgba(37, 37, 38, 1);
-                border-color: rgba(70, 70, 74, 1);
                 box-shadow:
                     inset 0px 1px 0px rgba(255, 255, 255, 0.04),
                     inset 0px -4px 10px rgba(0, 0, 0, 0.34),
@@ -31,36 +28,6 @@
 
             &.disabled {
                 opacity: 0.4;
-            }
-
-            .tab-view-item-icon,
-            .tab-view-item-title {
-                color: rgba(245, 245, 245, 0.94);
-            }
-
-            .tab-view-item-close {
-                color: rgba(255, 255, 255, 0.86);
-
-                &:hover {
-                    background: rgba(255, 255, 255, 0.12);
-                }
-            }
-        }
-
-        .tab-view-add-button {
-            color: rgba(245, 245, 245, 0.92);
-            background: transparent;
-
-            &:hover {
-                background: rgba(255, 255, 255, 0.08);
-            }
-
-            &.disabled {
-                opacity: 0.4;
-
-                &:hover {
-                    background: transparent;
-                }
             }
         }
     }

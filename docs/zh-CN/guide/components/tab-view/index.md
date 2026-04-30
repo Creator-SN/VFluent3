@@ -162,6 +162,8 @@ export default {
 | choosenForeground | string | 否 | '' | 选中标签的文字和图标颜色。 |
 | chooseBackground | string | 否 | '' | 选中标签的背景色。 |
 | background | string | 否 | '' | 整个 TabView 的背景色。 |
+| hoverBackground | string | 否 | '' | 标签 hover 时的背景色。 |
+| activeBackground | string | 否 | '' | 标签 active 时的背景色。 |
 | fontSize | number / string | 否 | 13 | 标签标题文字大小。 |
 | imgBorderRadius | number / string | 否 | 4 | 标签图片圆角。 |
 | draggable | boolean | 否 | true | 是否允许拖拽调整标签顺序。 |
