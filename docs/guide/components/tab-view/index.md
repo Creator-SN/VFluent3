@@ -162,7 +162,7 @@ export default {
 |   choosenForeground   |     string      |    No    |         ''          |                                    Text and icon color of the selected tab.                                     |
 |   chooseBackground    |     string      |    No    |         ''          |                                         Background of the selected tab.                                         |
 |      background       |     string      |    No    |         ''          |                                        Background of the whole TabView.                                         |
-|       iconSize        | number / string |    No    |         16          |                                     Icon size for tab icons and add button.                                     |
+|       fontSize        | number / string |    No    |         13          |                                          Font size of the tab title.                                           |
 |    imgBorderRadius    | number / string |    No    |          4          |                                          Border radius for tab images.                                          |
 |       draggable       |     boolean     |    No    |        true         |                                 Whether tabs can be reordered by drag and drop.                                 |
 |       closable        |     boolean     |    No    |        true         |            Whether tabs show a close button by default. Items can set `closable: false` to opt out.             |

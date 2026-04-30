@@ -63,9 +63,12 @@
                                 v-else-if="valueTrigger(item.icon)"
                                 class="ms-Icon tab-view-item-icon"
                                 :class="`ms-Icon--${valueTrigger(item.icon)}`"
-                                :style="{ fontSize: formatSize(iconSize) }"
+                                :style="{ fontSize: '16px' }"
                             ></i>
-                            <p class="tab-view-item-title">
+                            <p
+                                class="tab-view-item-title"
+                                :style="{ fontSize: formatSize(fontSize) }"
+                            >
                                 {{ itemTitle(item) }}
                             </p>
                         </slot>
@@ -109,7 +112,7 @@
                     <i
                         class="ms-Icon"
                         :class="`ms-Icon--${addButtonIcon}`"
-                        :style="{ fontSize: formatSize(iconSize) }"
+                        :style="{ fontSize: '16px' }"
                     ></i>
                 </slot>
             </div>
@@ -164,8 +167,8 @@ const props = defineProps({
     background: {
         default: ''
     },
-    iconSize: {
-        default: 16
+    fontSize: {
+        default: 13
     },
     imgBorderRadius: {
         default: 4

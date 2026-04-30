@@ -162,7 +162,7 @@ export default {
 | choosenForeground | string | 否 | '' | 选中标签的文字和图标颜色。 |
 | chooseBackground | string | 否 | '' | 选中标签的背景色。 |
 | background | string | 否 | '' | 整个 TabView 的背景色。 |
-| iconSize | number / string | 否 | 16 | 标签图标和添加按钮图标尺寸。 |
+| fontSize | number / string | 否 | 13 | 标签标题文字大小。 |
 | imgBorderRadius | number / string | 否 | 4 | 标签图片圆角。 |
 | draggable | boolean | 否 | true | 是否允许拖拽调整标签顺序。 |
 | closable | boolean | 否 | true | 是否默认显示关闭按钮。单项可通过 `closable: false` 单独关闭。 |

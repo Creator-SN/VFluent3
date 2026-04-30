@@ -1,14 +1,16 @@
 @import "@/styles/theme/index.scss";
 
 .fv-TabView {
+    --tab-view-background: rgba(243, 243, 243, 1);
+    --tab-view-hover-background: rgba(235, 235, 235, 0.96);
+    --tab-view-active-background: rgba(255, 255, 255, 1);
+
     position: relative;
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
     padding: 6px 10px 0px 10px;
-    background: rgba(244, 244, 244, 1);
-    border-top: rgba(229, 229, 229, 1) solid 1px;
-    border-bottom: rgba(217, 217, 217, 1) solid 1px;
+    background: var(--tab-view-background);
 
     .tab-view-wrapper {
         position: relative;
@@ -39,26 +41,21 @@
 
     .tab-view-item {
         position: relative;
-        height: 44px;
-        padding: 0px 12px 0px 14px;
-        box-sizing: border-box;
+        height: 40px;
+        padding: 0px 12px 0px 15px;
         flex-shrink: 0;
-        display: flex;
-        align-items: center;
+
         gap: 10px;
         margin-right: -1px;
-        border: rgba(218, 218, 218, 0) solid 1px;
+        background: var(--tab-view-background);
         border-bottom: none;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-        background: rgba(236, 236, 236, 0.72);
-        transition:
-            background 0.18s,
-            box-shadow 0.18s,
-            color 0.18s,
-            opacity 0.18s;
+        border-radius: 8px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
         cursor: default;
         user-select: none;
+        transition: border-radius 0.18s;
 
         &::before,
         &::after {
@@ -82,17 +79,19 @@
         }
 
         &:hover {
-            background: rgba(242, 242, 242, 0.96);
+            background: var(--tab-view-hover-background);
+        }
+
+        &:active {
+            background: var(--tab-view-active-background);
         }
 
         &.choose {
+            background: var(--tab-view-active-background);
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+            box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.1);
             z-index: 2;
-            background: rgba(255, 255, 255, 1);
-            border-color: rgba(218, 218, 218, 1);
-            box-shadow:
-                inset 0px 1px 0px rgba(255, 255, 255, 0.95),
-                inset 0px -3px 8px rgba(0, 0, 0, 0.05),
-                0px 1px 0px rgba(255, 255, 255, 1);
 
             &::before,
             &::after {
