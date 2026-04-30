@@ -151,6 +151,47 @@ export default {
 </fv-tab-view>
 ```
 
+### TabView-Overflow Modes
+---
+
+1. Scroll
+
+<fv-tab-view
+    v-model="manyItemsValue"
+    :items="manyItems"
+    :itemWidth="160"
+    overflowMode="scroll"
+>
+</fv-tab-view>
+
+2. Shrink
+
+<fv-tab-view
+    v-model="manyItemsValue"
+    :items="manyItems"
+    :itemWidth="160"
+    overflowMode="shrink"
+>
+</fv-tab-view>
+
+```vue
+<fv-tab-view
+    v-model="manyItemsValue"
+    :items="manyItems"
+    :itemWidth="160"
+    overflowMode="scroll"
+>
+</fv-tab-view>
+
+<fv-tab-view
+    v-model="manyItemsValue"
+    :items="manyItems"
+    :itemWidth="160"
+    overflowMode="shrink"
+>
+</fv-tab-view>
+```
+
 ### TabView-Add Random Item
 ---
 
@@ -265,6 +306,7 @@ items = [
 | closeButtonIcon | string | No | `'ChromeClose'` | Fluent icon name used by the close button. |
 | closeIconSize | number / string | No | `10` | Icon size of the close button. |
 | closeButtonForeground | string | No | `''` | Foreground color of the close button. |
+| overflowMode | string | No | `'scroll'` | Overflow behavior for many tabs. Use `scroll` to keep tab width and enable horizontal scrolling, or `shrink` to compress tabs into one row. |
 | theme | string | No | `'global'` | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
 | disabled | boolean | No | `false` | Disable the whole component. |
 | lang | string | No | `'global'` | Language option inherited from common props. |

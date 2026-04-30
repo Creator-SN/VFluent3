@@ -16,6 +16,7 @@
                     name="tab-view-item"
                     tag="div"
                     class="tab-view-list"
+                    :class="overflowClass"
                 >
                     <div
                         v-show="valueTrigger(item.show)"
@@ -30,9 +31,7 @@
                             'drop-after': isDropPosition(item, 'after')
                         }"
                         :style="{
-                            width: formatSize(itemWidth),
-                            minWidth: formatSize(itemWidth),
-                            maxWidth: formatSize(itemWidth),
+                            ...tabItemSizeStyle,
                             height: formatSize(itemHeight),
                             color: eqal(item)
                                 ? choosenForeground || ''
@@ -211,6 +210,9 @@ const props = defineProps({
     },
     closeButtonForeground: {
         default: ''
+    },
+    overflowMode: {
+        default: 'scroll'
     }
 });
 </script>
@@ -256,6 +258,28 @@ export default {
         },
         $theme() {
             return useTheme(this.$props).theme.value;
+        },
+        normalizedOverflowMode() {
+            return this.overflowMode === 'shrink' ? 'shrink' : 'scroll';
+        },
+        overflowClass() {
+            return `overflow-${this.normalizedOverflowMode}`;
+        },
+        tabItemSizeStyle() {
+            let baseWidth = formatSize(this.itemWidth);
+            if (this.normalizedOverflowMode === 'shrink') {
+                return {
+                    width: baseWidth,
+                    minWidth: '0px',
+                    maxWidth: 'none',
+                    flex: `1 1 ${baseWidth}`
+                };
+            }
+            return {
+                width: baseWidth,
+                minWidth: baseWidth,
+                maxWidth: baseWidth
+            };
         }
     },
     mounted() {
@@ -527,4 +551,17 @@ export default {
         this.clearDragState();
     }
 };
+
+function formatSize(value) {
+    if (value === '' || value === null || value === undefined) {
+        return '';
+    }
+    if (parseFloat(value).toString() === 'NaN') {
+        return value;
+    }
+    if (isNaN(value)) {
+        return value;
+    }
+    return `${value}px`;
+}
 </script>

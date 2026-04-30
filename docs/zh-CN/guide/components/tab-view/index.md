@@ -151,6 +151,47 @@ export default {
 </fv-tab-view>
 ```
 
+### TabView-溢出模式
+---
+
+1. 滚动
+
+<fv-tab-view
+    v-model="manyItemsValue"
+    :items="manyItems"
+    :itemWidth="160"
+    overflowMode="scroll"
+>
+</fv-tab-view>
+
+2. 压缩
+
+<fv-tab-view
+    v-model="manyItemsValue"
+    :items="manyItems"
+    :itemWidth="160"
+    overflowMode="shrink"
+>
+</fv-tab-view>
+
+```vue
+<fv-tab-view
+    v-model="manyItemsValue"
+    :items="manyItems"
+    :itemWidth="160"
+    overflowMode="scroll"
+>
+</fv-tab-view>
+
+<fv-tab-view
+    v-model="manyItemsValue"
+    :items="manyItems"
+    :itemWidth="160"
+    overflowMode="shrink"
+>
+</fv-tab-view>
+```
+
 ### TabView-点击加号添加随机项目
 ---
 
@@ -265,6 +306,7 @@ items = [
 | closeButtonIcon | string | 否 | `'ChromeClose'` | 关闭按钮使用的 Fluent 图标名。 |
 | closeIconSize | number / string | 否 | `10` | 关闭按钮图标大小。 |
 | closeButtonForeground | string | 否 | `''` | 关闭按钮前景色。 |
+| overflowMode | string | 否 | `'scroll'` | 多标签溢出时的处理方式。`scroll` 保持标签宽度并启用横向滚动，`shrink` 会把标签压缩到同一行内。 |
 | theme | string | 否 | `'global'` | 主题样式，支持 `global`、`light`、`dark`、`system` 和 `custom`。 |
 | disabled | boolean | 否 | `false` | 是否禁用整个组件。 |
 | lang | string | 否 | `'global'` | 从公共属性继承的语言选项。 |

@@ -39,11 +39,18 @@
         width: 100%;
         display: flex;
         align-items: flex-end;
-        overflow-x: auto;
-        overflow-y: hidden;
         padding-top: 2px;
 
         @include narrow-scroll-bar;
+
+        &.overflow-scroll {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        &.overflow-shrink {
+            overflow: hidden;
+        }
     }
 
     .tab-view-item {
@@ -51,9 +58,6 @@
         height: 40px;
         padding: 0px 12px 0px 15px;
         flex-shrink: 0;
-        overflow: hidden;
-        white-space: nowrap;
-
         gap: 10px;
         margin-right: -1px;
         background: var(--tab-view-background);
@@ -62,9 +66,12 @@
         box-sizing: border-box;
         display: flex;
         align-items: center;
+        flex-wrap: nowrap;
         cursor: default;
         user-select: none;
         transition: border-radius 0.18s;
+        overflow: hidden;
+        white-space: nowrap;
 
         &::before,
         &::after {
@@ -152,6 +159,7 @@
         }
 
         .tab-view-item-image {
+            flex-shrink: 0;
             object-fit: cover;
             overflow: hidden;
         }
@@ -161,6 +169,7 @@
 
             flex: 1;
             margin: 0px;
+            padding-right: 25px;
             font-size: 13px;
             font-weight: 500;
             line-height: 1;
@@ -168,10 +177,10 @@
         }
 
         .tab-view-item-close {
-            position: relative;
+            position: absolute;
             width: 20px;
             height: 20px;
-            margin-left: auto;
+            right: 5px;
             border-radius: 5px;
             flex-shrink: 0;
             display: flex;
@@ -187,6 +196,13 @@
                 background: var(--tab-view-close-hover-background);
                 opacity: 1;
             }
+        }
+    }
+
+    .tab-view-list.overflow-shrink {
+        .tab-view-item {
+            flex-shrink: 1;
+            min-width: 0;
         }
     }
 
