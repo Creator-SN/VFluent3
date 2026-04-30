@@ -51,6 +51,8 @@
         height: 40px;
         padding: 0px 12px 0px 15px;
         flex-shrink: 0;
+        overflow: hidden;
+        white-space: nowrap;
 
         gap: 10px;
         margin-right: -1px;
@@ -186,6 +188,39 @@
                 opacity: 1;
             }
         }
+    }
+
+    .tab-view-item-move,
+    .tab-view-item-enter-active,
+    .tab-view-item-leave-active {
+        transition:
+            width 0.2s ease,
+            min-width 0.2s ease,
+            max-width 0.2s ease,
+            opacity 0.2s ease,
+            transform 0.2s ease,
+            margin 0.2s ease,
+            padding 0.2s ease;
+    }
+
+    .tab-view-item-enter-from,
+    .tab-view-item-leave-to {
+        opacity: 0;
+    }
+
+    .tab-view-item-leave-active {
+        pointer-events: none;
+    }
+
+    .tab-view-item-leave-to {
+        width: 0 !important;
+        min-width: 0 !important;
+        max-width: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        transform: scaleX(0.9);
     }
 
     .tab-view-add-button {

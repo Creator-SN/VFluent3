@@ -12,7 +12,11 @@
     >
         <div class="tab-view-wrapper">
             <div class="tab-view-container">
-                <div class="tab-view-list">
+                <TransitionGroup
+                    name="tab-view-item"
+                    tag="div"
+                    class="tab-view-list"
+                >
                     <div
                         v-show="valueTrigger(item.show)"
                         class="tab-view-item"
@@ -95,7 +99,7 @@
                             </slot>
                         </div>
                     </div>
-                </div>
+                </TransitionGroup>
             </div>
             <div
                 v-if="showAddButton"
