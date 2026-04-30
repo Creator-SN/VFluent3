@@ -47,6 +47,7 @@ export * from "./search-box"
 export * from "./shimmer"
 export * from "./slider"
 export * from "./swipe-control"
+export * from "./tab-view"
 export * from "./table-view"
 export * from "./table-view-cell-base"
 export * from "./table-view-head-base"
@@ -111,6 +112,7 @@ import SearchBox from "./search-box"
 import Shimmer from "./shimmer"
 import Slider from "./slider"
 import SwipeControl from "./swipe-control"
+import TabView from "./tab-view"
 import TableView from "./table-view"
 import TableViewCellBase from "./table-view-cell-base"
 import TableViewHeadBase from "./table-view-head-base"
@@ -170,6 +172,7 @@ const components = [
     Shimmer,
     Slider,
     SwipeControl,
+    TabView,
     TableView,
     TableViewCellBase,
     TableViewHeadBase,
@@ -242,6 +245,7 @@ declare module 'vue' {
 		FvShimmer: typeof Shimmer;
 		FvSlider: typeof Slider;
 		FvSwipeControl: typeof SwipeControl;
+		FvTabView: typeof TabView;
 		FvTableView: typeof TableView;
 		FvTableViewCellBase: typeof TableViewCellBase;
 		FvTableViewHeadBase: typeof TableViewHeadBase;

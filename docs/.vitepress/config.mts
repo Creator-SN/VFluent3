@@ -38,6 +38,10 @@ const sidebarSections = [
                 link: '/guide/components/table-view/'
             },
             {
+                text: 'TabView',
+                link: '/guide/components/tab-view/'
+            },
+            {
                 text: 'DropDown',
                 link: '/guide/components/drop-down/'
             },
