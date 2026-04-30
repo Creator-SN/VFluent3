@@ -143,8 +143,28 @@ export default {
         handleKeyDown(event, idx) {
             event.preventDefault();
             console.log(event);
+            if (event.ctrlKey) {
+                // Ctrl + V
+                if (event.keyCode === 86 && event.ctrlKey) {
+                    navigator.clipboard.readText().then((data) => {
+                        this.pasteProcess(data);
+                    });
+                }
+                return;
+            }
+            // Number or Letter
             if (event.key.length === 1 && !event.ctrlKey) {
                 this.thisValue[idx] = event.key;
+            }
+            // Arrow Right
+            if(event.keyCode === 39 && idx < this.length - 1) {
+                let target = this.$refs[`t${idx + 1}`][0];
+                target.focus();
+            }
+            // Arrow Left
+            if(event.keyCode === 37 && idx > 0) {
+                let target = this.$refs[`t${idx - 1}`][0];
+                target.focus();
             }
             // Backspace
             if (event.keyCode === 8) {
@@ -153,15 +173,6 @@ export default {
                     let target = this.$refs[`t${idx - 1}`][0];
                     target.focus();
                 }
-                return;
-            }
-            // Ctrl + V
-            if (event.keyCode === 86 && event.ctrlKey) {
-                navigator.clipboard.readText().then((data) => {
-                    for (let i = 0; i < this.length; i++) {
-                        this.thisValue[i] = data[i];
-                    }
-                });
                 return;
             }
             if (event.keyCode === 13) {
@@ -181,12 +192,23 @@ export default {
         handlePaste(event) {
             console.log(event);
             let data = event.clipboardData.getData('text/plain');
-            for (let i = 0; i < this.length; i++) {
-                this.thisValue[i] = data[i];
+            this.pasteProcess(data);
+        },
+        pasteProcess(data) {
+            for (let i = 0; i < this.thisValue.length; i++) {
+                this.thisValue[i] = '';
             }
-            if (this.thisValue.length == this.length) {
+            for (let i = 0; i < this.length; i++) {
+                if (data[i]) this.thisValue[i] = data[i];
+                else this.thisValue[i] = '';
+            }
+            if (data.length >= this.length) {
                 this.$emit('confirm', this.thisValue.join(''));
             }
+            let focusIdx =
+                data.length < this.length ? data.length : this.length;
+            focusIdx = focusIdx == this.length ? focusIdx - 1 : focusIdx;
+            this.$refs[`t${focusIdx}`][0].focus();
         }
     }
 };
