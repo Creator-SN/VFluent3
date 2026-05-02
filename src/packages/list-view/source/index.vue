@@ -387,7 +387,9 @@ export default {
                     item.choosen = true;
                     let index = this.thisValue.indexOf(item);
                     this.thisValue[index] = item;
-                    this.setSliderTarget(index);
+                    this.$nextTick(() => {
+                        this.setSliderTarget(index);
+                    });
                 }
 
                 this.selectionFormat(item);
