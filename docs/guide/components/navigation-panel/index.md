@@ -10,7 +10,7 @@ title: NavigationPanel
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
 <ClientOnly> 
 <fv-NavigationPanel flyoutDisplay="500"></fv-NavigationPanel>
-<fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+<fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </ClientOnly> 
 </div>
 
@@ -27,7 +27,7 @@ title: NavigationPanel
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
 <ClientOnly>
 <fv-NavigationPanel expandMode="flyout"></fv-NavigationPanel>
-<fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+<fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </ClientOnly>
 </div>
 
@@ -44,7 +44,7 @@ title: NavigationPanel
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
 <ClientOnly>
 <fv-NavigationPanel mobileDisplay="100000000" flyoutDisplay="500"></fv-NavigationPanel>
-<fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+<fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </ClientOnly>
 </div>
 
@@ -63,7 +63,7 @@ title: NavigationPanel
 <div style="position: relative; width: 100%; height: 800px; background: black; display: flex;">
 <ClientOnly>
 <fv-NavigationPanel theme="dark"></fv-NavigationPanel>
-<fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+<fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </ClientOnly>
 </div>
 
@@ -76,7 +76,7 @@ title: NavigationPanel
 <div style="position: relative; width: 100%; height: 800px; background: black; display: flex;">
 <ClientOnly>
 <fv-NavigationPanel expandMode="flyout" theme="dark"></fv-NavigationPanel>
-<fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+<fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </ClientOnly>
 </div>
 
@@ -89,7 +89,7 @@ title: NavigationPanel
 <div style="position: relative; width: 100%; height: 800px; background: black; display: flex;">
 <ClientOnly>
 <fv-NavigationPanel mobileDisplay="100000000" flyoutDisplay="500" theme="dark"></fv-NavigationPanel>
-<fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+<fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </ClientOnly>
 </div>
 

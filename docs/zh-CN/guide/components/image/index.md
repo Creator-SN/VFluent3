@@ -11,7 +11,7 @@ title: Image
 export default {
     data () {
         return {
-            images: ['https://github.com/aleversn/VFluent/blob/master/examples/assert/sample/1.jpg?raw=true', 'https://github.com/aleversn/VFluent/blob/master/examples/assert/sample/2.jpg?raw=true', 'https://github.com/aleversn/VFluent/blob/master/examples/assert/sample/3.jpg?raw=true']
+            images: ['https://placehold.co/500x300/png?text=VFluent+Sample+1', 'https://placehold.co/500x300/png?text=VFluent+Sample+2', 'https://placehold.co/500x300/png?text=VFluent+Sample+3']
         }
     },
     mounted () {
@@ -27,7 +27,7 @@ export default {
 </ClientOnly>
 
 ```vue
-<fv-Image src="https://github.com/aleversn/VFluent/blob/master/examples/assert/sample/1.jpg?raw=true" style="width: 500px; height: 300px;"></fv-Image>
+<fv-Image src="https://placehold.co/500x300/png?text=VFluent+Sample+1" style="width: 500px; height: 300px;"></fv-Image>
 ```
 
 <div style="width: 100%; height: 500px;">
@@ -38,7 +38,7 @@ export default {
 </div>
 
 ```vue
-<fv-Image src="https://github.com/aleversn/VFluent/blob/master/examples/assert/sample/2.jpg?raw=true" style="width: 500px; height: 300px;"></fv-Image>
+<fv-Image src="https://placehold.co/500x300/png?text=VFluent+Sample+2" style="width: 500px; height: 300px;"></fv-Image>
 ```
 
 ### Image-Lazy Load
@@ -53,7 +53,7 @@ export default {
 </div>
 
 ```vue
-<fv-Image src="https://github.com/aleversn/VFluent/blob/master/examples/assert/sample/3.jpg?raw=true" :onlazy="true" style="width: 500px; height: 300px;"></fv-Image>
+<fv-Image src="https://placehold.co/500x300/png?text=VFluent+Sample+3" :onlazy="true" style="width: 500px; height: 300px;"></fv-Image>
 ```
 
 

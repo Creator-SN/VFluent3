@@ -43,14 +43,14 @@ export default {
 <ClientOnly>
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
     <fv-NavigationView  v-model="value" :options="options" @item-click="navigationClick"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g072152fd3a4d4d2221a931dc4e77199cd9b84a01595a0c855db60d30faf12f3e7b5fd53bf822f8a812c67900ae03c364367ffbf63756bf5752abe1c48ed3e41b389ba40f71a94a73506b5c02bb374d0a_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+View" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 </ClientOnly>
 
 ```vue
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
     <fv-NavigationView :options="options"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g072152fd3a4d4d2221a931dc4e77199cd9b84a01595a0c855db60d30faf12f3e7b5fd53bf822f8a812c67900ae03c364367ffbf63756bf5752abe1c48ed3e41b389ba40f71a94a73506b5c02bb374d0a_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+View" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 ```
 
@@ -61,14 +61,14 @@ export default {
 <ClientOnly>
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
     <fv-NavigationView v-model="value" :options="options" expandMode="flyout"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g072152fd3a4d4d2221a931dc4e77199cd9b84a01595a0c855db60d30faf12f3e7b5fd53bf822f8a812c67900ae03c364367ffbf63756bf5752abe1c48ed3e41b389ba40f71a94a73506b5c02bb374d0a_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+View" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 </ClientOnly>
 
 ```vue
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
     <fv-NavigationView :options="options" expandMode="flyout"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g072152fd3a4d4d2221a931dc4e77199cd9b84a01595a0c855db60d30faf12f3e7b5fd53bf822f8a812c67900ae03c364367ffbf63756bf5752abe1c48ed3e41b389ba40f71a94a73506b5c02bb374d0a_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+View" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 ```
 
@@ -79,14 +79,14 @@ export default {
 <ClientOnly>
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
     <fv-NavigationView :options="options" mobileDisplay="100000000" flyoutDisplay="500"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 </ClientOnly>
 
 ```vue
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
     <fv-NavigationView :options="options" mobileDisplay="100000000" flyoutDisplay="500"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 ```
 
@@ -99,14 +99,14 @@ export default {
 <ClientOnly>
 <div style="position: relative; width: 100%; height: 800px; background: black; display: flex;">
     <fv-NavigationView :options="options" theme="dark"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 </ClientOnly>
 
 ```vue
 <div style="position: relative; width: 100%; height: 800px; background: black; display: flex;">
     <fv-NavigationView :options="options" theme="dark"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 ```
 
@@ -115,14 +115,14 @@ export default {
 <ClientOnly>
 <div style="position: relative; width: 100%; height: 800px; background: black; display: flex;">
     <fv-NavigationView :options="options" expandMode="flyout" theme="dark"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 </ClientOnly>
 
 ```vue
 <div style="position: relative; width: 100%; height: 800px; background: black; display: flex;">
     <fv-NavigationView :options="options" expandMode="flyout" theme="dark"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 ```
 
@@ -131,14 +131,14 @@ export default {
 <ClientOnly>
 <div style="position: relative; width: 100%; height: 800px; background: black; display: flex;">
     <fv-NavigationView :options="options" mobileDisplay="100000000" flyoutDisplay="500" theme="dark"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 </ClientOnly>
 
 ```vue
 <div style="position: relative; width: 100%; height: 800px; background: black; display: flex;">
     <fv-NavigationView :options="options" mobileDisplay="100000000" flyoutDisplay="500" theme="dark"></fv-NavigationView>
-    <fv-img src="https://pixabay.com/get/g565be166e8140f4ba327de9588f7861b05817f9a28f618d4e954c7144a8b0dfddbee037ae9c48046eb2012b6b855ee6b712ac77debfc0908aac74a33bbdd631cad05872f40a5bd1fd648e49325023e08_1280.jpg?attachment=" style="width: 350px; height: 100%; flex: 1;"></fv-img>
+    <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
 </div>
 ```
 
@@ -241,7 +241,7 @@ export default {
 ```vue
 <template v-slot:banner>
     <div class="banner">
-        <img src="https://picsum.photos/200/300" alt="logo" />
+        <img src="https://placehold.co/200x300/png?text=Logo" alt="logo" />
     </div>
 </template>
 ```
