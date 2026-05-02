@@ -197,14 +197,22 @@ title: NavigationPanel
 Use this slot to render custom content in the settings entry area.
 
 ```vue
-<fv-NavigationPanel>
-    <template v-slot:setting>
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="ms-Icon ms-Icon--Settings"></i>
-            <span>Settings</span>
-        </div>
-    </template>
-</fv-NavigationPanel>
+<template v-slot:setting>
+    <fv-animated-icon 
+        v-show="showSetting"
+        ref="setting"
+        modelValue="bounceRotate"
+        class="fv-nav-default-item"
+        :hideContent="!thisExpand"
+        style="width: calc(100% - 10px)"
+        @click="settingClick({ event: $event })"
+    >
+        <i class="ms-Icon ms-Icon--Settings icon"></i>
+        <template v-slot:content>
+            <p class="name">{{ settingTitle }}</p>
+        </template>
+    </fv-animated-icon>
+</template>
 ```
 
 7. Mask

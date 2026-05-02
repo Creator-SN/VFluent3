@@ -252,14 +252,22 @@ export default {
 自定义设置项区域内容。
 
 ```vue
-<fv-NavigationView :options="options">
-    <template v-slot:setting>
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="ms-Icon ms-Icon--Settings"></i>
-            <span>设置</span>
-        </div>
-    </template>
-</fv-NavigationView>
+<template v-slot:setting>
+    <fv-animated-icon 
+        v-show="showSetting"
+        ref="setting"
+        modelValue="bounceRotate"
+        class="fv-nav-default-item"
+        :hideContent="!thisExpand"
+        style="width: calc(100% - 10px)"
+        @click="settingClick({ event: $event })"
+    >
+        <i class="ms-Icon ms-Icon--Settings icon"></i>
+        <template v-slot:content>
+            <p class="name">{{ settingTitle }}</p>
+        </template>
+    </fv-animated-icon>
+</template>
 ```
 
 7. Mask
