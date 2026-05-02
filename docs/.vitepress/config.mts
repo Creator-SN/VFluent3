@@ -38,10 +38,6 @@ const sidebarSections = [
                 link: '/guide/components/table-view/'
             },
             {
-                text: 'TabView',
-                link: '/guide/components/tab-view/'
-            },
-            {
                 text: 'DropDown',
                 link: '/guide/components/drop-down/'
             },
@@ -199,6 +195,10 @@ const sidebarSections = [
             {
                 text: 'NavigationView',
                 link: '/guide/components/navigation-view/'
+            },
+            {
+                text: 'TabView',
+                link: '/guide/components/tab-view/'
             },
             {
                 text: 'Pivot',
