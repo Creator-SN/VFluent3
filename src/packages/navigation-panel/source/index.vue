@@ -95,21 +95,24 @@
             <div class="template">
                 <slot name="panel"></slot>
             </div>
-            <fv-animated-icon
-                v-show="showSetting"
-                modelValue="bounceRotate"
-                ref="setting"
-                class="fv-nav-default-item"
-                :hideContent="!thisExpand"
-                style="width: calc(100% - 10px)"
-                @click="$emit('setting-click', { event: $event })"
-            >
-                <i class="ms-Icon ms-Icon--Settings icon"></i>
-                <template v-slot:content>
-                    <p class="name">{{ settingTitle }}</p>
-                </template>
-            </fv-animated-icon>
+            <slot name="setting">
+                <fv-animated-icon
+                    v-show="showSetting"
+                    modelValue="bounceRotate"
+                    ref="setting"
+                    class="fv-nav-default-item"
+                    :hideContent="!thisExpand"
+                    style="width: calc(100% - 10px)"
+                    @click="$emit('setting-click', { event: $event })"
+                >
+                    <i class="ms-Icon ms-Icon--Settings icon"></i>
+                    <template v-slot:content>
+                        <p class="name">{{ settingTitle }}</p>
+                    </template>
+                </fv-animated-icon>
+            </slot>
         </div>
+        <slot name="mask"></slot>
     </div>
 </template>
 

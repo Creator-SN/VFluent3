@@ -507,7 +507,7 @@ export default {
             });
         },
         setSliderTarget(index = null) {
-            if (!index) {
+            if (index === null) {
                 for (let i = 0; i < this.thisValue.length; i++) {
                     if (this.thisValue[i].choosen) {
                         index = i;

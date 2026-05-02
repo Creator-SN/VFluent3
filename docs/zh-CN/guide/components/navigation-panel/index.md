@@ -193,6 +193,47 @@ title: NavigationPanel
 ```
 
 
+6. Setting
+
+自定义设置项区域内容。
+
+```vue
+<fv-NavigationPanel>
+    <template v-slot:setting>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <i class="ms-Icon ms-Icon--Settings"></i>
+            <span>设置</span>
+        </div>
+    </template>
+</fv-NavigationPanel>
+```
+
+7. Mask
+
+自定义组件遮罩层内容，可用于全局加载等场景。
+
+```vue
+<fv-NavigationPanel>
+    <template v-slot:mask>
+        <div
+            style="
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.35);
+                color: white;
+                z-index: 10;
+            "
+        >
+            加载中...
+        </div>
+    </template>
+</fv-NavigationPanel>
+```
+
+
 ### Appendix
 
 ---

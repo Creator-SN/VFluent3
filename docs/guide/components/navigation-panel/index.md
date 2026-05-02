@@ -192,6 +192,46 @@ title: NavigationPanel
 <template v-slot:banner></template>
 ```
 
+6. Setting
+
+Use this slot to render custom content in the settings entry area.
+
+```vue
+<fv-NavigationPanel>
+    <template v-slot:setting>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <i class="ms-Icon ms-Icon--Settings"></i>
+            <span>Settings</span>
+        </div>
+    </template>
+</fv-NavigationPanel>
+```
+
+7. Mask
+
+Use this slot to render a custom overlay mask for the whole component, for example a global loading layer.
+
+```vue
+<fv-NavigationPanel>
+    <template v-slot:mask>
+        <div
+            style="
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.35);
+                color: white;
+                z-index: 10;
+            "
+        >
+            Loading...
+        </div>
+    </template>
+</fv-NavigationPanel>
+```
+
 
 ### Appendix
 
