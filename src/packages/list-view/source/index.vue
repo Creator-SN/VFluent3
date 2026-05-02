@@ -265,7 +265,7 @@ export default {
         });
         setTimeout(() => {
             this.setSliderTarget();
-        }, 300);
+        }, 600);
     },
     methods: {
         valueInit() {
