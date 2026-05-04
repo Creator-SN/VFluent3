@@ -145,12 +145,6 @@ export default {
             this.$emit('update:modelValue', val);
             this.$emit('change', val);
             this.refreshIdx();
-        },
-        foreground(val) {
-            this.stylesInit();
-        },
-        sliderBackground(val) {
-            this.stylesInit();
         }
     },
     computed: {
