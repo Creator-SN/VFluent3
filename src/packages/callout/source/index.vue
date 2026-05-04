@@ -4,7 +4,7 @@
         <transition name="fv-callout-fade">
             <div ref="popper" :style="[callout as StyleValue, props.popperStyle]"
                 :class="[`fv-Callout`, theme, props.popperClass, calloutClass]" name="fv-callout" v-show="popperShow">
-                <div class="fv-callout-bg"></div>
+                <div class="fv-callout-bg" :style="(calloutBgStyle as StyleValue)"></div>
                 <div class="beak" :style="(beak as StyleValue)"></div>
                 <div class="header">
                     <slot name="header"></slot>
@@ -91,6 +91,10 @@ const props = defineProps({
         type: Array as () => Array<string | Record<string, string>>,
         default: () => []
     },
+    calloutBg: {
+        type: String,
+        default: ''
+    },
     keepalive: {
         type: Boolean,
         default: false
@@ -147,6 +151,13 @@ const popperShow = computed({
         }
         cacheVisible.value = val;
     }
+});
+
+const calloutBgStyle = computed(() => {
+    if (!props.calloutBg) return {};
+    return {
+        backgroundColor: props.calloutBg
+    };
 });
 
 const adjustPopperPosition = (position: Position) => {

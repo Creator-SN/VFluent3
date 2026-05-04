@@ -87,7 +87,7 @@ position:
 {{position.key}}
 
 <ClientOnly>
-<fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :popperStyle="{backgroundColor:color}" theme="dark" >
+<fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :calloutBg="color" theme="dark" >
   <fv-button :background="color" theme="dark" icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Callout</fv-button>
   <template v-slot:header>
     Fluent UI
@@ -102,7 +102,7 @@ position:
 </ClientOnly>
 
 ```vue
-<fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :popperStyle="{ backgroundColor: color }" theme="dark">
+<fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :calloutBg="color" theme="dark">
   <fv-button :background="color" theme="dark" icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Callout</fv-button>
   <template v-slot:header>
     Fluent UI
@@ -134,6 +134,7 @@ position:
 | effect      | string  | No       | 'click'        | Display trigger mode.                |
 | popperStyle | object  | No       | {}             | Floating panel style.                |
 | popperClass | array   | No       | []             | Floating panel CSS classes.          |
+| calloutBg   | string  | No       | ''             | Background color for `.fv-callout-bg`. |
 | keepalive   | boolean | No       | false          | See the Callout `keepalive` option.  |
 | lang        | string  | No       | "global"       | See the Callout `lang` option.       |
 
