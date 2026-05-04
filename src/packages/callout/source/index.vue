@@ -95,6 +95,10 @@ const props = defineProps({
         type: String,
         default: ''
     },
+    borderRadius: {
+        type: [Number, String],
+        default: 3
+    },
     keepalive: {
         type: Boolean,
         default: false
@@ -153,11 +157,21 @@ const popperShow = computed({
     }
 });
 
+const borderRadiusValue = computed(() => {
+    if (typeof props.borderRadius === 'number') {
+        return `${props.borderRadius}px`;
+    }
+    return props.borderRadius;
+});
+
 const calloutBgStyle = computed(() => {
-    if (!props.calloutBg) return {};
-    return {
-        backgroundColor: props.calloutBg
+    const style: Record<string, string> = {
+        borderRadius: borderRadiusValue.value || '5px'
     };
+    if (props.calloutBg) {
+        style.backgroundColor = props.calloutBg;
+    }
+    return style;
 });
 
 const adjustPopperPosition = (position: Position) => {
@@ -199,6 +213,19 @@ const adjustPopperPosition = (position: Position) => {
     );
     // set first priority position
     setPopperPosition(positionPriority[0][1] as Position);
+};
+
+const getBorderRadiusPx = () => {
+    if (typeof props.borderRadius === 'number') {
+        return Math.max(0, props.borderRadius);
+    }
+    if (typeof props.borderRadius === 'string') {
+        const matched = props.borderRadius.trim().match(/^(\d+(\.\d+)?)px$/i);
+        if (matched) {
+            return Math.max(0, Number(matched[1]));
+        }
+    }
+    return 0;
 };
 
 const isOutBody = (rect: {
@@ -294,6 +321,9 @@ const locate = (
 const setPopperPosition = (position: Position) => {
     const target = getBoundingClientRect(targetElement.value);
     beak.value = {};
+    const beakSize = props.beak === undefined ? 0 : props.beak;
+    const borderRadiusPx = getBorderRadiusPx();
+    const cornerOffset = Math.max(0, borderRadiusPx - beakSize / 2);
     if (props.beak === undefined || props.beak < 10) {
         beak.value.display = 'none';
     } else {
@@ -322,14 +352,14 @@ const setPopperPosition = (position: Position) => {
             callout.value.top = `${target.top + target.height + space}px`;
             callout.value.left = `${target.left}px`;
             beak.value.top = '0';
-            beak.value.left = '0';
+            beak.value.left = `${cornerOffset}px`;
             beak.value.transform = `translate(50%, -50%) rotate(45deg)`;
             break;
         case 'bottomRight':
             callout.value.top = `${target.top + target.height + space}px`;
             callout.value.left = `${target.right}px`;
             beak.value.top = '0';
-            beak.value.left = '100%';
+            beak.value.left = `calc(100% - ${cornerOffset}px)`;
             beak.value.transform = `translate(-140%, -50%) rotate(45deg)`;
             break;
         case 'bottomCenter':
@@ -342,14 +372,14 @@ const setPopperPosition = (position: Position) => {
             callout.value.top = `${target.top - space}px`;
             callout.value.left = `${target.left}px`;
             beak.value.bottom = '0';
-            beak.value.left = '0';
+            beak.value.left = `${cornerOffset}px`;
             beak.value.transform = `translate(50%, 50%) rotate(45deg)`;
             break;
         case 'topRight':
             callout.value.top = `${target.top - space}px`;
             callout.value.left = `${target.right}px`;
             beak.value.bottom = '0';
-            beak.value.left = '100%';
+            beak.value.left = `calc(100% - ${cornerOffset}px)`;
             beak.value.transform = `translate(-140%, 50%) rotate(45deg)`;
             break;
         case 'topCenter':
@@ -362,14 +392,14 @@ const setPopperPosition = (position: Position) => {
             callout.value.left = `${target.left - space}px`;
             callout.value.top = `${target.top}px`;
             beak.value.left = '100%';
-            beak.value.top = '0';
+            beak.value.top = `${cornerOffset}px`;
             beak.value.transform = `translate(-50%, 50%) rotate(45deg)`;
             break;
         case 'leftBottom':
             callout.value.left = `${target.left - space}px`;
             callout.value.top = `${target.bottom}px`;
             beak.value.left = '100%';
-            beak.value.bottom = '0';
+            beak.value.bottom = `${cornerOffset}px`;
             beak.value.transform = `translate(-50%, -80%) rotate(45deg)`;
             break;
         case 'leftCenter':
@@ -383,14 +413,14 @@ const setPopperPosition = (position: Position) => {
             callout.value.left = `${target.right + space}px`;
             callout.value.top = `${target.top}px`;
             beak.value.left = '0';
-            beak.value.top = '0';
+            beak.value.top = `${cornerOffset}px`;
             beak.value.transform = `translate(-50%, 50%) rotate(45deg)`;
             break;
         case 'rightBottom':
             callout.value.left = `${target.right + space}px`;
             callout.value.top = `${target.bottom}px`;
             beak.value.left = '0';
-            beak.value.bottom = '0';
+            beak.value.bottom = `${cornerOffset}px`;
             beak.value.transform = `translate(-50%, -80%) rotate(45deg)`;
             break;
         case 'rightCenter':

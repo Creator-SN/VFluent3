@@ -87,7 +87,7 @@ position:
 {{position.key}}
 
 <ClientOnly>
-<fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :calloutBg="color" theme="dark" >
+<fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :calloutBg="color" :borderRadius="12" theme="dark" >
   <fv-button :background="color" theme="dark" icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Callout</fv-button>
   <template v-slot:header>
     Fluent UI
@@ -102,7 +102,7 @@ position:
 </ClientOnly>
 
 ```vue
-<fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :calloutBg="color" theme="dark">
+<fv-callout :lockScroll="true" :position="position.key" :beak="beak" :space="space" :calloutBg="color" :borderRadius="12" theme="dark">
   <fv-button :background="color" theme="dark" icon="ActionCenter" borderRadius="3" style="width: 120px; height: 45px;">Callout</fv-button>
   <template v-slot:header>
     Fluent UI
@@ -135,6 +135,7 @@ position:
 | popperStyle | object  | 否    | {}             | 悬浮窗的样式。                |
 | popperClass | array   | 否    | []             | 悬浮窗的 css                  |
 | calloutBg   | string  | 否    | ''             | `.fv-callout-bg` 的背景色。   |
+| borderRadius| number/string | 否 | 5            | Callout 圆角大小。            |
 | keepalive   | boolean | 否    | false          | 参见组件的 `keepalive` 选项。 |
 | lang        | string  | 否    | "global"       | 参见组件的 `lang` 选项。      |
 
