@@ -38,6 +38,7 @@
                     right: !thisValue ? '10px' : '',
                     color: thisValue ? 'white' : offForeground
                 }"
+                style="position: absolute"
             >
                 {{ thisValue ? on : off }}
             </p>
