@@ -110,6 +110,8 @@ export default {
 | choosenBackground     | string  | No       | ''       | See the ListView `choosenBackground` option.                             |
 | itemPadding           | string  | No       | ''       | See the ListView `itemPadding` option.                                   |
 | itemBorderRadius      | number  | No       | 3        | See the ListView `itemBorderRadius` option.                              |
+| itemBorderWidth       | number  | No       | 2        | See the ListView `itemBorderWidth` option.                               |
+| itemBorderColor       | string  | No       | ''       | See the ListView `itemBorderColor` option.                               |
 | revealBorderColor     | boolean | No       | false    | See the ListView `revealBorderColor` option.                             |
 | revealBackgroundColor | boolean | No       | false    | See the ListView `revealBackgroundColor` option.                         |
 | showSlider            | boolean | No       | false    | See the ListView `showSlider` option.                                    |

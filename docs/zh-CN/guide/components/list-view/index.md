@@ -110,6 +110,8 @@ export default {
 | choosenBackground     | string  | 否    | ''       | 选中项背景色。                                                             |
 | itemPadding           | string  | 否    | ''       | 每一项的`padding`值。                                                      |
 | itemBorderRadius      | number  | 否    | 3        | 每一项的边框圆角。                                                         |
+| itemBorderWidth       | number  | 否    | 2        | 每一项选中边框的宽度。                                                     |
+| itemBorderColor       | string  | 否    | ''       | 每一项选中边框的颜色。                                                     |
 | revealBorderColor     | boolean | 否    | false    | Reveal边框颜色。                                                           |
 | revealBackgroundColor | boolean | 否    | false    | Reveal背景颜色。                                                           |
 | showSlider            | boolean | 否    | false    | 是否显示选中项滑动条。                                                     |

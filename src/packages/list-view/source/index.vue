@@ -1,5 +1,13 @@
 <template>
-    <div class="fv-ListView" :class="[$theme]" @click="focus = true">
+    <div
+        class="fv-ListView"
+        :class="[$theme]"
+        :style="{
+            '--list-view-selected-border-width': itemBorderWidth + 'px',
+            '--list-view-selected-border-color': itemBorderColor
+        }"
+        @click="focus = true"
+    >
         <div class="list-view-header">
             <slot name="header"></slot>
         </div>
@@ -127,6 +135,12 @@ const props = defineProps({
     },
     itemBorderRadius: {
         default: 3
+    },
+    itemBorderWidth: {
+        default: 2
+    },
+    itemBorderColor: {
+        default: ''
     },
     revealBorderColor: {
         default: false

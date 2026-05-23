@@ -1,4 +1,4 @@
-@import '@/styles/theme/index.scss';
+@import "@/styles/theme/index.scss";
 
 .fv-ListView {
     position: relative;
@@ -11,8 +11,10 @@
     transition: all 0.3s;
     overflow-y: hidden;
 
-    .list-view-container
-    {
+    --list-view-selected-border-width: 2px;
+    --list-view-selected-border-color: rgba(50, 49, 48, 0.2);
+
+    .list-view-container {
         position: relative;
         width: 100%;
         height: 10px;
@@ -23,14 +25,13 @@
         overflow-y: overlay;
         -ms-overflow-style: -ms-autohiding-scrollbar;
 
-        .list-view-item
-        {
+        .list-view-item {
             position: relative;
             width: 100%;
             height: 40px;
             margin: 2px 0px;
             flex-shrink: 0;
-            border: rgba(50, 49, 48, 0) solid 2px;
+            border: rgba(50, 49, 48, 0) solid var(--list-view-selected-border-width);
             border-radius: 3px;
             box-sizing: border-box;
             display: flex;
@@ -38,7 +39,9 @@
             align-items: center;
             float: left;
 
-            span, p, i {
+            span,
+            p,
+            i {
                 @include nowrap;
 
                 position: relative;
@@ -54,59 +57,49 @@
                 user-select: none;
             }
 
-            &:hover
-            {
+            &:hover {
                 background: rgba(200, 200, 200, 0.2);
             }
 
-            &.disabled
-            {
+            &.disabled {
                 filter: grayscale(1);
                 opacity: 0.8;
 
-                &:hover
-                {
+                &:hover {
                     background: transparent;
                 }
 
-                *{
+                * {
                     color: rgba(150, 150, 150, 1);
                 }
             }
 
-            &.header
-            {
-                &:hover
-                {
+            &.header {
+                &:hover {
                     background: transparent;
                 }
 
-                
-                *{
+                * {
                     color: rgba(0, 90, 158, 1);
                     font-weight: 600;
                 }
             }
 
-            &.choose
-            {
+            &.choose {
                 background: rgba(0, 120, 212, 0.3);
             }
 
-            &.selected
-            {
-                border: rgba(50, 49, 48, 0.2) solid 2px;
+            &.selected {
+                border: var(--list-view-selected-border-color) solid var(--list-view-selected-border-width);
             }
 
-            &.hr
-            {
+            &.hr {
                 height: 1px;
                 border-bottom: rgba(36, 36, 36, 0.1) solid thin;
             }
         }
 
-        .fv-listview-reveal-container
-        {
+        .fv-listview-reveal-container {
             position: absolute;
             left: -2px;
             top: -2px;
@@ -114,8 +107,7 @@
             height: calc(100% + 4px);
         }
 
-        .item-content
-        {
+        .item-content {
             position: relative;
             width: 100%;
             height: 100%;
@@ -129,15 +121,14 @@
         }
     }
 
-    .list-view-header, .list-view-footer
-    {
+    .list-view-header,
+    .list-view-footer {
         position: relative;
         width: 100%;
         height: auto;
     }
 
-    .fv-listview-slider
-    {
+    .fv-listview-slider {
         position: absolute;
         left: 0px;
         top: 0px;
@@ -146,8 +137,7 @@
         overflow: hidden;
         z-index: 1;
 
-        .s
-        {
+        .s {
             position: relative;
             width: 3.8px;
             height: 40px;
@@ -156,8 +146,7 @@
             box-sizing: border-box;
             float: left;
 
-            p
-            {
+            p {
                 position: relative;
                 width: 100%;
                 height: 100%;

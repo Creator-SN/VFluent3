@@ -1,7 +1,9 @@
-@import '@/styles/theme/index.scss';
+@import "@/styles/theme/index.scss";
 
 .fv-ListView {
     &.dark {
+        --list-view-selected-border-color: rgba(200, 200, 200, 0.2);
+
         .list-view-container {
             .list-view-item {
                 span,
@@ -12,6 +14,12 @@
 
                 &:hover {
                     background: $row-dark-hover-glass;
+                }
+
+                &.disabled {
+                    * {
+                        color: rgba(120, 120, 120, 1);
+                    }
                 }
 
                 &.header {
@@ -29,7 +37,7 @@
                 }
 
                 &.selected {
-                    border: rgba(200, 200, 200, 0.2) solid 2px;
+                    border: var(--list-view-selected-border-color) solid var(--list-view-selected-border-width);
                 }
             }
         }
