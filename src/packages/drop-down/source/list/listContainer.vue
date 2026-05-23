@@ -160,13 +160,19 @@ export default {
     },
     methods: {
         stylesInit() {
+            const hasMaxHeight =
+                this.maxHeight !== '' &&
+                this.maxHeight !== undefined &&
+                this.maxHeight !== null;
             this.styles.listContainer.borderRadius = `${this.borderRadius}px`;
             this.styles.listContainer.background = this.dropDownListBackground;
             this.styles.listContainer.top = this.showStatus.top;
             this.styles.listContainer.bottom = this.showStatus.bottom;
             this.styles.listContainer.height = this.showStatus.height;
-            this.styles.listContainer.maxHeight = `${this.showStatus.maxHeight}px`;
-            this.styles.listContainer.overflow = this.showStatus.overflow;
+            this.styles.listContainer.maxHeight = this.maxHeight;
+            this.styles.listContainer.overflow = hasMaxHeight
+                ? 'auto'
+                : this.showStatus.overflow;
             this.styles.title.color = this.dropDownListForeground;
         },
         valueTrigger(val) {

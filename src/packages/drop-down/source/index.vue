@@ -51,6 +51,7 @@
                 v-model="choosenValue"
                 :options="options"
                 :multiple="multiple"
+                :maxHeight="maxHeight"
                 :borderRadius="borderRadius"
                 :checkBoxBackground="checkBoxBackground"
                 :dropDownListForeground="dropDownListForeground"
