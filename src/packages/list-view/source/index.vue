@@ -161,8 +161,8 @@ const props = defineProps({
 
 defineExpose({
     move: (...args) => proxy.move(...args),
-    setFocus: (...args) => proxy.focus(...args),
-    setBlur: (...args) => proxy.blur(...args)
+    setFocus: (...args) => proxy.setFocus(...args),
+    setBlur: (...args) => proxy.setBlur(...args)
 });
 </script>
 
@@ -580,10 +580,10 @@ export default {
                 root: this.thisValue
             });
         },
-        focus() {
+        setFocus() {
             this.focus = true;
         },
-        blur() {
+        setBlur() {
             this.focus = false;
         },
         inspectItemAPI(cur) {
