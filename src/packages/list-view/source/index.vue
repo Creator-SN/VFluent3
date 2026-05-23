@@ -29,10 +29,7 @@
                 :key="index"
                 :style="{
                     height:
-                        valueTrigger(item.type) == 'divider' ||
-                        valueTrigger(item.type) == 'header'
-                            ? ''
-                            : _rowHeight,
+                        valueTrigger(item.type) == 'divider' ? '' : _rowHeight,
                     background: valueTrigger(item.choosen)
                         ? choosenBackground
                         : '',
