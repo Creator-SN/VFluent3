@@ -28,7 +28,11 @@
                 class="list-view-item"
                 :key="index"
                 :style="{
-                    height: _rowHeight,
+                    height:
+                        valueTrigger(item.type) == 'divider' ||
+                        valueTrigger(item.type) == 'header'
+                            ? ''
+                            : _rowHeight,
                     background: valueTrigger(item.choosen)
                         ? choosenBackground
                         : '',
