@@ -2,7 +2,7 @@
     <Slot ref="slotRef"></Slot>
     <Teleport to="body">
         <transition name="fv-callout-fade">
-            <div ref="popper" :style="[callout as StyleValue, props.popperStyle]"
+            <div ref="popper" :style="[(calloutStyle as StyleValue), props.popperStyle]"
                 :class="[`fv-Callout`, theme, props.popperClass, calloutClass]" name="fv-callout" v-show="popperShow">
                 <div class="fv-callout-bg" :style="(calloutBgStyle as StyleValue)"></div>
                 <div class="beak" :style="(beak as StyleValue)"></div>
@@ -164,6 +164,11 @@ const borderRadiusValue = computed(() => {
     return props.borderRadius;
 });
 
+const calloutStyle = computed(() => ({
+    ...callout.value,
+    borderRadius: borderRadiusValue.value || '5px'
+}));
+
 const calloutBgStyle = computed(() => {
     const style: Record<string, string> = {
         borderRadius: borderRadiusValue.value || '5px'
@@ -323,7 +328,14 @@ const setPopperPosition = (position: Position) => {
     beak.value = {};
     const beakSize = props.beak === undefined ? 0 : props.beak;
     const borderRadiusPx = getBorderRadiusPx();
-    const cornerOffset = Math.max(0, borderRadiusPx - beakSize / 2);
+    // The beak is a square rotated by 45deg, so the visible edge span is based on
+    // its half diagonal rather than half of its side length. Add a small buffer so
+    // the beak stays clear of rounded corners and doesn't peek through them.
+    const beakHalfDiagonal = beakSize / Math.SQRT2;
+    const cornerOffset = Math.max(
+        0,
+        borderRadiusPx + beakHalfDiagonal - beakSize * 0.9
+    );
     if (props.beak === undefined || props.beak < 10) {
         beak.value.display = 'none';
     } else {
