@@ -197,16 +197,21 @@ items: [
 
 ---
 
-
+1. Get the `dom` of the `item` at `index` in `ListView` (`<index>` is the index in `items`):
 
 ```vue
 <fv-ListView v-model="items" ref="list"></fv-ListView>
 let item = this.$refs.list.$refs['list_item_<index>]'];
 ```
 
+2. To simulate keyboard up/down movement, call the `move` method.
 
+Before calling `move`, call `setFocus()` on `ListView` first, otherwise the keyboard selection behavior will not be active.
 
+```javascript
+this.$refs.list.setFocus();
+this.$refs.list.move(event, 1);
+```
 
-
-
-- event
+- `event`
+- `direction`: move direction, supports `1` and `-1`

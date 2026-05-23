@@ -209,5 +209,12 @@ let item = this.$refs.list.$refs['list_item_<index>]'];
 
 2. 需要模拟键盘上下移动可以执行`move`方法
 
+在执行 `move` 之前，需要先调用 `ListView` 的 `setFocus()` 方法，否则不会启用键盘选择行为。
+
+```javascript
+this.$refs.list.setFocus();
+this.$refs.list.move(event, 1);
+```
+
 - event
 - direction: 移动方向, 可选值`1`, `-1`

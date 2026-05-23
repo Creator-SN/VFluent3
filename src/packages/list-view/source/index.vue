@@ -161,8 +161,8 @@ const props = defineProps({
 
 defineExpose({
     move: (...args) => proxy.move(...args),
-    focus: (...args) => proxy.focus(...args),
-    blur: (...args) => proxy.blur(...args)
+    setFocus: (...args) => proxy.focus(...args),
+    setBlur: (...args) => proxy.blur(...args)
 });
 </script>
 
