@@ -125,8 +125,8 @@ position:
 | v-model     | Boolean | No       | false          | Whether the component is visible.    |
 | theme       | string  | No       | 'global'       | Theme color.                         |
 | disabled    | boolean | No       | false          | Whether the component is disabled.   |
-| space       | number  | No       | 0              | Spacing in pixels.                   |
-| beak        | number  | No       | 0              | Beak size in pixels.                 |
+| space       | number  | No       | 0              | Spacing in pixels between target and callout. |
+| beak        | number  | No       | 0              | Beak size in pixels. Does not affect distance. |
 | position    | string  | No       | 'bottomCenter' | Position.                            |
 | lockScroll  | boolean | No       | true           | Whether page scrolling is locked.    |
 | focusTrap   | boolean | No       | false          | Whether focus trapping is enabled.   |

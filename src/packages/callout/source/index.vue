@@ -188,14 +188,7 @@ const adjustPopperPosition = (position: Position) => {
     for (let index = 0; index < positionName.length; ++index) {
         let endIndex = (startIndex + index) % positionName.length;
         let cur_position = positionName[endIndex];
-        const offset =
-            props.beak === undefined
-                ? props.space === undefined
-                    ? 0
-                    : props.space
-                : props.space === undefined
-                    ? props.beak
-                    : props.beak + props.space;
+        const offset = props.space === undefined ? 0 : props.space;
         let predictRect = locate(
             targetElement.value,
             offset,
@@ -327,30 +320,28 @@ const setPopperPosition = (position: Position) => {
     const target = getBoundingClientRect(targetElement.value);
     beak.value = {};
     const beakSize = props.beak === undefined ? 0 : props.beak;
+    const beakDepth = beakSize > 0 ? Math.max(6, Math.round(beakSize * 0.55)) : 0;
+    const isVerticalBeak =
+        position.startsWith('top') || position.startsWith('bottom');
     const borderRadiusPx = getBorderRadiusPx();
-    // The beak is a square rotated by 45deg, so the visible edge span is based on
-    // its half diagonal rather than half of its side length. Add a small buffer so
-    // the beak stays clear of rounded corners and doesn't peek through them.
-    const beakHalfDiagonal = beakSize / Math.SQRT2;
+    // Keep the triangle base on the flat section of the panel edge so it won't
+    // overlap the rounded corner.
     const cornerOffset = Math.max(
-        0,
-        borderRadiusPx + beakHalfDiagonal - beakSize * 0.9
+        beakSize / 2,
+        borderRadiusPx + beakSize / 2 + 1
     );
     if (props.beak === undefined || props.beak < 10) {
         beak.value.display = 'none';
     } else {
         beak.value.display = 'block';
-        beak.value.width = `${props.beak}px`;
-        beak.value.height = `${props.beak}px`;
+        beak.value.width = isVerticalBeak
+            ? `${beakSize}px`
+            : `${beakDepth}px`;
+        beak.value.height = isVerticalBeak
+            ? `${beakDepth}px`
+            : `${beakSize}px`;
     }
-    const space =
-        props.beak === undefined
-            ? props.space === undefined
-                ? 0
-                : props.space
-            : props.space === undefined
-                ? props.beak
-                : props.beak + props.space;
+    const space = props.space === undefined ? 0 : props.space;
     //clear
     delete callout.value['right'];
     delete callout.value['left'];
@@ -365,82 +356,96 @@ const setPopperPosition = (position: Position) => {
             callout.value.left = `${target.left}px`;
             beak.value.top = '0';
             beak.value.left = `${cornerOffset}px`;
-            beak.value.transform = `translate(50%, -50%) rotate(45deg)`;
+            beak.value.clipPath = 'polygon(50% 0, 0 100%, 100% 100%)';
+            beak.value.transform = `translate(-50%, -100%)`;
             break;
         case 'bottomRight':
             callout.value.top = `${target.top + target.height + space}px`;
             callout.value.left = `${target.right}px`;
             beak.value.top = '0';
             beak.value.left = `calc(100% - ${cornerOffset}px)`;
-            beak.value.transform = `translate(-140%, -50%) rotate(45deg)`;
+            beak.value.clipPath = 'polygon(50% 0, 0 100%, 100% 100%)';
+            beak.value.transform = `translate(-50%, -100%)`;
             break;
         case 'bottomCenter':
             callout.value.top = `${target.top + target.height + space}px`;
             callout.value.left = `${target.left + target.width / 2}px`;
             beak.value.top = '0';
-            beak.value.transform = `translate(-50%, -50%) rotate(45deg)`;
+            beak.value.left = '50%';
+            beak.value.clipPath = 'polygon(50% 0, 0 100%, 100% 100%)';
+            beak.value.transform = `translate(-50%, -100%)`;
             break;
         case 'topLeft':
             callout.value.top = `${target.top - space}px`;
             callout.value.left = `${target.left}px`;
             beak.value.bottom = '0';
             beak.value.left = `${cornerOffset}px`;
-            beak.value.transform = `translate(50%, 50%) rotate(45deg)`;
+            beak.value.clipPath = 'polygon(0 0, 100% 0, 50% 100%)';
+            beak.value.transform = `translate(-50%, 100%)`;
             break;
         case 'topRight':
             callout.value.top = `${target.top - space}px`;
             callout.value.left = `${target.right}px`;
             beak.value.bottom = '0';
             beak.value.left = `calc(100% - ${cornerOffset}px)`;
-            beak.value.transform = `translate(-140%, 50%) rotate(45deg)`;
+            beak.value.clipPath = 'polygon(0 0, 100% 0, 50% 100%)';
+            beak.value.transform = `translate(-50%, 100%)`;
             break;
         case 'topCenter':
             callout.value.top = `${target.top - space}px`;
             callout.value.left = `${target.left + target.width / 2}px`;
             beak.value.bottom = '0';
-            beak.value.transform = `translate(-50%, 50%) rotate(45deg)`;
+            beak.value.left = '50%';
+            beak.value.clipPath = 'polygon(0 0, 100% 0, 50% 100%)';
+            beak.value.transform = `translate(-50%, 100%)`;
             break;
         case 'leftTop':
             callout.value.left = `${target.left - space}px`;
             callout.value.top = `${target.top}px`;
             beak.value.left = '100%';
             beak.value.top = `${cornerOffset}px`;
-            beak.value.transform = `translate(-50%, 50%) rotate(45deg)`;
+            beak.value.clipPath = 'polygon(0 0, 100% 50%, 0 100%)';
+            beak.value.transform = `translate(0, -50%)`;
             break;
         case 'leftBottom':
             callout.value.left = `${target.left - space}px`;
             callout.value.top = `${target.bottom}px`;
             beak.value.left = '100%';
-            beak.value.bottom = `${cornerOffset}px`;
-            beak.value.transform = `translate(-50%, -80%) rotate(45deg)`;
+            beak.value.top = `calc(100% - ${cornerOffset}px)`;
+            beak.value.clipPath = 'polygon(0 0, 100% 50%, 0 100%)';
+            beak.value.transform = `translate(0, -50%)`;
             break;
         case 'leftCenter':
             callout.value.left = `${target.left - space}px`;
             callout.value.top = `${target.top + target.height / 2}px`;
             beak.value.left = '100%';
             beak.value.top = '50%';
-            beak.value.transform = `translate(-50%, -50%) rotate(45deg)`;
+            beak.value.clipPath = 'polygon(0 0, 100% 50%, 0 100%)';
+            beak.value.transform = `translate(0, -50%)`;
             break;
         case 'rightTop':
             callout.value.left = `${target.right + space}px`;
             callout.value.top = `${target.top}px`;
             beak.value.left = '0';
             beak.value.top = `${cornerOffset}px`;
-            beak.value.transform = `translate(-50%, 50%) rotate(45deg)`;
+            beak.value.clipPath = 'polygon(0 50%, 100% 0, 100% 100%)';
+            beak.value.transform = `translate(-100%, -50%)`;
             break;
         case 'rightBottom':
             callout.value.left = `${target.right + space}px`;
             callout.value.top = `${target.bottom}px`;
             beak.value.left = '0';
-            beak.value.bottom = `${cornerOffset}px`;
-            beak.value.transform = `translate(-50%, -80%) rotate(45deg)`;
+            beak.value.top = `calc(100% - ${cornerOffset}px)`;
+            beak.value.clipPath = 'polygon(0 50%, 100% 0, 100% 100%)';
+            beak.value.transform = `translate(-100%, -50%)`;
             break;
         case 'rightCenter':
             callout.value.left = `${target.right + space}px`;
             callout.value.top = `${target.top + target.height / 2}px`;
             beak.value.left = '0';
             beak.value.top = '50%';
-            beak.value.transform = `translate(-50%, -50%) rotate(45deg)`;
+            beak.value.clipPath = 'polygon(0 50%, 100% 0, 100% 100%)';
+            beak.value.transform = `translate(-100%, -50%)`;
             break;
     }
 };
