@@ -160,7 +160,9 @@ const props = defineProps({
 });
 
 defineExpose({
-    move: (...args) => proxy.move(...args)
+    move: (...args) => proxy.move(...args),
+    focus: (...args) => proxy.focus(...args),
+    blur: (...args) => proxy.blur(...args)
 });
 </script>
 
@@ -315,12 +317,13 @@ export default {
             if (!_self) this.focus = false;
         },
         keyDownEventInit() {
-            window.addEventListener('keydown', (event) => {
-                if (!this.focus) return;
-                if (event.keyCode === 40) this.move(event, 1);
-                else if (event.keyCode === 38) this.move(event, -1);
-                if (event.keyCode === 13) this.enter(event);
-            });
+            window.addEventListener('keydown', this.keyDownEvent);
+        },
+        keyDownEvent(event) {
+            if (!this.focus) return;
+            if (event.keyCode === 40) this.move(event, 1);
+            else if (event.keyCode === 38) this.move(event, -1);
+            if (event.keyCode === 13) this.enter(event);
         },
         valueTrigger(val) {
             if (typeof val === 'function') return val();
@@ -499,6 +502,7 @@ export default {
             this.$emit('choosen-items', this.currentChoosen);
         },
         scrollFormat(target) {
+            if (!target) return;
             let targetPos = target.getBoundingClientRect();
             let elPos = this.$refs.container.getBoundingClientRect();
             if (targetPos.top < elPos.top) {
@@ -576,7 +580,14 @@ export default {
                 root: this.thisValue
             });
         },
+        focus() {
+            this.focus = true;
+        },
+        blur() {
+            this.focus = false;
+        },
         inspectItemAPI(cur) {
+            // 弃用
             let c = this.thisValue.find((it) => {
                 return (
                     this.valueTrigger(it.name) ===
@@ -596,6 +607,7 @@ export default {
     beforeUnmount() {
         clearInterval(this.timer.slider);
         window.removeEventListener('click', this.outSideClickEvent);
+        window.removeEventListener('keydown', this.keyDownEvent);
     }
 };
 </script>
