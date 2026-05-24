@@ -8,6 +8,8 @@
     box-sizing: border-box;
     overflow-x: hidden;
 
+    --tree-view-expander-icon-color: inherit;
+
     .fv-tree-view-item {
         position: relative;
         width: 100%;
@@ -87,6 +89,7 @@
 
                     .fv-tree-view-item-expander-icon {
                         font-size: 10px;
+                        color: var(--tree-view-expander-icon-color);
                     }
                 }
 

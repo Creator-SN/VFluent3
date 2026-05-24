@@ -2,6 +2,8 @@
 
 .fv-TreeView {
     &.dark {
+        --tree-view-expander-icon-color: whitesmoke;
+
         .fv-tree-view-item {
             .fv-tree-view-item-container {
                 &:hover {
@@ -19,6 +21,12 @@
                 .fv-tree-view-item-container-main {
                     .fv-tree-view-item-content {
                         color: whitesmoke;
+                    }
+
+                    .fv-tree-view-item-expander {
+                        .fv-tree-view-item-expander-icon {
+                            color: var(--tree-view-expander-icon-color);
+                        }
                     }
                 }
             }
