@@ -103,6 +103,8 @@ Extension
 | title            | string  | No       | 'Title of Collapse.'               | Title.                                                                   |
 | content          | string  | No       | 'Content information of Collapse.' | Subtitle content.                                                        |
 | background       | string  | No       | ''                                 | See the Collapse `background` option.                                    |
+| hoverBackground  | string  | No       | ''                                 | Background color when hovering over the header area.                     |
+| borderColor      | string  | No       | ''                                 | Border color of the Collapse container.                                  |
 | defaultHeight    | number  | No       | 70                                 | See the Collapse `defaultHeight` option.                                 |
 | maxHeight        | number  | No       | 300                                | See the Collapse `maxHeight` option.                                     |
 | disabledCollapse | boolean | No       | false                              | See the Collapse `disabledCollapse` option.                              |

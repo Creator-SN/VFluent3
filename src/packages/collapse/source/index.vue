@@ -6,7 +6,10 @@
             { visibleOverflow: disabledCollapse && visibleOverflow }
         ]"
         :style="{
-            height: !thisValue ? `${defaultHeight}px` : computedMaxHeight
+            height: !thisValue ? `${defaultHeight}px` : computedMaxHeight,
+            '--collapse-background-color': background,
+            '--collapse-hover-background-color': hoverBackground,
+            '--collapse-border-color': borderColor
         }"
         @mouseenter="hover = true"
         @touchstart="hover = true"
@@ -113,6 +116,12 @@ const props = defineProps({
     background: {
         default: ''
     },
+    hoverBackground: {
+        default: ''
+    },
+    borderColor: {
+        default: ''
+    },
     defaultHeight: {
         default: 70
     },
@@ -129,8 +138,6 @@ const props = defineProps({
 </script>
 
 <script>
-import one from 'onecolor';
-
 import { useTheme } from '@/utils/common';
 
 export default {
@@ -151,15 +158,6 @@ export default {
         }
     },
     computed: {
-        hoverBackground() {
-            try {
-                let color = one(this.background);
-                let hue = color.hue();
-                return color.hue(hue - 0.01).cssa();
-            } catch (e) {
-                return '';
-            }
-        },
         computedMaxHeight() {
             if (parseFloat(this.maxHeight).toString() === 'NaN') {
                 return this.maxHeight;

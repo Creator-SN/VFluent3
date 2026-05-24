@@ -2,8 +2,12 @@
 
 .fv-Collapse {
     &.dark {
-        background: rgba(45, 45, 45, 1);
-        border-color: #373738;
+        --collapse-background-color: rgba(45, 45, 45, 1);
+        --collapse-hover-background-color: rgba(50, 50, 50, 1);
+        --collapse-border-color: #373738;
+
+        background: var(--collapse-background-color);
+        border-color: var(--collapse-border-color);
         color: whitesmoke;
 
         .collapse-description-container {
@@ -19,7 +23,7 @@
         }
 
         &:hover {
-            background: rgba(50, 50, 50, 1);
+            background: var(--collapse-hover-background-color);
         }
     }
 }

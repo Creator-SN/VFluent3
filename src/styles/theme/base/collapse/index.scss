@@ -1,9 +1,13 @@
 @import "@/styles/theme/index.scss";
 
 .fv-Collapse {
+    --collapse-background-color: #fbfbfd;
+    --collapse-hover-background-color: #e3e5e8;
+    --collapse-border-color: #e3e5e8;
+
     position: relative;
-    background: #fbfbfd;
-    border: 1px solid #e3e5e8;
+    background: var(--collapse-background-color);
+    border: 1px solid var(--collapse-border-color);
     border-radius: 6px;
     user-select: none;
     box-sizing: border-box;
@@ -144,7 +148,7 @@
     }
 
     &:hover {
-        background: #f5f6f8;
+        background: var(--collapse-hover-background-color);
     }
 
     .collapse-expanded-enter-active {

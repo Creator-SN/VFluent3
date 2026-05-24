@@ -103,6 +103,8 @@ Extension
 | title            | string  | 否    | 'Title of Collapse.'               | 标题。                                                           |
 | content          | string  | 否    | 'Content information of Collapse.' | 副标题信息。                                                     |
 | background       | string  | 否    | ''                                 | 客制化 `Collapse` 背景。                                         |
+| hoverBackground  | string  | 否    | ''                                 | 头部区域悬浮时的背景色。                                         |
+| borderColor      | string  | 否    | ''                                 | `Collapse` 容器的边框颜色。                                      |
 | defaultHeight    | number  | 否    | 70                                 | 默认高度。                                                       |
 | maxHeight        | number  | 否    | 300                                | 展开最大高度。                                                   |
 | disabledCollapse | boolean | 否    | false                              | 禁用展开 `Collapse`                                              |
