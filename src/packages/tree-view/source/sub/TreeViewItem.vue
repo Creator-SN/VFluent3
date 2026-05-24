@@ -6,6 +6,7 @@
         :draggable="draggable"
         @dragstart="handleDrag"
         @dragend="dragMode = false"
+        :style="{'--tree-view-expander-icon-color': expanderIconColor}"
     >
         <div
             class="fv-tree-view-item-container"
@@ -212,6 +213,9 @@ export default {
         },
         unexpandedIcon: {
             default: 'ChevronRightSmall'
+        },
+        expanderIconColor: {
+            default: ''
         },
         itemHeight: {
             default: 30

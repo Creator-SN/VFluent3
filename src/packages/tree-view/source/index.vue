@@ -14,6 +14,7 @@
             :foreground="foreground"
             :expandedIcon="expandedIcon"
             :unexpandedIcon="unexpandedIcon"
+            :expanderIconColor="expanderIconColor"
             :backgroundColorHover="backgroundColorHover"
             :backgroundColorActive="backgroundColorActive"
             :itemHeight="itemHeight"
@@ -73,6 +74,9 @@ const props = defineProps({
     },
     unexpandedIcon: {
         default: 'ChevronRightSmall'
+    },
+    expanderIconColor: {
+        default: ''
     },
     foreground: {
         default: 'rgba(0, 90, 158, 1)'

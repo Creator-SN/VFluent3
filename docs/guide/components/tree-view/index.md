@@ -286,6 +286,7 @@ foregroundColor:
 | foreground            | string  | No       | 'rgba(0, 90, 158, 1)' | Foreground color.                                   |
 | expandedIcon          | string  | No       | 'ChevronDownSmall'    | See the TreeView `expandedIcon` option.             |
 | unexpandedIcon        | string  | No       | 'ChevronRightSmall'   | See the TreeView `unexpandedIcon` option.           |
+| expanderIconColor     | string  | No       | ''                    | Expander icon color.                                |
 | backgroundColorHover  | string  | No       | ''                    | See the TreeView `backgroundColorHover` option.     |
 | backgroundColorActive | string  | No       | ''                    | See the TreeView `backgroundColorActive` option.    |
 | itemHeight            | number  | No       | 30                    | Item height.                                        |

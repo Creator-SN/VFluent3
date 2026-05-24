@@ -286,6 +286,7 @@ foregroundColor:
 | foreground            | string  | 否    | 'rgba(0, 90, 158, 1)' | 前景色。                     |
 | expandedIcon          | string  | 否    | 'ChevronDownSmall'    | 扩展后的箭头。               |
 | unexpandedIcon        | string  | 否    | 'ChevronRightSmall'   | 未扩展的箭头。               |
+| expanderIconColor     | string  | 否    | ''                    | 展开箭头的颜色。             |
 | backgroundColorHover  | string  | 否    | ''                    | 子项Hover的颜色。            |
 | backgroundColorActive | string  | 否    | ''                    | 子项激活的颜色。             |
 | itemHeight            | number  | 否    | 30                    | 子项高度。                   |
