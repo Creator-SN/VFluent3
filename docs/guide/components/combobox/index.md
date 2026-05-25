@@ -110,6 +110,7 @@ Default Styles
 | dropDownIconForeground  | string  | No       | ''            |                                                                          |
 | revealBorderColor       | boolean | No       | false         |                                                                          |
 | revealBackgroundColor   | boolean | No       | false         |                                                                          |
+| isBoxShadow             | boolean | No       | false         | Whether to apply the Combobox input shadow style                         |
 | disabled                | boolean | No       | false         |                                                                          |
 | theme                   | string  | No       | 'global'      | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
 | lang                    | string  | No       | "global"      | See the Combobox `lang` option.                                          |

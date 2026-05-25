@@ -31,6 +31,7 @@
                     :inputFontSize="inputFontSize"
                     :dropDownIcon="dropDownIcon"
                     :dropDownIconForeground="dropDownIconForeground"
+                    :isBoxShadow="isBoxShadow"
                     :class="{ error: showError }"
                 >
                     <template v-slot:input="x">
@@ -65,6 +66,15 @@
                         name="options"
                         :option="item.option"
                         :index="item.index"
+                        :valueTrigger="item.valueTrigger"
+                    ></slot>
+                </template>
+                <template v-slot:option-content="item">
+                    <slot
+                        name="option-content"
+                        :option="item.option"
+                        :index="item.index"
+                        :valueTrigger="item.valueTrigger"
                     ></slot>
                 </template>
             </list-container>
@@ -136,6 +146,9 @@ const props = defineProps({
     },
     errorMessage: {
         default: 'This dropdown has an error'
+    },
+    isBoxShadow: {
+        default: false
     },
     disabled: {
         default: false

@@ -110,6 +110,7 @@ Default Styles
 | dropDownIconForeground  | string  | 否    | ''            |                                                                  |
 | revealBorderColor       | boolean | 否    | false         |                                                                  |
 | revealBackgroundColor   | boolean | 否    | false         |                                                                  |
+| isBoxShadow             | boolean | 否    | false         | 是否为 Combobox 输入框启用阴影样式。                             |
 | disabled                | boolean | 否    | false         |                                                                  |
 | theme                   | string  | 否    | 'global'      | 主题样式。支持 `global`、`light`、`dark`、`system` 和 `custom`。 |
 | lang                    | string  | 否    | "global"      | 参见组件的 `lang` 选项。                                         |

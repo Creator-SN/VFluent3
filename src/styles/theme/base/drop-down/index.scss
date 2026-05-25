@@ -1,21 +1,20 @@
-@import '@/styles/theme/index.scss';
+@import "@/styles/theme/index.scss";
 
 .fv-DropDown {
     position: relative;
     width: 300px;
-    font-family: "微软雅黑", Segoe MDL2;
+    font-family:
+        "微软雅黑",
+        Segoe MDL2;
     overflow-y: visible;
 
-    &:hover
-    {
-        .drop-down-box
-        {
-            background: rgba(36,36,36,0.2);
+    &:hover {
+        .drop-down-box {
+            background: rgba(36, 36, 36, 0.2);
         }
     }
 
-    .drop-down-box
-    {
+    .drop-down-box {
         position: relative;
         width: 100%;
         height: 36px;
@@ -24,16 +23,19 @@
         display: flex;
         align-items: center;
         transition: all 0.8s;
-        box-shadow: rgba(0, 0, 0, 0.133) 0px 1px 2px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
         overflow: hidden;
 
-        &.error
-        {
-            background: rgba(164,38,44,1);
+        &.is-box-shadow {
+            box-shadow:
+                rgba(0, 0, 0, 0.133) 0px 1px 2px,
+                rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
         }
 
-        .drop-down-container
-        {
+        &.error {
+            background: rgba(164, 38, 44, 1);
+        }
+
+        .drop-down-container {
             position: relative;
             width: 100%;
             height: 100%;
@@ -42,8 +44,7 @@
             display: flex;
             align-items: center;
 
-            .fv-dropdown-reveal-container
-            {
+            .fv-dropdown-reveal-container {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -51,26 +52,26 @@
                 height: 100%;
             }
 
-            .fv-drop-down-input
-            {
+            .fv-drop-down-input {
                 position: relative;
                 width: 100%;
                 height: 100%;
                 padding: 0px 36px 0px 8px;
                 background: transparent;
-                font-family: "微软雅黑", Segoe MDL2;
+                font-family:
+                    "微软雅黑",
+                    Segoe MDL2;
                 border: rgba(0, 0, 0, 0.1) solid thin;
                 outline: none;
                 font-size: 13.5px;
                 font-weight: 400;
-                color: rgba(32,31,30,1);
+                color: rgba(32, 31, 30, 1);
                 box-sizing: border-box;
                 user-select: none;
                 cursor: default;
             }
 
-            i.left-icon
-            {
+            i.left-icon {
                 position: absolute;
                 width: 36px;
                 height: 100%;
@@ -83,8 +84,7 @@
                 z-index: 1;
             }
 
-            i.right-icon
-            {
+            i.right-icon {
                 position: absolute;
                 width: 36px;
                 height: 100%;
@@ -98,8 +98,7 @@
         }
     }
 
-    .list-container
-    {
+    .list-container {
         position: absolute;
         left: 0px;
         width: 100%;
@@ -116,8 +115,7 @@
         box-shadow: $ms-depth-shadow-16;
         overflow: hidden;
 
-        .list-item
-        {
+        .list-item {
             position: relative;
             width: 100%;
             height: 32px;
@@ -128,12 +126,10 @@
             display: flex;
             align-items: center;
 
-            &.normal
-            {
+            &.normal {
                 cursor: pointer;
 
-                p
-                {
+                p {
                     cursor: pointer;
 
                     // &:hover
@@ -142,55 +138,47 @@
                     // }
                 }
 
-                &:hover
-                {
+                &:hover {
                     background-color: rgba(220, 220, 220, 0.6);
                 }
 
-                &:active
-                {
+                &:active {
                     background-color: rgba(200, 200, 200, 0.6);
                 }
             }
 
-            &.disabled
-            {
+            &.disabled {
                 cursor: default;
-                
-                p
-                {
+
+                p {
                     color: rgba(95, 95, 95, 0.6);
                 }
 
-                &:hover
-                {
+                &:hover {
                     background-color: transparent;
                 }
             }
 
-            &.choose
-            {
-                background-color: rgba(237,235,233,0.6);
+            &.choose {
+                background-color: rgba(237, 235, 233, 0.6);
             }
 
-            &.hr
-            {
+            &.hr {
                 height: 1px;
-                border-bottom: rgba(36,36,36,0.1) solid thin;
+                border-bottom: rgba(36, 36, 36, 0.1) solid thin;
             }
 
-            p
-            {
+            p {
+                flex: 1;
                 font-size: 13.8px;
                 font-weight: 400;
-                color: rgba(32,31,30,1);
+                color: rgba(32, 31, 30, 1);
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 user-select: none;
                 overflow: hidden;
 
-                &.title
-                {
+                &.title {
                     color: rgba(0, 98, 158, 1);
                     font-weight: 600;
                 }
@@ -198,108 +186,92 @@
         }
     }
 
-    p.err-msg
-    {
+    p.err-msg {
         position: absolute;
         left: 0px;
         top: 100%;
         width: 100%;
         margin-top: 3px;
         font-size: 12px;
-        color: rgba(164,38,44,1);
+        color: rgba(164, 38, 44, 1);
     }
 
-    &.disabled
-    {
-        &:hover
-        {
-            .drop-down-box
-            {
+    &.disabled {
+        &:hover {
+            .drop-down-box {
                 background: transparent;
             }
         }
 
-        .drop-down-box
-        {
-            .drop-down-container
-            {
-                background: rgba(243,242,241,1);
+        .drop-down-box {
+            .drop-down-container {
+                background: rgba(243, 242, 241, 1);
                 box-shadow: none;
 
-                .fv-drop-down-input
-                {
-                    background: rgba(243,242,241,1);
-                    color: rgba(161,159,157,0.6);
+                .fv-drop-down-input {
+                    background: rgba(243, 242, 241, 1);
+                    color: rgba(161, 159, 157, 0.6);
                     cursor: no-drop;
                 }
 
-                i
-                {
-                    color: rgba(50,49,48,0.6);
+                i {
+                    color: rgba(50, 49, 48, 0.6);
                 }
             }
         }
     }
-    
-    .fv-drop-down-top-enter-active, .fv-drop-down-bottom-enter-active
-    {
+
+    .fv-drop-down-top-enter-active,
+    .fv-drop-down-bottom-enter-active {
         transition: all 0.2s ease-out;
     }
 
-    .fv-drop-down-top-leave-active, .fv-drop-down-bottom-leave-active
-    {
+    .fv-drop-down-top-leave-active,
+    .fv-drop-down-bottom-leave-active {
         transition: all 0.1s;
     }
 
-    .fv-drop-down-top-enter-from
-    {
+    .fv-drop-down-top-enter-from {
         margin-bottom: -20px;
         transform: scaleY(0);
         transform-origin: 50% 100%;
         opacity: 0;
     }
 
-    .fv-drop-down-top-enter-to
-    {
+    .fv-drop-down-top-enter-to {
         margin-top: 0px;
         transform: scaleY(1);
         transform-origin: 50% 100%;
         opacity: 1;
     }
 
-    .fv-drop-down-top-leave-from
-    {
+    .fv-drop-down-top-leave-from {
         opacity: 1;
     }
 
-    .fv-drop-down-top-leave-to
-    {
+    .fv-drop-down-top-leave-to {
         opacity: 0;
     }
 
-    .fv-drop-down-bottom-enter-from
-    {
+    .fv-drop-down-bottom-enter-from {
         margin-top: -20px;
         opacity: 0;
         transform: scaleY(0);
         transform-origin: 50% 0%;
     }
 
-    .fv-drop-down-bottom-enter-to
-    {
+    .fv-drop-down-bottom-enter-to {
         margin-top: 0px;
         opacity: 1;
         transform: scaleY(1);
         transform-origin: 50% 0%;
     }
 
-    .fv-drop-down-bottom-leave-from
-    {
+    .fv-drop-down-bottom-leave-from {
         opacity: 1;
     }
 
-    .fv-drop-down-bottom-leave-to
-    {
+    .fv-drop-down-bottom-leave-to {
         opacity: 0;
     }
 }

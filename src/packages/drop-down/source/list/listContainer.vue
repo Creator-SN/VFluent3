@@ -39,16 +39,26 @@
                         :foreground="dropDownListForeground"
                         :background="checkBoxBackground"
                         :theme="theme"
+                        :title="valueTrigger(item.text)"
                         >{{ valueTrigger(item.text) }}</fv-check-box
                     >
-                    <p
-                        v-show="
-                            valueTrigger(item.type) == 'default' ||
-                            (valueTrigger(item.type) == undefined && !multiple)
-                        "
+                    <slot
+                        name="option-content"
+                        :option="item"
+                        :index="index"
+                        :valueTrigger="valueTrigger"
                     >
-                        {{ valueTrigger(item.text) }}
-                    </p>
+                        <p
+                            v-show="
+                                valueTrigger(item.type) == 'default' ||
+                                (valueTrigger(item.type) == undefined &&
+                                    !multiple)
+                            "
+                            class="common-content"
+                        >
+                            {{ valueTrigger(item.text) }}
+                        </p>
+                    </slot>
                 </slot>
             </div>
         </div>

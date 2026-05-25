@@ -190,8 +190,7 @@ export default {
 | dropDownListBackground | string          | 否    | ''                           |                                                                  |
 | dropDownIcon           | string          | 否    | 'ChevronDown'                | Icon with Fabric-Icon                                            |
 | dropDownIconForeground | string          | 否    | ''                           |                                                                  |
-| revealBorderColor      | [string(color)] | No    | N/A                          |                                                                  |
-| revealBackgroundColor  | [string(color)] | No    | N/A                          |                                                                  |
+| isBoxShadow            | boolean         | 否    | false                        | 是否为输入框启用阴影样式                                         |
 | showError              | boolean         | 否    | false                        |                                                                  |
 | errorMessage           | string          | 否    | 'This dropdown has an error' |                                                                  |
 | disabled               | boolean         | 否    | false                        |                                                                  |
@@ -229,11 +228,23 @@ export default {
 
 ```javascript
 <template v-slot:options="x">
-    <p>{{x.item.index}}</p>
+    <p>{{ x.index }}</p>
 </template>
 ```
 
-3. Drop Carrier
+3. Option Content
+
+- option: 当前选项对象
+- index: 当前选项索引
+- valueTrigger: 用于解析函数式字段值的辅助方法
+
+```javascript
+<template v-slot:option-content="x">
+    <p>{{ x.valueTrigger(x.option.text) }}</p>
+</template>
+```
+
+4. Drop Carrier
 
 - value: 当前选中内容
 - placeholoder: 当前Placeholder

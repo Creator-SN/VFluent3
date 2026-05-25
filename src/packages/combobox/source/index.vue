@@ -12,6 +12,7 @@
     >
         <div
             class="combobox-container"
+            :class="{'is-box-shadow': isBoxShadow}"
             @click="status = !isDisabled ? !status : false"
             :style="{
                 background: inputBackground,
@@ -155,6 +156,9 @@ const props = defineProps({
         default: false
     },
     revealBackgroundColor: {
+        default: false
+    },
+    isBoxShadow: {
         default: false
     },
     disabled: {

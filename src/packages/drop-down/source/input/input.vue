@@ -1,6 +1,7 @@
 <template>
     <div
         class="drop-down-box"
+        :class="[{ 'is-box-shadow': isBoxShadow }]"
         :style="{ 'border-radius': `${borderRadius}px`, height: inputHeight }"
     >
         <div
@@ -87,6 +88,9 @@ export default {
             default: false
         },
         revealBackgroundColor: {
+            default: false
+        },
+        isBoxShadow: {
             default: false
         },
         disabled: {

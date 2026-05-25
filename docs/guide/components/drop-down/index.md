@@ -190,8 +190,7 @@ export default {
 | dropDownListBackground | string          | No       | ''                           |                                                                          |
 | dropDownIcon           | string          | No       | 'ChevronDown'                | Icon with Fabric-Icon                                                    |
 | dropDownIconForeground | string          | No       | ''                           |                                                                          |
-| revealBorderColor      | [string(color)] | No       | N/A                          |                                                                          |
-| revealBackgroundColor  | [string(color)] | No       | N/A                          |                                                                          |
+| isBoxShadow            | boolean         | No       | false                        | Whether to apply the DropDown input shadow style                         |
 | showError              | boolean         | No       | false                        |                                                                          |
 | errorMessage           | string          | No       | 'This dropdown has an error' |                                                                          |
 | disabled               | boolean         | No       | false                        |                                                                          |
@@ -209,9 +208,8 @@ export default {
 ### Slots
 ---
 1. Input
-
-
-
+- `placeholder`: Current placeholder text.
+- `value`: Current selected text.
 
 ```javascript
 <template v-slot:input="x">
@@ -223,21 +221,33 @@ export default {
 
 2. Options
 
-
-
-
+- `option`: Current option item.
+- `index`: Current option index.
+- `valueTrigger`: Helper for resolving function-based field values.
 
 ```javascript
 <template v-slot:options="x">
-    <p>{{x.item.index}}</p>
+    <p>{{ x.index }}</p>
 </template>
 ```
 
-3. Drop Carrier
+3. Option Content
 
+- `option`: Current option item.
+- `index`: Current option index.
+- `valueTrigger`: Helper for resolving function-based field values.
 
+```javascript
+<template v-slot:option-content="x">
+    <p>{{ x.valueTrigger(x.option.text) }}</p>
+</template>
+```
 
+4. Drop Carrier
 
+- `value`: Current selected value array.
+- `placeholoder`: Current placeholder text.
+- `theme`: Current resolved theme.
 
 ```javascript
 <template v-slot:drop-carrier="x">

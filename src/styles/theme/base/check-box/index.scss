@@ -4,21 +4,20 @@
     justify-content: flex-start;
     align-items: center;
     user-select: none;
+    gap: 5px;
     cursor: pointer;
+    overflow: hidden;
 
     &.box-side-end {
         justify-content: flex-end;
         flex-direction: row-reverse;
-
-        .text-content-block {
-            margin-right: 5px;
-        }
     }
 
     .fv-checkbox-rec {
         position: relative;
         width: 20px;
         height: 20px;
+        flex-shrink: 0;
         border-radius: 3px;
         display: flex;
         justify-content: center;
@@ -147,9 +146,12 @@
     }
 
     .text-content-block {
-        margin-left: 5px;
+        flex: 1;
         font-size: 15px;
         user-select: none;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         cursor: default;
+        overflow: hidden;
     }
 }
