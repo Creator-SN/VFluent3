@@ -27,6 +27,7 @@
                 :is-box-shadow="isBoxShadow"
                 :reveal-border="revealBorder"
                 :ref="`t${idx}`"
+                @update:modelValue="handleInput($event, idx)"
                 @keydown="handleKeyDown($event, idx)"
             ></fv-text-box>
         </div>
@@ -91,6 +92,7 @@ const props = defineProps({
 
 <script>
 import { useTheme } from '@/utils/common';
+import { nextTick } from 'vue';
 
 export default {
     name: 'FvVerifyBox',
@@ -100,7 +102,8 @@ export default {
         };
     },
     watch: {
-        modelValue() {
+        modelValue(val) {
+            if (val === this.thisValue.join('')) return;
             this.valueFormat();
         },
         thisValue: {
@@ -140,9 +143,35 @@ export default {
                 else this.thisValue.push('');
             }
         },
+        getBoxRef(idx) {
+            const target = this.$refs[`t${idx}`];
+            return Array.isArray(target) ? target[0] : target;
+        },
+        focusBox(idx) {
+            const target = this.getBoxRef(idx);
+            if (!target) return;
+            if (typeof target.focus === 'function') target.focus();
+        },
+        handleInput(value, idx) {
+            const nextValue = value == null ? '' : value.toString();
+            const current = nextValue.slice(-1);
+
+            if (this.thisValue[idx] === current) return;
+
+            this.thisValue[idx] = current;
+
+            if (!current) return;
+
+            if (idx < this.length - 1) {
+                nextTick(() => {
+                    this.focusBox(idx + 1);
+                });
+                return;
+            }
+
+            this.$emit('confirm', this.thisValue.join(''));
+        },
         handleKeyDown(event, idx) {
-            event.preventDefault();
-            console.log(event);
             if (event.ctrlKey) {
                 // Ctrl + V
                 if (event.keyCode === 86 && event.ctrlKey) {
@@ -152,45 +181,36 @@ export default {
                 }
                 return;
             }
-            // Number or Letter
-            if (event.key.length === 1 && !event.ctrlKey) {
-                this.thisValue[idx] = event.key;
-            }
             // Arrow Right
             if(event.keyCode === 39 && idx < this.length - 1) {
-                let target = this.$refs[`t${idx + 1}`][0];
-                target.focus();
+                event.preventDefault();
+                this.focusBox(idx + 1);
             }
             // Arrow Left
             if(event.keyCode === 37 && idx > 0) {
-                let target = this.$refs[`t${idx - 1}`][0];
-                target.focus();
+                event.preventDefault();
+                this.focusBox(idx - 1);
             }
             // Backspace
             if (event.keyCode === 8) {
-                this.thisValue[idx] = '';
-                if (idx > 0) {
-                    let target = this.$refs[`t${idx - 1}`][0];
-                    target.focus();
+                event.preventDefault();
+                if (this.thisValue[idx]) {
+                    this.thisValue[idx] = '';
+                    return;
                 }
+                if (idx <= 0) return;
+                this.thisValue[idx - 1] = '';
+                nextTick(() => {
+                    this.focusBox(idx - 1);
+                });
                 return;
             }
             if (event.keyCode === 13) {
                 this.$emit('confirm', this.thisValue.join(''));
-            }
-            if (
-                idx < this.length - 1 &&
-                (event.key.length === 1 || event.keyCode === 9)
-            ) {
-                let target = this.$refs[`t${idx + 1}`][0];
-                target.focus();
-            }
-            if (idx === this.length - 1) {
-                this.$emit('confirm', this.thisValue.join(''));
+                return;
             }
         },
         handlePaste(event) {
-            console.log(event);
             let data = event.clipboardData.getData('text/plain');
             this.pasteProcess(data);
         },
@@ -208,7 +228,9 @@ export default {
             let focusIdx =
                 data.length < this.length ? data.length : this.length;
             focusIdx = focusIdx == this.length ? focusIdx - 1 : focusIdx;
-            this.$refs[`t${focusIdx}`][0].focus();
+            nextTick(() => {
+                this.focusBox(focusIdx);
+            });
         }
     }
 };
