@@ -1,24 +1,37 @@
 <template>
     <div class="fv-VerifyBox" :class="[$theme]">
-        <div
-            v-if="thisValue.length === length"
-            class="fv-verify-container"
-            @paste="handlePaste($event)"
-        >
-            <fv-text-box
-                :modelValue="thisValue[idx]"
+        <div class="fv-verify-container" :style="{ position: 'relative' }">
+            <input
+                ref="proxyInput"
+                v-model="thisValue"
                 :inputmode="inputmode"
+                :disabled="isDisabled"
+                :maxlength="length"
+                autocomplete="one-time-code"
+                autocapitalize="off"
+                spellcheck="false"
+                class="fv-verify-proxy-input"
+                @focus="handleInputFocus"
+                @blur="handleInputBlur"
+                @input="handleProxyInput"
+                @click="syncActiveIndex()"
+                @keydown="handleProxyKeyDown"
+                @paste="handlePaste($event)"
+            />
+            <fv-text-box
+                :modelValue="thisValue[idx] || ''"
                 class="fv-verify-unit"
                 :theme="theme"
                 v-for="(i, idx) in length"
                 :key="idx"
                 :disabled="isDisabled"
                 :maxlength="1"
+                :readonly="true"
                 :underline="underline"
                 :background="background"
                 :border-width="borderWidth"
-                :border-color="borderColor"
-                :focus-border-color="focusBorderColor"
+                :border-color="boxBorderColor(idx)"
+                :focus-border-color="boxBorderColor(idx)"
                 :font-size="fontSize"
                 :font-weight="fontWeight"
                 :foreground="foreground"
@@ -26,9 +39,7 @@
                 :border-radius="borderRadius"
                 :is-box-shadow="isBoxShadow"
                 :reveal-border="revealBorder"
-                :ref="`t${idx}`"
-                @update:modelValue="handleInput($event, idx)"
-                @keydown="handleKeyDown($event, idx)"
+                @click="focusInput(idx)"
             ></fv-text-box>
         </div>
     </div>
@@ -64,7 +75,7 @@ const props = defineProps({
         default: ''
     },
     focusBorderColor: {
-        default: ''
+        default: 'rgba(0, 153, 204, 0.6)'
     },
     fontSize: {
         default: 18
@@ -98,19 +109,33 @@ export default {
     name: 'FvVerifyBox',
     data() {
         return {
-            thisValue: []
+            thisValue: '',
+            activeIndex: -1
         };
     },
     watch: {
         modelValue(val) {
-            if (val === this.thisValue.join('')) return;
-            this.valueFormat();
+            const normalized = this.normalizeValue(val);
+            if (normalized === this.thisValue) return;
+            this.thisValue = normalized;
         },
-        thisValue: {
-            deep: true,
-            handler(val) {
-                this.$emit('update:modelValue', val.join(''));
+        thisValue(val) {
+            const normalized = this.normalizeValue(val);
+
+            if (normalized !== val) {
+                this.thisValue = normalized;
+                return;
             }
+
+            this.$emit('update:modelValue', normalized);
+
+            if (normalized.length >= this.length) {
+                this.$emit('confirm', normalized);
+            }
+
+            nextTick(() => {
+                this.syncActiveIndex();
+            });
         }
     },
     computed: {
@@ -133,104 +158,121 @@ export default {
         }
     },
     mounted() {
-        this.valueFormat();
+        this.thisValue = this.normalizeValue(this.modelValue);
     },
     methods: {
-        valueFormat() {
-            this.thisValue = [];
-            for (let i = 0; i < this.length; i++) {
-                if (this.modelValue[i]) this.thisValue.push(this.modelValue[i]);
-                else this.thisValue.push('');
-            }
+        normalizeValue(value) {
+            return value == null
+                ? ''
+                : value.toString().replace(/\s/g, '').slice(0, this.length);
         },
-        getBoxRef(idx) {
-            const target = this.$refs[`t${idx}`];
-            return Array.isArray(target) ? target[0] : target;
+        getInputRef() {
+            return this.$refs.proxyInput;
         },
-        focusBox(idx) {
-            const target = this.getBoxRef(idx);
-            if (!target) return;
-            if (typeof target.focus === 'function') target.focus();
-        },
-        handleInput(value, idx) {
-            const nextValue = value == null ? '' : value.toString();
-            const current = nextValue.slice(-1);
-
-            if (this.thisValue[idx] === current) return;
-
-            this.thisValue[idx] = current;
-
-            if (!current) return;
-
-            if (idx < this.length - 1) {
-                nextTick(() => {
-                    this.focusBox(idx + 1);
-                });
-                return;
+        currentCursorIndex() {
+            const input = this.getInputRef();
+            if (!input || typeof input.selectionStart !== 'number') {
+                return Math.min(this.thisValue.length, this.length - 1);
             }
 
-            this.$emit('confirm', this.thisValue.join(''));
+            return Math.min(input.selectionStart, this.length - 1);
         },
-        handleKeyDown(event, idx) {
-            if (event.ctrlKey) {
-                // Ctrl + V
-                if (event.keyCode === 86 && event.ctrlKey) {
-                    navigator.clipboard.readText().then((data) => {
-                        this.pasteProcess(data);
-                    });
+        focusInput(idx = null) {
+            if (this.isDisabled) return;
+
+            const input = this.getInputRef();
+            if (!input) return;
+
+            input.focus();
+
+            const cursor =
+                typeof idx === 'number'
+                    ? Math.min(idx, this.thisValue.length)
+                    : this.thisValue.length;
+
+            if (typeof input.setSelectionRange === 'function') {
+                input.setSelectionRange(cursor, cursor);
+            }
+
+            this.syncActiveIndex(cursor);
+        },
+        boxBorderColor(idx) {
+            if (this.activeIndex !== idx) return this.borderColor;
+            return this.focusBorderColor || this.borderColor;
+        },
+        syncActiveIndex(cursor = null) {
+            const input = this.getInputRef();
+            if (!input || document.activeElement !== input) return;
+
+            const currentCursor =
+                typeof cursor === 'number' ? cursor : this.currentCursorIndex();
+
+            this.activeIndex =
+                this.thisValue.length >= this.length &&
+                currentCursor >= this.length
+                    ? this.length - 1
+                    : Math.min(currentCursor, this.length - 1);
+        },
+        handleInputFocus() {
+            this.syncActiveIndex(this.thisValue.length);
+        },
+        handleInputBlur() {
+            this.activeIndex = -1;
+        },
+        handleProxyInput(event) {
+            const normalized = this.normalizeValue(event.target.value);
+            const cursor = Math.min(
+                typeof event.target.selectionStart === 'number'
+                    ? event.target.selectionStart
+                    : normalized.length,
+                normalized.length
+            );
+
+            if (normalized !== event.target.value) {
+                event.target.value = normalized;
+            }
+
+            if (normalized !== this.thisValue) {
+                this.thisValue = normalized;
+            }
+
+            nextTick(() => {
+                if (typeof event.target.setSelectionRange === 'function') {
+                    event.target.setSelectionRange(cursor, cursor);
                 }
+                this.syncActiveIndex(cursor);
+            });
+        },
+        handleProxyKeyDown(event) {
+            if (event.keyCode === 37) {
+                event.preventDefault();
+                this.focusInput(Math.max(this.currentCursorIndex() - 1, 0));
                 return;
             }
-            // Arrow Right
-            if(event.keyCode === 39 && idx < this.length - 1) {
+
+            if (event.keyCode === 39) {
                 event.preventDefault();
-                this.focusBox(idx + 1);
-            }
-            // Arrow Left
-            if(event.keyCode === 37 && idx > 0) {
-                event.preventDefault();
-                this.focusBox(idx - 1);
-            }
-            // Backspace
-            if (event.keyCode === 8) {
-                event.preventDefault();
-                if (this.thisValue[idx]) {
-                    this.thisValue[idx] = '';
-                    return;
-                }
-                if (idx <= 0) return;
-                this.thisValue[idx - 1] = '';
-                nextTick(() => {
-                    this.focusBox(idx - 1);
-                });
+                this.focusInput(
+                    Math.min(
+                        this.currentCursorIndex() + 1,
+                        this.thisValue.length
+                    )
+                );
                 return;
             }
+
             if (event.keyCode === 13) {
-                this.$emit('confirm', this.thisValue.join(''));
+                this.$emit('confirm', this.thisValue);
                 return;
             }
         },
         handlePaste(event) {
-            let data = event.clipboardData.getData('text/plain');
-            this.pasteProcess(data);
-        },
-        pasteProcess(data) {
-            for (let i = 0; i < this.thisValue.length; i++) {
-                this.thisValue[i] = '';
-            }
-            for (let i = 0; i < this.length; i++) {
-                if (data[i]) this.thisValue[i] = data[i];
-                else this.thisValue[i] = '';
-            }
-            if (data.length >= this.length) {
-                this.$emit('confirm', this.thisValue.join(''));
-            }
-            let focusIdx =
-                data.length < this.length ? data.length : this.length;
-            focusIdx = focusIdx == this.length ? focusIdx - 1 : focusIdx;
+            const data = event.clipboardData.getData('text/plain');
+            this.thisValue = this.normalizeValue(data);
             nextTick(() => {
-                this.focusBox(focusIdx);
+                this.focusInput();
             });
+            event.preventDefault();
         }
     }
 };

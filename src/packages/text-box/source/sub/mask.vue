@@ -25,6 +25,17 @@
     </div>
 </template>
 
+<script setup>
+import { getCurrentInstance } from 'vue';
+
+const proxy = getCurrentInstance().proxy;
+
+defineExpose({
+    focusInspect: (...args) => proxy.focusInspect(...args),
+    getInputInspect: (...args) => proxy.getInputInspect(...args)
+});
+</script>
+
 <script>
 import { useTheme } from '@/utils/common';
 
@@ -273,6 +284,9 @@ export default {
         },
         focusInspect() {
             this.$refs.input.focus();
+        },
+        getInputInspect() {
+            return this.$refs.input;
         }
     }
 };

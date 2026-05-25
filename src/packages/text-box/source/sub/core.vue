@@ -51,6 +51,17 @@
     </div>
 </template>
 
+<script setup>
+import { getCurrentInstance } from 'vue';
+
+const proxy = getCurrentInstance().proxy;
+
+defineExpose({
+    focusInspect: (...args) => proxy.focusInspect(...args),
+    getInputInspect: (...args) => proxy.getInputInspect(...args)
+});
+</script>
+
 <script>
 import maskInput from './mask.vue';
 import { useTheme } from '@/utils/common';
@@ -204,6 +215,10 @@ export default {
         focusInspect() {
             if (this.mode == 'mask') this.$refs.mask_input.focusInspect();
             else this.$refs.input.focus();
+        },
+        getInputInspect() {
+            if (this.mode == 'mask') return this.$refs.mask_input.getInputInspect();
+            else return this.$refs.input;
         }
     }
 };

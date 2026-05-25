@@ -91,6 +91,7 @@
 
 <script setup>
 import { defineProps, defineEmits, ref } from 'vue';
+import { getCurrentInstance } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
 const emits = defineEmits([
@@ -216,13 +217,11 @@ const props = defineProps({
 });
 
 // If we use script setup, we must use defineExpose to expose methods.
-const core = ref(null);
-const focus = () => {
-    core.value.focusInspect();
-};
+const proxy = getCurrentInstance().proxy;
 
 defineExpose({
-    focus
+    focus: (...args) => proxy.focus(...args),
+    getInput: (...args) => proxy.getInput(...args)
 });
 </script>
 
@@ -300,6 +299,9 @@ export default {
     methods: {
         focus() {
             this.$refs.core.focusInspect();
+        },
+        getInput() {
+            return this.$refs.core.getInputInspect();
         }
     }
 };
