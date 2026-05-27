@@ -1,13 +1,18 @@
 <template>
     <div
         class="fv-TabView"
-        :class="[$theme, { disabled: isDisabled }]"
+        :class="[
+            $theme,
+            { disabled: isDisabled, rounded: styleMode === 'rounded' }
+        ]"
         :style="{
             padding: padding,
             background: background,
             borderRadius: formatSize(borderRadius),
             '--tab-view-hover-background': hoverBackground || '',
-            '--tab-view-active-background': activeBackground || ''
+            '--tab-view-active-background': activeBackground || '',
+            '--tab-view-border-radius': formatSize(itemBorderRadius),
+            '--tab-view-padding': listPadding || ''
         }"
     >
         <div class="tab-view-wrapper">
@@ -197,6 +202,12 @@ const props = defineProps({
     closable: {
         default: true
     },
+    listPadding: {
+        default: ''
+    },
+    itemBorderRadius: {
+        default: 8
+    },
     showAddButton: {
         default: false
     },
@@ -217,6 +228,9 @@ const props = defineProps({
     },
     closeButtonForeground: {
         default: ''
+    },
+    styleMode: {
+        default: 'borderless'
     },
     overflowMode: {
         default: 'scroll'

@@ -299,6 +299,8 @@ items = [
 | imgBorderRadius | number / string | No | `4` | Border radius for tab images. |
 | draggable | boolean | No | `true` | Whether tabs can be reordered by drag and drop. |
 | closable | boolean | No | `true` | Whether tabs show a close button by default. Items can set `closable: false` to opt out. |
+| listPadding | string | No | `''` | Padding applied to the internal tab list container. |
+| itemBorderRadius | number / string | No | `8` | Border radius of each tab item. |
 | showAddButton | boolean | No | `false` | Whether to show the add button on the right side. |
 | addButtonIcon | string | No | `'Add'` | Fluent icon name used by the add button. |
 | addButtonBackground | string | No | `''` | Background of the add button. |
@@ -306,6 +308,7 @@ items = [
 | closeButtonIcon | string | No | `'ChromeClose'` | Fluent icon name used by the close button. |
 | closeIconSize | number / string | No | `10` | Icon size of the close button. |
 | closeButtonForeground | string | No | `''` | Foreground color of the close button. |
+| styleMode | string | No | `'borderless'` | Visual style of the tabs. Currently supports `borderless` and `rounded`. |
 | overflowMode | string | No | `'scroll'` | Overflow behavior for many tabs. Use `scroll` to keep tab width and enable horizontal scrolling, or `shrink` to compress tabs into one row. |
 | theme | string | No | `'global'` | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
 | disabled | boolean | No | `false` | Disable the whole component. |

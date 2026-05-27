@@ -299,6 +299,8 @@ items = [
 | imgBorderRadius | number / string | 否 | `4` | 标签图片圆角。 |
 | draggable | boolean | 否 | `true` | 是否允许拖拽调整标签顺序。 |
 | closable | boolean | 否 | `true` | 是否默认显示关闭按钮。单项可通过 `closable: false` 单独关闭。 |
+| listPadding | string | 否 | `''` | 标签列表内部容器的内边距。 |
+| itemBorderRadius | number / string | 否 | `8` | 每个标签项的圆角。 |
 | showAddButton | boolean | 否 | `false` | 是否显示右侧添加按钮。 |
 | addButtonIcon | string | 否 | `'Add'` | 添加按钮使用的 Fluent 图标名。 |
 | addButtonBackground | string | 否 | `''` | 添加按钮背景色。 |
@@ -306,6 +308,7 @@ items = [
 | closeButtonIcon | string | 否 | `'ChromeClose'` | 关闭按钮使用的 Fluent 图标名。 |
 | closeIconSize | number / string | 否 | `10` | 关闭按钮图标大小。 |
 | closeButtonForeground | string | 否 | `''` | 关闭按钮前景色。 |
+| styleMode | string | 否 | `'borderless'` | 标签的视觉样式。当前支持 `borderless` 和 `rounded`。 |
 | overflowMode | string | 否 | `'scroll'` | 多标签溢出时的处理方式。`scroll` 保持标签宽度并启用横向滚动，`shrink` 会把标签压缩到同一行内。 |
 | theme | string | 否 | `'global'` | 主题样式，支持 `global`、`light`、`dark`、`system` 和 `custom`。 |
 | disabled | boolean | 否 | `false` | 是否禁用整个组件。 |
