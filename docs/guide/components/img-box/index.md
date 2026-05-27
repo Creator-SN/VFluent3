@@ -5,6 +5,13 @@ title: ImgBox
 
 
 <!-- lang-switch -->
+### When To Use
+---
+
+- `ImgBox` is suitable for images that are not blocked by cross-origin restrictions, especially same-origin assets.
+- It loads the source through an internal request flow, so it can show loading progress.
+- Prefer `ImgBox` when you want progress feedback and your image source supports this loading mode.
+
 ### ImgBox-DEMO
 ---
 

@@ -4,6 +4,13 @@ title: Img
 --- 
 
 <!-- lang-switch -->
+### Differences
+---
+
+- `Img` is the recommended general-purpose component.
+- It switches between `ImgBox` and `Image` automatically according to the loading situation.
+- Use `Img` when you want a single component API and do not want to choose between same-origin and cross-origin loading manually.
+
 ### Img-DEMO
 ---
 

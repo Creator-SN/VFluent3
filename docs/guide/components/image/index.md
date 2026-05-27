@@ -4,6 +4,13 @@ title: Image
 --- 
 
 <!-- lang-switch -->
+### When To Use
+---
+
+- `Image` is suitable for cross-origin image loading scenarios.
+- It focuses on direct image rendering and does not provide the progress behavior used by `ImgBox`.
+- Prefer `Image` when the source is cross-origin or when `ImgBox` is not suitable for the request mode.
+
 ### Image-DEMO
 ---
 
