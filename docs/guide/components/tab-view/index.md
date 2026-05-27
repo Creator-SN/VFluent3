@@ -409,6 +409,7 @@ Customizes the add button content shown on the right side when `showAddButton` i
 | update:modelValue | object | Triggered when the selected tab changes. |
 | update:items | array | Triggered after close or drag reordering updates the tab list. |
 | change | object | Triggered when the selected tab changes. |
+| click | object | Triggered when a tab is clicked. Returns the clicked tab item. |
 | add | event | Triggered when the add button is clicked. |
 | close | object | Triggered when a tab is closed. Returns `event`, `item`, `items`, and `index`. |
 | reorder | object | Triggered after drag reordering. Returns `item`, `items`, `from`, and `to`. |

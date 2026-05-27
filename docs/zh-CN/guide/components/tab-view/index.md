@@ -409,6 +409,7 @@ items = [
 | update:modelValue | object | 选中标签变更时触发。 |
 | update:items | array | 关闭标签或拖拽重排后触发，返回新的标签列表。 |
 | change | object | 选中标签变更时触发。 |
+| click | object | 点击标签时触发，返回当前被点击的标签项。 |
 | add | event | 点击添加按钮时触发。 |
 | close | object | 关闭标签时触发，返回 `event`、`item`、`items` 和 `index`。 |
 | reorder | object | 拖拽重排完成后触发，返回 `item`、`items`、`from` 和 `to`。 |

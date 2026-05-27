@@ -155,6 +155,7 @@ const emits = defineEmits([
     'update:modelValue',
     'update:items',
     'change',
+    'click',
     'add',
     'reorder',
     'close'
@@ -400,6 +401,7 @@ export default {
                 return;
             }
             this.thisValue = item;
+            this.$emit('click', item);
         },
         tabDraggable(item) {
             return (
