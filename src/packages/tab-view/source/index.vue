@@ -36,9 +36,7 @@
                             color: eqal(item)
                                 ? choosenForeground || ''
                                 : foreground || '',
-                            background: eqal(item)
-                                ? chooseBackground || ''
-                                : ''
+                            background: eqal(item) ? chooseBackground || '' : ''
                         }"
                         :draggable="tabDraggable(item)"
                         @click="itemClick(item)"
@@ -54,22 +52,31 @@
                             :eqal="eqal"
                             :valueTrigger="valueTrigger"
                         >
-                            <img
-                                v-if="itemImage(item)"
-                                class="tab-view-item-icon tab-view-item-image"
-                                :src="itemImage(item)"
-                                :alt="itemTitle(item)"
-                                :style="{
-                                    borderRadius: formatSize(imgBorderRadius)
-                                }"
-                                draggable="false"
-                            />
-                            <i
-                                v-else-if="valueTrigger(item.icon)"
-                                class="ms-Icon tab-view-item-icon"
-                                :class="`ms-Icon--${valueTrigger(item.icon)}`"
-                                :style="{ fontSize: '16px' }"
-                            ></i>
+                            <slot
+                                name="icon"
+                                :item="item"
+                                :index="index"
+                                :eqal="eqal"
+                                :valueTrigger="valueTrigger"
+                            >
+                                <img
+                                    v-if="itemImage(item)"
+                                    class="tab-view-item-icon tab-view-item-image"
+                                    :src="itemImage(item)"
+                                    :alt="itemTitle(item)"
+                                    :style="{
+                                        borderRadius:
+                                            formatSize(imgBorderRadius)
+                                    }"
+                                    draggable="false"
+                                />
+                                <i
+                                    v-else-if="valueTrigger(item.icon)"
+                                    class="ms-Icon tab-view-item-icon"
+                                    :class="`ms-Icon--${valueTrigger(item.icon)}`"
+                                    :style="{ fontSize: '16px' }"
+                                ></i>
+                            </slot>
                             <p
                                 class="tab-view-item-title"
                                 :style="{ fontSize: formatSize(fontSize) }"

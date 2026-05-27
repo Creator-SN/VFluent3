@@ -311,6 +311,78 @@ items = [
 | disabled | boolean | 否 | `false` | 是否禁用整个组件。 |
 | lang | string | 否 | `'global'` | 从公共属性继承的语言选项。 |
 
+### 插槽
+---
+
+1. item
+
+自定义整个标签项内容。使用后会替换默认的“图标 + 标题”布局。
+
+* item: 当前标签项
+* index: 当前标签索引
+* eqal: 返回当前标签是否被选中
+* valueTrigger: 用于读取标签项上的静态值或函数返回值
+
+```vue
+<template v-slot:item="{ item, index, eqal, valueTrigger }">
+    <div
+        style="display: flex; align-items: center; gap: 8px;"
+    >
+        <i
+            class="ms-Icon"
+            :class="`ms-Icon--${valueTrigger(item.icon)}`"
+        ></i>
+        <b>{{ valueTrigger(item.name) }}</b>
+        <span v-if="eqal(item)">当前</span>
+    </div>
+</template>
+```
+
+2. icon
+
+仅自定义默认布局中的图标区域。如果已经使用 `item` 完整自定义标签项，则此插槽不会生效。
+
+* item: 当前标签项
+* index: 当前标签索引
+* eqal: 返回当前标签是否被选中
+* valueTrigger: 用于读取标签项上的静态值或函数返回值
+
+```vue
+<template v-slot:icon="{ item, valueTrigger }">
+    <i
+        class="ms-Icon"
+        :class="`ms-Icon--${valueTrigger(item.icon)}`"
+        style="font-size: 18px;"
+    ></i>
+</template>
+```
+
+3. close-button
+
+自定义可关闭标签上的关闭按钮内容。
+
+* item: 当前标签项
+* index: 当前标签索引
+
+```vue
+<template v-slot:close-button="{ item }">
+    <i
+        class="ms-Icon ms-Icon--Cancel"
+        :title="item.name"
+    ></i>
+</template>
+```
+
+4. add-button
+
+自定义右侧添加按钮内容，仅在 `showAddButton` 为 `true` 时显示。
+
+```vue
+<template v-slot:add-button>
+    <i class="ms-Icon ms-Icon--Add"></i>
+</template>
+```
+
 ### 事件
 ---
 | 事件名 | 参数 | 说明 |

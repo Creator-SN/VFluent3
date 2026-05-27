@@ -311,6 +311,78 @@ items = [
 | disabled | boolean | No | `false` | Disable the whole component. |
 | lang | string | No | `'global'` | Language option inherited from common props. |
 
+### Slots
+---
+
+1. item
+
+Customizes the entire tab item content. When this slot is used, the default `icon + title` layout is replaced.
+
+* item: current tab item
+* index: current tab index
+* eqal: returns whether the tab is selected
+* valueTrigger: resolves direct values or getter functions on the item
+
+```vue
+<template v-slot:item="{ item, index, eqal, valueTrigger }">
+    <div
+        style="display: flex; align-items: center; gap: 8px;"
+    >
+        <i
+            class="ms-Icon"
+            :class="`ms-Icon--${valueTrigger(item.icon)}`"
+        ></i>
+        <b>{{ valueTrigger(item.name) }}</b>
+        <span v-if="eqal(item)">Current</span>
+    </div>
+</template>
+```
+
+2. icon
+
+Customizes only the icon area inside the default tab item layout. If `item` is already used, this slot will not take effect.
+
+* item: current tab item
+* index: current tab index
+* eqal: returns whether the tab is selected
+* valueTrigger: resolves direct values or getter functions on the item
+
+```vue
+<template v-slot:icon="{ item, valueTrigger }">
+    <i
+        class="ms-Icon"
+        :class="`ms-Icon--${valueTrigger(item.icon)}`"
+        style="font-size: 18px;"
+    ></i>
+</template>
+```
+
+3. close-button
+
+Customizes the close button content for closable tabs.
+
+* item: current tab item
+* index: current tab index
+
+```vue
+<template v-slot:close-button="{ item }">
+    <i
+        class="ms-Icon ms-Icon--Cancel"
+        :title="item.name"
+    ></i>
+</template>
+```
+
+4. add-button
+
+Customizes the add button content shown on the right side when `showAddButton` is `true`.
+
+```vue
+<template v-slot:add-button>
+    <i class="ms-Icon ms-Icon--Add"></i>
+</template>
+```
+
 ### Emits
 ---
 | Event | Arguments | Description |
