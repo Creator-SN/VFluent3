@@ -247,8 +247,11 @@ export default {
         modelValue() {
             this.findCurrentValue();
         },
-        items() {
-            this.itemsInit();
+        items: {
+            handler() {
+                this.itemsInit();
+            },
+            deep: true
         },
         thisValue(val) {
             this.$emit('update:modelValue', this.publicItem(val));
