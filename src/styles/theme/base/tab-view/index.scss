@@ -210,9 +210,45 @@
                 background 0.15s,
                 opacity 0.15s;
 
+            .tab-view-item-close-icon {
+                position: absolute;
+                transition:
+                    opacity 0.15s,
+                    transform 0.15s;
+            }
+
+            .modified-icon {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            &.modified {
+                .close-icon {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+
+                .modified-icon {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
             &:hover {
                 background: var(--tab-view-close-hover-background);
                 opacity: 1;
+            }
+
+            &.modified:hover {
+                .close-icon {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+
+                .modified-icon {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
             }
         }
     }

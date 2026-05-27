@@ -32,6 +32,7 @@ export default {
                     key: 'welcome',
                     title: '欢迎',
                     icon: 'Home',
+                    modified: () => true,
                     closable: false
                 }
             ],
@@ -39,7 +40,7 @@ export default {
             manyItems: [
                 { key: 'welcome', name: '欢迎', icon: 'Home', closable: false },
                 { key: 'explorer', name: '资源管理器', icon: 'FolderHorizontal' },
-                { key: 'search', name: '搜索', icon: 'Search' },
+                { key: 'search', name: '搜索', icon: 'Search', modified: true },
                 { key: 'extensions', name: '扩展', icon: 'Puzzle' },
                 { key: 'source-control', name: '源代码管理', icon: 'Repo' },
                 { key: 'terminal', name: '终端', icon: 'CommandPrompt' },
@@ -52,7 +53,7 @@ export default {
             dynamicValue: null,
             dynamicItems: [
                 { key: 'home', name: '首页', icon: 'Home', closable: false },
-                { key: 'activity', name: '活动', icon: 'Timeline' },
+                { key: 'activity', name: '活动', icon: 'Timeline', modified: true },
                 { key: 'design', name: '设计', icon: 'Design' }
             ],
             tabSeed: 1
@@ -83,6 +84,9 @@ export default {
         },
         handleClose(event) {
             console.log('close', event.item)
+        },
+        handleBeforeClose(payload) {
+            return payload.item.closable !== false
         },
         handleReorder(event) {
             console.log('reorder', event.items)
@@ -199,6 +203,8 @@ export default {
     v-model="dynamicValue"
     :items="dynamicItems"
     :itemWidth="150"
+    modifiedButtonIcon="CircleFill"
+    :beforeClose="handleBeforeClose"
     :showAddButton="true"
     @add="handleAdd"
     @close="handleClose"
@@ -211,6 +217,8 @@ export default {
     v-model="dynamicValue"
     :items="dynamicItems"
     :itemWidth="150"
+    modifiedButtonIcon="CircleFill"
+    :beforeClose="handleBeforeClose"
     :showAddButton="true"
     @add="handleAdd"
     @close="handleClose"
@@ -273,11 +281,14 @@ items = [
         disabled: false,
         draggable: true,
         closable: true,
+        modified: false,
         icon: 'FolderHorizontal',
         img: ''
     }
 ]
 ```
+
+`modified` 也支持传入函数，会通过 `valueTrigger` 计算，因此可以按标签项动态决定是否显示“未保存”状态。
 
 ### 属性
 ---
@@ -307,6 +318,9 @@ items = [
 | addButtonForeground | string | 否 | `''` | 添加按钮前景色。 |
 | closeButtonIcon | string | 否 | `'ChromeClose'` | 关闭按钮使用的 Fluent 图标名。 |
 | closeIconSize | number / string | 否 | `10` | 关闭按钮图标大小。 |
+| modifiedButtonIcon | string | 否 | `'CircleFill'` | 已修改标签在未 hover 时显示的 Fluent 图标名。 |
+| modifiedIconSize | number / string | 否 | `8` | 已修改状态指示图标大小。 |
+| beforeClose | function | 否 | `() => true` | 关闭标签前的拦截函数。接收 `{ event, item, items, index }`，只有返回 `true` 时才会继续关闭。 |
 | closeButtonForeground | string | 否 | `''` | 关闭按钮前景色。 |
 | styleMode | string | 否 | `'borderless'` | 标签的视觉样式。当前支持 `borderless` 和 `rounded`。 |
 | overflowMode | string | 否 | `'scroll'` | 多标签溢出时的处理方式。`scroll` 保持标签宽度并启用横向滚动，`shrink` 会把标签压缩到同一行内。 |
@@ -366,11 +380,13 @@ items = [
 
 * item: 当前标签项
 * index: 当前标签索引
+* modified: 当前标签项是否处于已修改状态
 
 ```vue
-<template v-slot:close-button="{ item }">
+<template v-slot:close-button="{ item, modified }">
     <i
-        class="ms-Icon ms-Icon--Cancel"
+        class="ms-Icon"
+        :class="modified ? 'ms-Icon--CircleFill' : 'ms-Icon--Cancel'"
         :title="item.name"
     ></i>
 </template>

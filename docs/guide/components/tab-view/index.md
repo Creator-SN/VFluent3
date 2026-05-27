@@ -32,6 +32,7 @@ export default {
                     key: 'welcome',
                     title: 'Welcome',
                     icon: 'Home',
+                    modified: () => true,
                     closable: false
                 }
             ],
@@ -39,7 +40,7 @@ export default {
             manyItems: [
                 { key: 'welcome', name: 'Welcome', icon: 'Home', closable: false },
                 { key: 'explorer', name: 'Explorer', icon: 'FolderHorizontal' },
-                { key: 'search', name: 'Search', icon: 'Search' },
+                { key: 'search', name: 'Search', icon: 'Search', modified: true },
                 { key: 'extensions', name: 'Extensions', icon: 'Puzzle' },
                 { key: 'source-control', name: 'Source Control', icon: 'Repo' },
                 { key: 'terminal', name: 'Terminal', icon: 'CommandPrompt' },
@@ -52,7 +53,7 @@ export default {
             dynamicValue: null,
             dynamicItems: [
                 { key: 'home', name: 'Home', icon: 'Home', closable: false },
-                { key: 'activity', name: 'Activity', icon: 'Timeline' },
+                { key: 'activity', name: 'Activity', icon: 'Timeline', modified: true },
                 { key: 'design', name: 'Design', icon: 'Design' }
             ],
             tabSeed: 1
@@ -83,6 +84,9 @@ export default {
         },
         handleClose(event) {
             console.log('close', event.item)
+        },
+        handleBeforeClose(payload) {
+            return payload.item.closable !== false
         },
         handleReorder(event) {
             console.log('reorder', event.items)
@@ -199,6 +203,8 @@ export default {
     v-model="dynamicValue"
     :items="dynamicItems"
     :itemWidth="150"
+    modifiedButtonIcon="CircleFill"
+    :beforeClose="handleBeforeClose"
     :showAddButton="true"
     @add="handleAdd"
     @close="handleClose"
@@ -211,6 +217,8 @@ export default {
     v-model="dynamicValue"
     :items="dynamicItems"
     :itemWidth="150"
+    modifiedButtonIcon="CircleFill"
+    :beforeClose="handleBeforeClose"
     :showAddButton="true"
     @add="handleAdd"
     @close="handleClose"
@@ -273,11 +281,14 @@ items = [
         disabled: false,
         draggable: true,
         closable: true,
+        modified: false,
         icon: 'FolderHorizontal',
         img: ''
     }
 ]
 ```
+
+`modified` also supports a function and is resolved with `valueTrigger`, so you can compute the unsaved state dynamically per tab item.
 
 ### Properties
 ---
@@ -307,6 +318,9 @@ items = [
 | addButtonForeground | string | No | `''` | Foreground color of the add button. |
 | closeButtonIcon | string | No | `'ChromeClose'` | Fluent icon name used by the close button. |
 | closeIconSize | number / string | No | `10` | Icon size of the close button. |
+| modifiedButtonIcon | string | No | `'CircleFill'` | Fluent icon name shown for modified tabs before hover. |
+| modifiedIconSize | number / string | No | `8` | Icon size of the modified indicator. |
+| beforeClose | function | No | `() => true` | Interceptor called before a tab is closed. Receives `{ event, item, items, index }`. Closing continues only when it returns `true`. |
 | closeButtonForeground | string | No | `''` | Foreground color of the close button. |
 | styleMode | string | No | `'borderless'` | Visual style of the tabs. Currently supports `borderless` and `rounded`. |
 | overflowMode | string | No | `'scroll'` | Overflow behavior for many tabs. Use `scroll` to keep tab width and enable horizontal scrolling, or `shrink` to compress tabs into one row. |
@@ -366,11 +380,13 @@ Customizes the close button content for closable tabs.
 
 * item: current tab item
 * index: current tab index
+* modified: whether the current tab item is in modified state
 
 ```vue
-<template v-slot:close-button="{ item }">
+<template v-slot:close-button="{ item, modified }">
     <i
-        class="ms-Icon ms-Icon--Cancel"
+        class="ms-Icon"
+        :class="modified ? 'ms-Icon--CircleFill' : 'ms-Icon--Cancel'"
         :title="item.name"
     ></i>
 </template>

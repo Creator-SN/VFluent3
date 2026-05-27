@@ -92,6 +92,7 @@
                         <div
                             v-if="tabClosable(item)"
                             class="tab-view-item-close"
+                            :class="{ modified: tabModified(item) }"
                             :style="{ color: closeButtonForeground || '' }"
                             @click.stop="closeItem($event, index, item)"
                         >
@@ -99,12 +100,21 @@
                                 name="close-button"
                                 :item="item"
                                 :index="index"
+                                :modified="tabModified(item)"
                             >
                                 <i
-                                    class="ms-Icon"
+                                    class="ms-Icon tab-view-item-close-icon close-icon"
                                     :class="`ms-Icon--${closeButtonIcon}`"
                                     :style="{
                                         fontSize: formatSize(closeIconSize)
+                                    }"
+                                ></i>
+                                <i
+                                    v-if="tabModified(item)"
+                                    class="ms-Icon tab-view-item-close-icon modified-icon"
+                                    :class="`ms-Icon--${modifiedButtonIcon}`"
+                                    :style="{
+                                        fontSize: formatSize(modifiedIconSize)
                                     }"
                                 ></i>
                             </slot>
@@ -226,6 +236,15 @@ const props = defineProps({
     closeIconSize: {
         default: 10
     },
+    modifiedButtonIcon: {
+        default: 'CircleFill'
+    },
+    modifiedIconSize: {
+        default: 8
+    },
+    beforeClose: {
+        default: () => () => true
+    },
     closeButtonForeground: {
         default: ''
     },
@@ -319,6 +338,7 @@ export default {
                 disabled: false,
                 draggable: true,
                 closable: true,
+                modified: false,
                 icon: '',
                 img: ''
             };
@@ -397,6 +417,9 @@ export default {
                 this.valueTrigger(item.closable) !== false
             );
         },
+        tabModified(item) {
+            return this.valueTrigger(item.modified) === true;
+        },
         handleDragStart(event, index, item) {
             if (!this.tabDraggable(item)) {
                 event.preventDefault();
@@ -471,6 +494,13 @@ export default {
         },
         closeItem(event, index, item) {
             if (!this.tabClosable(item)) return;
+            let canClose = this.beforeClose({
+                event,
+                item: this.publicItem(item),
+                items: this.publicItems(this.thisItems),
+                index
+            });
+            if (canClose !== true) return;
             let items = [...this.thisItems];
             let [removedItem] = items.splice(index, 1);
             if (!removedItem) return;
