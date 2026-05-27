@@ -68,3 +68,10 @@ export default {
 | theme    | string  | No       | 'global' | See the Image `theme` option.    |
 | disabled | boolean | No       | false    | See the Image `disabled` option. |
 | lang     | string  | No       | "global" | See the Image `lang` option.     |
+
+### Events
+---
+| Event | Arguments | Description                                  |
+|:-----:|:---------:|:--------------------------------------------:|
+| load  | object    | Triggered when the image finishes loading.   |
+| error | object    | Triggered when the image fails to load.      |

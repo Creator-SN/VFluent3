@@ -7,13 +7,17 @@
             :loadingColor="loadingColor"
             :onbackground="onbackground"
             style="width: 100%; height: 100%"
-            @error="status = 'image'"
+            @load-error="status = 'image'"
+            @load="$emit('load', $event)"
+            @error="$emit('error', $event)"
         ></fv-ImgBox>
         <fv-Image
             v-if="status == 'image'"
             :src="src"
             :onlazy="onlazy"
             style="width: 100%; height: 100%"
+            @load="$emit('load', $event)"
+            @error="$emit('error', $event)"
         ></fv-Image>
     </div>
 </template>
@@ -22,7 +26,7 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
-const emits = defineEmits();
+const emits = defineEmits(['load', 'error']);
 
 const props = defineProps({
     ...commonProps,

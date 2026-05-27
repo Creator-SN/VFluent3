@@ -53,6 +53,8 @@ title: ImgBox
 
 ### 事件
 ---
-| 事件名 | 参数   | 说明                                                                |
-|:------:|:------:|:-------------------------------------------------------------------:|
-| error  | object | Image load failed will call back error function with error message. |
+| 事件名     | 参数   | 说明                           |
+|:----------:|:------:|:------------------------------:|
+| load       | object | 图片加载完成时触发。           |
+| error      | object | 图片元素加载失败时触发。       |
+| load-error | object | 图片资源请求失败时触发。       |

@@ -53,3 +53,10 @@ title: Img
 | theme        | string  | No       | 'global'              | See the Img `theme` option.    |
 | disabled     | boolean | No       | false                 | See the Img `disabled` option. |
 | lang         | string  | No       | "global"              | See the Img `lang` option.     |
+
+### Events
+---
+| Event | Arguments | Description                                  |
+|:-----:|:---------:|:--------------------------------------------:|
+| load  | object    | Triggered when the image finishes loading.   |
+| error | object    | Triggered when the image fails to load.      |

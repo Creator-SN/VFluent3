@@ -53,6 +53,8 @@ title: ImgBox
 
 ### Events
 ---
-| Event | Arguments | Description                                                         |
-|:-----:|:---------:|:-------------------------------------------------------------------:|
-| error | object    | Image load failed will call back error function with error message. |
+| Event      | Arguments | Description                                                        |
+|:----------:|:---------:|:------------------------------------------------------------------:|
+| load       | object    | Triggered when the image finishes loading.                         |
+| error      | object    | Triggered when the rendered image element fails to load.           |
+| load-error | object    | Triggered when the source request fails before the image is ready. |

@@ -19,9 +19,10 @@
         </div>
         <transition name="fade-in">
             <img
-                v-if="imgUri.state == 'done' && !onbackground"
+                v-if="showImg"
                 draggable="false"
                 alt=""
+                ref="img"
                 :src="imgUri.data"
             />
         </transition>
@@ -32,7 +33,7 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
-const emits = defineEmits();
+const emits = defineEmits(['load', 'error', 'load-error']);
 
 const props = defineProps({
     ...commonProps,
@@ -79,6 +80,9 @@ export default {
         },
         lazy(val) {
             if (val) this.lazyInit();
+        },
+        showImg() {
+            this.imgEventInit();
         }
     },
     computed: {
@@ -116,6 +120,9 @@ export default {
                 r: 20,
                 borderWidth: 5
             };
+        },
+        showImg() {
+            return this.imgUri.state == 'done' && !this.onbackground;
         }
     },
     beforeMount() {
@@ -125,8 +132,22 @@ export default {
         this.lazy = this.onlazy.toString() == 'true' ? true : false;
         if (this.url && !this.lazy) this.LoadingImg();
         this.widthHeightWatcher();
+        this.imgEventInit();
     },
     methods: {
+        imgEventInit() {
+            if (!this.$refs.img) return;
+            this.$refs.img.onload = (event) => {
+                this.$emit('load', {
+                    event,
+                    naturalWidth: this.$refs.img?.naturalWidth,
+                    naturalHeight: this.$refs.img?.naturalHeight
+                });
+            };
+            this.$refs.img.onerror = (event) => {
+                this.$emit('error', event);
+            };
+        },
         LoadingImg() {
             if (this.imgUri.state == 'none') {
                 this.imageCache.setImgUri({
@@ -196,7 +217,7 @@ export default {
             });
             xhr.send();
             xhr.onerror = (event) => {
-                this.$emit('error', event);
+                this.$emit('load-error', event);
                 this.imageCache.clearImgUri(this.url);
                 console.warn("Fv-ImgBox doesn't support cross-domain url.");
             };

@@ -1,5 +1,0 @@
-## Emits
-
----
-| Event | Arguments | Description |
-|:-----:|:---------:|:-----------:|

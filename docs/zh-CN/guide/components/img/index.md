@@ -53,3 +53,10 @@ title: Img
 | theme        | string  | 否    | 'global'              | 参见组件的 `theme` 选项。                                                                                   |
 | disabled     | boolean | 否    | false                 | 参见组件的 `disabled` 选项。                                                                                |
 | lang         | string  | 否    | "global"              | 参见组件的 `lang` 选项。                                                                                    |
+
+### 事件
+---
+| 事件名 | 参数   | 说明                 |
+|:------:|:------:|:--------------------:|
+| load   | object | 图片加载完成时触发。 |
+| error  | object | 图片加载失败时触发。 |

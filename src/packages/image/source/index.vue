@@ -16,7 +16,7 @@
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
-const emits = defineEmits(['click']);
+const emits = defineEmits(['load', 'error']);
 
 const props = defineProps({
     ...commonProps,
@@ -72,6 +72,14 @@ export default {
         watchImgInit() {
             this.$refs.img.onload = (event) => {
                 this.status = true;
+                this.$emit('load', {
+                    event,
+                    naturalWidth: this.$refs.img?.naturalWidth,
+                    naturalHeight: this.$refs.img?.naturalHeight
+                });
+            };
+            this.$refs.img.onerror = (event) => {
+                this.$emit('error', event);
             };
         },
         lazyInit() {
