@@ -1,17 +1,17 @@
 ---
 page: true
 title: NavigationPanel
---- 
+---
 
 <!-- lang-switch -->
 ### NavigationPanel-DEMO
 ---
 
 <div style="position: relative; width: 100%; height: 800px; display: flex;">
-<ClientOnly> 
+<ClientOnly>
 <fv-NavigationPanel flyoutDisplay="500"></fv-NavigationPanel>
 <fv-img src="https://placehold.co/1280x720/png?text=VFluent+Navigation+Panel" style="width: 350px; height: 100%; flex: 1;"></fv-img>
-</ClientOnly> 
+</ClientOnly>
 </div>
 
 ```vue
@@ -98,41 +98,45 @@ title: NavigationPanel
 ```
 
 ### 属性
-
 ---
 
-| 属性            | 类型    | 必填  | 默认值            | 说明                                                                             |
-|:---------------:|:-------:|:-----:|:-----------------:|:--------------------------------------------------------------------------------:|
-| title           | string  | 否    | 'NavigationPanel' | NavigationPanel 标题。                                                           |
-| expand          | boolean | 否    | true              | 初始是否展开，可通过 sync 方法来同步状态。                                       |
-| expandMode      | string  | 否    | 'relative'        | 展开模式，有占位和浮动两种。                                                     |
-| expandWidth     | number  | 否    | 350               | 展开宽度，以`px`为单位。                                                         |
-| expandDisplay   | number  | 否    | 1024              | 浏览器宽度大于多少时展开。                                                       |
-| compactWidth    | number  | 否    | 50                | 折叠宽度，以`px`为单位。                                                         |
-| flyoutDisplay   | number  | 否    | 0                 | 浏览器宽度小于多少时开启浮动模式，若`expandMode`设为`flyout`，则始终为浮动模式。 |
-| fullSizeDisplay | number  | 否    | 800               | 浏览器宽度小于多少时全屏显示。                                                   |
-| mobileDisplay   | number  | 否    | 0                 | 浏览器宽度小于多少时开启移动端模式。                                             |
-| showBack        | boolean | 否    | true              | 是否显示后退按钮。                                                               |
-| showSearch      | boolean | 否    | true              | 是否显示搜索框。                                                                 |
-| settingTitle    | string  | 否    | 'Settings'        | 设置选项的标题。                                                                 |
-| showSetting     | boolean | 否    | true              | 是否显示设置选项。                                                               |
-| background      | string  | 否    | ''                | NavigationPanel 背景色。                                                         |
-| theme           | string  | 否    | 'global'          | 主题样式。支持 `global`、`light`、`dark`、`system` 和 `custom`。                 |
-| showNav         | boolean | 否    | true              | 参见组件的 `showNav` 选项。                                                      |
-| disabled        | boolean | 否    | false             | 参见组件的 `disabled` 选项。                                                     |
-| lang            | string  | 否    | "global"          | 参见组件的 `lang` 选项。                                                         |
+| 属性 | 类型 | 必填 | 默认值 | 说明 |
+|:---:|:---:|:---:|:---:|:---|
+| title | string | 否 | 'NavigationPanel' | NavigationPanel 标题。 |
+| expand | boolean | 否 | true | 初始是否展开，可通过 `v-model:expand` / `update:expand` 同步状态。 |
+| expandMode | string | 否 | 'relative' | 展开模式，可选普通占位展开或 `flyout` 浮动展开。 |
+| expandWidth | number | 否 | 350 | 展开宽度，单位为 `px`。 |
+| expandDisplay | number | 否 | 1024 | 视口宽度大于该值时允许展开。 |
+| compactWidth | number | 否 | 50 | 收起宽度，单位为 `px`。 |
+| flyoutDisplay | number | 否 | 0 | 视口宽度小于该值时启用浮动模式；若 `expandMode="flyout"` 则始终为浮动模式。 |
+| fullSizeDisplay | number | 否 | 800 | 视口宽度小于该值且展开时，面板宽度会切换为 `100%`。 |
+| mobileDisplay | number | 否 | 0 | 视口宽度小于该值时启用移动端悬浮控制模式。 |
+| showBack | boolean | 否 | true | 是否显示返回按钮。 |
+| showSearch | boolean | 否 | true | 是否显示搜索区域。 |
+| settingTitle | string | 否 | 'Settings' | 设置项标题。 |
+| showSetting | boolean | 否 | true | 是否显示设置项。 |
+| background | string | 否 | '' | 面板背景色。 |
+| mobileControlBackground | string | 否 | '' | 移动端悬浮控制区的背景色。 |
+| mobileControlAcrylic | boolean | 否 | false | 是否为移动端悬浮控制区启用模糊亚克力效果。 |
+| mobileControlDirection | string | 否 | 'column' | 移动端悬浮控制按钮的排列方向。 |
+| mobileControlLeft | number | 否 | 0 | 移动端悬浮控制区距离左侧的偏移，单位为 `px`。 |
+| mobileControlTop | number | 否 | 12 | 移动端悬浮控制区距离顶部的偏移，单位为 `px`。 |
+| theme | string | 否 | 'global' | 主题样式。支持 `global`、`light`、`dark`、`system` 和 `custom`。 |
+| showNav | boolean | 否 | true | 是否显示导航按钮。 |
+| disabled | boolean | 否 | false | 是否禁用。 |
+| lang | string | 否 | "global" | 语言配置。 |
 
 ### 事件
 
 ---
 
-| 事件名        | 参数       | 说明                                                  |
-|:-------------:|:----------:|:-----------------------------------------------------:|
-| setting-click | Object     | 设置选项被点击后触发事件，返回`{ event: MouseEvent }` |
-| update:expand | boolean    | 当折叠或展开时同步外界传入的`expand`                  |
-| expand-change | boolean    | 当折叠或展开时触发事件并提供当前状态。                |
-| expand-click  |            |                                                       |
-| back          | MouseEvent | 返回选项被点击后触发事件。                            |
+| 事件名 | 参数 | 说明 |
+|:---:|:---:|:---|
+| setting-click | Object | 点击设置项时触发，返回 `{ event: MouseEvent }`。 |
+| update:expand | boolean | 展开状态变化时同步外部 `expand`。 |
+| expand-change | boolean | 展开状态变化时触发，并返回当前状态。 |
+| expand-click | boolean | 点击导航按钮切换展开状态时触发，并返回切换后的状态。 |
+| back | MouseEvent | 点击返回按钮时触发。 |
 
 ### 插槽
 
@@ -140,7 +144,7 @@ title: NavigationPanel
 
 1. SearchBlock
 
-自定义搜索框区域内容, 默认的搜索框无实际作用
+自定义搜索区域内容，默认搜索框仅提供展示。
 
 ```javascript
 <template v-slot:searchBlock></template>
@@ -148,7 +152,7 @@ title: NavigationPanel
 
 2. NavIcon
 
-自定义`NavigationPanel`导航按钮区域内容, 默认的导航按钮为`GlobalNavButton`图标
+自定义导航按钮区域内容，默认图标为 `GlobalNavButton`。
 
 ```javascript
 <template v-slot:navIcon>
@@ -156,9 +160,9 @@ title: NavigationPanel
 </template>
 ```
 
-2. BackIcon
+3. BackIcon
 
-自定义`NavigationPanel`后退按钮区域内容, 默认的后退按钮为`Back`图标
+自定义返回按钮区域内容，默认图标为 `Back`。
 
 ```javascript
 <template v-slot:backIcon>
@@ -166,9 +170,9 @@ title: NavigationPanel
 </template>
 ```
 
-3. Title
+4. Title
 
-自定义`NavigationPanel`标题区域内容, 默认的标题为`title`属性值
+自定义标题区域内容，默认展示 `title` 属性值。
 
 ```javascript
 <template v-slot:title="{ show }">
@@ -176,30 +180,29 @@ title: NavigationPanel
 </template>
 ```
 
-4. Panel
+5. Panel
 
-自定义`NavigationPanel`中的内容
+自定义面板主体内容。
 
 ```javascript
 <template v-slot:panel></template>
 ```
 
-5. Banner
+6. Banner
 
-自定义`NavigationPanel`顶部banner区域内容, 可用于自定义logo等
+自定义顶部 `banner` 区域内容，可用于 Logo 等。
 
 ```javascript
 <template v-slot:banner></template>
 ```
 
-
-6. Setting
+7. Setting
 
 自定义设置项区域内容。
 
 ```vue
 <template v-slot:setting>
-    <fv-animated-icon 
+    <fv-animated-icon
         v-show="showSetting"
         ref="setting"
         modelValue="bounceRotate"
@@ -216,9 +219,9 @@ title: NavigationPanel
 </template>
 ```
 
-7. Mask
+8. Mask
 
-自定义组件遮罩层内容，可用于全局加载等场景。
+自定义组件遮罩层内容，可用于全局加载态等场景。
 
 ```vue
 <fv-NavigationPanel>
@@ -241,12 +244,11 @@ title: NavigationPanel
 </fv-NavigationPanel>
 ```
 
-
 ### Appendix
 
 ---
 
-1. 获取`NavigationPanel`中`setting`的`dom`方法:
+1. 获取 `NavigationPanel` 中 `setting` 的 DOM 引用：
 
 ```vue
 <fv-NavigationPanel v-model="items" ref="nav"></fv-NavigationPanel>

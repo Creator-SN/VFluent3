@@ -16,6 +16,11 @@
             :settingTitle="settingTitle"
             :showSetting="false"
             :background="background"
+            :mobileControlBackground="mobileControlBackground"
+            :mobileControlAcrylic="mobileControlAcrylic"
+            :mobileControlDirection="mobileControlDirection"
+            :mobileControlLeft="mobileControlLeft"
+            :mobileControlTop="mobileControlTop"
             :theme="theme"
             ref="panel"
             @back="$emit('back', $event)"
@@ -209,6 +214,21 @@ const props = defineProps({
     },
     background: {
         default: ''
+    },
+    mobileControlBackground: {
+        default: ''
+    },
+    mobileControlAcrylic: {
+        default: false
+    },
+    mobileControlDirection: {
+        default: 'column'
+    },
+    mobileControlLeft: {
+        default: 0
+    },
+    mobileControlTop: {
+        default: 12
     }
 });
 </script>

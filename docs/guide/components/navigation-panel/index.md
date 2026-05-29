@@ -117,6 +117,11 @@ title: NavigationPanel
 | settingTitle    | string  | No       | 'Settings'        | See the NavigationPanel `settingTitle` option.                           |
 | showSetting     | boolean | No       | true              | See the NavigationPanel `showSetting` option.                            |
 | background      | string  | No       | ''                | See the NavigationPanel `background` option.                             |
+| mobileControlBackground | string | No | ''                | Background color of the mobile floating control area.                    |
+| mobileControlAcrylic | boolean | No | false             | Whether to enable the blur effect for the mobile floating control area.  |
+| mobileControlDirection | string | No | 'column'          | Layout direction of the mobile floating control buttons.                 |
+| mobileControlLeft | number | No       | 0                 | Left offset of the mobile floating control area in pixels.               |
+| mobileControlTop | number | No       | 12                | Top offset of the mobile floating control area in pixels.                |
 | theme           | string  | No       | 'global'          | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
 | showNav         | boolean | No       | true              | See the NavigationPanel `showNav` option.                                |
 | disabled        | boolean | No       | false             | See the NavigationPanel `disabled` option.                               |
