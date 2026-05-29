@@ -255,7 +255,10 @@ export default {
     },
     computed: {
         panelWidth() {
-            if (this.isFlyout) return `${this.compactWidth}px`;
+            if (this.isFlyout) {
+                if (this.isMobile) return 0;
+                return `${this.compactWidth}px`;
+            }
             if (this.thisExpand)
                 return this.screenWidth <= this.fullSizeDisplay
                     ? '100%'
