@@ -16,6 +16,7 @@
             :settingTitle="settingTitle"
             :showSetting="false"
             :background="background"
+            :panelClassName="panelClassName"
             :mobileControlBackground="mobileControlBackground"
             :mobileControlAcrylic="mobileControlAcrylic"
             :mobileControlDirection="mobileControlDirection"
@@ -213,6 +214,9 @@ const props = defineProps({
         default: ''
     },
     background: {
+        default: ''
+    },
+    panelClassName: {
         default: ''
     },
     mobileControlBackground: {

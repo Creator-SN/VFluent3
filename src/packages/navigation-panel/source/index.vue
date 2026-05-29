@@ -44,6 +44,7 @@
         class="fv-NavigationPanel"
         :class="[
             $theme,
+            panelClassName,
             { compact: !thisExpand },
             { flyout: isFlyout },
             { mobile: isMobile }
@@ -189,6 +190,9 @@ const props = defineProps({
         default: true
     },
     background: {
+        default: ''
+    },
+    panelClassName: {
         default: ''
     },
     mobileControlBackground: {

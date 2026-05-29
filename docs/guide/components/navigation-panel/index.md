@@ -117,6 +117,7 @@ title: NavigationPanel
 | settingTitle    | string  | No       | 'Settings'        | See the NavigationPanel `settingTitle` option.                           |
 | showSetting     | boolean | No       | true              | See the NavigationPanel `showSetting` option.                            |
 | background      | string  | No       | ''                | See the NavigationPanel `background` option.                             |
+| panelClassName | string | No       | ''                | Extra class name added to the root NavigationPanel element.              |
 | mobileControlBackground | string | No | ''                | Background color of the mobile floating control area.                    |
 | mobileControlAcrylic | boolean | No | false             | Whether to enable the blur effect for the mobile floating control area.  |
 | mobileControlDirection | string | No | 'column'          | Layout direction of the mobile floating control buttons.                 |
