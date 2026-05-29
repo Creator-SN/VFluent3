@@ -1,51 +1,9 @@
 <template>
     <div
-        v-show="isMobile && !thisExpand"
-        ref="mc"
-        class="fv-NavigationPanel-container-mobile"
-        :class="[
-            $theme,
-            { blur: mobileControlAcrylic },
-            { column: mobileControlDirection === 'column' }
-        ]"
-        :style="{
-            left: mobileControlLeft,
-            top: mobileControlTop,
-            background: !thisExpand ? mobileControlBackground : '',
-            zIndex
-        }"
-    >
-        <fv-animated-icon
-            v-show="showBack"
-            modelValue="backScale"
-            class="fv-nav-default-item"
-            :hideContent="true"
-            :style="{ width: `${compactWidth}px` }"
-            @click="$emit('back', $event)"
-        >
-            <slot name="backIcon">
-                <i class="ms-Icon ms-Icon--Back icon"></i>
-            </slot>
-        </fv-animated-icon>
-        <fv-animated-icon
-            v-show="showNav"
-            modelValue="scaleXDown"
-            class="fv-nav-default-item"
-            :hideContent="true"
-            :style="{ width: `${compactWidth}px` }"
-            @click="expandClick"
-        >
-            <slot name="navIcon">
-                <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
-            </slot>
-        </fv-animated-icon>
-    </div>
-    <div
         ref="panel"
         class="fv-NavigationPanel"
         :class="[
             $theme,
-            panelClassName,
             { compact: !thisExpand },
             { flyout: isFlyout },
             { mobile: isMobile }
@@ -57,6 +15,47 @@
             zIndex
         }"
     >
+        <div
+            v-show="isMobile && !thisExpand"
+            ref="mc"
+            class="fv-NavigationPanel-container-mobile"
+            :class="[
+                $theme,
+                { blur: mobileControlAcrylic },
+                { column: mobileControlDirection === 'column' }
+            ]"
+            :style="{
+                left: mobileControlLeft,
+                top: mobileControlTop,
+                background: !thisExpand ? mobileControlBackground : '',
+                zIndex
+            }"
+        >
+            <fv-animated-icon
+                v-show="showBack"
+                modelValue="backScale"
+                class="fv-nav-default-item"
+                :hideContent="true"
+                :style="{ width: `${compactWidth}px` }"
+                @click="$emit('back', $event)"
+            >
+                <slot name="backIcon">
+                    <i class="ms-Icon ms-Icon--Back icon"></i>
+                </slot>
+            </fv-animated-icon>
+            <fv-animated-icon
+                v-show="showNav"
+                modelValue="scaleXDown"
+                class="fv-nav-default-item"
+                :hideContent="true"
+                :style="{ width: `${compactWidth}px` }"
+                @click="expandClick"
+            >
+                <slot name="navIcon">
+                    <i class="ms-Icon ms-Icon--GlobalNavButton icon"></i>
+                </slot>
+            </fv-animated-icon>
+        </div>
         <div
             class="panel-container"
             :style="{ width: navWidth, background: background }"
@@ -92,7 +91,9 @@
                 </slot>
                 <template v-slot:content>
                     <slot name="title" :show="!showBack">
-                        <p v-show="!showBack" class="name title">{{ title }}</p>
+                        <p v-show="!showBack" class="name title">
+                            {{ title }}
+                        </p>
                     </slot>
                 </template>
             </fv-animated-icon>
@@ -192,9 +193,6 @@ const props = defineProps({
         default: true
     },
     background: {
-        default: ''
-    },
-    panelClassName: {
         default: ''
     },
     mobileControlBackground: {

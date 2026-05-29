@@ -116,7 +116,6 @@ title: NavigationPanel
 | settingTitle | string | 否 | 'Settings' | 设置项标题。 |
 | showSetting | boolean | 否 | true | 是否显示设置项。 |
 | background | string | 否 | '' | 面板背景色。 |
-| panelClassName | string | 否 | '' | 追加到 NavigationPanel 根节点上的自定义类名。 |
 | mobileControlBackground | string | 否 | '' | 移动端悬浮控制区的背景色。 |
 | mobileControlAcrylic | boolean | 否 | false | 是否为移动端悬浮控制区启用模糊亚克力效果。 |
 | mobileControlDirection | string | 否 | 'column' | 移动端悬浮控制按钮的排列方向。 |

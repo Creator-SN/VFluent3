@@ -165,7 +165,6 @@ export default {
 | searchPlaceholder | string | 否 | 'Search' | 搜索框占位文本。 |
 | foreground | string | 否 | '' | 标题项前景色。 |
 | background | string | 否 | '' | 导航面板背景色。 |
-| panelClassName | string | 否 | '' | 透传给 NavigationPanel 根节点的自定义类名。 |
 | mobileControlBackground | string | 否 | '' | 透传给 NavigationPanel 的移动端悬浮控制区背景色。 |
 | mobileControlAcrylic | boolean | 否 | false | 是否为移动端悬浮控制区启用模糊亚克力效果。 |
 | mobileControlDirection | string | 否 | 'column' | 移动端悬浮控制按钮的排列方向。 |
