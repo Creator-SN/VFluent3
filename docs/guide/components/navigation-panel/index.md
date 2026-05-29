@@ -123,6 +123,7 @@ title: NavigationPanel
 | mobileControlDirection | string | No | 'column'          | Layout direction of the mobile floating control buttons.                 |
 | mobileControlLeft | string | No       | '0px'             | CSS `left` value for the mobile floating control area.                   |
 | mobileControlTop | string | No       | '12px'            | CSS `top` value for the mobile floating control area.                    |
+| zIndex | string/number | No | ''                | Shared CSS `z-index` value for both the mobile floating control area and the root NavigationPanel container. |
 | theme           | string  | No       | 'global'          | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
 | showNav         | boolean | No       | true              | See the NavigationPanel `showNav` option.                                |
 | disabled        | boolean | No       | false             | See the NavigationPanel `disabled` option.                               |

@@ -171,6 +171,7 @@ export default {
 | mobileControlDirection | string | 否 | 'column' | 移动端悬浮控制按钮的排列方向。 |
 | mobileControlLeft | string | 否 | '0px' | 移动端悬浮控制区的 CSS `left` 值。 |
 | mobileControlTop | string | 否 | '12px' | 移动端悬浮控制区的 CSS `top` 值。 |
+| zIndex | string/number | 否 | '' | 同时控制移动端悬浮控制区和 NavigationPanel 根节点的 CSS `z-index` 值。 |
 | theme | string | 否 | 'global' | 主题样式。支持 `global`、`light`、`dark`、`system` 和 `custom`。 |
 | emits | array | 否 | [ 'update:modelValue', 'expand-change', 'setting-click', 'item-click', 'back', 'expand-click', 'update:expand' ] | 组件发出的事件声明。 |
 | showNav | boolean | 否 | true | 是否显示导航按钮。 |

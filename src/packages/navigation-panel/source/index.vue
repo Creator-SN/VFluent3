@@ -11,7 +11,8 @@
         :style="{
             left: mobileControlLeft,
             top: mobileControlTop,
-            background: !thisExpand ? mobileControlBackground : ''
+            background: !thisExpand ? mobileControlBackground : '',
+            zIndex
         }"
     >
         <fv-animated-icon
@@ -52,7 +53,8 @@
         :style="{
             position:
                 screenWidth <= fullSizeDisplay && thisExpand ? 'static' : '',
-            width: panelWidth
+            width: panelWidth,
+            zIndex
         }"
     >
         <div
@@ -209,6 +211,9 @@ const props = defineProps({
     },
     mobileControlTop: {
         default: `12px`
+    },
+    zIndex: {
+        default: ''
     }
 });
 </script>

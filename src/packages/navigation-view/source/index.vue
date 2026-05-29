@@ -22,6 +22,7 @@
             :mobileControlDirection="mobileControlDirection"
             :mobileControlLeft="mobileControlLeft"
             :mobileControlTop="mobileControlTop"
+            :zIndex="zIndex"
             :theme="theme"
             ref="panel"
             @back="$emit('back', $event)"
@@ -233,6 +234,9 @@ const props = defineProps({
     },
     mobileControlTop: {
         default: '12px'
+    },
+    zIndex: {
+        default: ''
     }
 });
 </script>
