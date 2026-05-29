@@ -9,8 +9,8 @@
             { column: mobileControlDirection === 'column' }
         ]"
         :style="{
-            left: `${mobileControlLeft}px`,
-            top: `${mobileControlTop}px`,
+            left: mobileControlLeft,
+            top: mobileControlTop,
             background: !thisExpand ? mobileControlBackground : ''
         }"
     >
@@ -201,10 +201,10 @@ const props = defineProps({
         default: 'column'
     },
     mobileControlLeft: {
-        default: 0
+        default: `0px`
     },
     mobileControlTop: {
-        default: 12
+        default: `12px`
     }
 });
 </script>

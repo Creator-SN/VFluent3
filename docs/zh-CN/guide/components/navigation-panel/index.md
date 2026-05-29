@@ -119,8 +119,8 @@ title: NavigationPanel
 | mobileControlBackground | string | 否 | '' | 移动端悬浮控制区的背景色。 |
 | mobileControlAcrylic | boolean | 否 | false | 是否为移动端悬浮控制区启用模糊亚克力效果。 |
 | mobileControlDirection | string | 否 | 'column' | 移动端悬浮控制按钮的排列方向。 |
-| mobileControlLeft | number | 否 | 0 | 移动端悬浮控制区距离左侧的偏移，单位为 `px`。 |
-| mobileControlTop | number | 否 | 12 | 移动端悬浮控制区距离顶部的偏移，单位为 `px`。 |
+| mobileControlLeft | string | 否 | '0px' | 移动端悬浮控制区的 CSS `left` 值。 |
+| mobileControlTop | string | 否 | '12px' | 移动端悬浮控制区的 CSS `top` 值。 |
 | theme | string | 否 | 'global' | 主题样式。支持 `global`、`light`、`dark`、`system` 和 `custom`。 |
 | showNav | boolean | 否 | true | 是否显示导航按钮。 |
 | disabled | boolean | 否 | false | 是否禁用。 |
