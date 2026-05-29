@@ -1,21 +1,33 @@
-@import '@/styles/theme/index.scss';
+@import "@/styles/theme/index.scss";
 
-.fv-NavigationPanel {&.dark {
+.fv-NavigationPanel,
+.fv-NavigationPanel-container-mobile {
+    &.dark {
+        .panel-container {
+            background: rgba(0, 0, 0, 0.8);
 
-    .panel-container
-    {
-        background: rgba(0, 0, 0, 0.8);
+            span.search {
+                .nav-search {
+                    background: rgba(76, 76, 76, 0.6);
+                }
+            }
 
-        span.search
-        {
-            .nav-search
-            {
-                background: rgba(76, 76, 76, 0.6);
+            .fv-nav-default-item {
+                i.icon {
+                    color: whitesmoke;
+                }
+
+                p.name {
+                    color: whitesmoke;
+                }
+
+                &:hover {
+                    background: rgba(47, 47, 47, 0.8);
+                }
             }
         }
 
-        .fv-nav-default-item
-        {
+        .fv-nav-default-item {
             i.icon {
                 color: whitesmoke;
             }
@@ -24,42 +36,9 @@
                 color: whitesmoke;
             }
 
-            &:hover
-            {
+            &:hover {
                 background: rgba(47, 47, 47, 0.8);
             }
         }
     }
-
-    .panel-container-mobile
-    {
-        background: rgba(0, 0, 0, 0.8);
-
-        .fv-nav-default-item
-        {
-            i.icon {
-                color: whitesmoke;
-            }
-
-            p.name {
-                color: whitesmoke;
-            }
-
-            &:hover
-            {
-                background: rgba(47, 47, 47, 0.8);
-            }
-        }
-    }
-
-    &.mobile
-    {
-        &.compact
-        {
-            .panel-container-mobile
-            {
-                background: rgba(0, 0, 0, 0.6);
-            }
-        }
-    }
-}}
+}
