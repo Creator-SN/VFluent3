@@ -9,6 +9,7 @@
             padding: padding,
             background: background,
             borderRadius: formatSize(borderRadius),
+            '--tab-view-background': normalBackground || '',
             '--tab-view-hover-background': hoverBackground || '',
             '--tab-view-active-background': activeBackground || '',
             '--tab-view-border-radius': formatSize(itemBorderRadius),
@@ -193,6 +194,9 @@ const props = defineProps({
         default: ''
     },
     background: {
+        default: ''
+    },
+    normalBackground: {
         default: ''
     },
     hoverBackground: {

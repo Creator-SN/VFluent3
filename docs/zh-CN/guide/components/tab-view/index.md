@@ -304,6 +304,7 @@ items = [
 | choosenForeground | string | 否 | `''` | 选中标签的文字和图标颜色。 |
 | chooseBackground | string | 否 | `''` | 选中标签的背景色。 |
 | background | string | 否 | `''` | 整个 TabView 的背景色。 |
+| normalBackground | string | 否 | `''` | 标签项普通状态下的背景色。 |
 | hoverBackground | string | 否 | `''` | 标签悬停时的背景色。 |
 | activeBackground | string | 否 | `''` | 标签按下时的背景色。 |
 | fontSize | number / string | 否 | `13` | 标签标题字号。 |

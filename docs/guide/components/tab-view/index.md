@@ -304,6 +304,7 @@ items = [
 | choosenForeground | string | No | `''` | Text and icon color of the selected tab. |
 | chooseBackground | string | No | `''` | Background of the selected tab. |
 | background | string | No | `''` | Background of the whole TabView. |
+| normalBackground | string | No | `''` | Background of a tab in its normal state. |
 | hoverBackground | string | No | `''` | Background of a tab while hovering. |
 | activeBackground | string | No | `''` | Background of a tab while active. |
 | fontSize | number / string | No | `13` | Font size of the tab title. |
