@@ -13,7 +13,8 @@
             '--tab-view-hover-background': hoverBackground || '',
             '--tab-view-active-background': activeBackground || '',
             '--tab-view-border-radius': formatSize(itemBorderRadius),
-            '--tab-view-padding': listPadding || ''
+            '--tab-view-padding': listPadding || '',
+            '--fv-primary-color': dropColor || ''
         }"
     >
         <div class="tab-view-wrapper">
@@ -233,6 +234,9 @@ const props = defineProps({
         default: ''
     },
     addButtonForeground: {
+        default: ''
+    },
+    dropColor: {
         default: ''
     },
     closeButtonIcon: {
