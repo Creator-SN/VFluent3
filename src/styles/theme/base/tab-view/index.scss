@@ -13,6 +13,7 @@
     --tab-view-add-hover-background: rgba(255, 255, 255, 0.55);
     --tab-view-border-radius: 8px;
     --tab-view-padding: 2px 5px 0px 5px;
+    --tab-view-drop-color: rgba(0, 90, 158, 1);
 
     position: relative;
     width: 100%;
@@ -142,7 +143,7 @@
                 left: 0px;
                 width: 2px;
                 border-radius: 2px;
-                background: rgba(var(--fv-primary-color), 1);
+                background: --tab-view-drop-color;
                 opacity: 1;
             }
         }
@@ -152,7 +153,7 @@
                 right: 0px;
                 width: 2px;
                 border-radius: 2px;
-                background: rgba(var(--fv-primary-color), 1);
+                background: --tab-view-drop-color;
                 opacity: 1;
             }
         }

@@ -14,7 +14,7 @@
             '--tab-view-active-background': activeBackground || '',
             '--tab-view-border-radius': formatSize(itemBorderRadius),
             '--tab-view-padding': listPadding || '',
-            '--fv-primary-color': dropColor || ''
+            '--tab-view-drop-color': dropColor || ''
         }"
     >
         <div class="tab-view-wrapper">
