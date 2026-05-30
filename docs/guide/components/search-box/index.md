@@ -266,6 +266,7 @@ Customize background
 |       icon        | string  |    No    |    ''    |                               Right icon.                                |
 |     underline     | boolean |    No    |  false   |             Whether to use the underline style for SearchBox             |
 |    background     | string  |    No    |    ''    |                            Background color.                             |
+|  hoverBackground  | string  |    No    |    ''    |                     Hover background of the input box.                   |
 |    borderWidth    | number  |    No    |    1     |                                                                          |
 |    borderColor    | string  |    No    |    ''    |                                                                          |
 | focusBorderColor  | string  |    No    |    ''    |                                                                          |
@@ -274,6 +275,9 @@ Customize background
 |    foreground     | string  |    No    |    ''    |                                                                          |
 |     textAlign     | string  |    No    |  'left'  |                                                                          |
 |   borderRadius    | number  |    No    |    3     |                 See the SearchBox `borderRadius` option.                 |
+| resultBackground  | string  |    No    |    ''    |                  Background of the search result panel.                  |
+| resultBorderRadius| string  |    No    |    ''    |                Border radius of the search result panel.                 |
+|  resultBoxShadow  | boolean |    No    |  false   |            Whether to show shadow on results.            |
 |   revealBorder    | boolean |    No    |  false   |                                                                          |
 |      status       | string  |    No    |    ''    |      Preset status border. Built-in values are warning and correct.      |
 |   debounceDelay   | number  |    No    |   300    |                          Debounced input delay.                          |

@@ -27,7 +27,7 @@
 | borderRadius      | number  | No       | 3        | See the SearchBox `borderRadius` option.      |
 | resultBackground  | string  | No       | ''       | Background of the search result container.    |
 | resultBorderRadius| string  | No       | ''       | Border radius of the search result container. |
-| resultBoxShadow   | boolean | No       | false    | Whether to show `$ms-depth-shadow-16` there.  |
+| resultBoxShadow   | boolean | No       | false    | Whether to show shadow there.  |
 | isBoxShadow       | boolean | No       | false    | See the SearchBox `isBoxShadow` option.       |
 | revealBorder      | boolean | No       | false    | See the SearchBox `revealBorder` option.      |
 | status            | string  | No       | ''       | See the SearchBox `status` option.            |
