@@ -25,7 +25,7 @@ export default {
                 { key: "lettuce", name: "Lettuce" }
             ],
             custom_items: {
-                people: ['https://th.bing.com/th/id/OIP.kusjJHHbJMyhkHQXMwn23gHaE8?w=253&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7', 'https://th.bing.com/th/id/OIP.PHUY3CWgvSSgeoZ5ZE9-0AHaFr?w=214&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7', 'https://th.bing.com/th/id/OIP.XE7Fk_nOciTNMxXFhIPxhAHaGB?w=219&h=183&c=7&r=0&o=5&dpr=1.5&pid=1.7'],
+                people: ['https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/deepseek.svg', 'https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/openai.svg', 'https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/qwen.svg'],
                 pos: ['Beijing', 'Shanghai', 'Shenzhen'],
                 pro: ['IT', 'Doctor', 'Artist']
             },
@@ -88,15 +88,12 @@ Disabled
     </template>
     <template v-slot:searchResult="x">
         <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
-            <span class="list-item list-title">人物</span>
-            <div style="position: relative; width: 100%; height: 60px; display: flex;">
-                <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
+            <div style="position: relative; width: 100%; height: 40px; display: flex; align-items: center;">
+                <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 25px; height: 25px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
             </div>
-            <span class="list-item list-title">位置</span>
             <span>
                 <p v-for="(item, index) in x.data.pos" class="list-item" :key="index">{{item}}</p>
             </span>
-            <span class="list-item list-title">职业</span>
             <span>
                 <p v-for="(item, index) in x.data.pro" class="list-item" :key="index">{{item}}</p>
             </span>
@@ -113,15 +110,12 @@ Disabled
         </template>
         <template v-slot:searchResult="x">
             <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
-                <span class="list-item list-title">人物</span>
-                <div style="position: relative; width: 100%; height: 60px; display: flex;">
-                    <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
+                <div style="position: relative; width: 100%; height: 40px; display: flex; align-items: center;">
+                    <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 25px; height: 25px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
                 </div>
-                <span class="list-item list-title">位置</span>
                 <span>
                     <p v-for="(item, index) in x.data.pos" class="list-item" :key="index">{{item}}</p>
                 </span>
-                <span class="list-item list-title">职业</span>
                 <span>
                     <p v-for="(item, index) in x.data.pro" class="list-item" :key="index">{{item}}</p>
                 </span>

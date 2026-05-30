@@ -16,6 +16,7 @@
 | icon              | string  | No       | ''       | See the SearchBox `icon` option.              |
 | underline         | boolean | No       | false    | See the SearchBox `underline` option.         |
 | background        | string  | No       | ''       | See the SearchBox `background` option.        |
+| hoverBackground   | string  | No       | ''       | Hover background of the input container.      |
 | borderWidth       | number  | No       | 1        | See the SearchBox `borderWidth` option.       |
 | borderColor       | string  | No       | ''       | See the SearchBox `borderColor` option.       |
 | focusBorderColor  | string  | No       | ''       | See the SearchBox `focusBorderColor` option.  |
@@ -24,6 +25,9 @@
 | fontWeight        | string  | No       | 'normal' | See the SearchBox `fontWeight` option.        |
 | textAlign         | string  | No       | 'left'   | See the SearchBox `textAlign` option.         |
 | borderRadius      | number  | No       | 3        | See the SearchBox `borderRadius` option.      |
+| resultBackground  | string  | No       | ''       | Background of the search result container.    |
+| resultBorderRadius| string  | No       | ''       | Border radius of the search result container. |
+| resultBoxShadow   | boolean | No       | false    | Whether to show `$ms-depth-shadow-16` there.  |
 | isBoxShadow       | boolean | No       | false    | See the SearchBox `isBoxShadow` option.       |
 | revealBorder      | boolean | No       | false    | See the SearchBox `revealBorder` option.      |
 | status            | string  | No       | ''       | See the SearchBox `status` option.            |

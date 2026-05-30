@@ -25,7 +25,7 @@ export default {
                 { key: "lettuce", name: "Lettuce" }
             ],
             custom_items: {
-                people: ['https://th.bing.com/th/id/OIP.kusjJHHbJMyhkHQXMwn23gHaE8?w=253&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7', 'https://th.bing.com/th/id/OIP.PHUY3CWgvSSgeoZ5ZE9-0AHaFr?w=214&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7', 'https://th.bing.com/th/id/OIP.XE7Fk_nOciTNMxXFhIPxhAHaGB?w=219&h=183&c=7&r=0&o=5&dpr=1.5&pid=1.7'],
+                people: ['https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/deepseek.svg', 'https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/openai.svg', 'https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/qwen.svg'],
                 pos: ['Beijing', 'Shanghai', 'Shenzhen'],
                 pro: ['IT', 'Doctor', 'Artist']
             },
@@ -88,8 +88,8 @@ Disabled
     </template>
     <template v-slot:searchResult="x">
         <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
-            <div style="position: relative; width: 100%; height: 60px; display: flex;">
-                <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
+            <div style="position: relative; width: 100%; height: 40px; display: flex; align-items: center;">
+                <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 25px; height: 25px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
             </div>
             <span>
                 <p v-for="(item, index) in x.data.pos" class="list-item" :key="index">{{item}}</p>
@@ -110,15 +110,12 @@ Disabled
         </template>
         <template v-slot:searchResult="x">
             <div style="position: relative; width: 100%; height: auto; display: flex; flex-direction: column;">
-                <span class="list-item list-title">人物</span>
-                <div style="position: relative; width: 100%; height: 60px; display: flex;">
-                    <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 50px; height: 50px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
+                <div style="position: relative; width: 100%; height: 40px; display: flex; align-items: center;">
+                    <fv-img v-for="(item, index) in x.data.people" :key="index" :src="item" style="width: 25px; height: 25px; margin: 5px; border-radius: 50%;" @click.capture="resultPlaceholder.push(item)"/>
                 </div>
-                <span class="list-item list-title">位置</span>
                 <span>
                     <p v-for="(item, index) in x.data.pos" class="list-item" :key="index">{{item}}</p>
                 </span>
-                <span class="list-item list-title">职业</span>
                 <span>
                     <p v-for="(item, index) in x.data.pro" class="list-item" :key="index">{{item}}</p>
                 </span>
@@ -254,52 +251,52 @@ Customize background
 
 ### Properties
 ---
-| Property          | Type    | Required | Default  | Description                                                              |
-|:-----------------:|:-------:|:--------:|:--------:|:------------------------------------------------------------------------:|
-| modelValue        | string  | No       | ''       | Using v-model binding input value                                        |
-| options           | array   | No       | []       | See the SearchBox `options` option.                                      |
-| placeholder       | string  | No       | ''       | Same as the native HTML input attribute.                                 |
-| type              | string  | No       | 'text'   | Same as the native HTML input attribute.                                 |
-| readonly          | boolean | No       | false    | Same as the native HTML input attribute.                                 |
-| maxlength         | string  | No       | ''       | Same as the native HTML input attribute.                                 |
-| customFilter      | boolean | No       | false    | See the SearchBox `customFilter` option.                                 |
-| resultPlaceholder | boolean | No       | false    | See the SearchBox `resultPlaceholder` option.                            |
-| focusShow         | boolean | No       | false    | See the SearchBox `focusShow` option.                                    |
-| leftIcon          | string  | No       | ''       | Left icon.                                                               |
-| icon              | string  | No       | ''       | Right icon.                                                              |
-| underline         | boolean | No       | false    | Whether to use the underline style for SearchBox                         |
-| background        | string  | No       | ''       | Background color.                                                        |
-| borderWidth       | number  | No       | 1        |                                                                          |
-| borderColor       | string  | No       | ''       |                                                                          |
-| focusBorderColor  | string  | No       | ''       |                                                                          |
-| fontSize          | number  | No       | 13.3     |                                                                          |
-| fontWeight        | string  | No       | 'normal' |                                                                          |
-| foreground        | string  | No       | ''       |                                                                          |
-| textAlign         | string  | No       | 'left'   |                                                                          |
-| borderRadius      | number  | No       | 3        | See the SearchBox `borderRadius` option.                                 |
-| revealBorder      | boolean | No       | false    |                                                                          |
-| status            | string  | No       | ''       | Preset status border. Built-in values are warning and correct.           |
-| debounceDelay     | number  | No       | 300      | Debounced input delay.                                                   |
-| disabled          | boolean | No       | false    |                                                                          |
-| theme             | string  | No       | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
-| isBoxShadow       | boolean | No       | false    | See the SearchBox `isBoxShadow` option.                                  |
-| lang              | string  | No       | "global" | See the SearchBox `lang` option.                                         |
+|     Property      |  Type   | Required | Default  |                               Description                                |
+| :---------------: | :-----: | :------: | :------: | :----------------------------------------------------------------------: |
+|    modelValue     | string  |    No    |    ''    |                    Using v-model binding input value                     |
+|      options      |  array  |    No    |    []    |                   See the SearchBox `options` option.                    |
+|    placeholder    | string  |    No    |    ''    |                 Same as the native HTML input attribute.                 |
+|       type        | string  |    No    |  'text'  |                 Same as the native HTML input attribute.                 |
+|     readonly      | boolean |    No    |  false   |                 Same as the native HTML input attribute.                 |
+|     maxlength     | string  |    No    |    ''    |                 Same as the native HTML input attribute.                 |
+|   customFilter    | boolean |    No    |  false   |                 See the SearchBox `customFilter` option.                 |
+| resultPlaceholder | boolean |    No    |  false   |              See the SearchBox `resultPlaceholder` option.               |
+|     focusShow     | boolean |    No    |  false   |                  See the SearchBox `focusShow` option.                   |
+|     leftIcon      | string  |    No    |    ''    |                                Left icon.                                |
+|       icon        | string  |    No    |    ''    |                               Right icon.                                |
+|     underline     | boolean |    No    |  false   |             Whether to use the underline style for SearchBox             |
+|    background     | string  |    No    |    ''    |                            Background color.                             |
+|    borderWidth    | number  |    No    |    1     |                                                                          |
+|    borderColor    | string  |    No    |    ''    |                                                                          |
+| focusBorderColor  | string  |    No    |    ''    |                                                                          |
+|     fontSize      | number  |    No    |   13.3   |                                                                          |
+|    fontWeight     | string  |    No    | 'normal' |                                                                          |
+|    foreground     | string  |    No    |    ''    |                                                                          |
+|     textAlign     | string  |    No    |  'left'  |                                                                          |
+|   borderRadius    | number  |    No    |    3     |                 See the SearchBox `borderRadius` option.                 |
+|   revealBorder    | boolean |    No    |  false   |                                                                          |
+|      status       | string  |    No    |    ''    |      Preset status border. Built-in values are warning and correct.      |
+|   debounceDelay   | number  |    No    |   300    |                          Debounced input delay.                          |
+|     disabled      | boolean |    No    |  false   |                                                                          |
+|       theme       | string  |    No    | 'global' | Theme style. Supports `global`, `light`, `dark`, `system`, and `custom`. |
+|    isBoxShadow    | boolean |    No    |  false   |                 See the SearchBox `isBoxShadow` option.                  |
+|       lang        | string  |    No    | "global" |                     See the SearchBox `lang` option.                     |
 
 ### Events
 ---
-| Event                    | Arguments | Description                                          |
-|:------------------------:|:---------:|:----------------------------------------------------:|
-| keydown                  | event     |                                                      |
-| keyup                    | event     |                                                      |
-| change                   | event     |                                                      |
-| paste                    | event     |                                                      |
-| left-icon-click          | event     |                                                      |
-| icon-click               | event     |                                                      |
-| lazyload                 | array     | See the component `lazyload` option.                 |
-| update:resultPlaceholder | array     | See the component `update:resultPlaceholder` option. |
-| clear-click              | array     | See the component `clear-click` option.              |
-| choose-result            | object    | See the component `choose-result` option.            |
-| debounce-input           | string    | Emitted with debounced input content.                |
+|          Event           | Arguments |                     Description                      |
+| :----------------------: | :-------: | :--------------------------------------------------: |
+|         keydown          |   event   |                                                      |
+|          keyup           |   event   |                                                      |
+|          change          |   event   |                                                      |
+|          paste           |   event   |                                                      |
+|     left-icon-click      |   event   |                                                      |
+|        icon-click        |   event   |                                                      |
+|         lazyload         |   array   |         See the component `lazyload` option.         |
+| update:resultPlaceholder |   array   | See the component `update:resultPlaceholder` option. |
+|       clear-click        |   array   |       See the component `clear-click` option.        |
+|      choose-result       |  object   |      See the component `choose-result` option.       |
+|      debounce-input      |  string   |        Emitted with debounced input content.         |
 
 ### Slots
 ---

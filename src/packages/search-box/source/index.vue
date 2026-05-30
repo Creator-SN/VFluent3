@@ -9,7 +9,21 @@
             isUnderline ? 'underline' : '',
             { shadow: isBoxShadow }
         ]"
-        :style="[{ background: background, borderRadius: `${borderRadius}px` }]"
+        :style="{
+            '--fv-search-box-background': background || undefined,
+            '--fv-search-box-hover-background': hoverBackground || undefined,
+            '--fv-search-box-result-background': resultBackground || undefined,
+            '--fv-search-box-result-border-radius':
+                resultBorderRadius === '' ||
+                resultBorderRadius === null ||
+                resultBorderRadius === undefined
+                    ? undefined
+                    : typeof resultBorderRadius === 'number'
+                      ? `${resultBorderRadius}px`
+                      : resultBorderRadius,
+            borderRadius: `${borderRadius}px`,
+            'z-index': show.searchResult ? 5 : 0
+        }"
         @keydown="show.searchResult = true"
         @keyup.delete="onBackspace"
         @click="isFocus = true"
@@ -30,7 +44,9 @@
             :style="[
                 thisBorderColor,
                 {
-                    background: background,
+                    background: background
+                        ? 'var(--fv-search-box-background)'
+                        : undefined,
                     borderRadius: `${borderRadius}px`,
                     borderWidth: `${borderWidth}px`
                 }
@@ -93,6 +109,15 @@
             <div
                 v-show="show.searchResult"
                 class="search-result-container"
+                :class="{ shadow: resultBoxShadow }"
+                :style="{
+                    background: resultBackground
+                        ? 'var(--fv-search-box-result-background)'
+                        : undefined,
+                    borderRadius: resultBorderRadius
+                        ? 'var(--fv-search-box-result-border-radius)'
+                        : undefined
+                }"
                 ref="filterResult"
             >
                 <slot
@@ -171,6 +196,9 @@ const props = defineProps({
     background: {
         default: ''
     },
+    hoverBackground: {
+        default: ''
+    },
     borderWidth: {
         default: 1
     },
@@ -194,6 +222,15 @@ const props = defineProps({
     },
     borderRadius: {
         default: 3
+    },
+    resultBackground: {
+        default: ''
+    },
+    resultBorderRadius: {
+        default: ''
+    },
+    resultBoxShadow: {
+        default: false
     },
     isBoxShadow: {
         default: false
@@ -243,6 +280,12 @@ export default {
             }, this.debounceDelay);
             this.$emit('update:modelValue', val);
             this.refreshFilter();
+        },
+        options: {
+            handler() {
+                this.refreshFilter();
+            },
+            deep: true
         },
         isFocus(val) {
             if (val && this.focusShow) this.show.searchResult = true;
