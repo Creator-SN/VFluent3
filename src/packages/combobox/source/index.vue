@@ -13,7 +13,7 @@
         <div
             class="combobox-container"
             :class="{'is-box-shadow': isBoxShadow}"
-            @click="status = !isDisabled ? !status : false"
+            @click.stop="status = !isDisabled ? !status : false"
             :style="{
                 background: inputBackground,
                 'border-radius': `${borderRadius}px`
@@ -76,7 +76,7 @@
                                 ? titleForeground
                                 : ''
                     }"
-                    @click="Choose($event, item)"
+                    @click.stop="Choose($event, item)"
                     :key="index"
                     :title="valueTrigger(item.text)"
                 >
@@ -175,13 +175,24 @@ export default {
 
     data() {
         return {
-            thisValue: this.modelValue,
+            thisValue: {},
             status: false
         };
     },
     watch: {
-        modelValue(val) {
-            this.thisValue = val;
+        modelValue: {
+            immediate: true,
+            deep: true,
+            handler(val) {
+                this.syncValue(val);
+            }
+        },
+        options: {
+            immediate: true,
+            deep: true,
+            handler() {
+                this.syncValue(this.modelValue);
+            }
         },
         thisValue(val) {
             this.$emit('update:modelValue', val);
@@ -244,6 +255,23 @@ export default {
             if (typeof val === 'function') return val();
             return val;
         },
+        normalizeValue(value) {
+            if (!value || typeof value !== 'object') return {};
+            if (Object.prototype.hasOwnProperty.call(value, 'key')) {
+                const matched = this.options.find((item) => item?.key === value.key);
+                return matched || value;
+            }
+            return value;
+        },
+        syncValue(value) {
+            const nextValue = this.normalizeValue(value);
+            const nextKey = nextValue?.key;
+            const currentKey = this.thisValue?.key;
+            const nextText = this.valueTrigger(nextValue?.text);
+            const currentText = this.valueTrigger(this.thisValue?.text);
+            if (currentKey === nextKey && currentText === nextText) return;
+            this.thisValue = nextValue;
+        },
         Choose(event, item) {
             if (this.valueTrigger(item.disabled)) return 0;
             if (
@@ -251,20 +279,23 @@ export default {
                 this.valueTrigger(item.type) == 'divider'
             )
                 return 0;
-            this.thisValue = item;
+            this.thisValue = this.normalizeValue(item);
             let target = event.target;
             while (
-                !target.getAttribute('class') ||
-                target.getAttribute('class').indexOf('fv-combobox-item') < 0
+                target &&
+                (!target.getAttribute('class') ||
+                    target.getAttribute('class').indexOf('fv-combobox-item') < 0)
             ) {
                 target = target.parentNode;
             }
-            this.$refs.co_items.scrollTop = target.offsetTop;
+            if (this.$refs.co_items && target) {
+                this.$refs.co_items.scrollTop = target.offsetTop;
+            }
             this.status = false;
             this.$emit('choose-item', this.thisValue);
         }
     },
-    beforeMount() {
+    beforeUnmount() {
         window.removeEventListener('click', this.outSideClickEvent);
         window.removeEventListener('touchend', this.outSideClickEvent);
     }
