@@ -47,13 +47,19 @@
             background: transparent;
             text-align: center;
             font-size: 13.8px;
+            border-color: rgba(200, 200, 200, 0.5);
+            border-style: solid;
+            border-width: 1.5px;
+            border-top: none;
+            border-bottom: none;
             white-space: nowrap;
             user-select: none;
             cursor: inherit;
         }
-        .fv-time-picker-input-item:nth-child(n + 2) {
-            border-left-style: solid;
-            border-left-width: 1.5px;
+        .fv-time-picker-input-item:first-child,
+        .fv-time-picker-input-item:last-child {
+            border-right: none;
+            border-left: none;
         }
     }
 
