@@ -5,6 +5,7 @@
 |:--------:|:----:|:--------:|:-------:|:----------|
 | forward | string | No | 'right' | Scrolling direction. Supports `right`, `left`, `horizontal`, `down`, `up`, and `vertical`. |
 | mode | string | No | 'once' | Playback mode. Supports `once`, `repeat`, `bounce`, `loop`, and `none`. |
+| trigger | string | No | 'auto' | Animation trigger. `auto` starts automatically; `hover` starts on mouse enter and stops on mouse leave. |
 | duration | number | No | 3000 | Duration of one scroll, in milliseconds. |
 | delay | number | No | 0 | Delay before the animation starts, in milliseconds. |
 | interval | number | No | 1000 | Pause between repeated or bounced cycles, in milliseconds. |

@@ -125,6 +125,31 @@ RollText 用于展示在元素自身宽度/高度内无法完整显示的文字�
 </fv-roll-text>
 ```
 
+### 悬停触发
+
+使用 `trigger="hover"` 可以在鼠标悬停在组件上时才启动滚动，鼠标移出后停止。
+
+<ClientOnly>
+<fv-roll-text style="width: 260px;" :theme="theme" forward="right" mode="loop" :duration="1800" :interval="400" :offset="120" trigger="hover">
+这是一段足够长的标题文字，在狭窄的导航栏中无法完整显示，因此鼠标悬停在这里时会持续滚动，移出后自动停止
+</fv-roll-text>
+</ClientOnly>
+
+```vue-html
+<fv-roll-text
+    style="width: 260px;"
+    :theme="theme"
+    forward="right"
+    mode="loop"
+    :duration="1800"
+    :interval="400"
+    :offset="120"
+    trigger="hover"
+>
+    这是一段足够长的标题文字，在狭窄的导航栏中无法完整显示，因此鼠标悬停在这里时会持续滚动，移出后自动停止
+</fv-roll-text>
+```
+
 <!--@include: ./properties.md-->
 
 <!--@include: ./emits.md-->

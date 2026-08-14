@@ -8,6 +8,8 @@
             directionInfo.movement,
             { manual }
         ]"
+        @mouseenter="hoverTriggerEnter"
+        @mouseleave="hoverTriggerLeave"
     >
         <slot>RollText</slot>
     </div>
@@ -28,6 +30,10 @@ const props = defineProps({
     mode: {
         type: String,
         default: 'once'
+    },
+    trigger: {
+        type: String,
+        default: 'auto'
     },
     duration: {
         type: Number,
@@ -71,7 +77,8 @@ export default {
             initTimer: null,
             wheelEvent: null,
             touchMoveEvent: null,
-            keydownEvent: null
+            keydownEvent: null,
+            hovered: false
         };
     },
 
@@ -81,6 +88,14 @@ export default {
         },
         mode() {
             this.scheduleInit();
+        },
+        trigger() {
+            if (this.trigger === 'hover') {
+                this.hovered = false;
+                this.killAnimation();
+            } else {
+                this.scheduleInit();
+            }
         },
         duration() {
             this.scheduleInit();
@@ -178,7 +193,9 @@ export default {
 
     mounted() {
         this.$nextTick(() => {
-            this.animationInit();
+            if (this.trigger !== 'hover') {
+                this.animationInit();
+            }
             this.resizeObserverInit();
             this.manualEventInit();
         });
@@ -221,6 +238,18 @@ export default {
                 passive: false
             });
             content.addEventListener('keydown', this.keydownEvent);
+        },
+
+        hoverTriggerEnter() {
+            if (this.trigger !== 'hover' || this.isDisabled) return;
+            this.hovered = true;
+            this.animationInit();
+        },
+
+        hoverTriggerLeave() {
+            if (this.trigger !== 'hover') return;
+            this.hovered = false;
+            this.killAnimation();
         },
 
         manualEventDispose() {
@@ -276,6 +305,7 @@ export default {
         animationInit() {
             const content = this.$refs.content;
             if (!content) return;
+            if (this.trigger === 'hover' && !this.hovered) return;
 
             this.killAnimation();
             this.applyScroll(content, 0);

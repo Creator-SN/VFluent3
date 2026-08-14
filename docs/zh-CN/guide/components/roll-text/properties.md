@@ -5,6 +5,7 @@
 |:----:|:----:|:----:|:------:|:-----|
 | forward | string | 否 | 'right' | 滚动方向。支持 `right`、`left`、`horizontal`、`down`、`up` 和 `vertical`。 |
 | mode | string | 否 | 'once' | 播放模式。支持 `once`、`repeat`、`bounce`、`loop` 和 `none`。 |
+| trigger | string | 否 | 'auto' | 动画触发方式。`auto` 自动开始；`hover` 鼠标进入时开始、移出时停止。 |
 | duration | number | 否 | 3000 | 单次滚动的持续时间，单位为毫秒。 |
 | delay | number | 否 | 0 | 动画开始前的延迟时间，单位为毫秒。 |
 | interval | number | 否 | 1000 | 重复滚动或来回滚动之间的暂停时间，单位为毫秒。 |

@@ -125,6 +125,31 @@ Set `manual` to allow wheel or touch scrolling. Manual scrolling is locked while
 </fv-roll-text>
 ```
 
+### Hover Trigger
+
+Use `trigger="hover"` to start the animation only while the mouse is over the component. The animation stops when the mouse leaves.
+
+<ClientOnly>
+<fv-roll-text style="width: 260px;" :theme="theme" forward="right" mode="loop" :duration="1800" :interval="400" :offset="120" trigger="hover">
+This is a long title that cannot fit inside a narrow navigation bar, so it keeps scrolling while the mouse is hovering over it
+</fv-roll-text>
+</ClientOnly>
+
+```vue-html
+<fv-roll-text
+    style="width: 260px;"
+    :theme="theme"
+    forward="right"
+    mode="loop"
+    :duration="1800"
+    :interval="400"
+    :offset="120"
+    trigger="hover"
+>
+    This is a long title that cannot fit inside a narrow navigation bar, so it keeps scrolling while the mouse is hovering over it
+</fv-roll-text>
+```
+
 <!--@include: ./properties.md-->
 
 <!--@include: ./emits.md-->
