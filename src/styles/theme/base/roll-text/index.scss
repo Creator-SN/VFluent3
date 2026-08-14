@@ -1,0 +1,44 @@
+@import '@/styles/theme/index.scss';
+
+.fv-RollText {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    min-height: 1em;
+    box-sizing: border-box;
+    overflow: hidden;
+    scroll-behavior: auto;
+    color: var(--fv-light-color);
+
+    &.light {
+        color: var(--fv-light-color);
+    }
+
+    &.horizontal {
+        white-space: nowrap;
+    }
+
+    &.vertical {
+        white-space: normal;
+    }
+
+    &.manual {
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &.horizontal {
+            overflow-x: overlay;
+            overflow-y: hidden;
+        }
+
+        &.vertical {
+            overflow-x: hidden;
+            overflow-y: overlay;
+        }
+    }
+}

@@ -220,6 +220,10 @@ const sidebarSections = [
             {
                 text: 'ScrollStory',
                 link: '/guide/components/scroll-story/'
+            },
+            {
+                text: 'RollText',
+                link: '/guide/components/roll-text/'
             }
         ]
     },

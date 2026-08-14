@@ -42,6 +42,7 @@ export * from "./rating-control"
 export * from "./resize-watcher"
 export * from "./reveal-container"
 export * from "./right-menu"
+export * from "./roll-text"
 export * from "./scroll-story"
 export * from "./search-box"
 export * from "./shimmer"
@@ -107,6 +108,7 @@ import RatingControl from "./rating-control"
 import ResizeWatcher from "./resize-watcher"
 import RevealContainer from "./reveal-container"
 import RightMenu from "./right-menu"
+import RollText from "./roll-text"
 import ScrollStory from "./scroll-story"
 import SearchBox from "./search-box"
 import Shimmer from "./shimmer"
@@ -167,6 +169,7 @@ const components = [
     ResizeWatcher,
     RevealContainer,
     RightMenu,
+    RollText,
     ScrollStory,
     SearchBox,
     Shimmer,
@@ -240,6 +243,7 @@ declare module 'vue' {
 		FvResizeWatcher: typeof ResizeWatcher;
 		FvRevealContainer: typeof RevealContainer;
 		FvRightMenu: typeof RightMenu;
+		FvRollText: typeof RollText;
 		FvScrollStory: typeof ScrollStory;
 		FvSearchBox: typeof SearchBox;
 		FvShimmer: typeof Shimmer;
