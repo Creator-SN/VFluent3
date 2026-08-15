@@ -1,31 +1,34 @@
 <template>
-    <transition
-        :name="
-            fullExpandAnimation
-                ? 'fv-rightMenu-full-zoom-in-top'
-                : 'fv-rightMenu-zoom-in-top'
-        "
-    >
-        <div
-            class="fv-RightMenu"
-            v-show="thisValue"
-            :class="[$theme]"
-            :style="{
-                left: posX + 'px',
-                top: posY + 'px',
-                width: rightMenuWidth + 'px',
-                background: background
-            }"
+    <teleport to="body">
+        <transition
+            :name="
+                fullExpandAnimation
+                    ? 'fv-rightMenu-full-zoom-in-top'
+                    : 'fv-rightMenu-zoom-in-top'
+            "
         >
-            <div class="right-menu-list">
-                <slot>
-                    <span>
-                        <p>Selected</p>
-                    </span>
-                </slot>
+            <div
+                ref="rightMenuEl"
+                class="fv-RightMenu"
+                v-show="thisValue"
+                :class="[$theme]"
+                :style="{
+                    left: posX + 'px',
+                    top: posY + 'px',
+                    width: rightMenuWidth + 'px',
+                    background: background
+                }"
+            >
+                <div class="right-menu-list">
+                    <slot>
+                        <span>
+                            <p>Selected</p>
+                        </span>
+                    </slot>
+                </div>
             </div>
-        </div>
-    </transition>
+        </transition>
+    </teleport>
 </template>
 
 <script setup>
@@ -86,37 +89,28 @@ export default {
         }
     },
     mounted() {
-        this.globalAppendInit();
         this.rightMenuClearInit();
         this.resizeInit();
     },
     methods: {
-        globalAppendInit() {
-            this.$nextTick(() => {
-                const body = document.querySelector('body');
-                if (body.append) {
-                    body.append(this.$el);
-                } else {
-                    body.appendChild(this.$el);
-                }
-            });
-        },
         rightMenuClearInit() {
-            window.addEventListener('click', (event) => {
+            this.clickHandler = (event) => {
                 let x = event.target;
-                if (x && x !== this.$el) this.thisValue = false;
-            });
+                if (x && x !== this.$refs.rightMenuEl) this.thisValue = false;
+            };
+            window.addEventListener('click', this.clickHandler);
         },
         resizeInit() {
-            const observer = new ResizeObserver(() => {
-                if (this.$el) {
-                    if (this.$el.clientHeight > 0) {
-                        this.rightMenuHeight = this.$el.clientHeight;
+            this.resizeObserver = new ResizeObserver(() => {
+                if (this.$refs.rightMenuEl) {
+                    if (this.$refs.rightMenuEl.clientHeight > 0) {
+                        this.rightMenuHeight =
+                            this.$refs.rightMenuEl.clientHeight;
                         this.$emit('update-height', this.rightMenuHeight);
                     }
                 }
             });
-            observer.observe(this.$el);
+            this.resizeObserver.observe(this.$refs.rightMenuEl);
         },
         rightClick(event, el) {
             event.preventDefault();
@@ -137,6 +131,10 @@ export default {
         hide() {
             this.thisValue = false;
         }
+    },
+    beforeUnmount() {
+        window.removeEventListener('click', this.clickHandler);
+        if (this.resizeObserver) this.resizeObserver.disconnect();
     }
 };
 </script>

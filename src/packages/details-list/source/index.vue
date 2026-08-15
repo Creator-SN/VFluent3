@@ -847,7 +847,6 @@ export default {
         }
 
         this.uR.revealMaskedJs.destroy(this.FR_Table_Head);
-        this.$refs.rightMenu.hide();
     }
 };
 </script>
