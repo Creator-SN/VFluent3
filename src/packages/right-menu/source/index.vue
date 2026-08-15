@@ -54,7 +54,8 @@ const props = defineProps({
 });
 
 defineExpose({
-    rightClick: (...args) => proxy.rightClick(...args)
+    rightClick: (...args) => proxy.rightClick(...args),
+    hide: () => proxy.hide()
 });
 </script>
 
@@ -132,6 +133,9 @@ export default {
                 targetPos.y = bounding.bottom - this.rightMenuHeight;
             this.posX = targetPos.x;
             this.posY = targetPos.y;
+        },
+        hide() {
+            this.thisValue = false;
         }
     }
 };
