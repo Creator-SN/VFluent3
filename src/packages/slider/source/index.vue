@@ -9,7 +9,9 @@
             ref="bar"
             :style="{
                 background:
-                    progress >= 100 ? color : background ? background : ''
+                    Number(progress) >= Number(maxinum)
+                        ? color
+                        : background || ''
             }"
         >
             <div
