@@ -1,4 +1,6 @@
 .fv-Slider {
+    --fv-slider-unit-color: rgba(134, 134, 134, 1);
+
     position: relative;
     width: 300px;
     height: auto;
@@ -177,7 +179,7 @@
                 position: absolute;
                 width: 1px;
                 height: 3px;
-                background-color: rgba(134, 134, 134, 1);
+                background-color: var(--fv-slider-unit-color);
 
                 &.first {
                     left: 10px;

@@ -3,6 +3,7 @@
         class="fv-Slider"
         :class="[$theme, { vertical: vertical }]"
         ref="slider"
+        :style="{ '--fv-slider-unit-color': scaleColor }"
     >
         <div
             class="fv-slider-main"
@@ -144,6 +145,9 @@ const props = defineProps({
     scale: {
         type: [Boolean, Number],
         default: false
+    },
+    scaleColor: {
+        default: ''
     },
     color: {
         default: ''
@@ -387,15 +391,22 @@ export default {
             return val;
         },
         setPos() {
-            if (!this.btnEl.width || !this.barEl.width) return;
+            const range = this.maxinum - this.mininum;
+            if (
+                range <= 0 ||
+                !this.btnEl.width ||
+                !this.barEl.width ||
+                (this.vertical && !this.barEl.height)
+            )
+                return;
+
+            const ratio = (this.progress - this.mininum) / range;
             if (this.vertical)
                 this.currentTop =
-                    (this.progress / (this.maxinum - this.mininum)) *
-                    (this.barEl.height - this.btnEl.height);
+                    ratio * (this.barEl.height - this.btnEl.height);
             else
                 this.currentLeft =
-                    (this.progress / (this.maxinum - this.mininum)) *
-                    (this.barEl.width - this.btnEl.width);
+                    ratio * (this.barEl.width - this.btnEl.width);
         },
         setProgress(vertical = false) {
             if (!vertical) {

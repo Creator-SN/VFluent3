@@ -1,4 +1,6 @@
 .fv-Slider {
+    --fv-slider-unit-color: rgba(154, 154, 154, 1);
+    
     &.dark {
         color: whitesmoke;
 
@@ -25,7 +27,7 @@
 
             .fv-slider-unit-container {
                 .fv-slider-unit-item {
-                    background-color: rgba(154, 154, 154, 1);
+                    background-color: var(--fv-slider-unit-color);
                 }
             }
         }
