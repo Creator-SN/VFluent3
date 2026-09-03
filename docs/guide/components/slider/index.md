@@ -152,6 +152,7 @@ Slider: {{value}}%  Change: {{changeTime}} Click: {{clickTime}}
 | vertical              | boolean | No       | false                                       | See the Slider `vertical` option.              |
 | showLabel             | boolean | No       | false                                       | See the Slider `showLabel` option.             |
 | scale                 |         | No       | false                                       | false                                          |
+| scaleColor            | string  | No       | ''                                          | See the Slider `scaleColor` option.            |
 | color                 | string  | No       | ''                                          | See the Slider `color` option.                 |
 | background            | string  | No       | ''                                          | See the Slider `background` option.            |
 | iconWrapperBackground | string  | No       | ''                                          | See the Slider `iconWrapperBackground` option. |
