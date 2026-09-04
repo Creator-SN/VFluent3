@@ -7,7 +7,11 @@
             v-show="!hidden"
             class="fv-badge-container"
             :class="{ dot: isDot }"
-            :style="{ background: finalColor }"
+            :style="{
+                top: offsetTop,
+                right: offsetRight,
+                background: finalColor
+            }"
         >
             <p class="badge-content">
                 {{ finalValue }}
@@ -35,6 +39,12 @@ const props = defineProps({
     },
     hidden: {
         default: false
+    },
+    offsetTop: {
+        default: ''
+    },
+    offsetRight: {
+        default: ''
     },
     type: {
         default: 'default'

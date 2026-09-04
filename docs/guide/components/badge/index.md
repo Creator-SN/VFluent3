@@ -114,6 +114,8 @@ Primary
 | max        | any     | No       | Infinity  |                                  |
 | isDot      | boolean | No       | false     |                                  |
 | hidden     | boolean | No       | false     |                                  |
+| offsetTop  | string  | No       | ''        |                                  |
+| offsetRight| string  | No       | ''        |                                  |
 | type       | string  | No       | 'default' | See the Badge `type` option.     |
 | theme      | string  | No       | 'global'  | See the Badge `theme` option.    |
 | disabled   | boolean | No       | false     | See the Badge `disabled` option. |

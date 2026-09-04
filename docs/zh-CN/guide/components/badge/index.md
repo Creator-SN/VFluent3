@@ -114,6 +114,8 @@ Primary
 | max        | any     | 否    | Infinity  |                                   |
 | isDot      | boolean | 否    | false     |                                   |
 | hidden     | boolean | 否    | false     |                                   |
+| offsetTop  | string  | 否    | ''        |                                   |
+| offsetRight| string  | 否    | ''        |                                   |
 | type       | string  | 否    | 'default' | `Badge`类型，可以输入颜色字符串。 |
 | theme      | string  | 否    | 'global'  | 参见组件的 `theme` 选项。         |
 | disabled   | boolean | 否    | false     | 参见组件的 `disabled` 选项。      |
