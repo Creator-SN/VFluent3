@@ -91,7 +91,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, toRaw } from 'vue';
 import { commonProps } from '@/packages/common/props';
 
 import { getCurrentInstance } from 'vue';
@@ -206,7 +206,7 @@ export default {
             this.setChoosen();
         },
         sliderTarget(val) {
-            this.thisSliderTarget = val;
+            this.thisSliderTarget = this.resolveSliderTarget(val);
         },
         thisSliderTarget(val) {
             this.$emit('update:sliderTarget', val);
@@ -543,24 +543,54 @@ export default {
                 }
             }
             if (this.$refs[`list_item_${index}`]) {
-                this.thisSliderTarget = this.$refs[`list_item_${index}`][0];
+                this.thisSliderTarget = this.resolveSliderTarget(
+                    this.$refs[`list_item_${index}`]
+                );
                 this.thisSliderIndex = index;
             }
+        },
+        resolveSliderTarget(target) {
+            let resolved = target;
+
+            // Accept Vue refs, component refs, and refs created inside v-for.
+            if (Array.isArray(resolved)) resolved = resolved[0];
+            if (
+                resolved &&
+                typeof resolved.getBoundingClientRect !== 'function' &&
+                resolved.value
+            ) {
+                resolved = resolved.value;
+            }
+            if (
+                resolved &&
+                typeof resolved.getBoundingClientRect !== 'function' &&
+                resolved.$el
+            ) {
+                resolved = resolved.$el;
+            }
+
+            // Vue can make an externally supplied element reactive. Use the
+            // original DOM node before checking/calling its native method.
+            resolved = toRaw(resolved);
+            return resolved &&
+                typeof resolved.getBoundingClientRect === 'function'
+                ? resolved
+                : null;
         },
         sliderRefreshInit() {
             clearInterval(this.timer.slider);
             this.timer.slider = setInterval(() => {
-                if (!this.$el || !this.thisSliderTarget) return;
-                if (this.thisSliderTarget) {
-                    let target = this.thisSliderTarget;
-                    let elTop = this.$el?.getBoundingClientRect()?.top || 0;
-                    let targetTop = target?.getBoundingClientRect()?.top || 0;
-                    this.currentTop = targetTop - elTop;
-                } else this.currentTop = 0;
-                if (this.thisSliderTarget) {
-                    let target = this.thisSliderTarget;
-                    this.currentHeight = target?.clientHeight || 0;
-                } else this.currentHeight = 0;
+                const target = this.resolveSliderTarget(this.thisSliderTarget);
+                if (!this.$el || !target) {
+                    this.currentTop = 0;
+                    this.currentHeight = 0;
+                    return;
+                }
+
+                const elTop = this.$el.getBoundingClientRect()?.top || 0;
+                const targetTop = target.getBoundingClientRect()?.top || 0;
+                this.currentTop = targetTop - elTop;
+                this.currentHeight = target.clientHeight || 0;
             }, 30);
         },
         dragOver(event, item) {
