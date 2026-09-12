@@ -545,13 +545,13 @@ export default {
             this.timer.slider = setInterval(() => {
                 if (this.thisSliderTarget) {
                     let target = this.thisSliderTarget;
-                    let elTop = this.$el.getBoundingClientRect().top;
-                    let targetTop = target.getBoundingClientRect().top;
+                    let elTop = this.$el?.getBoundingClientRect()?.top || 0;
+                    let targetTop = target?.getBoundingClientRect()?.top || 0;
                     this.currentTop = targetTop - elTop;
                 } else this.currentTop = 0;
                 if (this.thisSliderTarget) {
                     let target = this.thisSliderTarget;
-                    this.currentHeight = target.clientHeight;
+                    this.currentHeight = target?.clientHeight || 0;
                 } else this.currentHeight = 0;
             }, 30);
         },
