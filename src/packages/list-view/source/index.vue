@@ -543,6 +543,7 @@ export default {
         },
         sliderRefreshInit() {
             this.timer.slider = setInterval(() => {
+                if (!this.$el || !this.thisSliderTarget) return;
                 if (this.thisSliderTarget) {
                     let target = this.thisSliderTarget;
                     let elTop = this.$el?.getBoundingClientRect()?.top || 0;
