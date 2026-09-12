@@ -284,6 +284,12 @@ export default {
             this.setSliderTarget();
         }, 600);
     },
+    activated() {
+        this.sliderRefreshInit();
+    },
+    deactivated() {
+        clearInterval(this.timer.slider);
+    },
     methods: {
         valueInit() {
             let model = {
@@ -542,6 +548,7 @@ export default {
             }
         },
         sliderRefreshInit() {
+            clearInterval(this.timer.slider);
             this.timer.slider = setInterval(() => {
                 if (!this.$el || !this.thisSliderTarget) return;
                 if (this.thisSliderTarget) {
