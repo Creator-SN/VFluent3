@@ -66,7 +66,7 @@
             </div>
             <table-row
                 v-for="(row, i) in filteredRows"
-                :key="i"
+                :key="row.__guid || row"
                 :modelValue="modelValue"
                 :row="row"
                 :row_index="i"
@@ -265,6 +265,12 @@ export default {
     watch: {
         sortHeads: {
             handler(newVal, oldVal) {
+                this.syncFilter();
+            },
+            deep: true
+        },
+        'modelValue.rows': {
+            handler() {
                 this.syncFilter();
             },
             deep: true
@@ -503,6 +509,7 @@ export default {
             let toIndex = this.modelValue.rows.findIndex((item) => item === to);
             if (toIndex === -1) return;
             this.modelValue.rows.splice(toIndex, 0, fromItem);
+            this.syncFilter();
         },
         chooseAll() {
             let status = !this.currentChoosenAll;

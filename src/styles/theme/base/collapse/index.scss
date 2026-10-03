@@ -99,6 +99,9 @@
                     .collapse-title,
                     .collapse-info {
                         line-height: inherit;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
                     }
                     .collapse-title {
                         font-size: 0.9rem;
