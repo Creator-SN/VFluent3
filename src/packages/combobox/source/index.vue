@@ -49,55 +49,63 @@
                 :style="{ color: dropDownIconForeground }"
             ></i>
         </div>
-        <transition name="fv-combobox">
+        <Teleport to="body">
             <div
-                v-show="status"
-                class="combobox-item-container"
-                :style="{ background: background, overflow: 'auto' }"
-                ref="co_items"
+                class="fv-Combobox fv-combobox-teleport"
+                :class="$theme"
+                ref="popupContainer"
             >
-                <div
-                    v-for="(item, index) in options"
-                    class="fv-combobox-item"
-                    :class="{
-                        hr: valueTrigger(item.type) == 'divider',
-                        normal:
-                            (valueTrigger(item.type) == 'default' ||
-                                valueTrigger(item.type) == undefined) &&
-                            !valueTrigger(item.disabled),
-                        disabled: valueTrigger(item.disabled),
-                        choose: item.key === thisValue.key,
-                        title: valueTrigger(item.type) == 'header'
-                    }"
-                    :style="{
-                        height: `${itemHeight}px`,
-                        fontSize: formatFontSize(dropDownFontSize),
-                        fontWeight: dropDownFontWeight,
-                        background:
-                            item.key === thisValue.key ? choosenBackground : '',
-                        color:
-                            valueTrigger(item.type) === 'header'
-                                ? titleForeground
-                                : ''
-                    }"
-                    @click.stop="Choose($event, item)"
-                    :key="index"
-                    :title="valueTrigger(item.text)"
-                >
-                    <slot :item="item">
-                        <i
-                            class="before-choosen"
-                            :style="{ background: choosenSliderBackground }"
-                        ></i>
-                        {{
-                            valueTrigger(item.type) !== 'divider'
-                                ? valueTrigger(item.text)
-                                : ''
-                        }}
-                    </slot>
-                </div>
+                <transition name="fv-combobox">
+                    <div
+                        v-show="status"
+                        class="combobox-item-container"
+                        :style="{ background: background, overflow: 'auto' }"
+                        ref="co_items"
+                    >
+                        <div
+                            v-for="(item, index) in options"
+                            class="fv-combobox-item"
+                            :class="{
+                                hr: valueTrigger(item.type) == 'divider',
+                                normal:
+                                    (valueTrigger(item.type) == 'default' ||
+                                        valueTrigger(item.type) == undefined) &&
+                                    !valueTrigger(item.disabled),
+                                disabled: valueTrigger(item.disabled),
+                                choose: item.key === thisValue.key,
+                                title: valueTrigger(item.type) == 'header'
+                            }"
+                            :style="{
+                                height: `${itemHeight}px`,
+                                fontSize: formatFontSize(dropDownFontSize),
+                                fontWeight: dropDownFontWeight,
+                                background:
+                                    item.key === thisValue.key ? choosenBackground : '',
+                                color:
+                                    valueTrigger(item.type) === 'header'
+                                        ? titleForeground
+                                        : ''
+                            }"
+                            @click.stop="Choose($event, item)"
+                            :key="index"
+                            :title="valueTrigger(item.text)"
+                        >
+                            <slot :item="item">
+                                <i
+                                    class="before-choosen"
+                                    :style="{ background: choosenSliderBackground }"
+                                ></i>
+                                {{
+                                    valueTrigger(item.type) !== 'divider'
+                                        ? valueTrigger(item.text)
+                                        : ''
+                                }}
+                            </slot>
+                        </div>
+                    </div>
+                </transition>
             </div>
-        </transition>
+        </Teleport>
     </div>
 </template>
 
@@ -193,10 +201,17 @@ export default {
     data() {
         return {
             thisValue: this.modelValue,
-            status: false
+            status: false,
+            resizeObserver: null
         };
     },
     watch: {
+        status(open) {
+            if (open) this.updatePopupPosition();
+        },
+        isDisabled(disabled) {
+            if (disabled) this.status = false;
+        },
         modelValue(val) {
             this.thisValue = val;
         },
@@ -239,13 +254,30 @@ export default {
     },
     mounted() {
         this.outSideClickInit();
+        window.addEventListener('resize', this.updatePopupPosition);
+        window.addEventListener('scroll', this.updatePopupPosition, true);
+        if (typeof ResizeObserver !== 'undefined') {
+            this.resizeObserver = new ResizeObserver(this.updatePopupPosition);
+            this.resizeObserver.observe(this.$el);
+        }
     },
     methods: {
+        updatePopupPosition() {
+            if (!this.status) return;
+            const rect = this.$el.getBoundingClientRect();
+            const popup = this.$refs.popupContainer;
+            if (!popup) return;
+            popup.style.left = `${rect.left}px`;
+            popup.style.top = `${rect.top}px`;
+            popup.style.width = `${rect.width}px`;
+            popup.style.height = `${rect.height}px`;
+        },
         outSideClickInit() {
             window.addEventListener('click', this.outSideClickEvent);
             window.addEventListener('touchend', this.outSideClickEvent);
         },
         outSideClickEvent(event) {
+            if (this.$refs.co_items?.contains(event.target)) return;
             let x = event.target;
             let _self = false;
             while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
@@ -282,6 +314,9 @@ export default {
         }
     },
     beforeUnmount() {
+        window.removeEventListener('resize', this.updatePopupPosition);
+        window.removeEventListener('scroll', this.updatePopupPosition, true);
+        this.resizeObserver?.disconnect();
         window.removeEventListener('click', this.outSideClickEvent);
         window.removeEventListener('touchend', this.outSideClickEvent);
     }

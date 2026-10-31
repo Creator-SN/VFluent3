@@ -151,7 +151,7 @@
         max-height: 300px;
         padding: 8px 8px;
         background: rgba(239, 239, 239, 0.95);
-        border-radius: 5px;
+        border-radius: 8px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -295,5 +295,16 @@
     .fv-combobox-enter-to {
         transform: scale(1);
         opacity: 1;
+    }
+}
+
+.fv-Combobox.fv-combobox-teleport {
+    position: fixed;
+    z-index: 1000;
+    transition: none;
+    pointer-events: none;
+
+    .combobox-item-container {
+        pointer-events: auto;
     }
 }
