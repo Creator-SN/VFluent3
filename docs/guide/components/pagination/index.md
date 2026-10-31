@@ -100,7 +100,8 @@ title: Pagination
 | modelValue            | number  | No       | 1                                                               | See the Pagination `modelValue` option.                                  |
 | foreground            | string  | No       | 'rgba(0, 90, 158, 1)'                                           |                                                                          |
 | background            | string  | No       | 'transparent'                                                   |                                                                          |
-| borderRadius          | number  | No       | 3                                                               | See the Pagination `borderRadius` option.                                |
+| borderRadius          | number  | No       | 6                                                               | See the Pagination `borderRadius` option.                                |
+| borderColor           | string  | No       | ''                                                              | Border color of the pagination buttons.                                  |
 | revealBackgroundColor | string  | No       | ''                                                              | See the Pagination `revealBackgroundColor` option.                       |
 | revealBorderColor     | string  | No       | ''                                                              | See the Pagination `revealBorderColor` option.                           |
 | total                 | number  | No       | 10                                                              | See the Pagination `total` option.                                       |

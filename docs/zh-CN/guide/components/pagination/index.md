@@ -100,7 +100,8 @@ title: Pagination
 | modelValue            | number  | 否    | 1                                                               | 当前页码数。                                                     |
 | foreground            | string  | 否    | 'rgba(0, 90, 158, 1)'                                           |                                                                  |
 | background            | string  | 否    | 'transparent'                                                   |                                                                  |
-| borderRadius          | number  | 否    | 3                                                               | 页码按钮圆角半径。                                               |
+| borderRadius          | number  | 否    | 6                                                               | 页码按钮圆角半径。                                               |
+| borderColor           | string  | 否    | ''                                                              | 页码按钮边框颜色。                                               |
 | revealBackgroundColor | string  | 否    | ''                                                              | 页码按钮`Reveal`背景颜色。                                       |
 | revealBorderColor     | string  | 否    | ''                                                              | 页码按钮`Reveal`边框颜色。                                       |
 | total                 | number  | 否    | 10                                                              | 总页码数。                                                       |

@@ -7,6 +7,7 @@
                 class="page-btn"
                 :theme="theme"
                 :background="background"
+                :borderColor="borderColor"
                 :reveal-background-color="revealBackgroundColor"
                 :reveal-border-color="revealBorderColor"
                 :is-box-shadow="shadow"
@@ -24,6 +25,7 @@
                     :theme="theme"
                     :disabled="isDisabled"
                     :background="background"
+                    :borderColor="borderColor"
                     :reveal-background-color="revealBackgroundColor"
                     :reveal-border-color="revealBorderColor"
                     :foreground="thisValue == item.num ? foreground : ''"
@@ -43,6 +45,7 @@
                 class="page-btn"
                 :theme="theme"
                 :background="background"
+                :borderColor="borderColor"
                 :reveal-background-color="revealBackgroundColor"
                 :reveal-border-color="revealBorderColor"
                 :is-box-shadow="shadow"
@@ -79,7 +82,10 @@ const props = defineProps({
         default: 'transparent'
     },
     borderRadius: {
-        default: 3
+        default: 6
+    },
+    borderColor: {
+        default: ''
     },
     revealBackgroundColor: {
         default: ''
