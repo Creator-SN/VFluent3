@@ -10,11 +10,11 @@ title: Button
 
 
 <ClientOnly>
-<fv-button borderRadius="3"></fv-button>
+<fv-button borderRadius="6"></fv-button>
 </ClientOnly>
 
 ```vue
-<fv-button borderRadius="3"></fv-button>
+<fv-button borderRadius="6"></fv-button>
 ```
 
 ### Button With Icon
@@ -40,20 +40,20 @@ title: Button
 ``` 
 
 <ClientOnly>
-<fv-button icon="CalculatorAddition" theme="dark" background="linear-gradient(to right, #000046, #1cb5e0)" borderRadius="3" :isBoxShadow="true">Add</fv-button>
+<fv-button icon="CalculatorAddition" theme="dark" background="linear-gradient(to right, #000046, #1cb5e0)" borderRadius="6" :isBoxShadow="true">Add</fv-button>
 </ClientOnly>
 
 ```vue
-<fv-button icon="CalculatorAddition" theme="dark" background="linear-gradient(to right, #000046, #1cb5e0)" borderRadius="3" :isBoxShadow="true">Add</fv-button>
+<fv-button icon="CalculatorAddition" theme="dark" background="linear-gradient(to right, #000046, #1cb5e0)" borderRadius="6" :isBoxShadow="true">Add</fv-button>
 ```
 
 Custom Reveal Border
 <ClientOnly>
-<fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="3" borderWidth="3" :isBoxShadow="true">Add</fv-button>
+<fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="6" borderWidth="3" :isBoxShadow="true">Add</fv-button>
 </ClientOnly>
 
 ```vue
-<fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="3" borderWidth="3" :isBoxShadow="true">Add</fv-button>
+<fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="6" borderWidth="3" :isBoxShadow="true">Add</fv-button>
 ```
 
 ### Disabled Button
@@ -75,7 +75,7 @@ Custom Reveal Border
 | icon                         | string  | No       | ''       | Icon with Fabric-Icon                                                    |
 | foreground                   | string  | No       | ''       | Button foreground color.                                                 |
 | background                   | string  | No       | ''       | Button background color.                                                 |
-| borderRadius                 | number  | No       | 3        | Button border radius.                                                    |
+| borderRadius                 | number  | No       | 6        | Button border radius.                                                    |
 | borderColor                  | string  | No       | ''       | Button border color.                                                     |
 | fontSize                     | number  | No       | 13.3     | Button font size.                                                        |
 | fontWeight                   | string  | No       | 'normal' | Button font weight.                                                      |

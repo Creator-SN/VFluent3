@@ -1,6 +1,7 @@
 .fv-Button {
     position: relative;
     width: 80px;
+    min-width: max-content;
     height: 30px;
     box-sizing: border-box;
     display: flex;
@@ -54,14 +55,17 @@
             span.fv-btn-content-block {
                 width: 100%;
                 height: 100%;
+                box-sizing: border-box;
+                padding-inline: 2.5px;
+                gap: 5px;
+                white-space: nowrap;
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
         }
 
-        .fv-button-regular-border
-        {
+        .fv-button-regular-border {
             position: absolute;
             left: 0px;
             top: 0px;

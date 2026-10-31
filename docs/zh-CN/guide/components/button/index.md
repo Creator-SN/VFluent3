@@ -10,11 +10,11 @@ title: Button
 
 
 <ClientOnly>
-<fv-button borderRadius="3"></fv-button>
+<fv-button borderRadius="6"></fv-button>
 </ClientOnly>
 
 ```vue
-<fv-button borderRadius="3"></fv-button>
+<fv-button borderRadius="6"></fv-button>
 ```
 
 ### 带图标的按钮
@@ -40,20 +40,20 @@ title: Button
 ``` 
 
 <ClientOnly>
-<fv-button icon="CalculatorAddition" theme="dark" background="linear-gradient(to right, #000046, #1cb5e0)" borderRadius="3" :isBoxShadow="true">Add</fv-button>
+<fv-button icon="CalculatorAddition" theme="dark" background="linear-gradient(to right, #000046, #1cb5e0)" borderRadius="6" :isBoxShadow="true">Add</fv-button>
 </ClientOnly>
 
 ```vue
-<fv-button icon="CalculatorAddition" theme="dark" background="linear-gradient(to right, #000046, #1cb5e0)" borderRadius="3" :isBoxShadow="true">Add</fv-button>
+<fv-button icon="CalculatorAddition" theme="dark" background="linear-gradient(to right, #000046, #1cb5e0)" borderRadius="6" :isBoxShadow="true">Add</fv-button>
 ```
 
 自定义 Reveal 边框
 <ClientOnly>
-<fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="3" borderWidth="3" :isBoxShadow="true">Add</fv-button>
+<fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="6" borderWidth="3" :isBoxShadow="true">Add</fv-button>
 </ClientOnly>
 
 ```vue
-<fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="3" borderWidth="3" :isBoxShadow="true">Add</fv-button>
+<fv-button icon="CalculatorAddition" theme="dark" background="#000046" revealBorderColor="#1cb5e0" revealBackgroundColor="rgba(28, 181, 226, 0.3)" borderRadius="6" borderWidth="3" :isBoxShadow="true">Add</fv-button>
 ```
 
 ### 禁用按钮
@@ -75,7 +75,7 @@ title: Button
 | icon                         | string  | 否    | ''       | Icon with Fabric-Icon                                            |
 | foreground                   | string  | 否    | ''       | Button 前景色。                                                  |
 | background                   | string  | 否    | ''       | Button 背景色。                                                  |
-| borderRadius                 | number  | 否    | 3        | Button 圆角大小。                                                |
+| borderRadius                 | number  | 否    | 6        | Button 圆角大小。                                                |
 | borderColor                  | string  | 否    | ''       | Button 边框颜色。                                                |
 | fontSize                     | number  | 否    | 13.3     | Button 字体大小。                                                |
 | fontWeight                   | string  | 否    | 'normal' | Button 字体粗细。                                                |

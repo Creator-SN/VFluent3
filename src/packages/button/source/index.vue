@@ -36,9 +36,9 @@
                     }"
                 >
                     <i
+                        v-show="icon"
                         class="ms-Icon"
                         :class="`ms-Icon--${icon}`"
-                        :style="{ 'margin-right': icon != '' ? '5px' : '' }"
                     ></i>
                     <slot>Button</slot>
                 </span>
@@ -76,7 +76,7 @@ const props = defineProps({
         type: String
     },
     borderRadius: {
-        default: 3
+        default: 6
     },
     borderColor: {
         default: ''
