@@ -274,7 +274,7 @@ Customize background
 |    fontWeight     | string  |    No    | 'normal' |                                                                          |
 |    foreground     | string  |    No    |    ''    |                                                                          |
 |     textAlign     | string  |    No    |  'left'  |                                                                          |
-|   borderRadius    | number  |    No    |    3     |                 See the SearchBox `borderRadius` option.                 |
+|   borderRadius    | number  |    No    |    6     |                 See the SearchBox `borderRadius` option.                 |
 | resultBackground  | string  |    No    |    ''    |                  Background of the search result panel.                  |
 | resultBorderRadius| string  |    No    |    ''    |                Border radius of the search result panel.                 |
 |  resultBoxShadow  | boolean |    No    |  false   |            Whether to show shadow on results.            |

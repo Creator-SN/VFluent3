@@ -258,7 +258,7 @@ export default {
 | fontSize           | number  | No       | 13.3     | 字体大小。 |
 | fontWeight         | string  | No       | 'normal' | 字体粗细。 |
 | textAlign          | string  | No       | 'left'   | 文本对齐方式。 |
-| borderRadius       | number  | No       | 3        | 搜索框圆角。 |
+| borderRadius       | number  | No       | 6        | 搜索框圆角。 |
 | resultBackground   | string  | No       | ''       | 搜索结果容器背景。 |
 | resultBorderRadius | string  | No       | ''       | 搜索结果容器圆角。 |
 | resultBoxShadow    | boolean | No       | false    | 是否显示 `$ms-depth-shadow-16`。 |
