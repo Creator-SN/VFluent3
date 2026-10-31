@@ -56,8 +56,7 @@
                         :theme="theme"
                         class="nav-search"
                         :revealBorder="true"
-                        borderRadius="3"
-                        :isBoxShadow="true"
+                        borderRadius="6"
                         style="width: 95%"
                         @choose-result="onChooseSearch"
                     ></fv-search-box>

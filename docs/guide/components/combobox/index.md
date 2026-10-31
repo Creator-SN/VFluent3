@@ -98,10 +98,14 @@ Default Styles
 | borderWidth             | number  | No       | 1             |                                                                          |
 | placeholder             | string  | No       | 'Combobox'    |                                                                          |
 | borderColor             | string  | No       | ''            |                                                                          |
-| borderRadius            | number  | No       | 6             |                                                                          |
+| borderRadius            | number/string | No       | 6             | Numbers use px; other strings are used as CSS values |
 | background              | string  | No       | ''            |                                                                          |
 | choosenBackground       | string  | No       | ''            |                                                                          |
 | choosenSliderBackground | string  | No       | ''            |                                                                          |
+| inputFontSize | number/string | No | '' | Input font size; numbers use px, strings can use CSS units |
+| inputFontWeight | number/string | No | '' | Input font weight |
+| dropDownFontSize | number/string | No | '' | Option and header font size; numbers use px, strings can use CSS units |
+| dropDownFontWeight | number/string | No | '' | Option and header font weight |
 | inputForeground         | string  | No       | ''            |                                                                          |
 | inputBackground         | string  | No       | ''            |                                                                          |
 | titleForeground         | string  | No       | ''            |                                                                          |

@@ -105,9 +105,7 @@
                         class="nav-search"
                         :theme="theme"
                         :revealBorder="true"
-                        borderWidth="2"
                         borderRadius="6"
-                        :isBoxShadow="true"
                         style="width: 95%"
                     ></fv-search-box>
                 </slot>

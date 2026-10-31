@@ -249,7 +249,26 @@ export default {
 </template>
 ```
 
-6. Setting
+6. SearchBlock
+
+自定义搜索区域，插槽参数 `options` 是传给 NavigationView 的导航项。搜索区域仅在 `showSearch` 为 `true` 且导航面板展开时显示。未提供插槽时，组件使用默认搜索框。
+
+替换默认搜索框后，需要自行处理搜索结果；例如，将选中项写入 NavigationView 的 `v-model`：
+
+```vue
+<fv-NavigationView v-model="value" :options="options">
+    <template v-slot:searchBlock="{ options: searchOptions }">
+        <fv-search-box
+            :options="searchOptions"
+            placeholder="Search"
+            style="width: 95%"
+            @choose-result="value = $event"
+        />
+    </template>
+</fv-NavigationView>
+```
+
+7. Setting
 
 自定义设置项区域内容。
 
@@ -272,7 +291,7 @@ export default {
 </template>
 ```
 
-7. Mask
+8. Mask
 
 自定义组件遮罩层内容，可用于全局加载态等场景。
 

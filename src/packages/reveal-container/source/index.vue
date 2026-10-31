@@ -2,7 +2,7 @@
     <div
         class="fv-RevealContainer"
         :class="[$theme]"
-        :style="{ 'border-radius': `${computedBorderRadius}px` }"
+        :style="{ 'border-radius': formatBorderRadiusSize(computedBorderRadius) }"
         @click="
             ($event) => {
                 $event.preventDefault();
@@ -89,10 +89,10 @@
             <rect
                 :x="borderWidth / 2"
                 :y="borderWidth / 2"
-                :rx="computedBorderRadius"
-                :ry="computedBorderRadius"
                 style="box-sizing: border-box"
                 :style="{
+                    rx: formatBorderRadiusSize(computedBorderRadius),
+                    ry: formatBorderRadiusSize(computedBorderRadius),
                     width: `${offset.right - offset.left - borderWidth}px`,
                     height: `${offset.bottom - offset.top - borderWidth}px`,
                     stroke: `url(#borderG_${id})`,
@@ -104,10 +104,10 @@
                 v-show="clickDown"
                 :x="borderWidth / 2"
                 :y="borderWidth / 2"
-                :rx="computedBorderRadius"
-                :ry="computedBorderRadius"
                 style="stroke: transparent; box-sizing: border-box"
                 :style="{
+                    rx: formatBorderRadiusSize(computedBorderRadius),
+                    ry: formatBorderRadiusSize(computedBorderRadius),
                     width: `${offset.right - offset.left - borderWidth}px`,
                     height: `${offset.bottom - offset.top - borderWidth}px`,
                     fill: inside ? `url(#clickG_${id})` : 'transparent',
@@ -169,6 +169,7 @@ const props = defineProps({
 import { useRevealCache } from '@/store/reveal';
 
 import { useTheme } from '@/utils/common';
+import { formatBorderRadiusSize } from '@/utils/common/css-size';
 
 export default {
     name: 'FvRevealContainer',
@@ -225,6 +226,10 @@ export default {
             return `matrix(${matrix.join(' ')})`;
         },
         computedBorderRadius() {
+            if (typeof this.borderRadius === 'string' &&
+                !/^\s*[+-]?(?:\d+\.?\d*|\.\d+)\s*$/.test(this.borderRadius)) {
+                return this.borderRadius;
+            }
             let width = this.offset.right - this.offset.left;
             let height = this.offset.bottom - this.offset.top;
             let v = width > height ? height : width;
@@ -247,6 +252,7 @@ export default {
         this.mouseClickInit();
     },
     methods: {
+        formatBorderRadiusSize,
         mouseMoveInit() {
             if (this.revealContainer === false) {
                 this.revealCache.setRevealHandler({

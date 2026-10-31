@@ -221,7 +221,7 @@ const props = defineProps({
         default: 'left'
     },
     borderRadius: {
-        default: 3
+        default: 6
     },
     resultBackground: {
         default: ''

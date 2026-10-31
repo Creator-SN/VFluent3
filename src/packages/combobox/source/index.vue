@@ -5,7 +5,7 @@
         :style="{
             background: background,
             padding: borderWidth,
-            'border-radius': `${borderRadius}px`,
+            'border-radius': formatBorderRadiusSize(borderRadius),
             'z-index': status ? 5 : '',
             overflow: 'visible'
         }"
@@ -16,7 +16,7 @@
             @click.stop="status = !isDisabled ? !status : false"
             :style="{
                 background: inputBackground,
-                'border-radius': `${borderRadius}px`
+                'border-radius': formatBorderRadiusSize(borderRadius)
             }"
         >
             <fv-reveal-container
@@ -36,9 +36,11 @@
                 readonly
                 :value="valueTrigger(thisValue.text)"
                 :style="{
+                    fontSize: formatFontSize(inputFontSize),
+                    fontWeight: inputFontWeight,
                     color: inputForeground,
                     borderColor: borderColor,
-                    'border-radius': `${borderRadius}px`
+                    'border-radius': formatBorderRadiusSize(borderRadius)
                 }"
             />
             <i
@@ -69,6 +71,8 @@
                     }"
                     :style="{
                         height: `${itemHeight}px`,
+                        fontSize: formatFontSize(dropDownFontSize),
+                        fontWeight: dropDownFontWeight,
                         background:
                             item.key === thisValue.key ? choosenBackground : '',
                         color:
@@ -100,6 +104,7 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 import { commonProps } from '@/packages/common/props';
+import { formatFontSize, formatBorderRadiusSize } from '@/utils/common/css-size';
 
 const emits = defineEmits();
 
@@ -132,6 +137,18 @@ const props = defineProps({
         default: ''
     },
     choosenSliderBackground: {
+        default: ''
+    },
+    inputFontSize: {
+        default: ''
+    },
+    inputFontWeight: {
+        default: ''
+    },
+    dropDownFontSize: {
+        default: ''
+    },
+    dropDownFontWeight: {
         default: ''
     },
     inputForeground: {

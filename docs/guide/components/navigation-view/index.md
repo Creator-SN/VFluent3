@@ -252,7 +252,26 @@ export default {
 </template>
 ```
 
-6. Setting
+6. SearchBlock
+
+Customize the search area. The slot prop `options` contains the navigation items passed to NavigationView. The search area is visible only when `showSearch` is `true` and the navigation panel is expanded. Without this slot, the component renders its default search box.
+
+When replacing the default search box, handle result selection yourself; for example, assign the selected item to the NavigationView `v-model`:
+
+```vue
+<fv-NavigationView v-model="value" :options="options">
+    <template v-slot:searchBlock="{ options: searchOptions }">
+        <fv-search-box
+            :options="searchOptions"
+            placeholder="Search"
+            style="width: 95%"
+            @choose-result="value = $event"
+        />
+    </template>
+</fv-NavigationView>
+```
+
+7. Setting
 
 Use this slot to render custom content in the settings entry area.
 
@@ -275,7 +294,7 @@ Use this slot to render custom content in the settings entry area.
 </template>
 ```
 
-7. Mask
+8. Mask
 
 Use this slot to render a custom overlay mask for the whole component, for example a global loading layer.
 

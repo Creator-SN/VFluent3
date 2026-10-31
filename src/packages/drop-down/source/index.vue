@@ -29,6 +29,7 @@
                     :inputBorderColor="inputBorderColor"
                     :inputHeight="inputHeight"
                     :inputFontSize="inputFontSize"
+                    :inputFontWeight="inputFontWeight"
                     :dropDownIcon="dropDownIcon"
                     :dropDownIconForeground="dropDownIconForeground"
                     :isBoxShadow="isBoxShadow"
@@ -55,6 +56,8 @@
                 :maxHeight="maxHeight"
                 :borderRadius="borderRadius"
                 :checkBoxBackground="checkBoxBackground"
+                :dropDownFontSize="dropDownFontSize"
+                :dropDownFontWeight="dropDownFontWeight"
                 :dropDownListForeground="dropDownListForeground"
                 :dropDownListBackground="dropDownListBackground"
                 :showStatus="dropDownListShowStatus"
@@ -121,6 +124,15 @@ const props = defineProps({
         default: ''
     },
     inputFontSize: {
+        default: ''
+    },
+    inputFontWeight: {
+        default: ''
+    },
+    dropDownFontSize: {
+        default: ''
+    },
+    dropDownFontWeight: {
         default: ''
     },
     checkBoxBackground: {

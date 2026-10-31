@@ -98,10 +98,14 @@ Default Styles
 | borderWidth             | number  | 否    | 1             |                                                                  |
 | placeholder             | string  | 否    | 'Combobox'    |                                                                  |
 | borderColor             | string  | 否    | ''            |                                                                  |
-| borderRadius            | number  | 否    | 6             |                                                                  |
+| borderRadius            | number/string | 否    | 6             | 数字按 px 处理，其他字符串原样使用 |
 | background              | string  | 否    | ''            |                                                                  |
 | choosenBackground       | string  | 否    | ''            |                                                                  |
 | choosenSliderBackground | string  | 否    | ''            |                                                                  |
+| inputFontSize | number/string | 否 | '' | 输入框字号，数字按 px 处理；字符串可带 CSS 单位 |
+| inputFontWeight | number/string | 否 | '' | 输入框字重 |
+| dropDownFontSize | number/string | 否 | '' | 下拉选项和标题字号，数字按 px 处理；字符串可带 CSS 单位 |
+| dropDownFontWeight | number/string | 否 | '' | 下拉选项和标题字重 |
 | inputForeground         | string  | 否    | ''            |                                                                  |
 | inputBackground         | string  | 否    | ''            |                                                                  |
 | titleForeground         | string  | 否    | ''            |                                                                  |

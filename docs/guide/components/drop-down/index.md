@@ -177,14 +177,17 @@ export default {
 | options                | array           | No       | []                           | Dropdown options array                                                   |
 | multiple               | boolean         | No       | false                        | Is enable multiple select                                                |
 | borderWidth            | number          | No       | 1                            | Dropdown border width                                                    |
-| borderRadius           | string          | No       | '6'                          | Dropdown border radius                                                   |
+| borderRadius           | number/string | No       | '6'                          | Numbers use px; other strings are used as CSS values |
 | placeholder            | string          | No       | 'Dropdown'                   | Dropdown placeholder                                                     |
 | maxHeight              | string          | No       | ''                           | Dropdown list max height                                                 |
 | checkBoxBackground     | string          | No       | ''                           | CheckBox Background when Multiple                                        |
 | inputForeground        | string          | No       | ''                           |                                                                          |
 | inputBorderColor       | string          | No       | ''                           |                                                                          |
 | inputHeight            | string          | No       | ''                           |                                                                          |
-| inputFontSize          | string          | No       | ''                           |                                                                          |
+| inputFontSize | number/string | No | '' | Input font size; numbers use px, strings can use CSS units |
+| inputFontWeight | number/string | No | '' | Input font weight |
+| dropDownFontSize | number/string | No | '' | Option and header font size; numbers use px, strings can use CSS units |
+| dropDownFontWeight | number/string | No | '' | Option and header font weight |
 | dropDownListForeground | string          | No       | ''                           |                                                                          |
 | inputBackground        | string          | No       | ''                           |                                                                          |
 | dropDownListBackground | string          | No       | ''                           |                                                                          |

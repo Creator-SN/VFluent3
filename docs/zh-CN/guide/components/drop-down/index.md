@@ -177,14 +177,17 @@ export default {
 | options                | array           | 否    | []                           | Dropdown options array                                           |
 | multiple               | boolean         | 否    | false                        | Is enable multiple select                                        |
 | borderWidth            | number          | 否    | 1                            | Dropdown border width                                            |
-| borderRadius           | string          | 否    | '6'                          | Dropdown border radius                                           |
+| borderRadius           | number/string | 否    | '6'                          | 数字按 px 处理，其他字符串原样使用 |
 | placeholder            | string          | 否    | 'Dropdown'                   | Dropdown placeholder                                             |
 | maxHeight              | string          | 否    | ''                           | Dropdown list max height                                         |
 | checkBoxBackground     | string          | 否    | ''                           | CheckBox Background when Multiple                                |
 | inputForeground        | string          | 否    | ''                           |                                                                  |
 | inputBorderColor       | string          | 否    | ''                           |                                                                  |
 | inputHeight            | string          | 否    | ''                           |                                                                  |
-| inputFontSize          | string          | 否    | ''                           |                                                                  |
+| inputFontSize | number/string | 否 | '' | 输入框字号，数字按 px 处理；字符串可带 CSS 单位 |
+| inputFontWeight | number/string | 否 | '' | 输入框字重 |
+| dropDownFontSize | number/string | 否 | '' | 下拉选项和标题字号，数字按 px 处理；字符串可带 CSS 单位 |
+| dropDownFontWeight | number/string | 否 | '' | 下拉选项和标题字重 |
 | dropDownListForeground | string          | 否    | ''                           |                                                                  |
 | inputBackground        | string          | 否    | ''                           |                                                                  |
 | dropDownListBackground | string          | 否    | ''                           |                                                                  |

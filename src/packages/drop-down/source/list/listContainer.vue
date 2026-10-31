@@ -19,7 +19,7 @@
                 <p
                     v-show="valueTrigger(item.type) == 'header'"
                     class="title"
-                    :style="styles.title"
+                    :style="[styles.title, fontStyle]"
                 >
                     {{ valueTrigger(item.text) }}
                 </p>
@@ -40,7 +40,7 @@
                         :background="checkBoxBackground"
                         :theme="theme"
                         :title="valueTrigger(item.text)"
-                        >{{ valueTrigger(item.text) }}</fv-check-box
+                        ><span :style="fontStyle">{{ valueTrigger(item.text) }}</span></fv-check-box
                     >
                     <slot
                         name="option-content"
@@ -55,6 +55,7 @@
                                     !multiple)
                             "
                             class="common-content"
+                            :style="fontStyle"
                         >
                             {{ valueTrigger(item.text) }}
                         </p>
@@ -67,6 +68,7 @@
 
 <script>
 import { ClassBuilder, StyleBuilder, useTheme } from '@/utils/common';
+import { formatFontSize, formatBorderRadiusSize } from '@/utils/common/css-size';
 
 export default {
     emits: ['update:modelValue', 'chooseItem'],
@@ -85,6 +87,12 @@ export default {
         },
         borderRadius: {
             default: '3'
+        },
+        dropDownFontSize: {
+            default: ''
+        },
+        dropDownFontWeight: {
+            default: ''
         },
         checkBoxBackground: {
             default: ''
@@ -161,6 +169,12 @@ export default {
         }
     },
     computed: {
+        fontStyle() {
+            return {
+                fontSize: formatFontSize(this.dropDownFontSize),
+                fontWeight: this.dropDownFontWeight
+            };
+        },
         $theme() {
             return useTheme(this.$props).theme.value;
         }
@@ -174,7 +188,7 @@ export default {
                 this.maxHeight !== '' &&
                 this.maxHeight !== undefined &&
                 this.maxHeight !== null;
-            this.styles.listContainer.borderRadius = `${this.borderRadius}px`;
+            this.styles.listContainer.borderRadius = formatBorderRadiusSize(this.borderRadius);
             this.styles.listContainer.background = this.dropDownListBackground;
             this.styles.listContainer.top = this.showStatus.top;
             this.styles.listContainer.bottom = this.showStatus.bottom;

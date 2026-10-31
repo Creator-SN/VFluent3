@@ -2,13 +2,13 @@
     <div
         class="drop-down-box"
         :class="[{ 'is-box-shadow': isBoxShadow }]"
-        :style="{ 'border-radius': `${borderRadius}px`, height: inputHeight }"
+        :style="{ 'border-radius': formatBorderRadiusSize(borderRadius), height: inputHeight }"
     >
         <div
             class="drop-down-container"
             :style="{
                 background: inputBackground,
-                'border-radius': `${borderRadius}px`
+                'border-radius': formatBorderRadiusSize(borderRadius)
             }"
         >
             <fv-reveal-container
@@ -29,9 +29,10 @@
                     readonly
                     :value="inputValue"
                     :style="{
-                        fontSize: inputFontSize + 'px',
+                        fontSize: formatFontSize(inputFontSize),
+                        fontWeight: inputFontWeight,
                         color: inputForeground,
-                        'border-radius': `${borderRadius}px`,
+                        'border-radius': formatBorderRadiusSize(borderRadius),
                         borderWidth: `${borderWidth}px`,
                         borderColor: inputBorderColor
                     }"
@@ -48,6 +49,7 @@
 
 <script>
 import { useTheme } from '@/utils/common';
+import { formatFontSize, formatBorderRadiusSize } from '@/utils/common/css-size';
 export default {
     emits: ['update:modelValue'],
     props: {
@@ -67,6 +69,9 @@ export default {
             default: ''
         },
         inputFontSize: {
+            default: ''
+        },
+        inputFontWeight: {
             default: ''
         },
         inputForeground: {
@@ -148,6 +153,8 @@ export default {
     },
     mounted() {},
     methods: {
+        formatFontSize,
+        formatBorderRadiusSize,
         valueTrigger(val) {
             if (typeof val === 'function') return val();
             return val;
