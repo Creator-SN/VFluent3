@@ -6,7 +6,7 @@
             $theme,
             directionInfo.axis,
             directionInfo.movement,
-            { manual }
+            { manual: !manualLocked }
         ]"
         @mouseenter="hoverTriggerEnter"
         @mouseleave="hoverTriggerLeave"
@@ -75,9 +75,6 @@ export default {
             animation: null,
             resizeObserver: null,
             initTimer: null,
-            wheelEvent: null,
-            touchMoveEvent: null,
-            keydownEvent: null,
             hovered: false
         };
     },
@@ -197,14 +194,12 @@ export default {
                 this.animationInit();
             }
             this.resizeObserverInit();
-            this.manualEventInit();
         });
     },
 
     beforeUnmount() {
         clearTimeout(this.initTimer);
         this.killAnimation();
-        this.manualEventDispose();
         if (this.resizeObserver) {
             this.resizeObserver.disconnect();
         }
@@ -223,23 +218,6 @@ export default {
             this.resizeObserver.observe(this.$refs.content);
         },
 
-        manualEventInit() {
-            const content = this.$refs.content;
-            if (!content) return;
-
-            this.wheelEvent = (event) => this.manualScrollEvent(event);
-            this.touchMoveEvent = (event) => this.manualScrollEvent(event);
-            this.keydownEvent = (event) => this.manualKeydownEvent(event);
-
-            content.addEventListener('wheel', this.wheelEvent, {
-                passive: false
-            });
-            content.addEventListener('touchmove', this.touchMoveEvent, {
-                passive: false
-            });
-            content.addEventListener('keydown', this.keydownEvent);
-        },
-
         hoverTriggerEnter() {
             if (this.trigger !== 'hover' || this.isDisabled) return;
             this.hovered = true;
@@ -250,49 +228,6 @@ export default {
             if (this.trigger !== 'hover') return;
             this.hovered = false;
             this.killAnimation();
-        },
-
-        manualEventDispose() {
-            const content = this.$refs.content;
-            if (!content) return;
-
-            if (this.wheelEvent) {
-                content.removeEventListener('wheel', this.wheelEvent);
-                this.wheelEvent = null;
-            }
-            if (this.touchMoveEvent) {
-                content.removeEventListener('touchmove', this.touchMoveEvent);
-                this.touchMoveEvent = null;
-            }
-            if (this.keydownEvent) {
-                content.removeEventListener('keydown', this.keydownEvent);
-                this.keydownEvent = null;
-            }
-        },
-
-        manualScrollEvent(event) {
-            if (this.manualLocked) {
-                event.preventDefault();
-            }
-        },
-
-        manualKeydownEvent(event) {
-            if (
-                this.manualLocked &&
-                [
-                    'ArrowUp',
-                    'ArrowDown',
-                    'ArrowLeft',
-                    'ArrowRight',
-                    'PageUp',
-                    'PageDown',
-                    'Home',
-                    'End',
-                    'Space'
-                ].includes(event.key)
-            ) {
-                event.preventDefault();
-            }
         },
 
         scheduleInit() {
