@@ -41,6 +41,39 @@ Now you can use VFluent3 components in your app:
 </template>
 ```
 
+## Global Theme
+
+After registering VFluent3, use `$FvConfig` to set the initial theme before mounting the app:
+
+```js
+app.use(VueFluent);
+app.config.globalProperties.$FvConfig.changeTheme('dark');
+app.mount('#app');
+```
+
+Pass `'light'` or `'dark'` to select a theme, or `null` to toggle between them. The default is `'light'`.
+
+To switch the theme from a component using the Composition API:
+
+```vue
+<script setup>
+import { getCurrentInstance } from 'vue';
+
+const { appContext } = getCurrentInstance();
+const fvConfig = appContext.config.globalProperties.$FvConfig;
+
+function toggleTheme() {
+  fvConfig.changeTheme(null);
+}
+</script>
+
+<template>
+  <fv-button @click="toggleTheme">Toggle theme</fv-button>
+</template>
+```
+
+Components with the default `theme="global"` follow this setting. A component with an explicit `theme="light"` or `theme="dark"` keeps that theme. This setting affects VFluent3 components; style your own page background and text separately.
+
 ## Next Steps
 
 - Browse the component docs from the sidebar.

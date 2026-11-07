@@ -41,6 +41,39 @@ app.mount('#app');
 </template>
 ```
 
+## 全局主题
+
+注册 VFluent3 后，可以通过 `$FvConfig` 在挂载应用前设置初始主题：
+
+```js
+app.use(VueFluent);
+app.config.globalProperties.$FvConfig.changeTheme('dark');
+app.mount('#app');
+```
+
+传入 `'light'` 或 `'dark'` 可指定主题，传入 `null` 可在两者之间切换。默认主题为 `'light'`。
+
+在组件中使用组合式 API 切换主题：
+
+```vue
+<script setup>
+import { getCurrentInstance } from 'vue';
+
+const { appContext } = getCurrentInstance();
+const fvConfig = appContext.config.globalProperties.$FvConfig;
+
+function toggleTheme() {
+  fvConfig.changeTheme(null);
+}
+</script>
+
+<template>
+  <fv-button @click="toggleTheme">切换主题</fv-button>
+</template>
+```
+
+使用默认 `theme="global"` 的组件会跟随全局主题；显式设置 `theme="light"` 或 `theme="dark"` 的组件会保持指定主题。此设置影响 VFluent3 组件，页面自身的背景和文字样式需要另行设置。
+
 ## 下一步
 
 - 从侧边栏浏览组件文档。
